@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('prace', ({ data }) => !data.draft))
@@ -14,13 +15,7 @@ const rest = projects.slice(1);
   description="Výběr toho, co jsme postavili — weby, e-shopy, branding a digitální produkty pro firmy, co chtějí působit profesionálně a získávat klienty."
 >
 
-<div class="topbar">
-  <a class="logo" href="/"><img src="/assets/logo-stacked.svg" alt="Golden Purple" style="height:38px;width:auto;display:block" /></a>
-  <a class="back" href="/">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-    Zpět na web
-  </a>
-</div>
+<Topbar backHref="/" backLabel="Zpět na web" />
 
 <section class="phero">
   <div class="wrap">
@@ -122,11 +117,6 @@ const rest = projects.slice(1);
 
 <style is:global>
 .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(24px,5vw,64px)}
-
-/* TOPBAR */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(24px,5vw,64px);background:rgba(12,6,16,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.topbar .back{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color .2s}
-.topbar .back:hover{color:var(--gold)}
 
 /* HERO */
 .phero{padding:160px 0 70px}
