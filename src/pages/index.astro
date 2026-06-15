@@ -368,8 +368,10 @@ import Topbar from '../components/Topbar.astro';
 
 /* PROGRESS DOTS */
 .dots{position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:16px}
-.dots button{width:10px;height:10px;border-radius:50%;border:1px solid rgba(247,247,247,.4);background:transparent;cursor:pointer;padding:0;transition:.3s}
+.dots button{width:10px;height:10px;border-radius:50%;border:1px solid rgba(247,247,247,.4);background:transparent;padding:0;transition:.3s;position:relative}
 .dots button.on{background:var(--gold);border-color:var(--gold);transform:scale(1.3);box-shadow:0 0 12px var(--gold)}
+.dot-label{position:absolute;right:calc(100% + 16px);top:50%;transform:translateY(-50%) translateX(14px);opacity:0;white-space:nowrap;font-family:var(--display);font-weight:600;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:rgba(12,6,16,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:5px 14px;border-radius:100px;border:1px solid var(--line);transition:opacity .2s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.dots button:hover .dot-label{opacity:1;transform:translateY(-50%) translateX(0)}
 @media(max-width:760px){.dots{right:16px;gap:12px}}
 
 
@@ -601,6 +603,7 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 #p7 .foot a:hover{color:var(--gold)}
 
 /* CURSOR */
+@media(pointer:fine){*{cursor:none !important}}
 .cursor-dot{position:fixed;top:0;left:0;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(245,189,2,.65);pointer-events:none;z-index:10000;will-change:transform;transition:width .22s cubic-bezier(.22,1,.36,1),height .22s cubic-bezier(.22,1,.36,1)}
 .cursor-dot.big{width:48px;height:48px;border-color:rgba(245,189,2,.3)}
 @media(pointer:coarse){.cursor-dot{display:none}}
@@ -631,11 +634,17 @@ document.getElementById('yr').textContent = String(new Date().getFullYear());
 const scroller = document.getElementById('scroller');
 const panels = [...document.querySelectorAll('.panel')];
 
+const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Golden Labs','Nástroje zdarma','Ceník','Reference','Martin Sedláček','Kontakt'];
 const dotsWrap = document.getElementById('dots');
 panels.forEach((p, i) => {
   const b = document.createElement('button');
-  b.setAttribute('aria-label', 'Sekce ' + (i + 1));
+  const lbl = panelLabels[i] || ('Sekce ' + (i + 1));
+  b.setAttribute('aria-label', lbl);
   b.onclick = () => p.scrollIntoView();
+  const span = document.createElement('span');
+  span.className = 'dot-label';
+  span.textContent = lbl;
+  b.appendChild(span);
   dotsWrap.appendChild(b);
 });
 const dots = [...dotsWrap.children];
