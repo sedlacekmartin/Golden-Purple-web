@@ -125,7 +125,8 @@ a{color:inherit}::selection{background:var(--gold);color:var(--ink)}
       <!-- FORM -->
       <div id="formStep">
         <div class="field">
-          <input id="urlInput" type="url" placeholder="https://vasweb.cz" autocomplete="url" spellcheck="false">
+          <input id="urlInput" type="url" placeholder="https://vasweb.cz" autocomplete="off" spellcheck="false" list="url-history">
+          <datalist id="url-history"></datalist>
           <button class="btn" id="scanBtn">Spustit scan
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
@@ -246,6 +247,7 @@ $('#scanBtn').onclick=async()=>{
     const data=await r.json();
     clearInterval(stTimer);
     if(!r.ok){throw new Error(data.error||'Scan se nezdařil.')}
+    saveUrl(url);
     renderResults(data);
   }catch(e){
     clearInterval(stTimer);
@@ -285,6 +287,14 @@ function renderResults(d){
   $('#scores').innerHTML=html;
   $('#results').classList.add('on');
 }
+
+/* ----- URL historie ----- */
+const H_KEY='gp_scan_urls';
+function loadHistory(){try{return JSON.parse(localStorage.getItem(H_KEY)||'[]')}catch{return[]}}
+function saveUrl(u){let h=loadHistory().filter(x=>x!==u);h.unshift(u);h=h.slice(0,10);localStorage.setItem(H_KEY,JSON.stringify(h));renderDL()}
+function renderDL(){const dl=document.getElementById('url-history');if(dl)dl.innerHTML=loadHistory().map(u=>`<option value="${u}">`).join('')}
+renderDL();
+$('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#scanBtn').click()});
 
 /* ----- LEAD capture (hybrid gate) ----- */
 $('#sendBtn').onclick=()=>{
