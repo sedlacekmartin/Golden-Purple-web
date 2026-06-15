@@ -88,10 +88,12 @@ export async function GET({ request }) {
 
   async function fetchCarbon() {
     const res = await fetch(`https://api.websitecarbon.com/site?url=${encodeURIComponent(targetUrl)}`);
-    if (!res.ok) return null;
-    const data = await res.json();
+    const text = await res.text();
+    if (!res.ok) throw new Error(`Carbon HTTP ${res.status}: ${text.slice(0, 300)}`);
+    const data = JSON.parse(text);
     const co2 = data.statistics?.co2?.grid?.grams;
     const cleanerThan = typeof data.cleanerThan === 'number' ? data.cleanerThan : null;
+    if (cleanerThan == null && co2 == null) throw new Error(`Carbon: unexpected response: ${text.slice(0, 300)}`);
     return {
       score: cleanerThan != null ? Math.round(cleanerThan * 100) : null,
       co2: co2 != null ? parseFloat(co2.toFixed(3)) : null,
