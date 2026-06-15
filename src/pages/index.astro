@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
 ---
 
 <Base
@@ -7,27 +8,7 @@ import Base from '../layouts/Base.astro';
   description="Golden Purple — digitálně kreativní agentura. Postaráme se o vás královsky. Třebíč · Jihlava · Brno."
 >
 
-<div class="topbar">
-  <a class="logo" href="#p0"><img src="/assets/logo-stacked.svg" alt="Golden Purple" /></a>
-  <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
-</div>
-
-<div class="overlay" id="overlay">
-  <div class="ov-glow"></div>
-  <nav>
-    <a href="#p1"><span class="num">01</span>Práce</a>
-    <a href="#p5"><span class="num">02</span>Služby</a>
-    <a href="#plabs"><span class="num">03</span>Produkty</a>
-    <a href="#ptools"><span class="num">04</span>Nástroje</a>
-    <a href="#pcenik"><span class="num">05</span>Ceník</a>
-    <a href="#p7"><span class="num">06</span>Kontakt</a>
-  </nav>
-  <div class="ov-foot">
-    <a href="/scan/">Web scan zdarma</a>
-    <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>
-    <span>Třebíč · Jihlava · Brno</span>
-  </div>
-</div>
+<Topbar />
 
 <div class="dots" id="dots"></div>
 
@@ -314,41 +295,6 @@ import Base from '../layouts/Base.astro';
 .dots button.on{background:var(--gold);border-color:var(--gold);transform:scale(1.3);box-shadow:0 0 12px var(--gold)}
 @media(max-width:760px){.dots{right:16px;gap:12px}}
 
-/* TOP BAR */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:26px clamp(28px,6vw,100px);pointer-events:none}
-.topbar a{pointer-events:auto}
-.topbar .logo{display:flex;align-items:center}
-.topbar .logo img{height:46px;width:auto;display:block}
-.topbar .tcta{font-family:var(--body);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;border:1px solid var(--line);padding:11px 20px;border-radius:100px;transition:.25s}
-.topbar .tcta:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
-
-/* HAMBURGER */
-.menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;width:46px;height:46px;border:1px solid var(--line);border-radius:100px;background:rgba(12,6,16,.4);cursor:pointer;pointer-events:auto;transition:.25s;padding:0;align-items:center}
-.menu-btn:hover{border-color:var(--gold)}
-.menu-btn span{display:block;width:18px;height:2px;background:var(--paper);border-radius:2px;transition:transform .3s,opacity .3s}
-.menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.menu-btn.open span:nth-child(2){opacity:0}
-.menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* OVERLAY MENU */
-.overlay{position:fixed;inset:0;z-index:65;background:rgba(12,6,16,.97);backdrop-filter:blur(16px);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,8vw,120px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.overlay.open{opacity:1;visibility:visible}
-.overlay .ov-glow{position:absolute;top:-10%;right:-5%;width:50vw;height:50vw;max-width:700px;max-height:700px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.5),transparent 60%);filter:blur(70px);pointer-events:none}
-.overlay nav{position:relative;z-index:2;display:flex;flex-direction:column;gap:6px}
-.overlay nav a{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,7vw,5rem);line-height:1.05;letter-spacing:-.02em;color:var(--paper);text-decoration:none;display:flex;align-items:baseline;gap:18px;padding:6px 0;width:fit-content;opacity:0;transform:translateY(30px);transition:color .25s,transform .6s cubic-bezier(.19,1,.22,1),opacity .6s}
-.overlay.open nav a{opacity:1;transform:none}
-.overlay.open nav a:nth-child(1){transition-delay:.08s}
-.overlay.open nav a:nth-child(2){transition-delay:.15s}
-.overlay.open nav a:nth-child(3){transition-delay:.22s}
-.overlay.open nav a:nth-child(4){transition-delay:.29s}
-.overlay.open nav a:nth-child(5){transition-delay:.36s}
-.overlay.open nav a:nth-child(6){transition-delay:.43s}
-.overlay nav a .num{font-size:.9rem;font-weight:500;color:var(--gold);letter-spacing:.1em}
-.overlay nav a:hover{color:var(--gold)}
-.overlay .ov-foot{position:absolute;bottom:clamp(30px,6vh,60px);left:clamp(28px,8vw,120px);z-index:2;display:flex;gap:26px;flex-wrap:wrap;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.overlay .ov-foot a{color:var(--muted);text-decoration:none;transition:color .2s}
-.overlay .ov-foot a:hover{color:var(--gold)}
-@media(prefers-reduced-motion:reduce){.overlay,.overlay nav a{transition:none!important}.overlay nav a{opacity:1;transform:none}}
 
 /* P0 HERO */
 #p0{justify-content:center;align-items:flex-start}
@@ -593,15 +539,4 @@ addEventListener('keydown', e => {
   if (e.key === 'ArrowUp' && cur > 0) { e.preventDefault(); panels[cur - 1].scrollIntoView(); }
 });
 
-const menuBtn = document.getElementById('menuBtn');
-const overlay = document.getElementById('overlay');
-function toggleMenu(force) {
-  const open = force !== undefined ? force : !overlay.classList.contains('open');
-  overlay.classList.toggle('open', open);
-  menuBtn.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-}
-menuBtn.addEventListener('click', () => toggleMenu());
-overlay.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
-addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
 </script>
