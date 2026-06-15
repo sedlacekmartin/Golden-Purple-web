@@ -183,7 +183,7 @@ a{color:inherit}::selection{background:var(--gold);color:var(--ink)}
           </div>
           <div class="edu-item">
             <h4>🌱 Ekologie webu</h4>
-            <p>Průměrná webová stránka produkuje přibližně 0,5 g CO₂ na každou návštěvu.<sup>9</sup> Internet jako celek odpovídá za 1,5–2 % globálních emisí — srovnatelné s leteckou dopravou.<sup>10</sup> Lehčí stránky jsou nejen ekologičtější, ale i rychlejší: menší obrázky, méně zbytečného JS, zelený hosting.</p>
+            <p>Internet jako celek odpovídá za 1,5–2 % globálních emisí CO₂ — srovnatelné s leteckou dopravou.<sup>9</sup> Hosting na obnovitelné energii (zelený hosting) je jedním z nejjednodušších kroků ke snížení digitální stopy webu. The Green Web Foundation sleduje, která datacentra a hostingové společnosti používají 100 % zelený proud.<sup>10</sup></p>
           </div>
         </div>
         <p class="edu-sources">
@@ -195,8 +195,8 @@ a{color:inherit}::selection{background:var(--gold);color:var(--ink)}
           6. WHO, „World Report on Disability", 2023 &nbsp;·&nbsp;
           7. Evropský parlament, Směrnice (EU) 2019/882 &nbsp;·&nbsp;
           8. Mozilla Security Wiki, HTTP Observatory &nbsp;·&nbsp;
-          9. Website Carbon Calculator, „How We Calculate Website Emissions" &nbsp;·&nbsp;
-          10. IEA, „Electricity 2024"
+          9. IEA, „Electricity 2024" &nbsp;·&nbsp;
+          10. The Green Web Foundation, greenwebfoundation.org
         </p>
         </div>
       </div>
@@ -278,9 +278,10 @@ function renderResults(d){
   }else{
     html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">HTTP hlavičky</div></div>`;
   }
-  // Carbon
-  if(d.carbon&&d.carbon.score!=null){
-    html+=`<div class="sc">${ring(d.carbon.score)}<div class="lbl">Ekologie</div>${d.carbon.co2!=null?`<div class="sc-sub">${d.carbon.co2}g CO₂/nav.</div>`:''}</div>`;
+  // Green hosting check
+  if(d.green&&d.green.score!=null){
+    const gl=d.green.green?'🌱 Zelený hosting':'⚫ Konvenční hosting';
+    html+=`<div class="sc">${ring(d.green.score)}<div class="lbl">Ekologie</div><div class="sc-sub">${gl}</div></div>`;
   }else{
     html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">Ekologie</div></div>`;
   }

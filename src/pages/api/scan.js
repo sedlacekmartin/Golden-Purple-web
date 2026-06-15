@@ -86,29 +86,40 @@ export async function GET({ request }) {
     return { grade, score };
   }
 
-  async function fetchCarbon() {
-    const res = await fetch(`https://api.websitecarbon.com/site?url=${encodeURIComponent(targetUrl)}`);
-    const text = await res.text();
-    if (!res.ok) throw new Error(`Carbon HTTP ${res.status}: ${text.slice(0, 300)}`);
-    const data = JSON.parse(text);
-    const co2 = data.statistics?.co2?.grid?.grams;
-    const cleanerThan = typeof data.cleanerThan === 'number' ? data.cleanerThan : null;
-    if (cleanerThan == null && co2 == null) throw new Error(`Carbon: unexpected response: ${text.slice(0, 300)}`);
+  async function fetchGreenCheck() {
+    const res = await fetch(
+      `https://api.thegreenwebfoundation.org/api/v3/greencheck/${hostname}`,
+      { headers: { 'Accept': 'application/json' } }
+    );
+    if (!res.ok) throw new Error(`GreenCheck HTTP ${res.status}`);
+    const data = await res.json();
+    const green = data.green === true;
     return {
-      score: cleanerThan != null ? Math.round(cleanerThan * 100) : null,
-      co2: co2 != null ? parseFloat(co2.toFixed(3)) : null,
+      green,
+      hostedBy: data.hosted_by || null,
+      score: green ? 100 : 20,
     };
   }
 
   try {
-    // PageSpeed jako první — je kritický, ostatní jsou bonus
-    const ps = await withTimeout(fetchPageSpeed(), 30000);
-
-    // Observatory + Carbon paralelně až po PageSpeed
-    const [obsResult, carbonResult] = await Promise.allSettled([
-      withTimeout(fetchObservatory(), 18000),
-      withTimeout(fetchCarbon(), 10000),
+    // Všechno paralelně — celkový čas = max ze tří, ne součet
+    const [psResult, obsResult, greenResult] = await Promise.allSettled([
+      withTimeout(fetchPageSpeed(), 28000),
+      withTimeout(fetchObservatory(), 22000),
+      withTimeout(fetchGreenCheck(), 8000),
     ]);
+
+    if (psResult.status === 'rejected') {
+      return new Response(
+        JSON.stringify({
+          error: 'Web se nepodařilo načíst. Zkontrolujte URL nebo zkuste později.',
+          detail: String(psResult.reason),
+        }),
+        { status: 502, headers }
+      );
+    }
+
+    const ps = psResult.value;
 
     return new Response(
       JSON.stringify({
@@ -117,11 +128,7 @@ export async function GET({ request }) {
         scores: ps.scores,
         details: ps.details,
         observatory: obsResult.status === 'fulfilled' ? obsResult.value : null,
-        carbon: carbonResult.status === 'fulfilled' ? carbonResult.value : null,
-        _debug: {
-          obs: obsResult.status === 'rejected' ? String(obsResult.reason) : 'ok',
-          carbon: carbonResult.status === 'rejected' ? String(carbonResult.reason) : 'ok',
-        },
+        green: greenResult.status === 'fulfilled' ? greenResult.value : null,
       }),
       { status: 200, headers }
     );
