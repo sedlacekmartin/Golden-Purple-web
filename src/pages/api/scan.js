@@ -30,52 +30,106 @@ export async function GET({ request }) {
     );
   }
 
-  const apiUrl = new URL('https://www.googleapis.com/pagespeedonline/v5/runPagespeed');
-  apiUrl.searchParams.set('url', targetUrl);
-  apiUrl.searchParams.set('strategy', strategy);
-  apiUrl.searchParams.set('key', KEY);
-  ['performance', 'seo', 'accessibility', 'best-practices'].forEach(c =>
-    apiUrl.searchParams.append('category', c)
-  );
+  const hostname = new URL(targetUrl).hostname;
 
-  try {
+  const withTimeout = (p, ms) => Promise.race([
+    p,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), ms)),
+  ]);
+
+  async function fetchPageSpeed() {
+    const apiUrl = new URL('https://www.googleapis.com/pagespeedonline/v5/runPagespeed');
+    apiUrl.searchParams.set('url', targetUrl);
+    apiUrl.searchParams.set('strategy', strategy);
+    apiUrl.searchParams.set('key', KEY);
+    ['performance', 'seo', 'accessibility', 'best-practices'].forEach(c =>
+      apiUrl.searchParams.append('category', c)
+    );
     const r = await fetch(apiUrl.toString());
     if (!r.ok) {
       const e = await r.json().catch(() => ({}));
-      return new Response(
-        JSON.stringify({
-          error: 'Web se nepodařilo načíst. Zkontrolujte URL nebo zkuste později.',
-          detail: e?.error?.message || null,
-        }),
-        { status: 502, headers }
-      );
+      throw new Error(e?.error?.message || 'PageSpeed failed');
     }
     const data = await r.json();
     const cats = data.lighthouseResult?.categories || {};
     const audits = data.lighthouseResult?.audits || {};
+    return {
+      scores: {
+        performance: cats.performance?.score != null ? Math.round(cats.performance.score * 100) : null,
+        seo: cats.seo?.score != null ? Math.round(cats.seo.score * 100) : null,
+        accessibility: cats.accessibility?.score != null ? Math.round(cats.accessibility.score * 100) : null,
+        bestPractices: cats['best-practices']?.score != null ? Math.round(cats['best-practices'].score * 100) : null,
+      },
+      details: {
+        loadTime: audits['largest-contentful-paint']?.displayValue || null,
+        interactive: audits['interactive']?.displayValue || null,
+        speedIndex: audits['speed-index']?.displayValue || null,
+        httpsOk: audits['is-on-https']?.score === 1,
+        viewportOk: audits['viewport']?.score === 1,
+        metaDescription: audits['meta-description']?.score === 1,
+        imageAlt: audits['image-alt']?.score === 1,
+      },
+    };
+  }
 
-    const score = c => (cats[c]?.score != null ? Math.round(cats[c].score * 100) : null);
-    const metric = id => audits[id]?.displayValue || null;
+  async function fetchObservatory() {
+    const initRes = await fetch(
+      `https://http-observatory.security.mozilla.org/api/v1/analyze?host=${hostname}`,
+      { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'hidden=true' }
+    );
+    let data = await initRes.json();
+    if (!data.state) return null;
+    if (data.state === 'FINISHED') return { grade: data.grade, score: data.score };
+    // Poll up to 3× with 4s delay
+    for (let i = 0; i < 3; i++) {
+      await new Promise(r => setTimeout(r, 4000));
+      const res = await fetch(`https://http-observatory.security.mozilla.org/api/v1/analyze?host=${hostname}`);
+      data = await res.json();
+      if (data.state === 'FINISHED') return { grade: data.grade, score: data.score };
+      if (data.state === 'FAILED' || data.state === 'ABORTED') return null;
+    }
+    return null;
+  }
+
+  async function fetchCarbon() {
+    const res = await fetch(`https://api.websitecarbon.com/site?url=${encodeURIComponent(targetUrl)}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const co2 = data.statistics?.co2?.grid?.grams;
+    const cleanerThan = typeof data.cleanerThan === 'number' ? data.cleanerThan : null;
+    return {
+      score: cleanerThan != null ? Math.round(cleanerThan * 100) : null,
+      co2: co2 != null ? parseFloat(co2.toFixed(3)) : null,
+    };
+  }
+
+  try {
+    const [psResult, obsResult, carbonResult] = await Promise.allSettled([
+      withTimeout(fetchPageSpeed(), 30000),
+      withTimeout(fetchObservatory(), 18000),
+      withTimeout(fetchCarbon(), 10000),
+    ]);
+
+    if (psResult.status === 'rejected') {
+      return new Response(
+        JSON.stringify({
+          error: 'Web se nepodařilo načíst. Zkontrolujte URL nebo zkuste později.',
+          detail: psResult.reason?.message || null,
+        }),
+        { status: 502, headers }
+      );
+    }
+
+    const ps = psResult.value;
 
     return new Response(
       JSON.stringify({
         url: targetUrl,
         strategy,
-        scores: {
-          performance: score('performance'),
-          seo: score('seo'),
-          accessibility: score('accessibility'),
-          bestPractices: score('best-practices'),
-        },
-        details: {
-          loadTime: metric('largest-contentful-paint'),
-          interactive: metric('interactive'),
-          speedIndex: metric('speed-index'),
-          httpsOk: audits['is-on-https']?.score === 1,
-          viewportOk: audits['viewport']?.score === 1,
-          metaDescription: audits['meta-description']?.score === 1,
-          imageAlt: audits['image-alt']?.score === 1,
-        },
+        scores: ps.scores,
+        details: ps.details,
+        observatory: obsResult.status === 'fulfilled' ? obsResult.value : null,
+        carbon: carbonResult.status === 'fulfilled' ? carbonResult.value : null,
       }),
       { status: 200, headers }
     );

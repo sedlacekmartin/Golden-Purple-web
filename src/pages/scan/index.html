@@ -65,13 +65,16 @@ a{color:inherit}::selection{background:var(--gold);color:var(--ink)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .res-url{text-align:center;color:var(--muted);margin-bottom:24px;word-break:break-all}
 .res-url b{color:var(--paper)}
-.scores{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 @media(max-width:620px){.scores{grid-template-columns:repeat(2,1fr)}}
 .sc{background:rgba(247,247,247,.03);border:1px solid var(--line);border-radius:16px;padding:22px 16px;text-align:center}
 .sc .ring{width:74px;height:74px;margin:0 auto 12px;position:relative}
 .sc .ring svg{transform:rotate(-90deg)}
 .sc .ring .val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:1.4rem}
 .sc .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sc .sc-grade{font-size:.7rem;color:var(--gold);letter-spacing:.1em;font-family:var(--mono);margin-top:4px;font-weight:600}
+.sc .sc-sub{font-size:.68rem;color:var(--muted);margin-top:3px}
+.sc-na{width:74px;height:74px;border-radius:50%;border:2px dashed rgba(247,247,247,.12);display:flex;align-items:center;justify-content:center;color:rgba(247,247,247,.25);font-size:1.3rem;margin:0 auto 12px}
 
 /* GATE */
 .gate{background:linear-gradient(150deg,var(--purple),var(--purple-deep));border:1px solid var(--line);border-radius:18px;padding:30px;margin-top:22px;text-align:center;position:relative;overflow:hidden}
@@ -170,8 +173,16 @@ a{color:inherit}::selection{background:var(--gold);color:var(--ink)}
             <p>Asi 1,3 miliardy lidí (16 % světové populace) žije s nějakou formou postižení.<sup>6</sup> Nízký kontrast nebo chybějící popisky formulářů ale trápí i běžné uživatele na mobilu na přímém slunci. Od června 2025 navíc platí European Accessibility Act — nové právní povinnosti pro weby soukromých firem.<sup>7</sup></p>
           </div>
           <div class="edu-item">
-            <h4>🛡️ Osvědčené postupy</h4>
+            <h4>🛡️ Kód & osvědčené postupy</h4>
             <p>Chrome od roku 2018 označuje weby bez HTTPS jako „Nezabezpečeno" přímo v adresním řádku — uživatel to vidí ještě před tím, než se stránka načte. Zastaralé JavaScriptové knihovny s bezpečnostními děrami jsou vstupní branou pro vložení malwaru nebo krádež dat návštěvníků.</p>
+          </div>
+          <div class="edu-item">
+            <h4>🔒 HTTP hlavičky</h4>
+            <p>Bezpečnostní HTTP hlavičky jako <em>Content-Security-Policy</em>, <em>HSTS</em> nebo <em>X-Frame-Options</em> chrání návštěvníky před clickjackingem, vložením cizího kódu a man-in-the-middle útoky. Bez nich může útočník přesměrovat prohlížeč uživatele nebo podvrhnout obsah stránky.<sup>8</sup> Mozilla HTTP Observatory hodnotí tyto hlavičky stupnicí A+–F.</p>
+          </div>
+          <div class="edu-item">
+            <h4>🌱 Ekologie webu</h4>
+            <p>Průměrná webová stránka produkuje přibližně 0,5 g CO₂ na každou návštěvu.<sup>9</sup> Internet jako celek odpovídá za 1,5–2 % globálních emisí — srovnatelné s leteckou dopravou.<sup>10</sup> Lehčí stránky jsou nejen ekologičtější, ale i rychlejší: menší obrázky, méně zbytečného JS, zelený hosting.</p>
           </div>
         </div>
         <p class="edu-sources">
@@ -181,7 +192,10 @@ a{color:inherit}::selection{background:var(--gold);color:var(--ink)}
           4. Advanced Web Ranking, Organic CTR Study, 2023 &nbsp;·&nbsp;
           5. HubSpot Research, „Marketing Statistics", 2024 &nbsp;·&nbsp;
           6. WHO, „World Report on Disability", 2023 &nbsp;·&nbsp;
-          7. Evropský parlament, Směrnice (EU) 2019/882
+          7. Evropský parlament, Směrnice (EU) 2019/882 &nbsp;·&nbsp;
+          8. Mozilla Security Wiki, HTTP Observatory &nbsp;·&nbsp;
+          9. Website Carbon Calculator, „How We Calculate Website Emissions" &nbsp;·&nbsp;
+          10. IEA, „Electricity 2024"
         </p>
         </div>
       </div>
@@ -209,7 +223,7 @@ function draw(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,
 draw();
 
 /* ----- SCAN logika ----- */
-const statuses=['Načítám web…','Měřím rychlost…','Kontroluji mobilní verzi…','Prověřuji SEO základy…','Skládám výsledky…'];
+const statuses=['Načítám web…','Měřím rychlost…','Kontroluji mobilní verzi…','Prověřuji SEO základy…','Testuju bezpečnostní hlavičky…','Měřím ekologickou stopu…','Skládám výsledky…'];
 let stI=0,stTimer;
 
 function showError(msg){$('#errMsg').textContent=msg;$('#errMsg').style.display='block'}
@@ -254,9 +268,21 @@ function ring(val){
 function renderResults(d){
   $('#scanning').classList.remove('on');
   $('#resUrl').textContent=d.url;
-  const map=[['performance','Rychlost'],['accessibility','Přístupnost'],['bestPractices','Bezpečnost'],['seo','SEO']];
-  $('#scores').innerHTML=map.map(([k,lbl])=>
-    `<div class="sc">${ring(d.scores[k])}<div class="lbl">${lbl}</div></div>`).join('');
+  const map=[['performance','Rychlost'],['seo','SEO'],['accessibility','Přístupnost'],['bestPractices','Kód & postupy']];
+  let html=map.map(([k,lbl])=>`<div class="sc">${ring(d.scores[k])}<div class="lbl">${lbl}</div></div>`).join('');
+  // Observatory
+  if(d.observatory){
+    html+=`<div class="sc">${ring(d.observatory.score)}<div class="lbl">HTTP hlavičky</div><div class="sc-grade">${d.observatory.grade}</div></div>`;
+  }else{
+    html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">HTTP hlavičky</div></div>`;
+  }
+  // Carbon
+  if(d.carbon&&d.carbon.score!=null){
+    html+=`<div class="sc">${ring(d.carbon.score)}<div class="lbl">Ekologie</div>${d.carbon.co2!=null?`<div class="sc-sub">${d.carbon.co2}g CO₂/nav.</div>`:''}</div>`;
+  }else{
+    html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">Ekologie</div></div>`;
+  }
+  $('#scores').innerHTML=html;
   $('#results').classList.add('on');
 }
 

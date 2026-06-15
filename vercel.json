@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "src/pages/api/scan.js": {
+      "maxDuration": 60
+    }
+  }
+}
