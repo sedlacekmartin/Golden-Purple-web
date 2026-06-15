@@ -87,7 +87,18 @@ import Base from '../layouts/Base.astro';
       <h2 class="cv">Na Rachačkách</h2>
       <div class="meta cv"><span>Ubytování</span><span>Rezervační systém</span><span>Google hodnocení</span></div>
       <p class="cv">Web pro chalupu s funkčním rezervačním systémem, jasnými ikonami vybavení a napojeným hodnocením z Google. <b>Od prohlídky k rezervaci bez jediného tření.</b></p>
-      <a class="all-works cv" href="/prace/">Všechny projekty <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <section class="panel" id="pprace">
+    <div class="glow pprace-glow"></div>
+    <div class="pprace-inner">
+      <p class="eyebrow cv">Naše práce</p>
+      <h2 class="cv">Čtyři projekty jsou jen <em>ochutnávka</em>.</h2>
+      <a class="btn cv" href="/prace/">
+        Všechny projekty
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
   </section>
 
@@ -281,6 +292,13 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 #p6 .rnav{display:flex;gap:12px;justify-content:center;margin-top:44px}
 #p6 .rnav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--paper);cursor:pointer;transition:.25s}
 #p6 .rnav button:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ALL PROJECTS CTA */
+#pprace{justify-content:center;align-items:center;text-align:center;position:relative}
+.pprace-glow{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:60vw;height:60vw;max-width:800px;max-height:800px;border-radius:50%;background:radial-gradient(circle,rgba(245,189,2,.12),transparent 60%);filter:blur(60px);z-index:0;pointer-events:none}
+.pprace-inner{position:relative;z-index:2}
+#pprace h2{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,7vw,6rem);line-height:.92;letter-spacing:-.035em;margin:18px 0 40px}
+#pprace h2 em{font-style:normal;color:var(--gold)}
 
 /* CONTACT */
 #p7{justify-content:center;align-items:center;text-align:center;position:relative}
