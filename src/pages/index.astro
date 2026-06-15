@@ -17,9 +17,10 @@ import Base from '../layouts/Base.astro';
   <nav>
     <a href="#p1"><span class="num">01</span>Práce</a>
     <a href="#p5"><span class="num">02</span>Služby</a>
-    <a href="#ptools"><span class="num">03</span>Nástroje</a>
-    <a href="#pgv"><span class="num">04</span>Golden Vision</a>
-    <a href="#p7"><span class="num">05</span>Kontakt</a>
+    <a href="#plabs"><span class="num">03</span>Produkty</a>
+    <a href="#ptools"><span class="num">04</span>Nástroje</a>
+    <a href="#pcenik"><span class="num">05</span>Ceník</a>
+    <a href="#p7"><span class="num">06</span>Kontakt</a>
   </nav>
   <div class="ov-foot">
     <a href="/scan/">Web scan zdarma</a>
@@ -214,6 +215,59 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <section class="panel" id="pcenik">
+    <div class="cenik-glow"></div>
+    <div class="head cv"><p class="eyebrow">Ceník</p><h2>Neplatíte za hodiny.<br><em>Platíte za výsledek.</em></h2></div>
+    <p class="cenik-intro cv">Cena vychází z rozsahu a hodnoty, kterou projekt přinese — ne ze stopek. Tady je orientační rámec, ať víte, do čeho jdete.</p>
+    <div class="cenik-grid">
+      <div class="cprod cv">
+        <span class="cp-label">Audit &amp; strategie</span>
+        <div class="cp-price">od <b>9 900</b> Kč</div>
+        <span class="cp-unit">jednorázově</span>
+        <ul class="cp-list">
+          <li>Audit webu a komunikace</li>
+          <li>Návrh struktury a obsahu</li>
+          <li>Konkrétní priority a doporučení</li>
+        </ul>
+        <span class="cp-tag">Ideální první krok</span>
+      </div>
+      <div class="cprod feat cv">
+        <span class="cp-label">Web &amp; prezentace</span>
+        <div class="cp-price">od <b>65 000</b> Kč</div>
+        <span class="cp-unit">projekt</span>
+        <ul class="cp-list">
+          <li>Strategie, UX a design na míru</li>
+          <li>Vývoj, SEO základ, nasazení</li>
+          <li>Texty a napojení nástrojů</li>
+        </ul>
+        <span class="cp-tag">Web jako obchodní nástroj</span>
+      </div>
+      <div class="cprod cv">
+        <span class="cp-label">Branding &amp; identita</span>
+        <div class="cp-price">od <b>35 000</b> Kč</div>
+        <span class="cp-unit">projekt</span>
+        <ul class="cp-list">
+          <li>Logo a vizuální styl</li>
+          <li>Brand manuál</li>
+          <li>Tiskoviny a aplikace</li>
+        </ul>
+        <span class="cp-tag">Značka, co působí draho</span>
+      </div>
+      <div class="cprod cv">
+        <span class="cp-label">Péče &amp; marketing</span>
+        <div class="cp-price">od <b>6 000</b> Kč</div>
+        <span class="cp-unit">měsíčně</span>
+        <ul class="cp-list">
+          <li>Servis a aktualizace webu</li>
+          <li>Kampaně Google &amp; Meta</li>
+          <li>Reporting a konzultace</li>
+        </ul>
+        <span class="cp-tag">Dlouhodobý parťák</span>
+      </div>
+    </div>
+    <p class="cenik-note cv">Konzultace a strategie <b>2 000 Kč/h</b> · expresní práce mimo plán <b>+50 %</b> · ceny jsou orientační, finální podle rozsahu. Nejsem plátce DPH.</p>
+  </section>
+
   <section class="panel" id="p6">
     <div class="rinner">
       <div class="mark cv">"</div>
@@ -288,6 +342,7 @@ import Base from '../layouts/Base.astro';
 .overlay.open nav a:nth-child(3){transition-delay:.22s}
 .overlay.open nav a:nth-child(4){transition-delay:.29s}
 .overlay.open nav a:nth-child(5){transition-delay:.36s}
+.overlay.open nav a:nth-child(6){transition-delay:.43s}
 .overlay nav a .num{font-size:.9rem;font-weight:500;color:var(--gold);letter-spacing:.1em}
 .overlay nav a:hover{color:var(--gold)}
 .overlay .ov-foot{position:absolute;bottom:clamp(30px,6vh,60px);left:clamp(28px,8vw,120px);z-index:2;display:flex;gap:26px;flex-wrap:wrap;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -429,6 +484,31 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .mi-label{font-family:var(--display);font-weight:600;font-size:2.4rem;letter-spacing:-.03em;color:var(--paper);display:block;margin-bottom:8px;position:relative;z-index:1}
 .mi-tag{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+/* CENÍK */
+#pcenik{justify-content:center;overflow:hidden}
+.cenik-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70vw;height:70vw;max-width:850px;max-height:850px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.3),transparent 60%);filter:blur(80px);z-index:0;pointer-events:none}
+#pcenik .head{margin-bottom:clamp(14px,2vh,22px);position:relative;z-index:2}
+#pcenik h2{font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,5.5vw,4rem);line-height:.96;letter-spacing:-.025em;margin-top:14px;max-width:20ch}
+#pcenik h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+.cenik-intro{position:relative;z-index:2;color:#D7CEDB;max-width:54ch;font-size:clamp(.98rem,1.5vw,1.12rem);line-height:1.6;margin-bottom:clamp(28px,4vh,44px)}
+.cenik-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:980px){.cenik-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cenik-grid{grid-template-columns:1fr}}
+.cprod{background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s;position:relative;overflow:hidden}
+.cprod:hover{transform:translateY(-6px);border-color:rgba(245,189,2,.35)}
+.cprod.feat{border-color:rgba(245,189,2,.45);background:linear-gradient(160deg,rgba(86,33,94,.22),var(--ink))}
+.cprod.feat::before{content:'Nejžádanější';position:absolute;top:16px;right:16px;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink);background:var(--gold);padding:4px 10px;border-radius:100px}
+.cp-label{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px}
+.cp-price{font-family:var(--display);font-weight:500;font-size:1.05rem;color:var(--muted);line-height:1}
+.cp-price b{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3vw,2.4rem);color:var(--paper);letter-spacing:-.02em;display:inline-block;margin:0 2px}
+.cp-unit{font-size:.78rem;color:var(--muted);margin-top:6px;display:block}
+.cp-list{list-style:none;margin:20px 0 0;padding:0;flex:1}
+.cp-list li{font-size:.88rem;color:#CFC4D3;line-height:1.4;padding:9px 0 9px 22px;border-top:1px solid var(--line);position:relative}
+.cp-list li::before{content:'';position:absolute;left:0;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:.7}
+.cp-tag{font-size:.74rem;color:var(--muted);margin-top:18px;font-style:italic}
+.cenik-note{position:relative;z-index:2;margin-top:clamp(22px,3.5vh,36px);font-size:.86rem;color:var(--muted);line-height:1.6;max-width:80ch}
+.cenik-note b{color:#D7CEDB;font-weight:600}
 
 /* CONTACT */
 #p7{justify-content:center;align-items:center;text-align:center;position:relative}
