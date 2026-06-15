@@ -73,22 +73,17 @@ export async function GET({ request }) {
   }
 
   async function fetchObservatory() {
-    const initRes = await fetch(
-      `https://http-observatory.security.mozilla.org/api/v1/analyze?host=${hostname}`,
-      { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'hidden=true' }
+    // Nové Observatory API (MDN, 2024) — synchronní GET, žádné polling
+    const res = await fetch(
+      `https://observatory-api.mdn.mozilla.net/api/v2/analyze?host=${hostname}`,
+      { headers: { 'Accept': 'application/json' } }
     );
-    let data = await initRes.json();
-    if (!data.state) return null;
-    if (data.state === 'FINISHED') return { grade: data.grade, score: data.score };
-    // Poll up to 3× with 4s delay
-    for (let i = 0; i < 3; i++) {
-      await new Promise(r => setTimeout(r, 4000));
-      const res = await fetch(`https://http-observatory.security.mozilla.org/api/v1/analyze?host=${hostname}`);
-      data = await res.json();
-      if (data.state === 'FINISHED') return { grade: data.grade, score: data.score };
-      if (data.state === 'FAILED' || data.state === 'ABORTED') return null;
-    }
-    return null;
+    if (!res.ok) return null;
+    const data = await res.json();
+    const grade = data.grade ?? data.scan?.grade ?? null;
+    const score = data.score ?? data.scan?.score ?? null;
+    if (grade == null || score == null) return null;
+    return { grade, score };
   }
 
   async function fetchCarbon() {
@@ -121,6 +116,10 @@ export async function GET({ request }) {
         details: ps.details,
         observatory: obsResult.status === 'fulfilled' ? obsResult.value : null,
         carbon: carbonResult.status === 'fulfilled' ? carbonResult.value : null,
+        _debug: {
+          obs: obsResult.status === 'rejected' ? String(obsResult.reason) : 'ok',
+          carbon: carbonResult.status === 'rejected' ? String(carbonResult.reason) : 'ok',
+        },
       }),
       { status: 200, headers }
     );
