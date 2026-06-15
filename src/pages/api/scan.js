@@ -104,23 +104,14 @@ export async function GET({ request }) {
   }
 
   try {
-    const [psResult, obsResult, carbonResult] = await Promise.allSettled([
-      withTimeout(fetchPageSpeed(), 30000),
+    // PageSpeed jako první — je kritický, ostatní jsou bonus
+    const ps = await withTimeout(fetchPageSpeed(), 30000);
+
+    // Observatory + Carbon paralelně až po PageSpeed
+    const [obsResult, carbonResult] = await Promise.allSettled([
       withTimeout(fetchObservatory(), 18000),
       withTimeout(fetchCarbon(), 10000),
     ]);
-
-    if (psResult.status === 'rejected') {
-      return new Response(
-        JSON.stringify({
-          error: 'Web se nepodařilo načíst. Zkontrolujte URL nebo zkuste později.',
-          detail: psResult.reason?.message || null,
-        }),
-        { status: 502, headers }
-      );
-    }
-
-    const ps = psResult.value;
 
     return new Response(
       JSON.stringify({
@@ -135,8 +126,11 @@ export async function GET({ request }) {
     );
   } catch (err) {
     return new Response(
-      JSON.stringify({ error: 'Něco se pokazilo při skenování.', detail: String(err) }),
-      { status: 500, headers }
+      JSON.stringify({
+        error: 'Web se nepodařilo načíst. Zkontrolujte URL nebo zkuste později.',
+        detail: String(err),
+      }),
+      { status: 502, headers }
     );
   }
 }
