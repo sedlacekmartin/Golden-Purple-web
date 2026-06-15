@@ -1,0 +1,173 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Golden Purple — digitálně kreativní agentura. Postaráme se o vás královsky. Třebíč · Jihlava · Brno.',
+  image = '/assets/og-image.jpg',
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, Astro.site)} />
+  <meta property="og:locale" content="cs_CZ" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Cookie Consent CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css"
+  />
+
+  <!-- GTM — nahraď GTM-XXXXXXX svým Container ID -->
+  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script> -->
+</head>
+<body>
+
+  <!-- GTM noscript -->
+  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
+
+  <slot />
+
+  <!-- Cookie Consent init -->
+  <script type="module">
+    import CookieConsent from 'https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.esm.js';
+
+    CookieConsent.run({
+      guiOptions: {
+        consentModal: { layout: 'bar', position: 'bottom center', equalWeightButtons: false },
+        preferencesModal: { layout: 'box' },
+      },
+      categories: {
+        necessary: {
+          enabled: true,
+          readOnly: true,
+        },
+        analytics: {
+          autoClear: {
+            cookies: [{ name: /^(_ga|_gid)/ }],
+          },
+        },
+        marketing: {
+          autoClear: {
+            cookies: [{ name: /^(_fbp|_fbc)/ }],
+          },
+        },
+      },
+      language: {
+        default: 'cs',
+        translations: {
+          cs: {
+            consentModal: {
+              title: 'Cookies',
+              description:
+                'Používáme cookies pro analýzu návštěvnosti a cílený marketing. Vždy si můžeš nastavit, co povolit.',
+              acceptAllBtn: 'Přijmout vše',
+              acceptNecessaryBtn: 'Jen nutné',
+              showPreferencesBtn: 'Nastavení',
+            },
+            preferencesModal: {
+              title: 'Nastavení cookies',
+              acceptAllBtn: 'Přijmout vše',
+              acceptNecessaryBtn: 'Jen nutné',
+              savePreferencesBtn: 'Uložit nastavení',
+              closeIconLabel: 'Zavřít',
+              sections: [
+                {
+                  title: 'Nezbytné cookies',
+                  description: 'Tyto cookies jsou nutné pro správné fungování webu a nelze je vypnout.',
+                  linkedCategory: 'necessary',
+                },
+                {
+                  title: 'Analytické cookies',
+                  description:
+                    'Pomáhají nám pochopit, jak návštěvníci web používají (Google Analytics, Microsoft Clarity). Data jsou anonymizovaná.',
+                  linkedCategory: 'analytics',
+                },
+                {
+                  title: 'Marketingové cookies',
+                  description:
+                    'Slouží k zobrazení relevantní reklamy (Meta Pixel, Google Ads). Sdílíme data s reklamními platformami.',
+                  linkedCategory: 'marketing',
+                },
+                {
+                  title: 'Více informací',
+                  description:
+                    'Máš-li dotazy k našim cookies, podívej se na naše <a href="/cookies">Zásady cookies</a> nebo nás kontaktuj na <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>.',
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+  </script>
+
+</body>
+</html>
+
+<style is:global>
+  :root {
+    --gold: #F5BD02;
+    --gold-soft: #FFD75E;
+    --gold-deep: #C99700;
+    --purple: #56215E;
+    --purple-deep: #3B1243;
+    --purple-bright: #8E4D97;
+    --ink: #0C0610;
+    --ink-2: #150A1A;
+    --paper: #F7F7F7;
+    --muted: #A99CAE;
+    --line: rgba(247,247,247,.12);
+    --display: 'Clash Display', 'General Sans', system-ui, sans-serif;
+    --body: 'General Sans', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: var(--ink); }
+</style>

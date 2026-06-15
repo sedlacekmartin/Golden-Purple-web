@@ -1,0 +1,147 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  image?: string;
+  tags?: string[];
+}
+
+const { title, description, pubDate, updatedDate, image, tags = [] } = Astro.props;
+
+const formattedPubDate = pubDate.toLocaleDateString('cs-CZ', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+const formattedUpdated = updatedDate?.toLocaleDateString('cs-CZ', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<Base title={`${title} — Golden Purple`} description={description} image={image}>
+  <div class="topbar-simple">
+    <a href="/" class="logo-link">← Golden Purple</a>
+  </div>
+
+  <article class="post-wrap">
+    <header class="post-header">
+      {tags.length > 0 && (
+        <div class="tags">
+          {tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      <time datetime={pubDate.toISOString()}>
+        {formattedPubDate}
+        {updatedDate && <span class="updated"> · Aktualizováno {formattedUpdated}</span>}
+      </time>
+    </header>
+
+    {image && <img src={image} alt={title} class="post-hero" />}
+
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+
+  <footer class="post-footer">
+    <a href="/blog" class="back-link">← Zpět na blog</a>
+  </footer>
+</Base>
+
+<style is:global>
+  .topbar-simple {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+    padding: 22px clamp(28px, 6vw, 100px);
+  }
+  .topbar-simple .logo-link {
+    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--muted); transition: color .2s;
+  }
+  .topbar-simple .logo-link:hover { color: var(--gold); }
+
+  .post-wrap {
+    max-width: 760px; margin: 0 auto;
+    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(60px, 10vh, 100px);
+  }
+
+  .post-header { margin-bottom: 48px; }
+
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .tag {
+    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;
+    font-weight: 600; color: var(--gold); border: 1px solid rgba(245,189,2,.3);
+    padding: 5px 12px; border-radius: 100px;
+  }
+
+  .post-header h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2.2rem, 6vw, 4rem); line-height: .95;
+    letter-spacing: -.03em; margin-bottom: 20px;
+  }
+
+  .post-header .lead {
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: #D7CEDB;
+    line-height: 1.6; margin-bottom: 16px;
+  }
+
+  .post-header time {
+    font-size: .82rem; color: var(--muted); letter-spacing: .05em;
+  }
+  .updated { color: var(--muted); }
+
+  .post-hero {
+    width: 100%; border-radius: 14px; margin-bottom: 48px;
+    aspect-ratio: 16/9; object-fit: cover;
+  }
+
+  .prose { line-height: 1.75; color: #D7CEDB; }
+  .prose h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem); letter-spacing: -.02em;
+    color: var(--paper); margin: 2.5em 0 .8em; line-height: 1.1;
+  }
+  .prose h3 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem); letter-spacing: -.015em;
+    color: var(--paper); margin: 2em 0 .6em;
+  }
+  .prose p { margin-bottom: 1.4em; }
+  .prose strong { color: var(--paper); font-weight: 600; }
+  .prose em { color: var(--gold-soft); font-style: normal; }
+  .prose a { color: var(--gold); border-bottom: 1px solid rgba(245,189,2,.4); transition: border-color .2s; }
+  .prose a:hover { border-color: var(--gold); }
+  .prose ul, .prose ol { padding-left: 1.4em; margin-bottom: 1.4em; }
+  .prose li { margin-bottom: .5em; }
+  .prose blockquote {
+    border-left: 3px solid var(--gold); padding-left: 1.2em;
+    margin: 2em 0; color: var(--muted);
+    font-style: italic; font-size: 1.05rem;
+  }
+  .prose img { width: 100%; border-radius: 10px; margin: 2em 0; }
+  .prose hr { border: none; border-top: 1px solid var(--line); margin: 2.5em 0; }
+  .prose code {
+    background: var(--ink-2); color: var(--gold-soft);
+    padding: 2px 7px; border-radius: 5px; font-size: .9em;
+  }
+  .prose pre {
+    background: var(--ink-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 1.2em; overflow-x: auto;
+    margin-bottom: 1.4em;
+  }
+  .prose pre code { background: none; padding: 0; color: var(--paper); }
+
+  .post-footer {
+    max-width: 760px; margin: 0 auto;
+    padding: 0 clamp(28px, 6vw, 60px) clamp(60px, 10vh, 100px);
+    border-top: 1px solid var(--line); padding-top: 40px;
+  }
+  .back-link {
+    font-size: .9rem; color: var(--muted); transition: color .2s;
+    letter-spacing: .06em;
+  }
+  .back-link:hover { color: var(--gold); }
+</style>

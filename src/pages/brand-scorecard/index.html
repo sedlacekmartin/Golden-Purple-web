@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand scorecard: Jak silná je vaše značka? — Golden Purple</title>
+<meta name="description" content="Interaktivní test síly značky napříč 5 pilíři. Zaškrtejte, co máte, a zjistěte skóre. Od Golden Purple.">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&f[]=space-grotesk@400,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#F5BD02;--gold-soft:#FFD75E;--purple:#56215E;--purple-deep:#3B1243;--purple-br:#8E4D97;
+  --ink:#0C0610;--ink-2:#150A1A;--paper:#F7F7F7;--muted:#A99CAE;
+  --green:#2FA968;--red:#D64545;--line:rgba(247,247,247,.12);
+  --display:'Clash Display',system-ui,sans-serif;--body:'General Sans',system-ui,sans-serif;--mono:'Space Grotesk',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--ink)}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+#aurora{position:fixed;inset:0;z-index:0}
+.shell{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:46px 22px 170px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.2rem;display:flex;gap:8px;align-items:center;margin-bottom:34px}
+.brand svg{width:20px;height:20px;color:var(--gold)}
+
+.intro{text-align:center;margin-bottom:14px}
+.intro .tag{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:rgba(247,247,247,.03);padding:8px 16px;border-radius:100px;color:var(--muted);margin-bottom:22px}
+.intro .tag .d{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.intro h1{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5.5vw,3.2rem);line-height:1;letter-spacing:-.025em;margin-bottom:16px}
+.intro h1 em{font-style:normal;color:var(--gold)}
+.intro p{color:#D7CEDB;max-width:46ch;margin:0 auto;font-size:1.02rem}
+
+/* pillar progress strip */
+.pillars{display:flex;gap:8px;margin:30px 0 8px;flex-wrap:wrap;justify-content:center}
+.pchip{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:6px 12px;border-radius:100px;transition:.3s}
+.pchip.done{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+
+.cat{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:30px 0 4px;padding-bottom:9px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.cat .cnt{color:var(--muted)}
+.item{display:flex;gap:15px;align-items:flex-start;padding:15px 16px;border-radius:13px;cursor:pointer;transition:background .2s;border:1px solid transparent}
+.item:hover{background:rgba(247,247,247,.03)}
+.item.on{background:rgba(245,189,2,.06);border-color:rgba(245,189,2,.22)}
+.box{flex-shrink:0;width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);display:flex;align-items:center;justify-content:center;margin-top:2px;transition:.2s}
+.item.on .box{border-color:var(--gold);background:var(--gold)}
+.box svg{width:13px;height:13px;color:var(--ink);opacity:0;transition:opacity .2s}
+.item.on .box svg{opacity:1}
+.tx .n{font-weight:600;font-size:1.05rem;margin-bottom:2px}
+.tx .d{font-size:.92rem;color:#C6BBCC;line-height:1.45}
+
+.scorebar{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(12,6,16,.9);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.scorebar .in{max-width:760px;margin:0 auto;padding:16px 22px;display:flex;align-items:center;gap:20px}
+.scorebar .meter{flex:1}
+.scorebar .meter .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.scorebar .meter .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.scorebar .meter .num{font-family:var(--display);font-weight:600;font-size:1.5rem}
+.scorebar .meter .num b{color:var(--gold)}
+.scorebar .track{height:8px;background:rgba(247,247,247,.1);border-radius:100px;overflow:hidden}
+.scorebar .fill{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .4s cubic-bezier(.22,1,.36,1)}
+.scorebar .verdict{font-size:.82rem;color:#D7CEDB;margin-top:7px;min-height:1.2em}
+.scorebar .verdict b{color:var(--gold)}
+.scorebar .cta-btn{flex-shrink:0;background:var(--gold);color:var(--ink);border:none;padding:14px 22px;border-radius:11px;font-family:var(--display);font-weight:600;font-size:.98rem;cursor:pointer;transition:transform .2s,box-shadow .2s;opacity:.5;pointer-events:none}
+.scorebar .cta-btn.ready{opacity:1;pointer-events:auto}
+.scorebar .cta-btn.ready:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(245,189,2,.4)}
+@media(max-width:600px){.scorebar .cta-btn{display:none}.scorebar .verdict{display:none}}
+
+.modal{position:fixed;inset:0;z-index:30;background:rgba(12,6,16,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.on{display:flex}
+.card{background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:22px;padding:40px 34px;max-width:500px;width:100%;text-align:center;position:relative;max-height:90vh;overflow-y:auto}
+.card .big{font-family:var(--display);font-weight:700;font-size:3.4rem;line-height:1;margin-bottom:4px}
+.card .big b{color:var(--gold)}
+.card .of{color:var(--muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.5rem;margin-bottom:10px}
+.card .vtext{color:#D7CEDB;font-size:.97rem;margin-bottom:20px}
+.breakdown{text-align:left;margin:0 0 22px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.bd{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line)}
+.bd:last-child{border-bottom:none}
+.bd .bn{flex:1;font-size:.9rem;color:#D7CEDB}
+.bd .bt{height:6px;width:80px;background:rgba(247,247,247,.1);border-radius:100px;overflow:hidden}
+.bd .bf{height:100%;background:var(--gold);border-radius:100px}
+.bd .bv{font-family:var(--mono);font-size:.74rem;color:var(--muted);min-width:30px;text-align:right}
+.gate{background:linear-gradient(150deg,var(--purple),var(--purple-deep));border-radius:14px;padding:22px}
+.gate p{font-size:.9rem;color:#E4DBE8;margin-bottom:14px}
+.field{display:flex;gap:9px}
+.field input{flex:1;background:rgba(12,6,16,.4);border:1px solid rgba(247,247,247,.2);border-radius:10px;padding:13px 15px;color:var(--paper);font-family:var(--body);outline:none}
+.field input:focus{border-color:var(--gold)}
+.field button{background:var(--gold);color:var(--ink);border:none;padding:13px 18px;border-radius:10px;font-family:var(--display);font-weight:600;cursor:pointer;white-space:nowrap}
+.okmsg{display:none;color:var(--gold);font-family:var(--display);margin-top:10px}
+.okmsg.on{display:block}
+.close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;line-height:1}
+.sources{margin-top:48px;padding:30px 26px;background:rgba(247,247,247,.025);border:1px solid var(--line);border-radius:18px}
+.sources .sh{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
+.sources .si{font-size:.92rem;color:#C6BBCC;line-height:1.5;margin-bottom:18px;max-width:56ch}
+.sources .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:600px){.sources .grid{grid-template-columns:1fr}}
+.src{border:1px solid var(--line);border-radius:12px;padding:16px 16px}
+.src .t{font-family:var(--display);font-weight:600;font-size:1.02rem;line-height:1.15;margin-bottom:4px}
+.src .a{font-size:.84rem;color:var(--gold);margin-bottom:7px}
+.src .w{font-size:.82rem;color:var(--muted);line-height:1.4}
+.foot{text-align:center;margin-top:40px;color:var(--muted);font-size:.82rem}
+.foot a{color:var(--gold)}
+@media(prefers-reduced-motion:reduce){.fill,.bf{transition:none}}
+.back-link{position:fixed;top:24px;right:22px;z-index:20;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:8px 14px;border-radius:100px;transition:.2s}.back-link:hover{color:var(--gold);border-color:var(--gold)}
+</style>
+</head>
+<body>
+<a class="back-link" href="../">← Golden Purple</a>
+<canvas id="aurora"></canvas>
+
+<div class="shell">
+  <div class="brand"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 8l4 4 6-8 6 8 4-4-2 12H4L2 8z"/></svg>Golden Purple</div>
+
+  <div class="intro">
+    <div class="tag"><span class="d"></span><span class="mono">Brand scorecard · 3 minuty</span></div>
+    <h1>Jak silná je <em>vaše značka</em>?</h1>
+    <p>Pět pilířů, 20 otázek. Zaškrtejte, co o vaší značce platí — dole uvidíte naživo, jak na tom jste.</p>
+  </div>
+
+  <div class="pillars" id="pillars"></div>
+  <div id="list"></div>
+
+  <div class="sources">
+    <div class="sh">Z čeho test vychází</div>
+    <p class="si">Scorecard stojí na zavedených principech budování značky — od teorie značky po data o tom, proč si značku lidé pamatují a vybírají.</p>
+    <div class="grid">
+      <div class="src">
+        <div class="t">The Brand Gap</div>
+        <div class="a">Marty Neumeier</div>
+        <div class="w">Pět disciplín budování značky a propojení strategie s vizuální identitou.</div>
+      </div>
+      <div class="src">
+        <div class="t">How Brands Grow</div>
+        <div class="a">Byron Sharp</div>
+        <div class="w">Rozpoznatelnost a vybavitelnost značky jako motor růstu, podložené daty.</div>
+      </div>
+      <div class="src">
+        <div class="t">Positioning</div>
+        <div class="a">Ries &amp; Trout</div>
+        <div class="w">Jak značka zabere jasné místo v hlavě zákazníka — cílovka a odlišení.</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Powered by <a href="https://goldenpurple.cz">Golden Purple</a> — postaráme se o vás královsky.</p>
+</div>
+
+<div class="scorebar">
+  <div class="in">
+    <div class="meter">
+      <div class="top"><span class="label">Síla značky</span><span class="num"><b id="scoreNum">0</b> / 20</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <div class="verdict" id="verdict">Zaškrtejte, co o vaší značce platí.</div>
+    </div>
+    <button class="cta-btn" id="showResult">Zobrazit výsledek</button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="card">
+    <button class="close" id="close">×</button>
+    <div class="big"><b id="mScore">0</b></div>
+    <div class="of">z 20 bodů síly značky</div>
+    <h3 id="mTitle"></h3>
+    <p class="vtext" id="mText"></p>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="gate">
+      <p>Chcete vědět, který pilíř posílit první a jak? Pošleme vám konkrétní brand plán na míru — zdarma.</p>
+      <div class="field">
+        <input id="email" type="email" placeholder="vas@email.cz" autocomplete="email">
+        <button id="send">Poslat plán</button>
+      </div>
+      <p class="okmsg" id="ok">✓ Hotovo — plán dorazí do pár minut.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const c=document.getElementById('aurora'),x=c.getContext('2d');let W,H,t=0;
+function sz(){W=c.width=innerWidth;H=c.height=innerHeight}sz();addEventListener('resize',sz);
+const bl=[{cx:.25,cy:.35,r:.5,col:[86,33,94]},{cx:.75,cy:.3,r:.45,col:[59,18,67]},{cx:.55,cy:.7,r:.5,col:[142,77,151]},{cx:.4,cy:.5,r:.3,col:[245,189,2]}];
+function dr(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,0,W,H);
+bl.forEach((b,i)=>{const px=(b.cx+Math.sin(t+i*1.7)*.06)*W,py=(b.cy+Math.cos(t*.9+i*2.1)*.06)*H,rad=b.r*Math.min(W,H)*(i===3?.5:1);
+const g=x.createRadialGradient(px,py,0,px,py,rad);const a=i===3?.12:.5;
+g.addColorStop(0,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);g.addColorStop(1,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
+x.fillStyle=g;x.beginPath();x.arc(px,py,rad,0,7);x.fill()});if(!reduce)requestAnimationFrame(dr)}dr();
+
+const groups=[
+  {key:'Strategie',cat:'01 · Strategie & positioning',items:[
+    ['Víte přesně, kdo je vaše cílovka','Ne „všichni". Konkrétní typ zákazníka, jeho potřeby a jazyk.'],
+    ['Umíte říct, čím se lišíte od konkurence','Jednou větou, proč si vyberou vás a ne toho vedle.'],
+    ['Máte jasné hlavní sdělení (claim)','Co si má zákazník o vás zapamatovat po prvním kontaktu.'],
+    ['Víte, jakou hodnotu reálně prodáváte','Ne produkt, ale výsledek/pocit, který zákazník dostane.'],
+  ]},
+  {key:'Vizuál',cat:'02 · Vizuální identita',items:[
+    ['Máte logo, které funguje i v malé velikosti','Čitelné na profilovce i na vizitce, ne jen na banneru.'],
+    ['Máte definované firemní barvy a písmo','Konkrétní hodnoty, ne „tak nějak modrá".'],
+    ['Vaše vizuály mají jednotný styl','Fotky, grafika a materiály vypadají jako z jedné rodiny.'],
+    ['Máte brand manuál nebo aspoň základní pravidla','I jednoduchý dokument, podle kterého se řídíte.'],
+  ]},
+  {key:'Konzistence',cat:'03 · Konzistence napříč kanály',items:[
+    ['Poznají lidi váš příspěvek, i když nevidí jméno','Vizuální rukopis tak silný, že vás poznají na první pohled.'],
+    ['Web, sítě a tiskoviny ladí dohromady','Stejné barvy, písmo a tón všude, kde jste.'],
+    ['Používáte stejný tón komunikace všude','Od e-mailu po Instagram mluvíte jedním hlasem.'],
+    ['Vaše profilové fotky a hlavičky jsou jednotné','Napříč Googlem, Instagramem, Facebookem stejná tvář.'],
+  ]},
+  {key:'Online',cat:'04 · Online přítomnost',items:[
+    ['Máte web, který reprezentuje vaši úroveň','Ne provizorka — web na úrovni toho, co nabízíte.'],
+    ['Jste dohledatelní na Googlu','Když vás někdo hledá jménem i oborem, najde vás.'],
+    ['Máte aktivní a aktuální sociální sítě','Ne mrtvý profil s posledním postem z loňska.'],
+    ['Máte Google profil firmy s recenzemi','Vyplněný, s hodnocením, vedoucí na web.'],
+  ]},
+  {key:'Komunikace',cat:'05 · Komunikace & tón',items:[
+    ['Mluvíte jazykem zákazníka, ne odborným žargonem','Rozumí vám i člověk mimo váš obor.'],
+    ['Vaše texty mají osobitost, ne šablonu','Poznají z nich vaši značku, ne generické fráze.'],
+    ['Máte jasné výzvy k akci','Zákazník vždy ví, co má udělat dál.'],
+    ['Komunikujete pravidelně, ne nárazově','Vaše značka je vidět konzistentně, ne jednou za čtvrt roku.'],
+  ]},
+];
+
+const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 6"/></svg>';
+let n=0;const listEl=document.getElementById('list');
+const pillEl=document.getElementById('pillars');
+groups.forEach((g,gi)=>{
+  const chip=document.createElement('div');chip.className='pchip';chip.id='chip'+gi;chip.textContent=g.key;pillEl.appendChild(chip);
+  const cat=document.createElement('div');cat.className='cat';
+  cat.innerHTML=`<span>${g.cat}</span><span class="cnt" id="cnt${gi}">0/${g.items.length}</span>`;listEl.appendChild(cat);
+  g.items.forEach(([name,desc])=>{
+    n++;const it=document.createElement('div');it.className='item';it.dataset.on='0';it.dataset.g=gi;
+    it.innerHTML=`<div class="box">${checkSvg}</div><div class="tx"><div class="n">${name}</div><div class="d">${desc}</div></div>`;
+    it.onclick=()=>{it.classList.toggle('on');it.dataset.on=it.classList.contains('on')?'1':'0';update()};
+    listEl.appendChild(it);
+  });
+});
+const TOTAL=n;
+
+function verdictFor(s){
+  if(s===0)return['Zaškrtejte, co o vaší značce platí.','',''];
+  if(s>=17)return['<b>Silná značka.</b> Máte vyladěno víc než většina.','Silná, konzistentní značka','Vaše značka stojí na pevných základech. Pár detailů a jste na špičkové úrovni — to je dobrý čas investovat do růstu.'];
+  if(s>=11)return['<b>Slušný základ</b> — ale chybí konzistence.','Dobrý základ, nesourodý celek','Máte stavební kameny, ale nedrží pohromadě. Sjednocení pilířů z vás udělá značku, kterou si lidé pamatují.'];
+  if(s>=6)return['<b>Značka zatím nepracuje</b> za vás.','Roztříštěná značka','Jednotlivosti máte, ale jako celek značka nepůsobí. Tady necháváte hodně na stole — a dá se to srovnat.'];
+  return['<b>Značka teprve vzniká.</b>','Značka na startu','Zatím spíš firma než značka. Dobrá zpráva: stavíte na zelené louce a každý krok je vidět hned.'];
+}
+function update(){
+  const items=[...document.querySelectorAll('.item')];
+  const s=items.filter(i=>i.dataset.on==='1').length;
+  document.getElementById('scoreNum').textContent=s;
+  document.getElementById('fill').style.width=(s/TOTAL*100)+'%';
+  document.getElementById('verdict').innerHTML=verdictFor(s)[0];
+  document.getElementById('showResult').classList.toggle('ready',s>0);
+  groups.forEach((g,gi)=>{
+    const done=items.filter(i=>i.dataset.g==gi&&i.dataset.on==='1').length;
+    document.getElementById('cnt'+gi).textContent=done+'/'+g.items.length;
+    document.getElementById('chip'+gi).classList.toggle('done',done===g.items.length);
+  });
+}
+update();
+
+function openModal(){
+  const items=[...document.querySelectorAll('.item')];
+  const s=items.filter(i=>i.dataset.on==='1').length;
+  const[,title,text]=verdictFor(s);
+  document.getElementById('mScore').textContent=s;
+  document.getElementById('mTitle').textContent=title||'Začněte zaškrtávat';
+  document.getElementById('mText').textContent=text||'';
+  // breakdown po pilířích
+  document.getElementById('breakdown').innerHTML=groups.map((g,gi)=>{
+    const done=items.filter(i=>i.dataset.g==gi&&i.dataset.on==='1').length;
+    return `<div class="bd"><span class="bn">${g.key}</span><span class="bt"><span class="bf" style="width:${done/g.items.length*100}%"></span></span><span class="bv">${done}/${g.items.length}</span></div>`;
+  }).join('');
+  document.getElementById('modal').classList.add('on');
+}
+document.getElementById('showResult').onclick=openModal;
+document.getElementById('close').onclick=()=>document.getElementById('modal').classList.remove('on');
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')document.getElementById('modal').classList.remove('on')};
+document.getElementById('send').onclick=()=>{
+  const e=document.getElementById('email').value.trim();
+  if(!/^[^@]+@[^@]+\.[^@]+$/.test(e)){document.getElementById('email').style.borderColor='#D64545';return}
+  // TODO: napojit odeslání leadu (email + skóre + breakdown po pilířích)
+  document.getElementById('email').value='';document.getElementById('email').disabled=true;
+  document.getElementById('send').disabled=true;document.getElementById('ok').classList.add('on');
+};
+</script>
+</body>
+</html>

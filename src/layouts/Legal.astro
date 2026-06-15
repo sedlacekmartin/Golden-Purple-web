@@ -1,0 +1,62 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  updatedDate?: string;
+}
+
+const { title, description, updatedDate } = Astro.props;
+---
+
+<Base
+  title={`${title} — Golden Purple`}
+  description={description ?? `${title} Golden Purple`}
+  noindex={true}
+>
+  <div class="topbar-simple">
+    <a href="/" class="logo-link">← Golden Purple</a>
+  </div>
+
+  <div class="legal-wrap">
+    <header class="legal-header">
+      <p class="eyebrow">Právní dokumenty</p>
+      <h1>{title}</h1>
+      {updatedDate && <p class="updated">Poslední aktualizace: {updatedDate}</p>}
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+  </div>
+</Base>
+
+<style is:global>
+  .topbar-simple {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+    padding: 22px clamp(28px, 6vw, 100px);
+  }
+  .topbar-simple .logo-link {
+    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--muted); transition: color .2s;
+  }
+  .topbar-simple .logo-link:hover { color: var(--gold); }
+
+  .legal-wrap {
+    max-width: 760px; margin: 0 auto;
+    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
+  }
+
+  .legal-header { margin-bottom: 56px; }
+  .legal-header .eyebrow {
+    font-size: .74rem; letter-spacing: .3em; text-transform: uppercase;
+    font-weight: 600; color: var(--gold); margin-bottom: 14px;
+  }
+  .legal-header h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem); line-height: .95;
+    letter-spacing: -.03em; margin-bottom: 12px;
+  }
+  .legal-header .updated { font-size: .85rem; color: var(--muted); }
+</style>

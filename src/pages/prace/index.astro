@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('prace', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Naše práce — Golden Purple"
+  description="Portfolio projektů Golden Purple — weby, branding, marketing a digitální produkty pro firmy a restaurace."
+>
+  <div class="topbar-simple">
+    <a href="/" class="logo-link">← Golden Purple</a>
+  </div>
+
+  <div class="list-wrap">
+    <header class="list-header">
+      <p class="eyebrow">Naše práce</p>
+      <h1>Projekty, <em>na které jsme hrdí</em>.</h1>
+    </header>
+
+    {projects.length === 0 ? (
+      <p class="empty">Case studies jsou na cestě.</p>
+    ) : (
+      <div class="project-grid">
+        {projects.map(p => (
+          <a href={`/prace/${p.slug}`} class="project-card">
+            {p.data.image && <img src={p.data.image} alt={p.data.title} class="card-img" />}
+            <div class="card-body">
+              <div class="card-tags">
+                {p.data.tags.slice(0, 3).map(t => <span>{t}</span>)}
+              </div>
+              <h2>{p.data.title}</h2>
+              <p>{p.data.description}</p>
+              <span class="go">
+                Číst case study
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>
+
+<style is:global>
+  .topbar-simple {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+    padding: 22px clamp(28px, 6vw, 100px);
+  }
+  .topbar-simple .logo-link {
+    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--muted); transition: color .2s;
+  }
+  .topbar-simple .logo-link:hover { color: var(--gold); }
+
+  .eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+
+  .list-wrap {
+    max-width: 1100px; margin: 0 auto;
+    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
+  }
+
+  .list-header { margin-bottom: clamp(40px, 7vh, 72px); }
+  .list-header h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2.8rem, 8vw, 6rem); line-height: .9;
+    letter-spacing: -.04em; margin-top: 14px;
+  }
+  .list-header h1 em { font-style: normal; color: var(--gold); }
+
+  .empty { color: var(--muted); font-size: 1.05rem; }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 28px;
+  }
+  @media(max-width: 480px) { .project-grid { grid-template-columns: 1fr; } }
+
+  .project-card {
+    display: block; background: linear-gradient(160deg, var(--ink-2), var(--ink));
+    border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+    transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+
+  .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+
+  .card-body { padding: 26px 24px; }
+
+  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .card-tags span {
+    font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--gold);
+  }
+
+  .project-card h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: 1.6rem; letter-spacing: -.02em;
+    margin-bottom: 10px; line-height: 1.05;
+  }
+
+  .project-card p { font-size: .93rem; color: #CFC4D3; line-height: 1.5; margin-bottom: 18px; }
+
+  .go {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--display); font-weight: 600;
+    font-size: .9rem; color: var(--gold);
+  }
+  .go svg { transition: transform .3s; }
+  .project-card:hover .go svg { transform: translateX(5px); }
+</style>

@@ -1,0 +1,109 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Base
+  title="Blog — Golden Purple"
+  description="Tipy, postupy a pohled za oponu digitálního marketingu a brandingu od Golden Purple."
+>
+  <div class="topbar-simple">
+    <a href="/" class="logo-link">← Golden Purple</a>
+  </div>
+
+  <div class="list-wrap">
+    <header class="list-header">
+      <p class="eyebrow">Blog</p>
+      <h1>Tipy & <em>pohled za oponu</em>.</h1>
+    </header>
+
+    {posts.length === 0 ? (
+      <p class="empty">Zatím žádné příspěvky. Brzy se dočkáš.</p>
+    ) : (
+      <div class="post-grid">
+        {posts.map(post => (
+          <a href={`/blog/${post.slug}`} class="post-card">
+            {post.data.image && <img src={post.data.image} alt={post.data.title} class="card-img" />}
+            <div class="card-body">
+              {post.data.tags.length > 0 && (
+                <div class="card-tags">
+                  {post.data.tags.slice(0, 2).map(t => <span>{t}</span>)}
+                </div>
+              )}
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>
+
+<style is:global>
+  .topbar-simple {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+    padding: 22px clamp(28px, 6vw, 100px);
+  }
+  .topbar-simple .logo-link {
+    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--muted); transition: color .2s;
+  }
+  .topbar-simple .logo-link:hover { color: var(--gold); }
+
+  .eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+
+  .list-wrap {
+    max-width: 1100px; margin: 0 auto;
+    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
+  }
+
+  .list-header { margin-bottom: clamp(40px, 7vh, 72px); }
+  .list-header h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2.8rem, 8vw, 6rem); line-height: .9;
+    letter-spacing: -.04em; margin-top: 14px;
+  }
+  .list-header h1 em { font-style: normal; color: var(--gold); }
+
+  .empty { color: var(--muted); font-size: 1.05rem; }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+  }
+
+  .post-card {
+    display: block; background: linear-gradient(160deg, var(--ink-2), var(--ink));
+    border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+    transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;
+  }
+  .post-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+
+  .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+
+  .card-body { padding: 24px 22px; }
+
+  .card-tags { display: flex; gap: 8px; margin-bottom: 12px; }
+  .card-tags span {
+    font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+    font-weight: 600; color: var(--gold);
+  }
+
+  .post-card h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: 1.3rem; letter-spacing: -.01em;
+    margin-bottom: 10px; line-height: 1.1;
+  }
+
+  .post-card p { font-size: .92rem; color: #CFC4D3; line-height: 1.5; margin-bottom: 14px; }
+
+  .post-card time { font-size: .78rem; color: var(--muted); }
+</style>
