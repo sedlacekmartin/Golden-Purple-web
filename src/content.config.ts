@@ -22,6 +22,7 @@ const prace = defineCollection({
     client: z.string(),
     tags: z.array(z.string()).default([]),
     image: z.string().optional(),
+    heroImage: z.string().optional(),
     pubDate: z.coerce.date(),
     draft: z.boolean().default(false),
     order: z.number().default(99),

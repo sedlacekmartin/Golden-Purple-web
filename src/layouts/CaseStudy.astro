@@ -8,11 +8,12 @@ interface Props {
   client: string;
   tags?: string[];
   image?: string;
+  heroImage?: string;
   pubDate: Date;
   id?: string;
 }
 
-const { title, description, client, tags = [], image, pubDate, id } = Astro.props;
+const { title, description, client, tags = [], image, heroImage, pubDate, id } = Astro.props;
 const year = pubDate.getFullYear();
 
 const allProjects = (await getCollection('prace', ({ data }) => !data.draft))
@@ -38,6 +39,7 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
 </div>
 
 <section class="cs-hero">
+  {heroImage && <div class="cs-hero-bg" style={`background-image:url('${heroImage}')`}></div>}
   <div class="hglow"></div>
   <div class="hglow2"></div>
   <div class="csw">
@@ -149,8 +151,11 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
 
 /* HERO */
 .cs-hero { padding:150px 0 70px;position:relative;overflow:hidden }
-.cs-hero .hglow { position:absolute;top:-20%;right:-10%;width:55%;height:130%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(70px);pointer-events:none }
-.cs-hero .hglow2 { position:absolute;bottom:-30%;left:-8%;width:40%;height:100%;background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%);filter:blur(80px);pointer-events:none }
+.cs-hero-bg { position:absolute;inset:0;background-size:cover;background-position:center 20%;opacity:.28;z-index:0;mask-image:linear-gradient(to bottom,black 30%,transparent 88%);-webkit-mask-image:linear-gradient(to bottom,black 30%,transparent 88%) }
+.cs-hero .hglow { position:absolute;top:-20%;right:-10%;width:55%;height:130%;background:radial-gradient(circle,rgba(86,33,94,.55),transparent 65%);filter:blur(70px);pointer-events:none;z-index:1 }
+.cs-hero .hglow2 { position:absolute;bottom:-30%;left:-8%;width:40%;height:100%;background:radial-gradient(circle,rgba(245,189,2,.15),transparent 65%);filter:blur(80px);pointer-events:none;z-index:1 }
+.cs-hero .csw { position:relative;z-index:2 }
+.cs-hero .cs-metastrip { position:relative;z-index:2 }
 .cs-kick { display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap }
 .cs-tag { font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,189,2,.3);padding:7px 14px;border-radius:100px }
 .cs-hero h1 { font-family:var(--display);font-weight:600;font-size:clamp(3.4rem,11vw,9rem);line-height:.9;letter-spacing:-.035em;margin-bottom:28px }
