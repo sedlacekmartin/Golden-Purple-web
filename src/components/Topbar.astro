@@ -6,59 +6,49 @@ interface Props {
 const { backHref, backLabel } = Astro.props;
 ---
 
-<header class="tpb">
+<div class="tpb">
   <a class="tpb-logo" href="/"><img src="/assets/logo-stacked.svg" alt="Golden Purple" /></a>
   <div class="tpb-right">
     <a class="tpb-back" href={backHref}>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       {backLabel}
     </a>
-    <button class="tpb-burger" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-</header>
+</div>
 
-<div class="nav-overlay" id="nav-overlay" aria-hidden="true">
-  <button class="nav-close" id="nav-close" aria-label="Zavřít menu">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-  </button>
-  <nav class="nav-links">
-    <a href="/" class="nav-link">Domů</a>
-    <a href="/prace/" class="nav-link">Naše práce</a>
-    <a href="/blog/" class="nav-link">Blog</a>
-    <a href="/#p7" class="nav-link">Kontakt</a>
+<div class="overlay" id="overlay">
+  <div class="ov-glow"></div>
+  <nav>
+    <a href="/"><span class="num">01</span>Domů</a>
+    <a href="/prace/"><span class="num">02</span>Naše práce</a>
+    <a href="/blog/"><span class="num">03</span>Blog</a>
+    <a href="/#p7"><span class="num">04</span>Kontakt</a>
   </nav>
-  <div class="nav-foot">
-    <span>Golden <span class="np">Purple</span></span>
+  <div class="ov-foot">
+    <a href="/scan/">Web scan zdarma</a>
+    <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>
     <span>Třebíč · Jihlava · Brno</span>
   </div>
 </div>
 
 <script>
-  const toggle = document.getElementById('nav-toggle')!;
-  const close  = document.getElementById('nav-close')!;
-  const overlay = document.getElementById('nav-overlay')!;
+  const btn = document.getElementById('menuBtn')!;
+  const overlay = document.getElementById('overlay')!;
 
-  function open() {
-    overlay.classList.add('open');
-    overlay.setAttribute('aria-hidden', 'false');
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeNav() {
-    overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', 'true');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.classList.remove('active');
-    document.body.style.overflow = '';
+  function toggleMenu(force?: boolean) {
+    const open = force !== undefined ? force : !overlay.classList.contains('open');
+    overlay.classList.toggle('open', open);
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
-  toggle.addEventListener('click', () => overlay.classList.contains('open') ? closeNav() : open());
-  close.addEventListener('click', closeNav);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeNav(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+  btn.addEventListener('click', () => toggleMenu());
+  overlay.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
 </script>
 
 <style is:global>
@@ -69,37 +59,29 @@ const { backHref, backLabel } = Astro.props;
 .tpb-back { font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:10px 18px;border-radius:100px;transition:.25s;display:flex;align-items:center;gap:8px }
 .tpb-back:hover { color:var(--gold);border-color:var(--gold) }
 
-/* HAMBURGER */
-.tpb-burger { display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border:1px solid var(--line);border-radius:100px;background:none;cursor:pointer;padding:0 11px;transition:border-color .25s }
-.tpb-burger:hover { border-color:var(--gold) }
-.tpb-burger span { display:block;height:1.5px;background:var(--paper);border-radius:2px;transition:transform .35s cubic-bezier(.77,0,.18,1),opacity .25s,width .35s }
-.tpb-burger span:nth-child(3) { width:65% }
-.tpb-burger.active span:nth-child(1) { transform:translateY(6.5px) rotate(45deg) }
-.tpb-burger.active span:nth-child(2) { opacity:0;transform:scaleX(0) }
-.tpb-burger.active span:nth-child(3) { width:100%;transform:translateY(-6.5px) rotate(-45deg) }
+/* HAMBURGER — stejný jako na hlavní stránce */
+.menu-btn { display:flex;flex-direction:column;justify-content:center;gap:5px;width:46px;height:46px;border:1px solid var(--line);border-radius:100px;background:rgba(12,6,16,.4);cursor:pointer;pointer-events:auto;transition:.25s;padding:0;align-items:center }
+.menu-btn:hover { border-color:var(--gold) }
+.menu-btn span { display:block;width:18px;height:2px;background:var(--paper);border-radius:2px;transition:transform .3s,opacity .3s }
+.menu-btn.open span:nth-child(1) { transform:translateY(7px) rotate(45deg) }
+.menu-btn.open span:nth-child(2) { opacity:0 }
+.menu-btn.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg) }
 
-/* OVERLAY */
-.nav-overlay { position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(.77,0,.18,1) }
-.nav-overlay.open { opacity:1;pointer-events:all }
-.nav-close { position:absolute;top:24px;right:clamp(22px,5vw,56px);width:46px;height:46px;border:1px solid var(--line);border-radius:100px;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.25s }
-.nav-close:hover { border-color:var(--gold);color:var(--gold) }
-
-/* NAV LINKS */
-.nav-links { display:flex;flex-direction:column;align-items:center;gap:6px }
-.nav-link { font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.05;letter-spacing:-.03em;color:var(--paper);transition:color .2s;position:relative }
-.nav-link::after { content:'';position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--gold);transition:width .35s cubic-bezier(.77,0,.18,1) }
-.nav-link:hover { color:var(--gold) }
-.nav-link:hover::after { width:100% }
-
-/* staggered entrance */
-.nav-overlay.open .nav-link { animation:nav-in .55s cubic-bezier(.22,1,.36,1) both }
-.nav-overlay.open .nav-link:nth-child(1) { animation-delay:.05s }
-.nav-overlay.open .nav-link:nth-child(2) { animation-delay:.11s }
-.nav-overlay.open .nav-link:nth-child(3) { animation-delay:.17s }
-.nav-overlay.open .nav-link:nth-child(4) { animation-delay:.23s }
-@keyframes nav-in { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
-
-/* FOOTER v overlay */
-.nav-foot { position:absolute;bottom:32px;font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--display);font-weight:600 }
-.nav-foot .np { color:var(--gold) }
+/* OVERLAY — stejný jako na hlavní stránce */
+.overlay { position:fixed;inset:0;z-index:100;background:rgba(12,6,16,.97);backdrop-filter:blur(16px);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,8vw,120px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s }
+.overlay.open { opacity:1;visibility:visible }
+.overlay .ov-glow { position:absolute;top:-10%;right:-5%;width:50vw;height:50vw;max-width:700px;max-height:700px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.5),transparent 60%);filter:blur(70px);pointer-events:none }
+.overlay nav { position:relative;z-index:2;display:flex;flex-direction:column;gap:6px }
+.overlay nav a { font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,7vw,5rem);line-height:1.05;letter-spacing:-.02em;color:var(--paper);text-decoration:none;display:flex;align-items:baseline;gap:18px;padding:6px 0;width:fit-content;opacity:0;transform:translateY(30px);transition:color .25s,transform .6s cubic-bezier(.19,1,.22,1),opacity .6s }
+.overlay.open nav a { opacity:1;transform:none }
+.overlay.open nav a:nth-child(1) { transition-delay:.08s }
+.overlay.open nav a:nth-child(2) { transition-delay:.15s }
+.overlay.open nav a:nth-child(3) { transition-delay:.22s }
+.overlay.open nav a:nth-child(4) { transition-delay:.29s }
+.overlay nav a .num { font-size:.9rem;font-weight:500;color:var(--gold);letter-spacing:.1em }
+.overlay nav a:hover { color:var(--gold) }
+.overlay .ov-foot { position:absolute;bottom:clamp(30px,6vh,60px);left:clamp(28px,8vw,120px);z-index:2;display:flex;gap:26px;flex-wrap:wrap;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted) }
+.overlay .ov-foot a { color:var(--muted);text-decoration:none;transition:color .2s }
+.overlay .ov-foot a:hover { color:var(--gold) }
+@media(prefers-reduced-motion:reduce) { .overlay,.overlay nav a { transition:none!important } .overlay nav a { opacity:1;transform:none } }
 </style>
