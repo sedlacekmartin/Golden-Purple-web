@@ -24,8 +24,37 @@ import Topbar from '../components/Topbar.astro';
         <span class="ln"><span class="shine" style="animation-delay:.5s">královsky.</span></span>
       </h1>
       <p class="hsub">Tvoříme značky, weby a kampaně, které mají úroveň. Od strategie přes identitu až po web a reklamu — promyšleně, prémiově a s reálným dopadem.</p>
+      <div class="hcta">
+        <a class="btn" href="/scan/">
+          Zjistit, co brzdí můj web
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="hbtn-sec" href="/prace/">Prohlédnout realizace</a>
+      </div>
     </div>
     <div class="hscroll"><span class="bar"></span>Scrolluj</div>
+  </section>
+
+  <section class="panel" id="pbolesti">
+    <div class="bolesti-glow"></div>
+    <div class="bolesti-inner">
+      <div class="bolesti-head">
+        <p class="eyebrow cv">Poznáte se?</p>
+        <h2 class="cv">Tohle slýcháme od firem,<br><em>než přijdou za námi.</em></h2>
+      </div>
+      <div class="bolesti-grid">
+        <div class="bcard cv"><span class="bc-n">01</span><p>Web vypadá zastarale a neodpovídá kvalitě vaší firmy.</p></div>
+        <div class="bcard cv"><span class="bc-n">02</span><p>Lidé na web chodí, ale poptávky nepřicházejí.</p></div>
+        <div class="bcard cv"><span class="bc-n">03</span><p>Každá změna na webu znamená volat programátora.</p></div>
+        <div class="bcard cv"><span class="bc-n">04</span><p>Značka nepůsobí tak draze, jak drahá je vaše práce.</p></div>
+        <div class="bcard cv"><span class="bc-n">05</span><p>Marketing běží, ale výsledky a poptávky nepřicházejí.</p></div>
+        <div class="bcard cv"><span class="bc-n">06</span><p>Nevíte přesně, co na webu zákazníky brzdí.</p></div>
+      </div>
+      <div class="bolesti-cta cv">
+        <p>Pokud se v tom poznáváte, začněte bezplatným web scanem.</p>
+        <a class="btn" href="/scan/">Spustit web scan zdarma <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
   </section>
 
   <section class="panel case" id="p1" data-glow="86,33,94">
@@ -128,15 +157,19 @@ import Topbar from '../components/Topbar.astro';
 
   <section class="panel" id="p5">
     <div class="head cv"><p class="eyebrow">Co umíme</p><h2>Od strategie po realizaci. <em>Vše dotažené do detailu.</em></h2></div>
-    <div class="srow cv"><span class="sn">01</span><span class="st">Weby &amp; webdesign</span><span class="sd">WordPress, Elementor, ACF. UX, konverze, rychlost, SEO.</span></div>
-    <div class="srow cv"><span class="sn">02</span><span class="st">Branding &amp; vizuální identita</span><span class="sd">Logo, brand book, tiskoviny, polepy aut.</span></div>
-    <div class="srow cv"><span class="sn">03</span><span class="st">Marketing &amp; obsah</span><span class="sd">Google Ads, Meta Ads, e-mail, copywriting, foto/video.</span></div>
-    <div class="srow cv"><span class="sn">04</span><span class="st">Digitální produkty</span><span class="sd">Vlastní pluginy, rezervační systémy, nástroje.</span></div>
+    <div class="srow cv"><span class="sn">01</span><span class="st">Web, který prodává</span><span class="sd">Struktura, UX a texty, aby návštěvník pochopil nabídku a poptával — dřív, než zvedne telefon.</span></div>
+    <div class="srow cv"><span class="sn">02</span><span class="st">Značka, která působí dráž</span><span class="sd">Logo, brand manuál a materiály, které sjednotí komunikaci a zvednou vnímanou hodnotu firmy.</span></div>
+    <div class="srow cv"><span class="sn">03</span><span class="st">Marketing s výsledkem</span><span class="sd">Google, Meta a e-mail cílené tak, aby každá koruna reklamy vedla ke konkrétní akci.</span></div>
+    <div class="srow cv"><span class="sn">04</span><span class="st">Systémy, které šetří čas</span><span class="sd">Rezervace, správa obsahu a automatizace — vlastní nástroje místo náhodného lepení pluginů.</span></div>
   </section>
 
   <section class="panel" id="plabs">
     <div class="labs-glow"></div>
-    <div class="head cv"><p class="eyebrow">Golden Labs</p><h2>Digitální produkty.<br><em>Stavěné k použití.</em></h2></div>
+    <div class="head cv">
+      <p class="eyebrow">Golden Labs</p>
+      <h2>Digitální produkty.<br><em>Stavěné k použití.</em></h2>
+      <p class="labs-intro cv">Vedle klientské práce vyvíjíme vlastní nástroje — protože správné řešení někdy prostě neexistuje hotové. Klientům to přináší systémy na míru místo náhodného lepení pluginů.</p>
+    </div>
     <div class="labs-grid">
       <div class="lprod cv">
         <span class="lp-status live">Dostupný</span>
@@ -261,6 +294,23 @@ import Topbar from '../components/Topbar.astro';
     </div>
   </section>
 
+  <section class="panel" id="pmartin">
+    <div class="martin-glow"></div>
+    <div class="martin-inner">
+      <p class="eyebrow cv">Za Golden Purple</p>
+      <h2 class="cv martin-h2">Martin Sedláček</h2>
+      <p class="martin-bio cv">Spojuji webdesign, grafiku, marketing a technické řešení do jednoho procesu. Neřeším jen, jestli web vypadá dobře — řeším, jestli zákazník pochopí nabídku, uvěří jí a udělá další krok.</p>
+      <p class="martin-bio cv">Pracoval jsem na projektech od lokálních restaurací přes B2B e-shopy až po systémy pro správu flotil. Vedle klientské práce vyvíjím vlastní digitální nástroje pod hlavičkou Golden Labs.</p>
+      <div class="martin-chips cv">
+        <span>Třebíč · Jihlava · Brno</span>
+        <span>Webdesign</span>
+        <span>Branding</span>
+        <span>Marketing</span>
+        <span>Digitální produkty</span>
+      </div>
+    </div>
+  </section>
+
   <section class="panel" id="p7">
     <div class="glow"></div>
     <div class="ci">
@@ -310,6 +360,9 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .hscroll{position:absolute;bottom:42px;left:clamp(28px,6vw,100px);z-index:2;display:flex;align-items:center;gap:14px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp 1s 1.4s forwards}
 .hscroll .bar{width:50px;height:1px;background:var(--muted);position:relative;overflow:hidden}
 .hscroll .bar::after{content:"";position:absolute;inset:0;background:var(--gold);animation:scan 2s linear infinite}
+.hcta{display:flex;align-items:center;gap:24px;margin-top:44px;opacity:0;animation:fadeUp 1s 1.2s forwards;flex-wrap:wrap}
+.hbtn-sec{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
+.hbtn-sec:hover{color:var(--gold);border-color:var(--gold)}
 
 /* CASE STUDY PANELS */
 .case{justify-content:center;overflow:hidden}
@@ -328,6 +381,23 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .all-works:hover svg{transform:translateX(5px)}
 .case p b{color:var(--gold);font-weight:600}
 .case .glow{position:absolute;border-radius:50%;filter:blur(80px);z-index:0;pointer-events:none}
+
+/* PAIN POINTS */
+#pbolesti{justify-content:center;overflow:hidden}
+.bolesti-glow{position:absolute;top:40%;right:-100px;width:480px;height:480px;border-radius:50%;background:rgba(86,33,94,.3);filter:blur(80px);z-index:0;pointer-events:none}
+.bolesti-inner{position:relative;z-index:2;width:100%}
+.bolesti-head{margin-bottom:clamp(32px,5vh,52px)}
+.bolesti-head h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px;max-width:22ch}
+.bolesti-head h2 em{font-style:normal;color:var(--gold)}
+.bolesti-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:clamp(32px,5vh,52px)}
+@media(max-width:900px){.bolesti-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.bolesti-grid{grid-template-columns:1fr}}
+.bcard{background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;transition:border-color .3s,transform .3s}
+.bcard:hover{border-color:rgba(245,189,2,.3);transform:translateY(-3px)}
+.bc-n{font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--gold);letter-spacing:.08em}
+.bcard p{font-size:clamp(.95rem,1.5vw,1.1rem);color:#D7CEDB;line-height:1.55;margin:0}
+.bolesti-cta{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.bolesti-cta p{font-size:1rem;color:var(--muted);margin:0}
 
 /* GOLDEN VISION */
 #pgv{justify-content:center;overflow:hidden}
@@ -381,6 +451,7 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .lp-status{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:100px;position:absolute;top:18px;right:18px}
 .lp-status.soon{color:var(--muted);background:rgba(169,156,174,.08);border:1px solid rgba(169,156,174,.2)}
 .lp-status.live{color:var(--gold);background:rgba(245,189,2,.1);border:1px solid rgba(245,189,2,.28)}
+.labs-intro{font-size:clamp(.95rem,1.5vw,1.1rem);color:#C6BBCC;max-width:58ch;line-height:1.7;margin-top:18px}
 
 /* TOOLS */
 #ptools{justify-content:center}
@@ -455,6 +526,15 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .cp-tag{font-size:.74rem;color:var(--muted);margin-top:18px;font-style:italic}
 .cenik-note{position:relative;z-index:2;margin-top:clamp(22px,3.5vh,36px);font-size:.86rem;color:var(--muted);line-height:1.6;max-width:80ch}
 .cenik-note b{color:#D7CEDB;font-weight:600}
+
+/* MARTIN */
+#pmartin{justify-content:center;overflow:hidden}
+.martin-glow{position:absolute;top:50%;left:-120px;transform:translateY(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(245,189,2,.11),transparent 60%);filter:blur(80px);z-index:0;pointer-events:none}
+.martin-inner{position:relative;z-index:2;width:100%;max-width:780px}
+.martin-h2{font-family:var(--display);font-weight:700;font-size:clamp(3rem,9vw,7rem);line-height:.9;letter-spacing:-.04em;margin:14px 0 32px}
+.martin-bio{font-size:clamp(1.05rem,1.7vw,1.3rem);color:#D7CEDB;line-height:1.7;max-width:56ch;margin-bottom:18px}
+.martin-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.martin-chips span{font-size:.8rem;letter-spacing:.08em;border:1px solid var(--line);padding:8px 16px;border-radius:100px;color:#CFC4D3}
 
 /* CONTACT */
 #p7{justify-content:center;align-items:center;text-align:center;position:relative}
