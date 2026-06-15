@@ -153,7 +153,7 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <section class="panel" id="plabs">
-    <div class="glow" style="width:500px;height:500px;background:rgba(86,33,94,.35);top:15%;right:-120px"></div>
+    <div class="labs-glow"></div>
     <div class="head cv"><p class="eyebrow">Golden Labs</p><h2>Digitální produkty.<br><em>Stavěné k použití.</em></h2></div>
     <div class="labs-grid">
       <div class="lprod cv">
@@ -361,6 +361,7 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 
 /* LABS / PRODUCTS */
 #plabs{justify-content:center}
+.labs-glow{position:absolute;width:500px;height:500px;background:rgba(86,33,94,.35);top:15%;right:-120px;border-radius:50%;filter:blur(80px);z-index:0;pointer-events:none}
 #plabs .head{margin-bottom:clamp(24px,4vh,44px)}
 #plabs h2{font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,5.5vw,4rem);line-height:.96;letter-spacing:-.025em;margin-top:14px;max-width:22ch}
 #plabs h2 em{font-style:normal;color:var(--gold)}
