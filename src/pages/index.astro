@@ -312,16 +312,16 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .pprace-inner{position:relative;z-index:2}
 
 /* MARQUEE */
-.marquee{width:100vw;position:relative;left:50%;transform:translateX(-50%);overflow:hidden;z-index:2}
-.marquee-track{display:flex;gap:16px;width:max-content;animation:marquee-scroll 28s linear infinite}
+.marquee{width:100vw;margin-left:calc(50% - 50vw);overflow:hidden;z-index:2}
+.marquee-track{display:flex;gap:28px;width:max-content;animation:marquee-scroll 40s linear infinite}
 .marquee-track:hover{animation-play-state:paused}
 @keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.mitem{flex-shrink:0;width:300px;height:196px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(145deg,var(--ink-2),var(--ink));display:flex;flex-direction:column;justify-content:flex-end;padding:18px 20px;position:relative;overflow:hidden}
+.mitem{flex-shrink:0;width:600px;height:392px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(145deg,var(--ink-2),var(--ink));display:flex;flex-direction:column;justify-content:flex-end;padding:30px 34px;position:relative;overflow:hidden}
 .mitem::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(245,189,2,.04),transparent 60%)}
-.mi-bar{position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);opacity:.7}
+.mi-bar{position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);opacity:.7}
 .mitem.mi-p .mi-bar{background:var(--purple-bright);opacity:.9}
-.mi-label{font-family:var(--display);font-weight:600;font-size:1.3rem;letter-spacing:-.02em;color:var(--paper);display:block;margin-bottom:5px;position:relative;z-index:1}
-.mi-tag{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
+.mi-label{font-family:var(--display);font-weight:600;font-size:2.4rem;letter-spacing:-.03em;color:var(--paper);display:block;margin-bottom:8px;position:relative;z-index:1}
+.mi-tag{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
 /* CONTACT */
