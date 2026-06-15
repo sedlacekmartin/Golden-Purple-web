@@ -1,5 +1,6 @@
 ---
 import Base from './Base.astro';
+import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
@@ -8,109 +9,218 @@ interface Props {
   tags?: string[];
   image?: string;
   pubDate: Date;
+  id?: string;
 }
 
-const { title, description, client, tags = [], image, pubDate } = Astro.props;
+const { title, description, client, tags = [], image, pubDate, id } = Astro.props;
+const year = pubDate.getFullYear();
+
+const allProjects = (await getCollection('prace', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const currentIdx = allProjects.findIndex(p => p.id === id);
+const nextTwo: typeof allProjects = [];
+for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
+  nextTwo.push(allProjects[(currentIdx + i) % allProjects.length]);
+}
 ---
 
 <Base title={`${title} — Golden Purple`} description={description} image={image}>
-  <div class="topbar-simple">
-    <a href="/prace" class="logo-link">← Všechny projekty</a>
-  </div>
 
-  <article class="case-wrap">
-    <header class="case-header">
-      <div class="kicker">
-        {tags.map(tag => <span class="tag">{tag}</span>)}
-      </div>
-      <h1>{title}</h1>
-      <p class="lead">{description}</p>
-      <p class="client-label">Klient: <strong>{client}</strong></p>
-    </header>
+<div class="progress" id="cs-progress"></div>
 
-    {image && <img src={image} alt={title} class="case-hero" />}
+<div class="cs-topbar">
+  <a class="cs-logo" href="/"><img src="/assets/logo-stacked.svg" alt="Golden Purple" /></a>
+  <a class="cs-back" href="/prace/">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Všechny práce
+  </a>
+</div>
 
-    <div class="prose">
-      <slot />
+<section class="cs-hero">
+  <div class="hglow"></div>
+  <div class="hglow2"></div>
+  <div class="csw">
+    <div class="cs-kick rv">
+      {tags.map(t => <span class="cs-tag">{t}</span>)}
     </div>
-  </article>
+    <h1 class="rv">{title}</h1>
+    <p class="cs-lead rv">{description}</p>
+  </div>
+  <div class="cs-metastrip rv">
+    <div class="csww">
+      <div class="ms-grid">
+        <div class="ms-cell"><div class="ms-l">Klient</div><div class="ms-v">{client}</div></div>
+        <div class="ms-cell"><div class="ms-l">Obor</div><div class="ms-v">{tags[0]}</div></div>
+        <div class="ms-cell"><div class="ms-l">Co jsme dělali</div><div class="ms-v">{tags.join(' · ')}</div></div>
+        <div class="ms-cell"><div class="ms-l">Rok</div><div class="ms-v">{year}</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="case-cta">
-    <p class="eyebrow">Máte podobný projekt?</p>
-    <h2>Pojďme to probrat.</h2>
-    <a href="/#p7" class="btn">
-      Napsat nám
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M5 12h14M13 6l6 6-6 6"/>
-      </svg>
-    </a>
+<section class="cs-showcase">
+  <div class="csww rv">
+    <div class="cs-devices">
+      <div class="cs-desktop">
+        <div class="cs-dbar"><i></i><i></i><i></i><div class="cs-durl"></div></div>
+        <div class="cs-dscreen">
+          {image
+            ? <img src={image} alt={title} style="width:100%;height:100%;object-fit:cover" />
+            : <div class="cs-dph">[ Screenshot — doplň obrázek ]</div>
+          }
+        </div>
+      </div>
+      <div class="cs-mobile">
+        <div class="cs-phone">
+          <div class="cs-notch"></div>
+          <div class="cs-mscreen"><div class="cs-mph">Mobil</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cs-prose csw rv">
+  <slot />
+</div>
+
+{nextTwo.length > 0 && (
+  <section class="cs-nextp csw">
+    <div class="cs-nlab rv">Další projekty</div>
+    <div class="cs-nextgrid">
+      {nextTwo.map(p => (
+        <a class="cs-npcard rv" href={`/prace/${p.id}`}>
+          <div>
+            <div class="cs-nt">{p.data.tags.slice(0,2).join(' · ')}</div>
+            <h4>{p.data.title}</h4>
+          </div>
+          <span class="cs-arr">→</span>
+        </a>
+      ))}
+    </div>
   </section>
+)}
+
+<section class="cs-cta">
+  <div class="cs-cglow"></div>
+  <h2 class="rv">Máte podobný projekt? <em>Postaráme se.</em></h2>
+  <p class="rv">Napište pár slov o tom, co řešíte. Ozveme se do dvou dnů s konkrétními nápady.</p>
+  <a class="cs-btn rv" href="/#p7">
+    Pojďme do toho
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
+
+<footer class="cs-foot">
+  <p>© Golden Purple · <a href="/">postaráme se o vás královský</a>.</p>
+</footer>
+
+<script>
+  const prog = document.getElementById('cs-progress');
+  if (prog) {
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    }, { passive: true });
+  }
+  const io = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+    { threshold: .1 }
+  );
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.rv').forEach(el => el.classList.add('in')), 1200);
+</script>
+
 </Base>
 
 <style is:global>
-  .topbar-simple {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
-    padding: 22px clamp(28px, 6vw, 100px);
-  }
-  .topbar-simple .logo-link {
-    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
-    font-weight: 600; color: var(--muted); transition: color .2s;
-  }
-  .topbar-simple .logo-link:hover { color: var(--gold); }
+.csw  { max-width:1180px;margin:0 auto;padding:0 clamp(22px,5vw,56px) }
+.csww { max-width:1340px;margin:0 auto;padding:0 clamp(22px,5vw,56px) }
 
-  .case-wrap {
-    max-width: 900px; margin: 0 auto;
-    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(60px, 10vh, 100px);
-  }
+/* PROGRESS */
+#cs-progress { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));z-index:90;width:0;pointer-events:none }
 
-  .case-header { margin-bottom: 48px; }
+/* TOPBAR */
+.cs-topbar { position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:20px clamp(22px,5vw,56px);background:linear-gradient(180deg,rgba(12,6,16,.92),transparent);backdrop-filter:blur(8px) }
+.cs-logo img { height:38px;width:auto;display:block }
+.cs-back { font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:10px 18px;border-radius:100px;transition:.25s;display:flex;align-items:center;gap:8px }
+.cs-back:hover { color:var(--gold);border-color:var(--gold) }
 
-  .kicker { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .tag {
-    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;
-    font-weight: 600; color: var(--gold); border: 1px solid rgba(245,189,2,.3);
-    padding: 5px 12px; border-radius: 100px;
-  }
+/* HERO */
+.cs-hero { padding:150px 0 70px;position:relative;overflow:hidden }
+.cs-hero .hglow { position:absolute;top:-20%;right:-10%;width:55%;height:130%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(70px);pointer-events:none }
+.cs-hero .hglow2 { position:absolute;bottom:-30%;left:-8%;width:40%;height:100%;background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%);filter:blur(80px);pointer-events:none }
+.cs-kick { display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap }
+.cs-tag { font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,189,2,.3);padding:7px 14px;border-radius:100px }
+.cs-hero h1 { font-family:var(--display);font-weight:600;font-size:clamp(3.4rem,11vw,9rem);line-height:.9;letter-spacing:-.035em;margin-bottom:28px }
+.cs-lead { max-width:60ch;font-size:clamp(1.15rem,2.2vw,1.5rem);color:#D7CEDB;line-height:1.5 }
 
-  .case-header h1 {
-    font-family: var(--display); font-weight: 700;
-    font-size: clamp(2.8rem, 8vw, 6rem); line-height: .9;
-    letter-spacing: -.04em; margin-bottom: 22px;
-  }
+/* METASTRIP */
+.cs-metastrip { border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:56px }
+.ms-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line) }
+@media(max-width:760px) { .ms-grid { grid-template-columns:repeat(2,1fr) } }
+.ms-cell { background:var(--ink);padding:26px clamp(18px,2vw,28px) }
+.ms-l { font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px }
+.ms-v { font-family:var(--display);font-weight:600;font-size:1.15rem;line-height:1.2 }
 
-  .case-header .lead {
-    font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: #D7CEDB;
-    line-height: 1.6; margin-bottom: 12px; max-width: 58ch;
-  }
+/* DEVICE MOCKUP */
+.cs-showcase { padding:30px 0 90px }
+.cs-devices { position:relative;display:flex;align-items:flex-end;justify-content:center }
+.cs-desktop { position:relative;width:min(820px,72vw);z-index:1 }
+.cs-dbar { background:#241830;border-radius:14px 14px 0 0;padding:11px 16px;display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-bottom:none }
+.cs-dbar i { width:11px;height:11px;border-radius:50%;background:#3d2b4a;display:block }
+.cs-durl { margin-left:14px;flex:1;height:22px;background:#1a1022;border-radius:6px }
+.cs-dscreen { aspect-ratio:16/10;background:linear-gradient(135deg,rgba(86,33,94,.5),rgba(59,18,67,.4)),repeating-linear-gradient(45deg,rgba(247,247,247,.02) 0 14px,transparent 14px 28px),var(--ink-3);border:1px solid var(--line);border-radius:0 0 14px 14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative }
+.cs-dph { font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding:20px }
+.cs-dscreen::after { content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);transform:skewX(-20deg);animation:cs-sweep 5s ease-in-out infinite }
+@keyframes cs-sweep { 0%,60%{left:-60%} 100%{left:130%} }
+.cs-mobile { position:relative;width:min(190px,20vw);margin-left:-70px;margin-bottom:-10px;z-index:2;filter:drop-shadow(0 30px 50px rgba(0,0,0,.5)) }
+.cs-phone { background:#241830;border:1px solid var(--line);border-radius:26px;padding:9px;position:relative }
+.cs-notch { position:absolute;top:9px;left:50%;transform:translateX(-50%);width:42px;height:5px;background:#1a1022;border-radius:10px;z-index:2 }
+.cs-mscreen { aspect-ratio:9/19;background:linear-gradient(160deg,rgba(245,189,2,.18),rgba(86,33,94,.45)),repeating-linear-gradient(45deg,rgba(247,247,247,.02) 0 10px,transparent 10px 20px),var(--ink-3);border-radius:18px;display:flex;align-items:center;justify-content:center;overflow:hidden }
+.cs-mph { font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);opacity:.7 }
+@media(max-width:760px) { .cs-desktop{width:88vw} .cs-mobile{display:none} }
 
-  .client-label { font-size: .9rem; color: var(--muted); }
-  .client-label strong { color: var(--paper); }
+/* PROSE (markdown content) */
+.cs-prose { padding:70px 0 90px;max-width:860px }
+.cs-prose h2 { font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 20px }
+.cs-prose h2:not(:first-child) { margin-top:64px }
+.cs-prose h3 { font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.5vw,1.8rem);line-height:1.1;letter-spacing:-.015em;margin:40px 0 14px }
+.cs-prose p { color:#CFC4D3;margin-bottom:18px;font-size:1.06rem;line-height:1.75 }
+.cs-prose p b, .cs-prose p strong { color:var(--paper);font-weight:600 }
+.cs-prose ul, .cs-prose ol { padding-left:1.4em;margin-bottom:20px;color:#CFC4D3 }
+.cs-prose li { margin-bottom:10px;font-size:1.02rem;line-height:1.65 }
+.cs-prose li::marker { color:var(--gold) }
+.cs-prose em { font-style:italic;color:var(--gold-soft) }
+.cs-prose hr { border:none;border-top:1px solid var(--line);margin:52px 0 }
 
-  .case-hero {
-    width: 100%; border-radius: 16px; margin-bottom: 56px;
-    aspect-ratio: 16/9; object-fit: cover;
-  }
+/* NEXT PROJECTS */
+.cs-nextp { border-top:1px solid var(--line);padding:60px 0 }
+.cs-nlab { font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:24px }
+.cs-nextgrid { display:grid;grid-template-columns:1fr 1fr;gap:24px }
+@media(max-width:700px) { .cs-nextgrid{grid-template-columns:1fr} }
+.cs-npcard { border:1px solid var(--line);border-radius:16px;padding:30px;display:flex;justify-content:space-between;align-items:center;gap:20px;transition:.35s;background:linear-gradient(150deg,var(--ink-2),var(--ink)) }
+.cs-npcard:hover { border-color:rgba(245,189,2,.4);transform:translateY(-4px) }
+.cs-nt { font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px }
+.cs-npcard h4 { font-family:var(--display);font-weight:600;font-size:1.5rem }
+.cs-arr { color:var(--gold);font-size:1.4rem;flex-shrink:0;font-style:normal }
 
-  .case-cta {
-    text-align: center;
-    padding: clamp(60px, 10vh, 100px) clamp(28px, 6vw, 60px);
-    border-top: 1px solid var(--line);
-  }
-  .case-cta .eyebrow {
-    font-size: .74rem; letter-spacing: .3em; text-transform: uppercase;
-    font-weight: 600; color: var(--gold); margin-bottom: 14px;
-  }
-  .case-cta h2 {
-    font-family: var(--display); font-weight: 700;
-    font-size: clamp(2.4rem, 7vw, 5rem); letter-spacing: -.03em;
-    line-height: .9; margin-bottom: 36px;
-  }
-  .btn {
-    display: inline-flex; align-items: center; gap: 11px;
-    background: var(--gold); color: var(--ink);
-    padding: 18px 38px; border-radius: 100px;
-    font-weight: 600; font-family: var(--display); font-size: 1.1rem;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .btn:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(245,189,2,.42); }
+/* CTA */
+.cs-cta { text-align:center;padding:90px 0 110px;position:relative;overflow:hidden }
+.cs-cglow { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:200%;background:radial-gradient(circle,rgba(86,33,94,.35),transparent 60%);filter:blur(70px);pointer-events:none }
+.cs-cta h2 { position:relative;font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,5.5vw,4rem);line-height:1;letter-spacing:-.02em;margin-bottom:20px }
+.cs-cta h2 em { font-style:normal;color:var(--gold) }
+.cs-cta p { position:relative;color:#CFC4D3;max-width:42ch;margin:0 auto 32px }
+.cs-btn { position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:600;font-size:1.08rem;padding:17px 32px;border-radius:100px;transition:transform .3s,box-shadow .3s }
+.cs-btn:hover { transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,189,2,.4) }
+
+/* FOOTER */
+.cs-foot { border-top:1px solid var(--line);padding:36px 0;text-align:center;color:var(--muted);font-size:.85rem }
+.cs-foot a { color:var(--gold) }
+
+/* REVEAL */
+.rv { opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1) }
+.rv.in { opacity:1;transform:none }
+@media(prefers-reduced-motion:reduce) { .rv{opacity:1;transform:none;transition:none} .cs-dscreen::after{animation:none} }
 </style>
