@@ -590,10 +590,6 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 #p7 .foot a:hover{color:var(--gold)}
 
 /* CURSOR */
-@media(pointer:fine){*{cursor:none !important}}
-.cursor-dot{position:fixed;top:0;left:0;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(245,189,2,.65);pointer-events:none;z-index:10000;will-change:transform;transition:width .22s cubic-bezier(.22,1,.36,1),height .22s cubic-bezier(.22,1,.36,1)}
-.cursor-dot.big{width:48px;height:48px;border-color:rgba(245,189,2,.3)}
-@media(pointer:coarse){.cursor-dot{display:none}}
 
 /* KEYFRAMES */
 @keyframes rise{to{transform:translateY(0)}}
@@ -680,19 +676,5 @@ if (hgA && hgB) {
   }, { passive: true });
 }
 
-// Custom cursor (desktop only)
-if (window.matchMedia('(pointer:fine)').matches) {
-  const cdot = document.createElement('div');
-  cdot.className = 'cursor-dot';
-  document.body.appendChild(cdot);
-  document.addEventListener('mousemove', e => {
-    const hw = cdot.offsetWidth / 2;
-    cdot.style.transform = `translate(${e.clientX - hw}px, ${e.clientY - hw}px)`;
-  }, { passive: true });
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => cdot.classList.add('big'));
-    el.addEventListener('mouseleave', () => cdot.classList.remove('big'));
-  });
-}
 
 </script>
