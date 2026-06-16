@@ -109,7 +109,13 @@ function buildScanRecommendations(
     });
   }
 
-  if (tips.length === 0) return '';
+  if (tips.length === 0) {
+    return `
+    <div style="background:rgba(47,169,104,.07);border:1px solid rgba(47,169,104,.25);border-radius:10px;padding:20px 22px;margin-bottom:24px">
+      <div style="font-size:15px;font-weight:700;color:#2FA968;margin-bottom:8px">Web máte technicky v pořádku 👍</div>
+      <div style="font-size:13px;color:#A99CAE;line-height:1.7">To je dobrý základ — ale technické skóre ještě neznamená, že web skutečně prodává. Trápí vás třeba to, jak web vypadá? Nebo jak působí váš brand jako celek? Ozvěte se nám — podíváme se na to spolu.</div>
+    </div>`;
+  }
 
   const top = tips.sort((a, b) => a.priority - b.priority).slice(0, 3);
 
