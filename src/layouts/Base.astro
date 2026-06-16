@@ -14,6 +14,35 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const ldSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "name": "Golden Purple",
+  "description": "Digitálně kreativní agentura. Stavíme weby, značky a systémy, které firmám přivádí poptávky, šetří ruční práci a zvedají jejich vnímanou hodnotu.",
+  "url": Astro.site?.href ?? "https://goldenpurple.cz",
+  "telephone": "+420604798369",
+  "email": "info@goldenpurple.cz",
+  "logo": new URL("/assets/logo-stacked.svg", Astro.site).href,
+  "image": new URL("/assets/og-image.jpg", Astro.site).href,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Třebíč",
+    "addressRegion": "Kraj Vysočina",
+    "addressCountry": "CZ"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Třebíč" },
+    { "@type": "City", "name": "Jihlava" },
+    { "@type": "City", "name": "Brno" }
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Martin Sedláček"
+  },
+  "priceRange": "$$",
+  "knowsLanguage": "cs"
+};
 ---
 
 <!DOCTYPE html>
@@ -54,6 +83,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css"
   />
+
+  <script type="application/ld+json" set:html={JSON.stringify(ldSchema)} />
 
   <!-- GTM — nahraď GTM-XXXXXXX svým Container ID -->
   <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script> -->
