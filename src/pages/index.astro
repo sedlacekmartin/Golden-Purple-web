@@ -190,6 +190,17 @@ import Topbar from '../components/Topbar.astro';
         <h3>Chytrý provozní balík pro firemní weby</h3>
         <p>WordPress pluginy, které firmám přidají na web rezervace, otevírací dobu, poptávky, nabídky, akce, recenze a jednoduchou správu kontaktů.</p>
         <div class="lp-chips"><span>WordPress</span><span>Rezervace</span><span>Otevírací doba</span><span>Poptávky</span><span>Recenze</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row s"></div>
+          </div>
+        </div>
       </div>
       <div class="lprod cv">
         <span class="lp-status soon">Beta</span>
@@ -197,6 +208,17 @@ import Topbar from '../components/Topbar.astro';
         <h3>Správa flotily vozidel</h3>
         <p>Přehled nad celou firemní flotilou — pojištění, STK, dálniční známky, povinné ručení, havarijní pojištění a termíny servisů na jednom místě.</p>
         <div class="lp-chips"><span>STK</span><span>Pojištění</span><span>Dálniční známky</span><span>Servis</span><span>Náklady</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row s"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+          </div>
+        </div>
       </div>
       <div class="lprod cv">
         <span class="lp-status soon">Beta</span>
@@ -204,6 +226,17 @@ import Topbar from '../components/Topbar.astro';
         <h3>QR tracking platforma</h3>
         <p>Vlastní platforma pro tvorbu dynamických QR kódů, měření scanů, správu kampaní a propojení offline marketingu s webovou analytikou.</p>
         <div class="lp-chips"><span>Dynamické QR</span><span>Tracking</span><span>Kampaně</span><span>Analytika</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+          </div>
+        </div>
       </div>
       <div class="lprod cv">
         <span class="lp-status live">Beta</span>
@@ -211,6 +244,17 @@ import Topbar from '../components/Topbar.astro';
         <h3>Rezervační systém pro restaurace</h3>
         <p>Komplexní dynamický rezervační systém — správa stolů, kapacit, časových slotů a online rezervací v reálném čase přímo z webu restaurace.</p>
         <div class="lp-chips"><span>Restaurace</span><span>Online rezervace</span><span>Správa stolů</span><span>Real-time</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row a"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -498,6 +542,13 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .lp-status{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:4px 11px;border-radius:100px;position:absolute;top:18px;right:18px}
 .lp-status.soon{color:var(--muted);background:rgba(169,156,174,.08);border:1px solid rgba(169,156,174,.2)}
 .lp-status.live{color:var(--gold);background:rgba(245,189,2,.1);border:1px solid rgba(245,189,2,.28)}
+.lp-screen{position:absolute;right:-12px;bottom:-12px;width:128px;height:88px;background:#080410;border:1px solid rgba(247,247,247,.18);border-radius:8px 8px 0 0;overflow:hidden;transform:rotate(5deg);transform-origin:bottom right;box-shadow:-4px -6px 22px rgba(0,0,0,.45);pointer-events:none}
+.lps-bar{display:flex;align-items:center;gap:4px;padding:5px 8px;background:rgba(86,33,94,.65);border-bottom:1px solid rgba(247,247,247,.1)}
+.lps-bar i{width:4px;height:4px;border-radius:50%;background:rgba(247,247,247,.45);display:block}
+.lps-body{padding:7px 9px;display:flex;flex-direction:column;gap:5px}
+.lps-row{height:4px;border-radius:100px;background:rgba(247,247,247,.11)}
+.lps-row.a{background:rgba(245,189,2,.5);width:52%}
+.lps-row.s{width:68%}
 .labs-intro{font-size:clamp(.95rem,1.5vw,1.1rem);color:#C6BBCC;max-width:58ch;line-height:1.7;margin-top:18px}
 
 /* TOOLS */
