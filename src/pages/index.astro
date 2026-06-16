@@ -685,15 +685,10 @@ if (window.matchMedia('(pointer:fine)').matches) {
   const cdot = document.createElement('div');
   cdot.className = 'cursor-dot';
   document.body.appendChild(cdot);
-  let cx = -100, cy = -100, mx = -100, my = -100;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
-  (function tick() {
+  document.addEventListener('mousemove', e => {
     const hw = cdot.offsetWidth / 2;
-    cx += (mx - cx) * .12;
-    cy += (my - cy) * .12;
-    cdot.style.transform = `translate(${cx - hw}px, ${cy - hw}px)`;
-    requestAnimationFrame(tick);
-  })();
+    cdot.style.transform = `translate(${e.clientX - hw}px, ${e.clientY - hw}px)`;
+  }, { passive: true });
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => cdot.classList.add('big'));
     el.addEventListener('mouseleave', () => cdot.classList.remove('big'));
