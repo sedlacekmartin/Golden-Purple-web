@@ -36,11 +36,102 @@ function scoreBar(label: string, value: number, extra = '') {
   </tr>`;
 }
 
+function buildScanRecommendations(
+  scores: Record<string, number> | undefined,
+  obs: { score: number; grade: string } | null | undefined,
+  green: { score: number; green: boolean } | null | undefined
+): string {
+  const tips: { label: string; text: string; priority: number }[] = [];
+
+  if (scores?.performance != null) {
+    if (scores.performance < 50) {
+      tips.push({
+        label: '⚡ Rychlost — kritická',
+        text: 'Web se načítá příliš pomalu. Největší vliv mívají neoptimalizované obrázky (použijte WebP/AVIF), zbytečný JavaScript a absence CDN. Každá vteřina zpoždění snižuje konverze průměrně o 7 %.',
+        priority: 1,
+      });
+    } else if (scores.performance < 75) {
+      tips.push({
+        label: '⚡ Rychlost — má rezervy',
+        text: 'Rychlost je průměrná. Zkontrolujte Core Web Vitals — zejména LCP (nejpomalejší načtený prvek stránky) a CLS (přeskakování layoutu při načítání). Google to od roku 2021 bere jako přímý rankingový faktor.',
+        priority: 2,
+      });
+    }
+  }
+
+  if (scores?.seo != null) {
+    if (scores.seo < 60) {
+      tips.push({
+        label: '🔍 SEO — základ chybí',
+        text: 'Google nemá dost informací pro správné zařazení webu. Nejčastější příčiny: chybí meta popis, špatná struktura nadpisů (H1, H2) nebo obrázky bez alt textu. Jsou to nejrychlejší opravy s největším dopadem.',
+        priority: 1,
+      });
+    } else if (scores.seo < 85) {
+      tips.push({
+        label: '🔍 SEO — drobné mezery',
+        text: 'Základ SEO máte, ale jsou tu mezery. Projděte meta popisky na klíčových stránkách — měly by být unikátní a obsahovat hlavní klíčové slovo. Zkontrolujte také správné nastavení kanoických URL.',
+        priority: 3,
+      });
+    }
+  }
+
+  if (scores?.accessibility != null && scores.accessibility < 70) {
+    tips.push({
+      label: '♿ Přístupnost',
+      text: scores.accessibility < 50
+        ? 'Nízká přístupnost zahrnuje problémy, které trápí i běžné uživatele: nízký kontrast textu, chybějící popisky tlačítek nebo formulářů. Od 28. června 2025 platí European Accessibility Act — pro weby firem v EU je přístupnost povinná.'
+        : 'Přístupnost má mezery. Nejčastěji jde o nízký kontrast textu (viditelný hlavně na mobilu na přímém slunci) nebo chybějící ARIA popisky pro screenreadery.',
+      priority: scores.accessibility < 50 ? 1 : 2,
+    });
+  }
+
+  if (scores?.bestPractices != null && scores.bestPractices < 70) {
+    tips.push({
+      label: '🛡️ Kód & postupy',
+      text: 'Web používá zastaralé technologie nebo chybí základní bezpečnostní nastavení. Nejčastěji jde o zastaralé JS knihovny se známými zranitelnostmi nebo chybějící přesměrování HTTP → HTTPS.',
+      priority: 2,
+    });
+  }
+
+  if (obs != null && obs.score < 50) {
+    tips.push({
+      label: `🔒 HTTP hlavičky — hodnocení ${obs.grade}`,
+      text: 'Bezpečnostní HTTP hlavičky chybí nebo jsou špatně nastaveny. Web je tak zranitelnější vůči clickjackingu a vložení cizího kódu. Řeší se nastavením na serveru nebo v .htaccess — obvykle jde o záležitost pár minut pro admina.',
+      priority: 2,
+    });
+  }
+
+  if (green != null && !green.green) {
+    tips.push({
+      label: '🌱 Hosting na fosilních palivech',
+      text: 'Váš hosting neběží na obnovitelné energii. Přechod na zelený hosting je jeden z nejjednodušších ekologických kroků a stále víc zákazníků to vnímá jako plus při výběru dodavatele.',
+      priority: 4,
+    });
+  }
+
+  if (tips.length === 0) return '';
+
+  const top = tips.sort((a, b) => a.priority - b.priority).slice(0, 3);
+
+  return `
+    <div style="margin-bottom:24px">
+      <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#F5BD02;font-weight:600;margin-bottom:14px">Co řešit jako první</div>
+      ${top.map(t => `
+        <div style="background:rgba(247,247,247,.03);border:1px solid rgba(247,247,247,.08);border-radius:10px;padding:16px 18px;margin-bottom:10px">
+          <div style="font-size:13px;font-weight:700;color:#F7F7F7;margin-bottom:6px">${t.label}</div>
+          <div style="font-size:13px;color:#A99CAE;line-height:1.6">${t.text}</div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
 function buildScanHtml(d: Record<string, unknown>) {
   const scores = d.scores as Record<string, number> | undefined;
   const obs = d.observatory as { score: number; grade: string } | null | undefined;
   const green = d.green as { score: number; green: boolean } | null | undefined;
   const url = d.url as string;
+
+  const recs = buildScanRecommendations(scores, obs, green);
 
   const body = `
     <p style="color:#A99CAE;font-size:13px;margin:0 0 20px;word-break:break-all">Výsledek pro: <b style="color:#F7F7F7">${url}</b></p>
@@ -55,7 +146,8 @@ function buildScanHtml(d: Record<string, unknown>) {
         ${green ? `<tr><td style="padding:10px 0;color:#A99CAE;font-size:14px">🌱 Ekologie</td><td style="padding:10px 0;text-align:right;font-size:14px;color:${green.green ? '#2FA968' : '#A99CAE'}">${green.green ? 'Zelený hosting ✓' : 'Konvenční hosting'}</td></tr>` : ''}
       </tbody>
     </table>
-    <p style="color:#D7CEDB;font-size:14px;line-height:1.6;margin:0">Chcete vědět, co přesně zlepšit a v jakém pořadí? Domluvte si s námi nezávaznou konzultaci — konkrétní kroky pro váš web připravíme zdarma.</p>`;
+    ${recs}
+    <p style="color:#D7CEDB;font-size:14px;line-height:1.6;margin:0">Chcete analýzu projít společně a naplánovat, co řešit v jakém pořadí? Konzultaci uděláme zdarma.</p>`;
 
   return wrap(body);
 }
@@ -127,7 +219,7 @@ const builders: Record<string, (d: Record<string, unknown>) => string> = {
 };
 
 const subjects: Record<string, string> = {
-  scan: 'Výsledky vašeho web scanu — Golden Purple',
+  scan: 'Výsledky scanu + co zlepšit jako první — Golden Purple',
   brand: 'Výsledky Brand Scorecard — Golden Purple',
   restaurant: 'Výsledky testu webu restaurace — Golden Purple',
 };
