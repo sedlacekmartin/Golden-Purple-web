@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+---
+
+<Base title="404 — Stránka nenalezena · Golden Purple" noindex={true}>
+<Topbar />
+
+<main class="e4">
+  <div class="e4-ga"></div>
+  <div class="e4-gb"></div>
+  <p class="e4-bg" aria-hidden="true">404</p>
+  <div class="e4-wrap">
+    <h1>Tahle stránka<br/><em>neexistuje.</em></h1>
+    <p class="e4-txt">Překlep v URL, starý odkaz, nebo jsme ji přesunuli.<br/>Zbytek webu je na místě.</p>
+    <div class="e4-cta">
+      <a class="e4-btn" href="/">
+        Zpátky na hlavní
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="e4-sec" href="/prace/">Prohlédnout realizace</a>
+    </div>
+  </div>
+</main>
+
+<style>
+.e4{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0 clamp(28px,6vw,100px);text-align:center}
+.e4-ga{position:absolute;top:-20%;right:-10%;width:60%;height:130%;background:radial-gradient(circle,rgba(86,33,94,.55),transparent 65%);filter:blur(80px);pointer-events:none}
+.e4-gb{position:absolute;bottom:-30%;left:-10%;width:50%;height:100%;background:radial-gradient(circle,rgba(245,189,2,.11),transparent 65%);filter:blur(90px);pointer-events:none}
+.e4-bg{position:absolute;font-family:var(--display);font-weight:700;font-size:clamp(16rem,38vw,34rem);line-height:1;letter-spacing:-.06em;color:var(--paper);opacity:.045;user-select:none;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.e4-wrap{position:relative;z-index:2;max-width:620px}
+.e4-wrap h1{font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,6.5vw,5rem);line-height:1.05;letter-spacing:-.03em;margin-bottom:22px;opacity:0;animation:e4Up .7s .1s cubic-bezier(.19,1,.22,1) forwards}
+.e4-wrap h1 em{font-style:normal;color:var(--gold)}
+.e4-txt{color:#CFC4D3;font-size:clamp(1rem,1.7vw,1.18rem);line-height:1.65;margin-bottom:40px;opacity:0;animation:e4Up .7s .25s cubic-bezier(.19,1,.22,1) forwards}
+.e4-cta{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;opacity:0;animation:e4Up .7s .4s cubic-bezier(.19,1,.22,1) forwards}
+.e4-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:600;font-size:1.05rem;padding:16px 30px;border-radius:100px;text-decoration:none;transition:transform .3s,box-shadow .3s}
+.e4-btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,189,2,.35)}
+.e4-sec{font-size:.88rem;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .2s}
+.e4-sec:hover{color:var(--paper)}
+@keyframes e4Up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.e4-wrap h1,.e4-txt,.e4-cta{animation:none;opacity:1}}
+</style>
+</Base>
