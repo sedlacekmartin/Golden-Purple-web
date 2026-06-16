@@ -356,11 +356,8 @@ import Topbar from '../components/Topbar.astro';
 <style is:global>
 .eyebrow{font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--gold)}
 
-/* SNAP SCROLLER */
-.scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y proximity;scroll-behavior:smooth}
+html{scroll-behavior:smooth}
 .panel{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,6vw,100px)}
-#p0{scroll-snap-align:start;scroll-snap-stop:always}
-#pbolesti{scroll-snap-align:start}
 
 /* PROGRESS DOTS */
 .dots{position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:16px}
@@ -612,7 +609,7 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .panel.active .cv:nth-child(4){transition-delay:.24s}
 
 @media(prefers-reduced-motion:reduce){
-  .scroller{scroll-snap-type:none}
+  html{scroll-behavior:auto}
   h1.big .ln i,.shine,.hsub,.hscroll{animation:none!important;opacity:1!important;transform:none!important}
   .cv{opacity:1;transform:none;transition:none}
   .hscroll .bar::after,#p7 h2 em{animation:none!important}
@@ -630,7 +627,7 @@ panels.forEach((p, i) => {
   const b = document.createElement('button');
   const lbl = panelLabels[i] || ('Sekce ' + (i + 1));
   b.setAttribute('aria-label', lbl);
-  b.onclick = () => p.scrollIntoView();
+  b.onclick = () => p.scrollIntoView({behavior:'smooth'});
   const span = document.createElement('span');
   span.className = 'dot-label';
   span.textContent = lbl;
@@ -649,7 +646,7 @@ const io = new IntersectionObserver((es) => {
       e.target.classList.remove('active');
     }
   });
-}, { root: scroller, threshold: .55 });
+}, { root: null, threshold: .45 });
 panels.forEach(p => io.observe(p));
 
 const quotes = [
@@ -675,7 +672,7 @@ addEventListener('keydown', e => {
 const hgA = document.getElementById('hgA');
 const hgB = document.getElementById('hgB');
 if (hgA && hgB) {
-  scroller.addEventListener('mousemove', e => {
+  document.addEventListener('mousemove', e => {
     const x = (e.clientX / window.innerWidth - .5) * 2;
     const y = (e.clientY / window.innerHeight - .5) * 2;
     hgA.style.transform = `translate(${x * 30}px, ${y * 22}px)`;
