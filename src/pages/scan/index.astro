@@ -214,7 +214,7 @@ import Topbar from '../../components/Topbar.astro';
 
     /* ----- SCAN logika ----- */
     const statuses=['Načítám web…','Měřím rychlost…','Kontroluji mobilní verzi…','Prověřuji SEO základy…','Testuju bezpečnostní hlavičky…','Měřím ekologickou stopu…','Skládám výsledky…'];
-    let stI=0,stTimer;
+    let stI=0,stTimer,lastScanData=null;
 
     function showError(msg){$('#errMsg').textContent=msg;$('#errMsg').style.display='block'}
     function clearError(){$('#errMsg').style.display='none'}
@@ -236,6 +236,7 @@ import Topbar from '../../components/Topbar.astro';
         clearInterval(stTimer);
         if(!r.ok){throw new Error(data.error||'Scan se nezdařil.')}
         saveUrl(url);
+        lastScanData=data;
         renderResults(data);
       }catch(e){
         clearInterval(stTimer);
@@ -284,14 +285,27 @@ import Topbar from '../../components/Topbar.astro';
     $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#scanBtn').click()});
 
     /* ----- LEAD capture ----- */
-    $('#sendBtn').onclick=()=>{
+    $('#sendBtn').onclick=async()=>{
       const email=$('#emailInput').value.trim();
       if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){showError('Zadejte platný e-mail.');return}
       clearError();
-      $('#emailInput').value='';
-      $('#emailInput').disabled=true;
       $('#sendBtn').disabled=true;
-      $('#okMsg').classList.add('on');
+      $('#sendBtn').textContent='Odesílám…';
+      try{
+        const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({type:'scan',email,...(lastScanData||{})})});
+        const data=await res.json();
+        if(res.ok&&data.ok){
+          $('#emailInput').value='';$('#emailInput').disabled=true;
+          $('#okMsg').classList.add('on');
+        }else{
+          showError(data.error||'Něco se pokazilo. Zkuste znovu.');
+          $('#sendBtn').disabled=false;$('#sendBtn').textContent='Poslat report';
+        }
+      }catch{
+        showError('Problém s připojením. Zkuste znovu.');
+        $('#sendBtn').disabled=false;$('#sendBtn').textContent='Poslat report';
+      }
     };
   </script>
 </Base>
