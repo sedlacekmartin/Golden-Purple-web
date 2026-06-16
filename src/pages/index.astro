@@ -322,20 +322,48 @@ import Topbar from '../components/Topbar.astro';
   </section>
 
   <section class="panel" id="p7">
-    <div class="glow"></div>
-    <div class="ci">
-      <p class="eyebrow">Pojďme do toho</p>
-      <h2>Postaráme se<br>o vás <em>královsky</em>.</h2>
-      <p>Napište pár slov o vašem projektu. Ozveme se do dvou dnů s konkrétními nápady a nezávazným webovým auditem.</p>
-      <a class="btn" href="mailto:info@goldenpurple.cz">Napsat nám
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <div class="channels">
-        <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>
-        <a href="tel:+420604798369">+420 604 798 369</a>
+    <div class="ct-glow"></div>
+    <div class="ct-grid">
+      <div class="ct-left">
+        <p class="eyebrow">Pojďme do toho</p>
+        <h2>Postaráme se<br>o vás <em>královsky</em>.</h2>
+        <p>Napište pár slov o vašem projektu. Ozveme se do dvou pracovních dnů s konkrétními nápady a nezávazným auditem.</p>
+        <div class="ct-channels">
+          <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>
+          <a href="tel:+420604798369">+420 604 798 369</a>
+        </div>
+      </div>
+      <div class="ct-right">
+        <form class="ct-form" id="ctForm" novalidate>
+          <div class="ct-field">
+            <label for="ct-name">Vaše jméno</label>
+            <input id="ct-name" name="name" type="text" placeholder="Martin Novák" autocomplete="name" required />
+          </div>
+          <div class="ct-field">
+            <label for="ct-contact">Email nebo telefon</label>
+            <input id="ct-contact" name="contact" type="text" placeholder="martin@firma.cz nebo +420 ..." autocomplete="email" required />
+          </div>
+          <div class="ct-field">
+            <label for="ct-msg">Co potřebujete?</label>
+            <textarea id="ct-msg" name="message" rows="4" placeholder="Pár vět o projektu stačí..." required></textarea>
+          </div>
+          <div class="ct-bottom">
+            <button class="ct-btn" type="submit" id="ctBtn">
+              <span class="ct-btn-label">Odeslat poptávku</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="ct-gdpr">Odesláním souhlasíte se zpracováním údajů za účelem odpovědi na poptávku.</p>
+          </div>
+        </form>
+        <div class="ct-success" id="ctSuccess" hidden>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M7.5 12l3 3 6-6"/></svg>
+          <h3>Zpráva odeslána.</h3>
+          <p>Ozveme se do dvou pracovních dnů.</p>
+        </div>
+        <p class="ct-error" id="ctError" hidden></p>
       </div>
     </div>
-    <div class="foot">© <span id="yr"></span> Golden Purple · Martin Sedláček · <a href="/gdpr">GDPR</a> · <a href="/cookies">Cookies</a> · <a href="/vop">VOP</a></div>
+    <div class="ct-foot">© <span id="yr"></span> Golden Purple · Martin Sedláček · <a href="/gdpr">GDPR</a> · <a href="/cookies">Cookies</a> · <a href="/vop">VOP</a></div>
   </section>
 
 </div>
@@ -558,20 +586,37 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .martin-cta{margin-top:36px}
 
 /* CONTACT */
-#p7{justify-content:center;align-items:center;text-align:center;position:relative}
-#p7 .glow{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:70vw;height:70vw;max-width:900px;max-height:900px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.55),transparent 60%);filter:blur(60px);z-index:0}
-#p7 .ci{position:relative;z-index:2}
-#p7 h2{font-family:var(--display);font-weight:700;font-size:clamp(3rem,10vw,8rem);line-height:.88;letter-spacing:-.035em;margin:18px 0 30px}
-#p7 h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
-#p7 p{color:#D7CEDB;max-width:44ch;margin:0 auto 40px;font-size:1.1rem}
+/* CONTACT */
+#p7{justify-content:center;position:relative}
+.ct-glow{position:absolute;top:10%;left:20%;width:60%;height:80%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(80px);pointer-events:none;z-index:0}
+.ct-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px);align-items:center;width:100%}
+.ct-left h2{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,6vw,5.5rem);line-height:.92;letter-spacing:-.035em;margin:14px 0 22px}
+.ct-left h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+.ct-left p{color:#D7CEDB;max-width:38ch;margin-bottom:32px;font-size:1.05rem;line-height:1.65}
+.ct-channels{display:flex;flex-direction:column;gap:10px}
+.ct-channels a{color:var(--muted);font-size:.95rem;transition:.2s;width:fit-content;border-bottom:1px solid transparent;padding-bottom:2px}
+.ct-channels a:hover{color:var(--gold);border-color:rgba(245,189,2,.4)}
+.ct-form{background:rgba(247,247,247,.04);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px}
+.ct-field{display:flex;flex-direction:column;gap:7px}
+.ct-field label{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ct-field input,.ct-field textarea{background:rgba(247,247,247,.05);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:var(--paper);font-family:var(--body);font-size:.98rem;outline:none;transition:.2s;resize:none;width:100%}
+.ct-field input::placeholder,.ct-field textarea::placeholder{color:rgba(169,156,174,.45)}
+.ct-field input:focus,.ct-field textarea:focus{border-color:rgba(245,189,2,.45);background:rgba(247,247,247,.08)}
+.ct-bottom{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.ct-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:600;font-size:1rem;padding:14px 26px;border-radius:100px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s,opacity .3s;flex-shrink:0}
+.ct-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,189,2,.35)}
+.ct-btn:disabled{opacity:.55;cursor:not-allowed}
+.ct-gdpr{font-size:.68rem;color:var(--muted);line-height:1.5;max-width:26ch;opacity:.7}
+.ct-success{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:clamp(24px,3vw,36px)}
+.ct-success h3{font-family:var(--display);font-weight:600;font-size:1.6rem}
+.ct-success p{color:#D7CEDB}
+.ct-error{color:#ff6b6b;font-size:.9rem;margin-top:4px}
+.ct-foot{position:absolute;bottom:28px;left:0;right:0;text-align:center;font-size:.78rem;color:var(--muted);z-index:2;padding:0 clamp(28px,6vw,100px)}
+.ct-foot a{color:var(--muted);transition:color .2s}
+.ct-foot a:hover{color:var(--gold)}
 .btn{display:inline-flex;align-items:center;gap:11px;background:var(--gold);color:var(--ink);padding:18px 38px;border-radius:100px;font-weight:600;font-family:var(--display);font-size:1.1rem;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(245,189,2,.42)}
-#p7 .channels{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:48px;font-size:.95rem;font-weight:500}
-#p7 .channels a{color:var(--muted);border-bottom:1px solid transparent;padding-bottom:3px;transition:.2s}
-#p7 .channels a:hover{color:var(--gold);border-color:var(--gold)}
-#p7 .foot{position:absolute;bottom:30px;left:0;right:0;font-size:.8rem;color:var(--muted);z-index:2}
-#p7 .foot a{color:var(--muted);transition:color .2s}
-#p7 .foot a:hover{color:var(--gold)}
+@media(max-width:860px){.ct-grid{grid-template-columns:1fr}.ct-left h2{font-size:clamp(2.6rem,9vw,4rem)}}
 
 /* CURSOR */
 
@@ -592,12 +637,46 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
   html{scroll-behavior:auto}
   h1.big .ln i,.shine,.hsub{animation:none!important;opacity:1!important;transform:none!important}
   .cv{opacity:1;transform:none;transition:none}
-  #p7 h2 em{animation:none!important}
+  .ct-left h2 em{animation:none!important}
 }
 </style>
 
 <script>
 document.getElementById('yr').textContent = String(new Date().getFullYear());
+
+// Contact form
+const ctForm = document.getElementById('ctForm') as HTMLFormElement | null;
+const ctBtn  = document.getElementById('ctBtn') as HTMLButtonElement | null;
+const ctSuccess = document.getElementById('ctSuccess') as HTMLElement | null;
+const ctError   = document.getElementById('ctError')   as HTMLElement | null;
+
+ctForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!ctBtn || !ctSuccess || !ctError) return;
+
+  ctBtn.disabled = true;
+  ctBtn.querySelector('.ct-btn-label')!.textContent = 'Odesílám…';
+  ctError.hidden = true;
+
+  try {
+    const res = await fetch('/api/contact', { method: 'POST', body: new FormData(ctForm) });
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      ctForm.hidden = true;
+      ctSuccess.hidden = false;
+    } else {
+      ctError.textContent = data.error ?? 'Něco se pokazilo. Zkuste to znovu.';
+      ctError.hidden = false;
+      ctBtn.disabled = false;
+      ctBtn.querySelector('.ct-btn-label')!.textContent = 'Odeslat poptávku';
+    }
+  } catch {
+    ctError.textContent = 'Problém s připojením. Zkuste to prosím znovu.';
+    ctError.hidden = false;
+    ctBtn.disabled = false;
+    ctBtn.querySelector('.ct-btn-label')!.textContent = 'Odeslat poptávku';
+  }
+});
 const scroller = document.getElementById('scroller');
 const panels = [...document.querySelectorAll('.panel')];
 
