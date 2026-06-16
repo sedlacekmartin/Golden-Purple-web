@@ -41,12 +41,6 @@ import Topbar from '../components/Topbar.astro';
         <a class="h-sec" href="/prace/">Prohlédnout realizace</a>
       </div>
 
-      <div class="h-trust">
-        <span class="h-trust-label">Realizace</span>
-        <div class="h-trust-items">
-          <span>AMFELS</span><span>Restaurace Baroko</span><span>Arlex</span><span>Na Rachačkách</span>
-        </div>
-      </div>
     </div>
 
     <div class="hscroll"><span class="bar"></span>Scrolluj</div>
@@ -388,14 +382,6 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .h-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:clamp(26px,5vh,46px);opacity:0;animation:fadeUp .9s .95s forwards}
 .h-sec{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
 .h-sec:hover{color:var(--gold);border-color:var(--gold)}
-.h-trust{display:flex;align-items:center;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .9s 1.15s forwards}
-.h-trust-label{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:.5;white-space:nowrap;flex-shrink:0}
-.h-trust-items{display:flex;align-items:center;flex-wrap:wrap}
-.h-trust-items span{font-size:.82rem;color:rgba(207,196,211,.42);padding:2px 14px;position:relative;transition:color .2s;cursor:default}
-.h-trust-items span:hover{color:rgba(207,196,211,.8)}
-.h-trust-items span::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:3px;border-radius:50%;background:rgba(247,247,247,.15)}
-.h-trust-items span:first-child::before{display:none}
-.h-trust-items span:first-child{padding-left:0}
 .hscroll{position:absolute;bottom:42px;left:clamp(28px,6vw,100px);z-index:2;display:flex;align-items:center;gap:14px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp 1s 1.4s forwards}
 .hscroll .bar{width:50px;height:1px;background:var(--muted);position:relative;overflow:hidden}
 .hscroll .bar::after{content:"";position:absolute;inset:0;background:var(--gold);animation:scan 2s linear infinite}
