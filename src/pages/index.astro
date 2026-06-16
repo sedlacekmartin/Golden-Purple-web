@@ -358,7 +358,9 @@ import Topbar from '../components/Topbar.astro';
 
 /* SNAP SCROLLER */
 .scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
-.panel{min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,6vw,100px)}
+.panel{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,6vw,100px)}
+#p0{scroll-snap-align:start;scroll-snap-stop:always}
+#pbolesti{scroll-snap-align:start}
 
 /* PROGRESS DOTS */
 .dots{position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:16px}
