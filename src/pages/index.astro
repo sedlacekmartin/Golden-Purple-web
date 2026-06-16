@@ -34,7 +34,7 @@ import Topbar from '../components/Topbar.astro';
         </div>
       </div>
 
-      <p class="h-vp">Stavíme weby, budujeme značky a vytváříme systémy pro firmy, které chtějí víc zákazníků a méně ručních kroků.</p>
+      <p class="h-vp">Stavíme weby, značky a systémy, které firmám přivádí poptávky, šetří ruční práci a zvedají jejich vnímanou hodnotu.</p>
 
       <div class="h-cta">
         <a class="btn" href="/scan/">Zjistit, co brzdí můj web<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -42,6 +42,10 @@ import Topbar from '../components/Topbar.astro';
       </div>
 
       <p class="h-tagline">Pro firmy, které chtějí víc poptávek, lepší správu a dražší dojem.</p>
+
+      <div class="h-proof">
+        <span>20+ realizací</span><span>4 vlastní produkty</span><span>B2B, restaurace &amp; ubytování</span><span>Třebíč · Jihlava · Brno</span>
+      </div>
 
     </div>
   </section>
@@ -214,7 +218,7 @@ import Topbar from '../components/Topbar.astro';
   </section>
 
   <section class="panel" id="ptools">
-    <div class="head cv"><p class="eyebrow">Nástroje zdarma</p><h2>Zjistěte, kde vás <em>vaše značka brzdí</em>.</h2></div>
+    <div class="head cv"><p class="eyebrow">Nástroje zdarma</p><h2>Zjistěte, kde <em>ztrácíte zákazníky</em>.</h2></div>
     <div class="tools">
       <a class="tool cv" href="/scan/">
         <span class="free">Zdarma</span>
@@ -247,6 +251,7 @@ import Topbar from '../components/Topbar.astro';
     <div class="cenik-grid">
       <div class="cprod cv">
         <span class="cp-label">Audit &amp; strategie</span>
+        <p class="cp-for">Pro firmy, které tuší, že jejich web nefunguje, ale neví přesně proč.</p>
         <div class="cp-price">od <b>9 900</b> Kč</div>
         <span class="cp-unit">jednorázově</span>
         <ul class="cp-list">
@@ -258,6 +263,7 @@ import Topbar from '../components/Topbar.astro';
       </div>
       <div class="cprod feat cv">
         <span class="cp-label">Web &amp; prezentace</span>
+        <p class="cp-for">Pro firmy, které potřebují web jako obchodní nástroj, ne online vizitku.</p>
         <div class="cp-price">od <b>65 000</b> Kč</div>
         <span class="cp-unit">projekt</span>
         <ul class="cp-list">
@@ -269,6 +275,7 @@ import Topbar from '../components/Topbar.astro';
       </div>
       <div class="cprod cv">
         <span class="cp-label">Branding &amp; identita</span>
+        <p class="cp-for">Pro firmy, které chtějí působit profesionálněji, dráž a jednotně.</p>
         <div class="cp-price">od <b>30 000</b> Kč</div>
         <span class="cp-unit">projekt</span>
         <ul class="cp-list">
@@ -280,6 +287,7 @@ import Topbar from '../components/Topbar.astro';
       </div>
       <div class="cprod cv">
         <span class="cp-label">Péče &amp; marketing</span>
+        <p class="cp-for">Pro firmy, které nechtějí web jen spustit, ale dlouhodobě z něj získávat výsledky.</p>
         <div class="cp-price">od <b>6 000</b> Kč</div>
         <span class="cp-unit">měsíčně</span>
         <ul class="cp-list">
@@ -372,6 +380,10 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .h-sec{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
 .h-sec:hover{color:var(--gold);border-color:var(--gold)}
 .h-tagline{font-size:.85rem;color:var(--muted);letter-spacing:.02em;opacity:0;animation:fadeUp 1s 1.15s forwards;padding-top:4px;border-top:1px solid var(--line);max-width:46ch}
+.h-proof{display:flex;flex-wrap:wrap;gap:0;margin-top:clamp(24px,4vh,40px);opacity:0;animation:fadeUp 1s 1.3s forwards}
+.h-proof span{font-size:.72rem;color:var(--muted);opacity:.55;letter-spacing:.07em;padding:0 18px;border-right:1px solid var(--line)}
+.h-proof span:first-child{padding-left:0}
+.h-proof span:last-child{border-right:none}
 
 /* CASE STUDY PANELS */
 .case{justify-content:center;overflow:hidden}
@@ -525,7 +537,8 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .cprod:hover{transform:translateY(-6px);border-color:rgba(245,189,2,.35)}
 .cprod.feat{border-color:rgba(245,189,2,.45);background:linear-gradient(160deg,rgba(86,33,94,.22),var(--ink))}
 .cprod.feat::before{content:'Nejžádanější';position:absolute;top:16px;right:16px;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink);background:var(--gold);padding:4px 10px;border-radius:100px}
-.cp-label{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px}
+.cp-label{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+.cp-for{font-size:.82rem;color:var(--muted);line-height:1.5;margin-bottom:16px;opacity:.8}
 .cp-price{font-family:var(--display);font-weight:500;font-size:1.05rem;color:var(--muted);line-height:1}
 .cp-price b{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,3vw,2.4rem);color:var(--paper);letter-spacing:-.02em;display:inline-block;margin:0 2px}
 .cp-unit{font-size:.78rem;color:var(--muted);margin-top:6px;display:block}
