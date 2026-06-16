@@ -41,6 +41,20 @@
 </div>
 
 <script>
+  // Randomize logo letter reveal order on every page load
+  (function () {
+    const paths = document.querySelectorAll<SVGPathElement>('.tpb-logo svg path');
+    const n = paths.length;
+    const order = Array.from({ length: n }, (_, i) => i);
+    for (let i = n - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    paths.forEach((path, i) => {
+      path.style.animationDelay = (order[i] * 0.08).toFixed(2) + 's';
+    });
+  })();
+
   const btn = document.getElementById('menuBtn')!;
   const overlay = document.getElementById('overlay')!;
   const tpb = document.getElementById('tpb')!;
@@ -75,18 +89,6 @@
 .tpb-logo,.menu-btn{pointer-events:auto}
 .tpb-logo svg{height:46px;width:auto;display:block;overflow:visible}
 .tpb-logo svg path{opacity:0;animation:logoIn .55s cubic-bezier(.19,1,.22,1) forwards;transform-box:fill-box;transform-origin:center bottom}
-.tpb-logo svg path:nth-child(1){animation-delay:.05s}
-.tpb-logo svg path:nth-child(2){animation-delay:.12s}
-.tpb-logo svg path:nth-child(3){animation-delay:.19s}
-.tpb-logo svg path:nth-child(4){animation-delay:.26s}
-.tpb-logo svg path:nth-child(5){animation-delay:.33s}
-.tpb-logo svg path:nth-child(6){animation-delay:.40s}
-.tpb-logo svg path:nth-child(7){animation-delay:.48s}
-.tpb-logo svg path:nth-child(8){animation-delay:.55s}
-.tpb-logo svg path:nth-child(9){animation-delay:.62s}
-.tpb-logo svg path:nth-child(10){animation-delay:.69s}
-.tpb-logo svg path:nth-child(11){animation-delay:.76s}
-.tpb-logo svg path:nth-child(12){animation-delay:.83s}
 @keyframes logoIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.tpb-logo svg path{animation:none;opacity:1}}
 .tpb.scrolled{background:rgba(12,6,16,.88);backdrop-filter:blur(18px)}
