@@ -41,9 +41,9 @@ import Topbar from '../components/Topbar.astro';
         <a class="h-sec" href="/prace/">Prohlédnout realizace</a>
       </div>
 
-    </div>
+      <p class="h-tagline">Pro firmy, které chtějí víc poptávek, lepší správu a dražší dojem.</p>
 
-    <div class="hscroll"><span class="bar"></span>Scrolluj</div>
+    </div>
   </section>
 
   <section class="panel" id="pbolesti">
@@ -293,17 +293,6 @@ import Topbar from '../components/Topbar.astro';
     <p class="cenik-note cv">Konzultace a strategie <b>2 000 Kč/h</b> · expresní práce mimo plán <b>+50 %</b> · ceny jsou orientační, finální podle rozsahu. Nejsem plátce DPH.</p>
   </section>
 
-  <section class="panel" id="p6">
-    <div class="rinner">
-      <div class="mark cv">"</div>
-      <blockquote class="cv" id="qtext"></blockquote>
-      <p class="who cv"><b id="qwho"></b> <span id="qfirm"></span></p>
-      <div class="rnav cv">
-        <button id="qprev" aria-label="Předchozí">‹</button>
-        <button id="qnext" aria-label="Další">›</button>
-      </div>
-    </div>
-  </section>
 
   <section class="panel" id="pmartin">
     <div class="martin-glow"></div>
@@ -337,7 +326,6 @@ import Topbar from '../components/Topbar.astro';
       </a>
       <div class="channels">
         <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>
-        <a href="tel:">[+420 ...]</a>
       </div>
     </div>
     <div class="foot">© <span id="yr"></span> Golden Purple · Martin Sedláček · <a href="/gdpr">GDPR</a> · <a href="/cookies">Cookies</a> · <a href="/vop">VOP</a></div>
@@ -382,9 +370,7 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .h-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:clamp(26px,5vh,46px);opacity:0;animation:fadeUp .9s .95s forwards}
 .h-sec{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
 .h-sec:hover{color:var(--gold);border-color:var(--gold)}
-.hscroll{position:absolute;bottom:42px;left:clamp(28px,6vw,100px);z-index:2;display:flex;align-items:center;gap:14px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp 1s 1.4s forwards}
-.hscroll .bar{width:50px;height:1px;background:var(--muted);position:relative;overflow:hidden}
-.hscroll .bar::after{content:"";position:absolute;inset:0;background:var(--gold);animation:scan 2s linear infinite}
+.h-tagline{font-size:.85rem;color:var(--muted);letter-spacing:.02em;opacity:0;animation:fadeUp 1s 1.15s forwards;padding-top:4px;border-top:1px solid var(--line);max-width:46ch}
 
 /* CASE STUDY PANELS */
 .case{justify-content:center;overflow:hidden}
@@ -592,9 +578,9 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  h1.big .ln i,.shine,.hsub,.hscroll{animation:none!important;opacity:1!important;transform:none!important}
+  h1.big .ln i,.shine,.hsub{animation:none!important;opacity:1!important;transform:none!important}
   .cv{opacity:1;transform:none;transition:none}
-  .hscroll .bar::after,#p7 h2 em{animation:none!important}
+  #p7 h2 em{animation:none!important}
 }
 </style>
 
@@ -603,7 +589,7 @@ document.getElementById('yr').textContent = String(new Date().getFullYear());
 const scroller = document.getElementById('scroller');
 const panels = [...document.querySelectorAll('.panel')];
 
-const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Golden Labs','Nástroje zdarma','Ceník','Reference','Martin Sedláček','Kontakt'];
+const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Golden Labs','Nástroje zdarma','Ceník','Martin Sedláček','Kontakt'];
 const dotsWrap = document.getElementById('dots');
 panels.forEach((p, i) => {
   const b = document.createElement('button');
@@ -631,18 +617,6 @@ const io = new IntersectionObserver((es) => {
 }, { root: null, threshold: .45 });
 panels.forEach(p => io.observe(p));
 
-const quotes = [
-  { t: '[Skutečná citace od spokojeného klienta — ideálně s konkrétním výsledkem.]', w: '[Jméno]', f: '— [Firma], [město]' },
-  { t: '[Druhá reference — co spolupráce přinesla.]', w: '[Jméno]', f: '— [Firma], [město]' },
-];
-let qi = 0;
-const qt = document.getElementById('qtext');
-const qw = document.getElementById('qwho');
-const qf = document.getElementById('qfirm');
-function showQ() { qt.textContent = quotes[qi].t; qw.textContent = quotes[qi].w; qf.textContent = ' ' + quotes[qi].f; }
-document.getElementById('qnext').onclick = () => { qi = (qi + 1) % quotes.length; showQ(); };
-document.getElementById('qprev').onclick = () => { qi = (qi - 1 + quotes.length) % quotes.length; showQ(); };
-showQ();
 
 addEventListener('keydown', e => {
   const cur = panels.findIndex(p => p.classList.contains('active'));
