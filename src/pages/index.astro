@@ -701,19 +701,25 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 (function() {
   const v = document.querySelector<HTMLVideoElement>('.h-hero-bg');
   if (!v) return;
-  let forward = true;
-  v.addEventListener('ended', () => {
-    forward = false;
-    v.playbackRate = -1;
-    v.play();
-  });
-  v.addEventListener('timeupdate', () => {
-    if (!forward && v.currentTime <= 0.05) {
-      forward = true;
-      v.playbackRate = 1;
-      v.currentTime = 0;
+  let raf = 0;
+  let lastTs = 0;
+
+  function stepBack(ts: number) {
+    const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.1) : 0;
+    lastTs = ts;
+    v.currentTime = Math.max(0, v.currentTime - dt);
+    if (v.currentTime <= 0) {
+      lastTs = 0;
       v.play();
+      return;
     }
+    raf = requestAnimationFrame(stepBack);
+  }
+
+  v.addEventListener('ended', () => {
+    cancelAnimationFrame(raf);
+    lastTs = 0;
+    raf = requestAnimationFrame(stepBack);
   });
 })();
 
