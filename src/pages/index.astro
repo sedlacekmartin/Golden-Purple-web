@@ -244,8 +244,8 @@ import Topbar from '../components/Topbar.astro';
         <h3>Rezervační systém pro restaurace</h3>
         <p>Komplexní dynamický rezervační systém — správa stolů, kapacit, časových slotů a online rezervací v reálném čase přímo z webu restaurace.</p>
         <div class="lp-chips"><span>Restaurace</span><span>Online rezervace</span><span>Správa stolů</span><span>Real-time</span></div>
-        <div class="lp-screen" aria-hidden="true">
-          <img src="/assets/gmr-dashboard.png" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:top left;display:block" />
+        <div class="lp-screen lp-screen--photo" aria-hidden="true">
+          <img src="/assets/gmr-dashboard.png" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:right top;display:block" />
         </div>
       </div>
     </div>
@@ -536,6 +536,7 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .lp-status.live{color:var(--gold);background:rgba(245,189,2,.1);border:1px solid rgba(245,189,2,.28)}
 .lp-screen{position:absolute;right:0;top:0;bottom:0;width:42%;background:#060210;border-left:1px solid rgba(247,247,247,.08);border-radius:0 17px 17px 0;overflow:hidden;pointer-events:none;display:flex;flex-direction:column}
 .lp-screen::before{content:'';position:absolute;left:0;top:0;bottom:0;width:36px;background:linear-gradient(to right,#060210,transparent);z-index:1;pointer-events:none}
+.lp-screen--photo::before{display:none}
 .lps-bar{display:flex;align-items:center;gap:4px;padding:7px 10px;background:rgba(86,33,94,.5);border-bottom:1px solid rgba(247,247,247,.08);flex-shrink:0}
 .lps-bar i{width:5px;height:5px;border-radius:50%;background:rgba(247,247,247,.4);display:block}
 .lps-body{padding:14px 14px 14px 18px;display:flex;flex-direction:column;justify-content:space-between;flex:1}
