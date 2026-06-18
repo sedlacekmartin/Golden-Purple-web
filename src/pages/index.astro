@@ -537,6 +537,8 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .lp-screen{position:absolute;right:0;top:0;bottom:0;width:42%;background:#060210;border-left:1px solid rgba(247,247,247,.08);border-radius:0 17px 17px 0;overflow:hidden;pointer-events:none;display:flex;flex-direction:column}
 .lp-screen::before{content:'';position:absolute;left:0;top:0;bottom:0;width:36px;background:linear-gradient(to right,#060210,transparent);z-index:1;pointer-events:none}
 .lp-screen--photo::before{display:none}
+.lp-screen--photo img{transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.lprod:hover .lp-screen--photo img{transform:scale(1.06)}
 .lps-bar{display:flex;align-items:center;gap:4px;padding:7px 10px;background:rgba(86,33,94,.5);border-bottom:1px solid rgba(247,247,247,.08);flex-shrink:0}
 .lps-bar i{width:5px;height:5px;border-radius:50%;background:rgba(247,247,247,.4);display:block}
 .lps-body{padding:14px 14px 14px 18px;display:flex;flex-direction:column;justify-content:space-between;flex:1}
