@@ -5,6 +5,32 @@ export const prerender = false;
 
 const BASE = 'https://goldenpurple.cz';
 
+const ALLOWED_ORIGINS = new Set([
+  'https://goldenpurple.cz',
+  'https://www.goldenpurple.cz',
+]);
+
+function isAllowedOrigin(req: Request): boolean {
+  const origin = req.headers.get('origin') ?? '';
+  if (ALLOWED_ORIGINS.has(origin)) return true;
+  if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) return true;
+  return false;
+}
+
+function escHtml(s: unknown): string {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeNum(v: unknown): number {
+  const n = Number(v);
+  return isFinite(n) ? Math.max(0, Math.min(n, 10000)) : 0;
+}
+
 function scoreColor(v: number) {
   return v >= 90 ? '#2FA968' : v >= 50 ? '#F5BD02' : '#D64545';
 }
@@ -31,7 +57,7 @@ function scoreBar(label: string, value: number, extra = '') {
     <td style="padding:10px 0;color:#A99CAE;font-size:14px;vertical-align:middle">${label}</td>
     <td style="padding:10px 0;text-align:right;vertical-align:middle">
       <span style="font-size:22px;font-weight:700;color:${col}">${value}</span><span style="color:#5a5060;font-size:13px">/100</span>
-      ${extra ? `<span style="color:#A99CAE;font-size:12px;margin-left:6px">${extra}</span>` : ''}
+      ${extra ? `<span style="color:#A99CAE;font-size:12px;margin-left:6px">${escHtml(extra)}</span>` : ''}
     </td>
   </tr>`;
 }
@@ -95,7 +121,7 @@ function buildScanRecommendations(
 
   if (obs != null && obs.score < 50) {
     tips.push({
-      label: `🔒 HTTP hlavičky — hodnocení ${obs.grade}`,
+      label: `🔒 HTTP hlavičky — hodnocení ${escHtml(obs.grade)}`,
       text: 'Bezpečnostní HTTP hlavičky chybí nebo jsou špatně nastaveny. Web je tak zranitelnější vůči clickjackingu a vložení cizího kódu. Řeší se nastavením na serveru nebo v .htaccess — obvykle jde o záležitost pár minut pro admina.',
       priority: 2,
     });
@@ -135,7 +161,7 @@ function buildScanHtml(d: Record<string, unknown>) {
   const scores = d.scores as Record<string, number> | undefined;
   const obs = d.observatory as { score: number; grade: string } | null | undefined;
   const green = d.green as { score: number; green: boolean } | null | undefined;
-  const url = d.url as string;
+  const url = escHtml(String(d.url ?? '').slice(0, 500));
 
   const recs = buildScanRecommendations(scores, obs, green);
 
@@ -144,11 +170,11 @@ function buildScanHtml(d: Record<string, unknown>) {
     <table style="width:100%;border-collapse:collapse;background:rgba(247,247,247,.03);border:1px solid rgba(247,247,247,.08);border-radius:12px;margin-bottom:24px">
       <thead><tr><th colspan="2" style="padding:12px 16px;text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#F5BD02;font-weight:600">Skóre</th></tr></thead>
       <tbody style="display:block;padding:0 16px">
-        ${scores?.performance != null ? scoreBar('⚡ Rychlost', scores.performance) : ''}
-        ${scores?.seo != null ? scoreBar('🔍 SEO', scores.seo) : ''}
-        ${scores?.accessibility != null ? scoreBar('♿ Přístupnost', scores.accessibility) : ''}
-        ${scores?.bestPractices != null ? scoreBar('🛡️ Kód & postupy', scores.bestPractices) : ''}
-        ${obs ? scoreBar('🔒 HTTP hlavičky', obs.score, obs.grade) : ''}
+        ${scores?.performance != null ? scoreBar('⚡ Rychlost', safeNum(scores.performance)) : ''}
+        ${scores?.seo != null ? scoreBar('🔍 SEO', safeNum(scores.seo)) : ''}
+        ${scores?.accessibility != null ? scoreBar('♿ Přístupnost', safeNum(scores.accessibility)) : ''}
+        ${scores?.bestPractices != null ? scoreBar('🛡️ Kód & postupy', safeNum(scores.bestPractices)) : ''}
+        ${obs ? scoreBar('🔒 HTTP hlavičky', safeNum(obs.score), obs.grade) : ''}
         ${green ? `<tr><td style="padding:10px 0;color:#A99CAE;font-size:14px">🌱 Ekologie</td><td style="padding:10px 0;text-align:right;font-size:14px;color:${green.green ? '#2FA968' : '#A99CAE'}">${green.green ? 'Zelený hosting ✓' : 'Konvenční hosting'}</td></tr>` : ''}
       </tbody>
     </table>
@@ -159,13 +185,21 @@ function buildScanHtml(d: Record<string, unknown>) {
 }
 
 function buildBrandHtml(d: Record<string, unknown>) {
-  const score = d.score as number;
-  const total = d.total as number;
-  const verdict = d.verdict as string;
-  const verdictText = d.verdictText as string;
-  const breakdown = d.breakdown as { name: string; done: number; total: number }[];
+  const score = safeNum(d.score);
+  const total = safeNum(d.total);
+  const verdict = escHtml(String(d.verdict ?? '').slice(0, 120));
+  const verdictText = escHtml(String(d.verdictText ?? '').slice(0, 600));
+  const rawBreakdown = Array.isArray(d.breakdown) ? d.breakdown : [];
+  const breakdown = rawBreakdown.map((b: unknown) => {
+    const obj = (b && typeof b === 'object' ? b : {}) as Record<string, unknown>;
+    return {
+      name: escHtml(String(obj.name ?? '').slice(0, 60)),
+      done: safeNum(obj.done),
+      total: safeNum(obj.total) || 1,
+    };
+  });
 
-  const pct = Math.round(score / total * 100);
+  const pct = total > 0 ? Math.round(score / total * 100) : 0;
   const col = pct >= 80 ? '#2FA968' : pct >= 50 ? '#F5BD02' : '#D64545';
 
   const body = `
@@ -181,7 +215,7 @@ function buildBrandHtml(d: Record<string, unknown>) {
         ${breakdown.map(b => `
         <tr style="border-top:1px solid rgba(247,247,247,.06)">
           <td style="padding:11px 16px;color:#D7CEDB;font-size:14px;width:120px">${b.name}</td>
-          <td style="padding:11px 16px"><div style="background:rgba(247,247,247,.1);border-radius:100px;height:5px"><div style="background:#F5BD02;height:100%;width:${Math.round(b.done/b.total*100)}%;border-radius:100px"></div></div></td>
+          <td style="padding:11px 16px"><div style="background:rgba(247,247,247,.1);border-radius:100px;height:5px"><div style="background:#F5BD02;height:100%;width:${Math.round(b.done / b.total * 100)}%;border-radius:100px"></div></div></td>
           <td style="padding:11px 16px;text-align:right;color:#A99CAE;font-size:13px;white-space:nowrap">${b.done}/${b.total}</td>
         </tr>`).join('')}
       </tbody>
@@ -192,13 +226,15 @@ function buildBrandHtml(d: Record<string, unknown>) {
 }
 
 function buildRestaurantHtml(d: Record<string, unknown>) {
-  const score = d.score as number;
-  const total = d.total as number;
-  const verdict = d.verdict as string;
-  const verdictText = d.verdictText as string;
-  const missing = d.missing as string[];
+  const score = safeNum(d.score);
+  const total = safeNum(d.total);
+  const verdict = escHtml(String(d.verdict ?? '').slice(0, 120));
+  const verdictText = escHtml(String(d.verdictText ?? '').slice(0, 600));
+  const missing = Array.isArray(d.missing)
+    ? d.missing.slice(0, 50).map((m: unknown) => escHtml(String(m).slice(0, 200)))
+    : [];
 
-  const pct = Math.round(score / total * 100);
+  const pct = total > 0 ? Math.round(score / total * 100) : 0;
   const col = pct >= 80 ? '#2FA968' : pct >= 50 ? '#F5BD02' : '#D64545';
 
   const body = `
@@ -208,7 +244,7 @@ function buildRestaurantHtml(d: Record<string, unknown>) {
       <div style="margin-top:8px;font-size:17px;font-weight:600;color:#F7F7F7">${verdict}</div>
       ${verdictText ? `<p style="color:#D7CEDB;font-size:14px;margin:10px 0 0;line-height:1.6">${verdictText}</p>` : ''}
     </div>
-    ${missing && missing.length > 0 ? `
+    ${missing.length > 0 ? `
     <div style="background:rgba(247,247,247,.03);border:1px solid rgba(247,247,247,.08);border-radius:12px;margin-bottom:24px;overflow:hidden">
       <div style="padding:12px 16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#F5BD02;font-weight:600">Co webu chybí (${missing.length} prvků)</div>
       ${missing.map(m => `<div style="padding:10px 16px;border-top:1px solid rgba(247,247,247,.06);font-size:13px;color:#A99CAE">✗ ${m}</div>`).join('')}
@@ -237,6 +273,10 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { 'Content-Type': 'application/json' },
     });
 
+  if (!isAllowedOrigin(request)) {
+    return json(403, { error: 'Forbidden.' });
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -246,7 +286,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const { type, email, ...data } = body as { type: string; email: string } & Record<string, unknown>;
 
-  if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+  if (!email || typeof email !== 'string' || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 254) {
     return json(400, { error: 'Zadejte platný e-mail.' });
   }
   if (!builders[type]) {
@@ -277,8 +317,8 @@ export const POST: APIRoute = async ({ request }) => {
   resend.emails.send({
     from: 'Golden Purple <onboarding@resend.dev>',
     to: notifyEmail,
-    subject: `Nový lead [${type}] — ${email}`,
-    html: `<p style="font-family:sans-serif">Nový lead z nástroje <b>${type}</b><br>Email: <b>${email}</b></p><pre style="font-family:monospace;font-size:12px;background:#f5f5f5;padding:16px;border-radius:8px">${JSON.stringify(data, null, 2)}</pre>`,
+    subject: `Nový lead [${type}] — ${escHtml(email)}`,
+    html: `<p style="font-family:sans-serif">Nový lead z nástroje <b>${escHtml(type)}</b><br>Email: <b>${escHtml(email)}</b></p><pre style="font-family:monospace;font-size:12px;background:#f5f5f5;padding:16px;border-radius:8px">${escHtml(JSON.stringify(data, null, 2))}</pre>`,
   }).catch(() => {});
 
   return json(200, { ok: true });
