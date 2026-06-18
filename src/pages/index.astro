@@ -16,7 +16,7 @@ import Topbar from '../components/Topbar.astro';
 
   <section class="panel" id="uvod">
     <div class="grain"></div>
-    <video class="h-hero-bg" autoplay muted loop playsinline disablepictureinpicture preload="auto">
+    <video class="h-hero-bg" autoplay muted playsinline disablepictureinpicture preload="auto">
       <source src="/assets/hero-bg.mp4" type="video/mp4" />
     </video>
     <div class="h-glow-a" id="hgA"></div>
@@ -697,6 +697,26 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 </style>
 
 <script>
+// Hero video ping-pong
+(function() {
+  const v = document.querySelector<HTMLVideoElement>('.h-hero-bg');
+  if (!v) return;
+  let forward = true;
+  v.addEventListener('ended', () => {
+    forward = false;
+    v.playbackRate = -1;
+    v.play();
+  });
+  v.addEventListener('timeupdate', () => {
+    if (!forward && v.currentTime <= 0.05) {
+      forward = true;
+      v.playbackRate = 1;
+      v.currentTime = 0;
+      v.play();
+    }
+  });
+})();
+
 document.getElementById('yr').textContent = String(new Date().getFullYear());
 
 // Contact form
