@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 interface Props {
   title: string;
   description?: string;
@@ -72,17 +74,27 @@ const ldSchema = {
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" href="/favicon.ico" />
+  <meta name="theme-color" content="#0C0610" />
 
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link
     href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&f[]=space-grotesk@400,500&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Cookie Consent CSS -->
+  <!-- Cookie Consent CSS — non-blocking -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css"
+    media="print"
+    onload="this.media='all'"
   />
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+  </noscript>
+
+  <ClientRouter />
 
   <script type="application/ld+json" set:html={JSON.stringify(ldSchema)} />
 
@@ -188,6 +200,18 @@ const ldSchema = {
     --line: rgba(247,247,247,.12);
     --display: 'Clash Display', 'General Sans', system-ui, sans-serif;
     --body: 'General Sans', system-ui, sans-serif;
+  }
+
+  /* View Transitions */
+  @keyframes vtIn  { from { opacity: 0; transform: translateY(8px); } }
+  @keyframes vtOut { to   { opacity: 0; transform: translateY(-5px); } }
+  ::view-transition-old(root) { animation: vtOut .18s ease-in both; }
+  ::view-transition-new(root) { animation: vtIn  .24s ease-out .08s both; }
+  ::view-transition-old(topbar),
+  ::view-transition-new(topbar) { animation: none; mix-blend-mode: normal; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root), ::view-transition-new(root),
+    ::view-transition-old(topbar), ::view-transition-new(topbar) { animation: none; }
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }

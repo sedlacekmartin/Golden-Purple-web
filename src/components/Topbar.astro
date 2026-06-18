@@ -1,7 +1,7 @@
 ---
 ---
 
-<header class="tpb" id="tpb">
+<header class="tpb" id="tpb" transition:name="topbar">
   <a class="tpb-logo" href="/" aria-label="Golden Purple">
     <svg viewBox="0 0 289.18 109.68" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path d="M23.76,22.61v9.94h13.25s-.01,0-.01.02c-.2.39-.43.75-.68,1.07h-.01c-1.58,2.02-4.24,2.85-8.46,3.03-.39.02-.8.03-1.22.04-.31.01-.63.01-.96.01h-.7c-6.26,0-9.39-1.09-10.73-4.88-.61-1.72-.85-4.01-.85-7,0-7.51,1.61-10.55,6.97-11.51.18-.04.36-.06.54-.09,1.35-.2,2.93-.28,4.77-.28.51,0,1.01.01,1.48.02.2.01.4.02.59.03.22,0,.43.01.64.03.2.01.4.03.59.05,5.4.41,7.95,2.12,8.87,6.57h12.37v-.51C50.21,7.2,41.17,0,25.97,0,9.64,0,0,9.79,0,24.84s8.23,24.84,22.36,24.84c10.51,0,14.33-5.4,15.53-11.01h.67v10.3h11.72v-26.36h-26.52Z" fill="#F7F7F7"/>
@@ -41,46 +41,74 @@
 </div>
 
 <script>
-  // Randomize logo letter reveal order on every page load
-  (function () {
+  let _ac: AbortController | null = null;
+  let _firstLoad = true;
+
+  function initTopbar() {
+    // Cleanup previous listeners
+    _ac?.abort();
+    _ac = new AbortController();
+    const sig = _ac.signal;
+
     const paths = document.querySelectorAll<SVGPathElement>('.tpb-logo svg path');
-    const n = paths.length;
-    const order = Array.from({ length: n }, (_, i) => i);
-    for (let i = n - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [order[i], order[j]] = [order[j], order[i]];
+    if (_firstLoad) {
+      // Initial load — randomized letter animation
+      const n = paths.length;
+      const order = Array.from({ length: n }, (_, i) => i);
+      for (let i = n - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      paths.forEach((p, i) => { p.style.animationDelay = (order[i] * 0.08).toFixed(2) + 's'; });
+      _firstLoad = false;
+    } else {
+      // Navigation — topbar already visible via view transition, show logo instantly
+      paths.forEach(p => { p.style.animation = 'none'; (p as HTMLElement).style.opacity = '1'; });
     }
-    paths.forEach((path, i) => {
-      path.style.animationDelay = (order[i] * 0.08).toFixed(2) + 's';
-    });
-  })();
 
-  const btn = document.getElementById('menuBtn')!;
-  const overlay = document.getElementById('overlay')!;
-  const tpb = document.getElementById('tpb')!;
+    const btn     = document.getElementById('menuBtn')!;
+    const overlay = document.getElementById('overlay')!;
+    const tpb     = document.getElementById('tpb')!;
 
-  function toggleMenu(force?: boolean) {
-    const open = force !== undefined ? force : !overlay.classList.contains('open');
-    overlay.classList.toggle('open', open);
-    btn.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
+    const closeMenu = () => {
+      overlay.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+    const openMenu = () => {
+      overlay.classList.add('open');
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+
+    btn.addEventListener('click', () =>
+      overlay.classList.contains('open') ? closeMenu() : openMenu(), { signal: sig });
+    overlay.querySelectorAll<HTMLAnchorElement>('nav a').forEach(a =>
+      a.addEventListener('click', closeMenu, { signal: sig }));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMenu();
+    }, { signal: sig });
+
+    const scroller = document.querySelector<HTMLElement>('.scroller');
+    const onScroll = () => {
+      const scrolled = window.scrollY > 20 || (scroller ? scroller.scrollTop > 20 : false);
+      tpb.classList.toggle('scrolled', scrolled);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true, signal: sig });
+    scroller?.addEventListener('scroll', onScroll, { passive: true, signal: sig });
+    onScroll();
   }
 
-  btn.addEventListener('click', () => toggleMenu());
-  overlay.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleMenu(false); });
+  // Close menu before page swap
+  document.addEventListener('astro:before-swap', () => {
+    document.getElementById('overlay')?.classList.remove('open');
+    document.getElementById('menuBtn')?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  });
 
-  // Blur efekt na scroll — funguje i pro snap-scroll (.scroller)
-  function onScroll() {
-    const scroller = document.querySelector('.scroller') as HTMLElement | null;
-    const scrolled = window.scrollY > 20 || (scroller ? scroller.scrollTop > 20 : false);
-    tpb.classList.toggle('scrolled', scrolled);
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  const scroller = document.querySelector('.scroller');
-  if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  document.addEventListener('astro:page-load', initTopbar);
 </script>
 
 <style is:global>
