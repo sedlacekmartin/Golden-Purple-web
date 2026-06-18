@@ -18,7 +18,7 @@ function wrap(body: string) {
       </div>
       <div style="padding:28px 32px">${body}</div>
       <div style="padding:20px 32px;border-top:1px solid rgba(247,247,247,.08);text-align:center">
-        <a href="${BASE}/#p7" style="display:inline-block;background:#F5BD02;color:#0C0610;text-decoration:none;font-weight:700;padding:13px 28px;border-radius:100px;font-size:15px;margin-bottom:18px">Domluvit konzultaci zdarma</a>
+        <a href="${BASE}/#kontakt" style="display:inline-block;background:#F5BD02;color:#0C0610;text-decoration:none;font-weight:700;padding:13px 28px;border-radius:100px;font-size:15px;margin-bottom:18px">Domluvit konzultaci zdarma</a>
         <div style="font-size:12px;color:#5a5060">Golden Purple · <a href="${BASE}" style="color:#F5BD02;text-decoration:none">goldenpurple.cz</a></div>
       </div>
     </div>
