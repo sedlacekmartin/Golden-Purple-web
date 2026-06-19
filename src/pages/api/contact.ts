@@ -45,8 +45,25 @@ export const POST: APIRoute = async ({ request }) => {
     return json(400, { error: 'Neplatný požadavek.' });
   }
 
+  const captchaToken = fd.get('h-captcha-response')?.toString() ?? '';
+
   if (!name || !contact || !message) {
     return json(400, { error: 'Vyplňte prosím všechna pole.' });
+  }
+
+  // hCaptcha verification
+  const hcaptchaSecret = import.meta.env.HCAPTCHA_SECRET;
+  if (!hcaptchaSecret || !captchaToken) {
+    return json(400, { error: 'Prosím potvrďte, že nejste robot.' });
+  }
+  const captchaRes = await fetch('https://api.hcaptcha.com/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ secret: hcaptchaSecret, response: captchaToken }),
+  });
+  const captchaData = await captchaRes.json() as { success: boolean };
+  if (!captchaData.success) {
+    return json(400, { error: 'Ověření captcha selhalo. Zkuste to znovu.' });
   }
 
   if (name.length > 100 || contact.length > 200 || message.length > 5000) {

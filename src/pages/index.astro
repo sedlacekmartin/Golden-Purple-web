@@ -383,6 +383,7 @@ import Topbar from '../components/Topbar.astro';
             <label for="ct-msg">Co potřebujete?</label>
             <textarea id="ct-msg" name="message" rows="4" placeholder="Pár vět o projektu stačí..." required></textarea>
           </div>
+          <div class="h-captcha" data-sitekey="2e42d036-b470-4d94-903c-d110545eac94" data-theme="dark"></div>
           <div class="ct-bottom">
             <button class="ct-btn" type="submit" id="ctBtn">
               <span class="ct-btn-label">Odeslat poptávku</span>
@@ -776,4 +777,7 @@ if (hgA && hgB) {
 }
 
 
+
 </script>
+
+<script is:inline src="https://js.hcaptcha.com/1/api.js" async defer></script>
