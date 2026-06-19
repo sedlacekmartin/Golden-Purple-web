@@ -2,35 +2,124 @@
 import Legal from '../layouts/Legal.astro';
 ---
 
-<Legal title="Zásady cookies" updatedDate="15. 6. 2026">
+<Legal title="Zásady cookies" updatedDate="20. 6. 2026">
 
-## Co jsou cookies
+<h2>Co jsou cookies</h2>
+<p>Cookies jsou malé textové soubory ukládané ve vašem prohlížeči při návštěvě webu. Pomáhají zajistit správné fungování stránek a umožňují nám analyzovat, jak návštěvníci web používají.</p>
 
-Cookies jsou malé textové soubory ukládané ve vašem prohlížeči. Pomáhají nám web vylepšovat a zobrazovat relevantní obsah.
+<h2>Jaké cookies používáme</h2>
 
-## Jaké cookies používáme
+<h3>Nezbytné cookies</h3>
+<p>Tyto cookies jsou nutné pro fungování webu a nelze je vypnout. Nezpracovávají osobní údaje ve smyslu GDPR.</p>
 
-### Nezbytné cookies
-Nutné pro správné fungování webu. Nelze je vypnout.
+<table>
+  <thead>
+    <tr><th>Název</th><th>Poskytovatel</th><th>Účel</th><th>Platnost</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>cc_cookie</code></td>
+      <td>goldenpurple.cz</td>
+      <td>Ukládá váš souhlas s kategoriemi cookies</td>
+      <td>1 rok</td>
+    </tr>
+    <tr>
+      <td><code>hcaptcha</code></td>
+      <td>Intuition Machines (hCaptcha)</td>
+      <td>Ochrana kontaktního formuláře před robotickými odesláními</td>
+      <td>Session</td>
+    </tr>
+  </tbody>
+</table>
 
-### Analytické cookies
-Pomáhají nám pochopit, jak návštěvníci web používají.
+<h3>Analytické cookies</h3>
+<p>Pomáhají nám pochopit, jak návštěvníci web používají — kde klikají, jak scrollují a kde odcházejí. Data jsou anonymizovaná a neslouží k osobní identifikaci.</p>
 
-- **Google Analytics (GA4)** — anonymní statistiky návštěvnosti
-- **Microsoft Clarity** — nahrávky chování uživatelů (anonymizované)
+<table>
+  <thead>
+    <tr><th>Název</th><th>Poskytovatel</th><th>Účel</th><th>Platnost</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>_clck</code></td>
+      <td>Microsoft Clarity</td>
+      <td>Identifikuje jedinečné návštěvy a session recordings</td>
+      <td>1 rok</td>
+    </tr>
+    <tr>
+      <td><code>_clsk</code></td>
+      <td>Microsoft Clarity</td>
+      <td>Spojuje události v rámci jedné session</td>
+      <td>1 den</td>
+    </tr>
+    <tr>
+      <td><code>CLID</code></td>
+      <td>Microsoft Clarity</td>
+      <td>Identifikuje první návštěvu</td>
+      <td>1 rok</td>
+    </tr>
+  </tbody>
+</table>
+<p>Microsoft Clarity zaznamenává pohyby myši, klikání a scrollování. Data jsou uložena na serverech Microsoftu v souladu s GDPR. Více informací: <a href="https://privacy.microsoft.com/cs-cz/privacystatement" target="_blank" rel="noopener noreferrer">Zásady ochrany osobních údajů Microsoft</a>.</p>
 
-### Marketingové cookies
-Slouží k zobrazení relevantní reklamy.
+<h3>Marketingové cookies</h3>
+<p>Aktuálně marketingové cookies na webu nepoužíváme. Tato kategorie je v nastavení cookies připravena pro budoucí nástroje (Meta Pixel, Google Ads). Jakmile budou spuštěny, tento dokument aktualizujeme.</p>
 
-- **Meta Pixel** — remarketing na Facebooku a Instagramu
-- **Google Ads** — remarketing a měření konverzí
+<h2>Jak spravovat cookies</h2>
+<p>Svůj souhlas můžete kdykoli změnit nebo odvolat:</p>
+<ul>
+  <li>Kliknutím na <button class="link-btn" onclick="window.CookieConsent?.showPreferences()">Nastavení cookies</button> na tomto webu</li>
+  <li>V nastavení vašeho prohlížeče (Chrome: Nastavení → Soukromí → Cookies)</li>
+  <li>Na stránce <a href="https://www.youronlinechoices.com" target="_blank" rel="noopener noreferrer">youronlinechoices.com</a></li>
+</ul>
+<p>Odvoláním souhlasu není dotčena zákonnost zpracování před jeho odvoláním.</p>
 
-## Jak spravovat cookies
-
-Své preference cookies můžeš kdykoli změnit kliknutím na tlačítko "Nastavení cookies" v patičce stránky nebo prostřednictvím nastavení svého prohlížeče.
-
-## Kontakt
-
-Dotazy k cookies směřuj na info@goldenpurple.cz.
+<h2>Kontakt</h2>
+<p>Dotazy k cookies nebo ochraně osobních údajů zasílejte na <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>.</p>
 
 </Legal>
+
+<style is:global>
+  .prose h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    letter-spacing: -.02em; margin: 40px 0 12px; color: var(--paper);
+  }
+  .prose h3 {
+    font-size: .72rem; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--gold); margin: 28px 0 10px;
+  }
+  .prose p { color: #C6BBCC; line-height: 1.75; margin-bottom: 12px; font-size: .95rem; }
+  .prose ul { color: #C6BBCC; line-height: 1.75; padding-left: 20px; font-size: .95rem; margin-bottom: 14px; }
+  .prose ul li { margin-bottom: 6px; }
+  .prose a { color: var(--gold); text-decoration: none; }
+  .prose a:hover { text-decoration: underline; }
+  .prose code {
+    font-size: .8rem; background: rgba(247,247,247,.07);
+    padding: 2px 7px; border-radius: 4px; font-family: monospace; color: var(--paper);
+  }
+  .prose table {
+    width: 100%; border-collapse: collapse;
+    border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; margin: 14px 0 20px; font-size: .87rem;
+  }
+  .prose th {
+    background: rgba(247,247,247,.04); padding: 10px 14px;
+    text-align: left; font-size: .68rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+  }
+  .prose td { padding: 12px 14px; color: #C6BBCC; border-top: 1px solid var(--line); vertical-align: top; }
+  .prose td:first-child { white-space: nowrap; }
+  @media(max-width: 600px) {
+    .prose table, .prose thead, .prose tbody, .prose th, .prose td, .prose tr { display: block; }
+    .prose thead { display: none; }
+    .prose td { border-top: none; padding: 4px 14px; }
+    .prose tr { border-top: 1px solid var(--line); padding: 10px 0; }
+  }
+  .link-btn {
+    background: none; border: none; color: var(--gold);
+    cursor: pointer; font-size: .95rem; padding: 0;
+    font-family: inherit; text-decoration: underline;
+  }
+  .link-btn:hover { opacity: .8; }
+</style>
