@@ -1,11 +1,13 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   noindex?: boolean;
+  noFooter?: boolean;
 }
 
 const {
@@ -13,6 +15,7 @@ const {
   description = 'Golden Purple — digitálně kreativní agentura. Postaráme se o vás královsky. Třebíč · Jihlava · Brno.',
   image = '/assets/og-image.jpg',
   noindex = false,
+  noFooter = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -115,6 +118,8 @@ const ldSchema = {
   <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
 
   <slot />
+
+  {!noFooter && <Footer />}
 
   <!-- Cookie Consent init -->
   <script type="module">

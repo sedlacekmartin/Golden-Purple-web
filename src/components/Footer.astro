@@ -1,0 +1,25 @@
+---
+---
+<footer class="site-foot">
+  © <span class="yr"></span> Golden Purple · Martin Sedláček ·
+  <a href="/gdpr">GDPR</a> ·
+  <a href="/cookies">Cookies</a> ·
+  <a href="/vop">VOP</a>
+</footer>
+
+<script is:inline>
+  document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+
+<style is:global>
+  .site-foot {
+    position: relative; z-index: 2;
+    text-align: center;
+    font-size: .78rem;
+    color: var(--muted);
+    padding: 32px clamp(28px, 6vw, 100px);
+    border-top: 1px solid var(--line);
+  }
+  .site-foot a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  .site-foot a:hover { color: var(--gold); }
+</style>
