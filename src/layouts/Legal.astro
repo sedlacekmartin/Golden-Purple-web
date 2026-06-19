@@ -1,5 +1,6 @@
 ---
 import Base from './Base.astro';
+import Topbar from '../components/Topbar.astro';
 
 interface Props {
   title: string;
@@ -12,51 +13,128 @@ const { title, description, updatedDate } = Astro.props;
 
 <Base
   title={`${title} — Golden Purple`}
-  description={description ?? `${title} Golden Purple`}
+  description={description ?? `${title} — Golden Purple`}
   noindex={true}
 >
-  <div class="topbar-simple">
-    <a href="/" class="logo-link">← Golden Purple</a>
-  </div>
+  <Topbar />
+  <canvas id="aurora"></canvas>
 
-  <div class="legal-wrap">
-    <header class="legal-header">
-      <p class="eyebrow">Právní dokumenty</p>
-      <h1>{title}</h1>
-      {updatedDate && <p class="updated">Poslední aktualizace: {updatedDate}</p>}
-    </header>
+  <div class="shell">
+    <div class="legal-wrap">
+      <header class="legal-header">
+        <div class="tag"><span class="d"></span><span class="mono">Právní dokumenty</span></div>
+        <h1>{title}</h1>
+        {updatedDate && <p class="updated">Poslední aktualizace: {updatedDate}</p>}
+      </header>
 
-    <div class="prose">
-      <slot />
+      <div class="prose">
+        <slot />
+      </div>
     </div>
   </div>
 </Base>
 
 <style is:global>
-  .topbar-simple {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
-    padding: 22px clamp(28px, 6vw, 100px);
+  #aurora { position: fixed; inset: 0; z-index: 0; }
+  .shell {
+    position: relative; z-index: 2;
+    min-height: 100dvh;
+    display: flex; flex-direction: column;
+    padding: clamp(100px, 14vh, 140px) clamp(24px, 6vw, 80px) clamp(80px, 10vh, 120px);
   }
-  .topbar-simple .logo-link {
-    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
-    font-weight: 600; color: var(--muted); transition: color .2s;
-  }
-  .topbar-simple .logo-link:hover { color: var(--gold); }
+  .legal-wrap { max-width: 760px; margin: 0 auto; width: 100%; }
 
-  .legal-wrap {
-    max-width: 760px; margin: 0 auto;
-    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
+  .legal-header { margin-bottom: 52px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--line); background: rgba(247,247,247,.03);
+    padding: 8px 16px; border-radius: 100px; color: var(--muted); margin-bottom: 22px;
   }
-
-  .legal-header { margin-bottom: 56px; }
-  .legal-header .eyebrow {
-    font-size: .74rem; letter-spacing: .3em; text-transform: uppercase;
-    font-weight: 600; color: var(--gold); margin-bottom: 14px;
-  }
+  .tag .d { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); flex-shrink: 0; }
+  .mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
   .legal-header h1 {
     font-family: var(--display); font-weight: 700;
-    font-size: clamp(2rem, 5vw, 3.5rem); line-height: .95;
+    font-size: clamp(2.2rem, 6vw, 4rem); line-height: .95;
     letter-spacing: -.03em; margin-bottom: 12px;
   }
-  .legal-header .updated { font-size: .85rem; color: var(--muted); }
+  .legal-header .updated { font-size: .82rem; color: var(--muted); }
+
+  /* Prose content */
+  .prose h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    letter-spacing: -.02em; margin: 44px 0 12px; color: var(--paper);
+    padding-top: 32px; border-top: 1px solid var(--line);
+  }
+  .prose h2:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  .prose h3 {
+    font-size: .7rem; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--gold); margin: 28px 0 10px;
+  }
+  .prose p { color: #C6BBCC; line-height: 1.75; margin-bottom: 12px; font-size: .95rem; }
+  .prose strong { color: var(--paper); }
+  .prose em { font-style: italic; color: var(--muted); }
+  .prose ul { color: #C6BBCC; line-height: 1.75; padding-left: 20px; font-size: .95rem; margin-bottom: 16px; }
+  .prose ul li { margin-bottom: 7px; }
+  .prose a { color: var(--gold); text-decoration: none; }
+  .prose a:hover { text-decoration: underline; }
+  .prose code {
+    font-size: .8rem; background: rgba(247,247,247,.07);
+    padding: 2px 7px; border-radius: 4px; font-family: monospace; color: var(--paper);
+  }
+  .prose table {
+    width: 100%; border-collapse: collapse;
+    border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; margin: 14px 0 20px; font-size: .87rem;
+  }
+  .prose th {
+    background: rgba(247,247,247,.04); padding: 10px 14px;
+    text-align: left; font-size: .67rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+  }
+  .prose td { padding: 12px 14px; color: #C6BBCC; border-top: 1px solid var(--line); vertical-align: top; }
+  @media(max-width: 600px) {
+    .prose table, .prose thead, .prose tbody, .prose th, .prose td, .prose tr { display: block; }
+    .prose thead { display: none; }
+    .prose td { border-top: none; padding: 3px 12px; }
+    .prose tr { border-top: 1px solid var(--line); padding: 10px 0; }
+  }
+  .link-btn {
+    background: none; border: none; color: var(--gold);
+    cursor: pointer; font-size: .95rem; padding: 0;
+    font-family: inherit; text-decoration: underline;
+  }
+  .link-btn:hover { opacity: .8; }
 </style>
+
+<script is:inline>
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const c = document.getElementById('aurora');
+  const x = c.getContext('2d');
+  let W, H, t = 0;
+  function size() { W = c.width = innerWidth; H = c.height = innerHeight; }
+  size(); addEventListener('resize', size);
+  const blobs = [
+    { cx: .25, cy: .35, r: .5,  col: [86,  33,  94]  },
+    { cx: .75, cy: .3,  r: .45, col: [59,  18,  67]  },
+    { cx: .55, cy: .7,  r: .5,  col: [142, 77,  151] },
+    { cx: .4,  cy: .5,  r: .3,  col: [245, 189, 2]   },
+  ];
+  function draw() {
+    t += .003;
+    x.clearRect(0, 0, W, H);
+    x.fillStyle = '#0C0610'; x.fillRect(0, 0, W, H);
+    blobs.forEach((b, i) => {
+      const px = (b.cx + Math.sin(t + i * 1.7) * .06) * W;
+      const py = (b.cy + Math.cos(t * .9 + i * 2.1) * .06) * H;
+      const rad = b.r * Math.min(W, H) * (i === 3 ? .5 : 1);
+      const g = x.createRadialGradient(px, py, 0, px, py, rad);
+      const a = i === 3 ? .13 : .5;
+      g.addColorStop(0, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);
+      g.addColorStop(1, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
+      x.fillStyle = g; x.beginPath(); x.arc(px, py, rad, 0, 7); x.fill();
+    });
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  draw();
+</script>
