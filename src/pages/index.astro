@@ -1,6 +1,110 @@
 ---
 import Base from '../layouts/Base.astro';
 import Topbar from '../components/Topbar.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Kolik stojí nový web?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ceny začínají od 25 000 Kč za landing page, komplexní weby od 55 000 Kč. Finální cena závisí na rozsahu a funkcích. Nejsme plátci DPH, ceny jsou konečné."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak dlouho trvá tvorba webu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standardní web dodáme za 4–8 týdnů od zahájení spolupráce a dodání podkladů. Expresní realizace do 2 týdnů je možná s příplatkem +50 %."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pracujete jen pro firmy z Vysočiny?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ne, spolupracujeme s firmami po celé České republice. Osobní schůzky nabízíme v Třebíči, Jihlavě a Brně — ostatní řešíme online bez problémů."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co potřebuji připravit před začátkem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stačí mít představu o tom, co web má dělat a komu. O texty, fotografie a grafiku se postaráme společně. Začneme krátkým úvodním hovorem, kde vše probereme."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Poskytujete také správu webu po spuštění?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ano. Nabízíme pravidelnou správu, technické aktualizace a rozvoj webu. Podmínky domluvíme individuálně podle potřeb projektu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Děláte také e-shopy nebo rezervační systémy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ano — e-shopy stavíme na WooCommerce nebo na míru. Rezervační systémy pro restaurace a ubytování řeší náš vlastní produkt Get my Reservation."
+      }
+    }
+  ]
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Golden Purple",
+  "url": "https://goldenpurple.cz",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Služby Golden Purple",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Tvorba webových stránek",
+          "description": "Stavíme weby na míru, které přivádí poptávky a odpovídají kvalitě firmy. Od landing page po komplexní firemní web.",
+          "areaServed": "CZ"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Branding a vizuální identita",
+          "description": "Vytváříme unikátní vizuální identity — logo, manuál značky, typografie a barevný systém, které firmu odliší.",
+          "areaServed": "CZ"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Digitální marketing a SEO",
+          "description": "Návrh a správa digitálního marketingu — SEO, Google Ads, Meta, obsahová strategie. Výsledky, ne jen výstupy.",
+          "areaServed": "CZ"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Vývoj digitálních produktů",
+          "description": "Vyvíjíme vlastní digitální nástroje — rezervační systémy, analytické dashboardy a SaaS produkty na míru.",
+          "areaServed": "CZ"
+        }
+      }
+    ]
+  }
+};
 ---
 
 <Base
@@ -359,6 +463,20 @@ import Topbar from '../components/Topbar.astro';
     </div>
   </section>
 
+  <section class="panel" id="faq">
+    <div class="faq-inner">
+      <div class="head cv"><p class="eyebrow">Časté otázky</p><h2>Co vás nejčastěji <em>zajímá.</em></h2></div>
+      <div class="faq-list">
+        <details class="faq-item cv"><summary>Kolik stojí nový web?</summary><p>Ceny začínají od 25 000 Kč za landing page, komplexní weby od 55 000 Kč. Finální cena závisí na rozsahu a funkcích — orientační přehled najdete v sekci Ceník výše. Nejsme plátci DPH, ceny jsou konečné.</p></details>
+        <details class="faq-item cv"><summary>Jak dlouho trvá tvorba webu?</summary><p>Standardní web dodáme za 4–8 týdnů od zahájení spolupráce a dodání podkladů. Expresní realizace do 2 týdnů je možná s příplatkem +50 %.</p></details>
+        <details class="faq-item cv"><summary>Pracujete jen pro firmy z Vysočiny?</summary><p>Ne, spolupracujeme s firmami po celé České republice. Osobní schůzky nabízíme v Třebíči, Jihlavě a Brně — ostatní řešíme online bez problémů.</p></details>
+        <details class="faq-item cv"><summary>Co potřebuji připravit před začátkem?</summary><p>Stačí mít představu o tom, co web má dělat a komu. O texty, fotografie a grafiku se postaráme společně. Začneme krátkým úvodním hovorem, kde vše probereme.</p></details>
+        <details class="faq-item cv"><summary>Poskytujete také správu webu po spuštění?</summary><p>Ano. Nabízíme pravidelnou správu, technické aktualizace a rozvoj webu. Podmínky domluvíme individuálně podle potřeb projektu.</p></details>
+        <details class="faq-item cv"><summary>Děláte také e-shopy nebo rezervační systémy?</summary><p>Ano — e-shopy stavíme na WooCommerce nebo na míru. Rezervační systémy pro restaurace a ubytování řeší náš vlastní produkt Get my Reservation.</p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="panel" id="kontakt">
     <div class="ct-glow"></div>
     <div class="ct-grid">
@@ -407,6 +525,9 @@ import Topbar from '../components/Topbar.astro';
 
 </div>
 </main>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
 
 </Base>
 
@@ -692,6 +813,18 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
   .cv{opacity:1;transform:none;transition:none}
   .ct-left h2 em{animation:none!important}
 }
+
+/* FAQ */
+#faq{justify-content:center}
+.faq-inner{width:100%;max-width:780px;margin:0 auto;padding:0 clamp(28px,6vw,100px)}
+.faq-list{display:flex;flex-direction:column;gap:0;margin-top:clamp(28px,4vh,44px)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item:first-child{border-top:1px solid var(--line)}
+.faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-family:var(--display);font-weight:600;font-size:clamp(1rem,2vw,1.2rem);letter-spacing:-.01em;cursor:pointer;list-style:none;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:1.4rem;font-weight:300;color:var(--gold);flex-shrink:0;transition:transform .3s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{color:#C6BBCC;line-height:1.7;font-size:.95rem;padding:0 0 22px;margin:0;max-width:68ch}
 </style>
 
 <script>
@@ -741,7 +874,7 @@ function initIndex() {
 
   // Panels + dots
   const panels = [...document.querySelectorAll<HTMLElement>('.panel')];
-  const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Golden Labs','Nástroje zdarma','Ceník','Martin Sedláček','Kontakt'];
+  const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Golden Labs','Nástroje zdarma','Ceník','Martin Sedláček','FAQ','Kontakt'];
   const dotsWrap = document.getElementById('dots');
   if (dotsWrap) {
     dotsWrap.innerHTML = '';
