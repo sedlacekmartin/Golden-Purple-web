@@ -786,9 +786,26 @@ function initIndex() {
       hgB.style.transform = `translate(${-x * 22}px, ${-y * 16}px)`;
     }, { passive: true, signal: sig });
   }
+
+  // Lazy load hCaptcha — only when kontakt section enters viewport
+  const kontakt = document.getElementById('kontakt');
+  if (kontakt) {
+    const hcapObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        hcapObs.disconnect();
+        if (!document.querySelector('script[src*="hcaptcha.com"]')) {
+          const s = document.createElement('script');
+          s.src = 'https://js.hcaptcha.com/1/api.js';
+          s.async = true;
+          s.defer = true;
+          document.head.appendChild(s);
+        }
+      }
+    }, { rootMargin: '200px' });
+    hcapObs.observe(kontakt);
+  }
 }
 
 document.addEventListener('astro:page-load', initIndex);
 </script>
 
-<script is:inline src="https://js.hcaptcha.com/1/api.js" async defer></script>
