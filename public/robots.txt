@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /coming-soon
+Disallow: /api/
+
+Sitemap: https://goldenpurple.cz/sitemap-index.xml
