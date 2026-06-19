@@ -464,17 +464,13 @@ const serviceSchema = {
   </section>
 
   <section class="panel" id="faq">
-    <div class="faq-inner">
-      <div class="head cv"><p class="eyebrow">Časté otázky</p><h2>Co vás nejčastěji <em>zajímá.</em></h2></div>
-      <div class="faq-list">
-        <details class="faq-item cv"><summary>Kolik stojí nový web?</summary><p>Ceny začínají od 25 000 Kč za landing page, komplexní weby od 55 000 Kč. Finální cena závisí na rozsahu a funkcích — orientační přehled najdete v sekci Ceník výše. Nejsme plátci DPH, ceny jsou konečné.</p></details>
-        <details class="faq-item cv"><summary>Jak dlouho trvá tvorba webu?</summary><p>Standardní web dodáme za 4–8 týdnů od zahájení spolupráce a dodání podkladů. Expresní realizace do 2 týdnů je možná s příplatkem +50 %.</p></details>
-        <details class="faq-item cv"><summary>Pracujete jen pro firmy z Vysočiny?</summary><p>Ne, spolupracujeme s firmami po celé České republice. Osobní schůzky nabízíme v Třebíči, Jihlavě a Brně — ostatní řešíme online bez problémů.</p></details>
-        <details class="faq-item cv"><summary>Co potřebuji připravit před začátkem?</summary><p>Stačí mít představu o tom, co web má dělat a komu. O texty, fotografie a grafiku se postaráme společně. Začneme krátkým úvodním hovorem, kde vše probereme.</p></details>
-        <details class="faq-item cv"><summary>Poskytujete také správu webu po spuštění?</summary><p>Ano. Nabízíme pravidelnou správu, technické aktualizace a rozvoj webu. Podmínky domluvíme individuálně podle potřeb projektu.</p></details>
-        <details class="faq-item cv"><summary>Děláte také e-shopy nebo rezervační systémy?</summary><p>Ano — e-shopy stavíme na WooCommerce nebo na míru. Rezervační systémy pro restaurace a ubytování řeší náš vlastní produkt Get my Reservation.</p></details>
-      </div>
-    </div>
+    <div class="head cv"><p class="eyebrow">Časté otázky</p><h2>Co vás nejčastěji <em>zajímá.</em></h2></div>
+    <div class="srow cv"><span class="sn">01</span><span class="st">Kolik stojí nový web?</span><span class="sd">Ceny začínají od 25 000 Kč za landing page, komplexní weby od 55 000 Kč. Nejsme plátci DPH, ceny jsou konečné.</span></div>
+    <div class="srow cv"><span class="sn">02</span><span class="st">Jak dlouho trvá tvorba webu?</span><span class="sd">Standardní web dodáme za 4–8 týdnů. Expresní realizace do 2 týdnů je možná s příplatkem +50 %.</span></div>
+    <div class="srow cv"><span class="sn">03</span><span class="st">Pracujete jen pro firmy z Vysočiny?</span><span class="sd">Ne, spolupracujeme s firmami po celé ČR. Schůzky nabízíme v Třebíči, Jihlavě a Brně.</span></div>
+    <div class="srow cv"><span class="sn">04</span><span class="st">Co potřebuji připravit před začátkem?</span><span class="sd">Stačí mít představu o tom, co web má dělat a komu. O texty, fotky a grafiku se postaráme.</span></div>
+    <div class="srow cv"><span class="sn">05</span><span class="st">Poskytujete správu webu po spuštění?</span><span class="sd">Ano. Nabízíme pravidelnou správu, technické aktualizace a rozvoj webu individuálně.</span></div>
+    <div class="srow cv"><span class="sn">06</span><span class="st">Děláte e-shopy nebo rezervační systémy?</span><span class="sd">Ano — e-shopy na WooCommerce nebo na míru. Rezervační systémy řeší náš produkt Get my Reservation.</span></div>
   </section>
 
   <section class="panel" id="kontakt">
@@ -816,15 +812,9 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 
 /* FAQ */
 #faq{justify-content:center}
-.faq-inner{width:100%;max-width:780px;margin:0 auto;padding:0 clamp(28px,6vw,100px)}
-.faq-list{display:flex;flex-direction:column;gap:0;margin-top:clamp(28px,4vh,44px)}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-item:first-child{border-top:1px solid var(--line)}
-.faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-family:var(--display);font-weight:600;font-size:clamp(1rem,2vw,1.2rem);letter-spacing:-.01em;cursor:pointer;list-style:none;gap:16px}
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{content:'+';font-size:1.4rem;font-weight:300;color:var(--gold);flex-shrink:0;transition:transform .3s}
-.faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item p{color:#C6BBCC;line-height:1.7;font-size:.95rem;padding:0 0 22px;margin:0;max-width:68ch}
+#faq .head{margin-bottom:clamp(30px,5vh,60px)}
+#faq h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px;max-width:20ch}
+#faq h2 em{font-style:normal;color:var(--gold)}
 </style>
 
 <script>
