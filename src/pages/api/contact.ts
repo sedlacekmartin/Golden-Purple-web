@@ -35,17 +35,16 @@ export const POST: APIRoute = async ({ request }) => {
     return json(403, { error: 'Forbidden.' });
   }
 
-  let name: string, contact: string, message: string;
+  let name: string, contact: string, message: string, captchaToken: string;
   try {
     const fd = await request.formData();
-    name    = fd.get('name')?.toString().trim()    ?? '';
-    contact = fd.get('contact')?.toString().trim() ?? '';
-    message = fd.get('message')?.toString().trim() ?? '';
+    name         = fd.get('name')?.toString().trim()         ?? '';
+    contact      = fd.get('contact')?.toString().trim()      ?? '';
+    message      = fd.get('message')?.toString().trim()      ?? '';
+    captchaToken = fd.get('h-captcha-response')?.toString()  ?? '';
   } catch {
     return json(400, { error: 'Neplatný požadavek.' });
   }
-
-  const captchaToken = fd.get('h-captcha-response')?.toString() ?? '';
 
   if (!name || !contact || !message) {
     return json(400, { error: 'Vyplňte prosím všechna pole.' });

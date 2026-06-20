@@ -4,11 +4,11 @@ import { Redis } from '@upstash/redis';
 
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://js.hcaptcha.com https://newassets.hcaptcha.com https://www.clarity.ms",
-  "style-src 'self' 'unsafe-inline' https://newassets.hcaptcha.com",
+  "script-src 'self' 'unsafe-inline' https://js.hcaptcha.com https://newassets.hcaptcha.com https://www.clarity.ms https://cdn.jsdelivr.net",
+  "style-src 'self' 'unsafe-inline' https://newassets.hcaptcha.com https://api.fontshare.com https://cdn.jsdelivr.net",
   "img-src 'self' data: blob: https://newassets.hcaptcha.com",
-  "font-src 'self' data:",
-  "connect-src 'self' https://api.hcaptcha.com https://newassets.hcaptcha.com https://b.clarity.ms",
+  "font-src 'self' data: https://api.fontshare.com https://cdn.fontshare.com",
+  "connect-src 'self' https://api.hcaptcha.com https://newassets.hcaptcha.com https://b.clarity.ms https://api.fontshare.com",
   "frame-src https://newassets.hcaptcha.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
