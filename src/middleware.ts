@@ -25,6 +25,7 @@ const limiters = redis
   ? {
       '/api/contact':      new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(5,  '1 m'), prefix: 'rl:contact' }),
       '/api/send-results': new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(10, '1 m'), prefix: 'rl:results' }),
+      '/api/scan':         new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(6,  '1 m'), prefix: 'rl:scan' }),
     }
   : null;
 
@@ -64,8 +65,8 @@ export const onRequest = defineMiddleware(async ({ request }, next) => {
     }
   }
 
-  // Rate limiting — POST API routes only
-  if (limiters && request.method === 'POST') {
+  // Rate limiting — POST API routes + GET /api/scan
+  if (limiters && (request.method === 'POST' || (request.method === 'GET' && path === '/api/scan'))) {
     const path = new URL(request.url).pathname;
     const limiter = limiters[path as keyof typeof limiters];
 

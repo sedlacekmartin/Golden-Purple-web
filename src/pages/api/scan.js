@@ -1,15 +1,29 @@
 export const prerender = false;
 
+const ALLOWED_ORIGINS = new Set([
+  'https://goldenpurple.cz',
+  'https://www.goldenpurple.cz',
+]);
+
+function corsHeaders(req) {
+  const origin = req.headers.get('origin') ?? '';
+  const allowed =
+    ALLOWED_ORIGINS.has(origin) ||
+    origin.startsWith('http://localhost') ||
+    origin.startsWith('http://127.0.0.1');
+  return {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': allowed ? origin : 'https://goldenpurple.cz',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  };
+}
+
 export async function GET({ request }) {
   const url = new URL(request.url);
   const targetUrl = url.searchParams.get('url');
   const strategy = url.searchParams.get('strategy') || 'mobile';
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  };
+  const headers = corsHeaders(request);
 
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 200, headers });
