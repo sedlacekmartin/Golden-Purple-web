@@ -13,7 +13,7 @@ interface Props {
 const {
   title,
   description = 'Golden Purple — digitálně kreativní agentura. Postaráme se o vás královsky. Třebíč · Jihlava · Brno.',
-  image = '/assets/og-image.jpg',
+  image = '/assets/og-image.png',
   noindex = false,
   noFooter = false,
 } = Astro.props;
@@ -29,7 +29,7 @@ const ldSchema = {
   "telephone": "+420604798369",
   "email": "info@goldenpurple.cz",
   "logo": new URL("/assets/logo-stacked.svg", Astro.site).href,
-  "image": new URL("/assets/og-image.jpg", Astro.site).href,
+  "image": new URL("/assets/og-image.png", Astro.site).href,
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Třebíč",
