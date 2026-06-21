@@ -115,121 +115,130 @@ import Topbar from '../../components/Topbar.astro';
 @media(prefers-reduced-motion:reduce){.fill{transition:none}}
 </style>
 
-<script is:inline>
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const c=document.getElementById('aurora'),x=c.getContext('2d');let W,H,t=0;
-function sz(){W=c.width=innerWidth;H=c.height=innerHeight}sz();addEventListener('resize',sz);
-const bl=[{cx:.25,cy:.35,r:.5,col:[86,33,94]},{cx:.75,cy:.3,r:.45,col:[59,18,67]},{cx:.55,cy:.7,r:.5,col:[142,77,151]},{cx:.4,cy:.5,r:.3,col:[245,189,2]}];
-function dr(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,0,W,H);
-bl.forEach((b,i)=>{const px=(b.cx+Math.sin(t+i*1.7)*.06)*W,py=(b.cy+Math.cos(t*.9+i*2.1)*.06)*H,rad=b.r*Math.min(W,H)*(i===3?.5:1);
-const g=x.createRadialGradient(px,py,0,px,py,rad);const a=i===3?.12:.5;
-g.addColorStop(0,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);g.addColorStop(1,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
-x.fillStyle=g;x.beginPath();x.arc(px,py,rad,0,7);x.fill()});if(!reduce)requestAnimationFrame(dr)}dr();
+<script>
+let _raf = null;
+let _ac = null;
 
-const groups=[
-  {cat:'A · První dojem (první 3 vteřiny)',items:[
-    ['Jasné sdělení, kdo jste a co nabízíte','Návštěvník do 3 vteřin pozná typ podniku a atmosféru.','Baroko: koncept „restaurace a bar" hned v hero sekci.'],
-    ['Kvalitní fotky jídla a prostoru','Host jí očima. Vlastní profesionální foto, ne stock.',''],
-    ['Rychlé načítání na mobilu','Web nad 3 vteřiny ztrácí hosty dřív, než něco uvidí.',''],
-    ['Otevírací doba viditelná hned','Nejčastější důvod návštěvy webu. Bez hledání.','Baroko: dynamická otevírací doba s aktuálním stavem.'],
-  ]},
-  {cat:'B · Orientace (co u vás je)',items:[
-    ['Aktuální menu s cenami','Bez cen host odejde. Menu na webu, ne nečitelné PDF.',''],
-    ['Denní menu / aktuální nabídka','Snadno aktualizovatelné bez programátora.',''],
-    ['Označení alergenů a diet','Rozhoduje, jestli k vám skupina vůbec přijde.',''],
-  ]},
-  {cat:'C · Rozhodnutí (proč zrovna vy)',items:[
-    ['Aktuální akce a události','Důvod přijít právě teď, ne někdy.','Baroko: akce přímo v hero, první co host uvidí.'],
-    ['Atmosféra v obrazech','Host si potřebuje představit, že tam sedí.',''],
-    ['Příběh podniku','Lidé chodí za lidmi a příběhem, ne za anonymní kuchyní.',''],
-    ['Jasná cenová hladina','Host chce vědět, jestli je to na něj.',''],
-  ]},
-  {cat:'D · Rezervace (klíčový moment)',items:[
-    ['Online rezervační systém','Host chce rezervovat ve 23:00 z gauče, ne volat.','Baroko: chytrý rezervační formulář přímo na webu.'],
-    ['Rezervace dostupná z každé stránky','Tlačítko stále po ruce, ne schované v kontaktu.',''],
-    ['Potvrzení a připomínka rezervace','Snižuje no-show a působí profesionálně.',''],
-    ['Telefon na jeden klik','Kdo chce volat, ať klikne a vytočí.',''],
-  ]},
-  {cat:'E · Důvěra a dohledatelnost',items:[
-    ['Google recenze na webu','Hodnocení od hostů buduje důvěru víc než vaše slova.','Na Rachačkách: Google hodnocení napojené na web.'],
-    ['Mapa a snadná navigace','Vložená mapa, odkaz do navigace, parkování.',''],
-    ['Google profil propojený s webem','Tady vás lidé hledají nejvíc.',''],
-    ['Odkazy na sociální sítě','Propojené, aktivní, ne mrtvé.',''],
-    ['Web v souladu s GDPR','Nejen zákon — i signál, že to myslíte vážně.',''],
-    ['Konzistentní vizuální identita','Web, menu, sítě i podnik ladí. To dělá úroveň.',''],
-  ]},
-];
+document.addEventListener('astro:page-load', () => {
+  const c = document.getElementById('aurora');
+  if (!c) return;
 
-const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 6"/></svg>';
-let n=0;const listEl=document.getElementById('list');
-groups.forEach(g=>{
-  const cat=document.createElement('div');cat.className='cat';cat.textContent=g.cat;listEl.appendChild(cat);
-  g.items.forEach(([name,desc,ex])=>{
-    n++;const no=String(n).padStart(2,'0');
-    const it=document.createElement('div');it.className='item';it.dataset.on='0';
-    it.innerHTML=`<div class="box">${checkSvg}</div><div class="tx"><div class="n"><span class="no">${no}</span>${name}</div><div class="d">${desc}</div>${ex?`<div class="ex">${ex}</div>`:''}</div>`;
-    it.onclick=()=>{it.classList.toggle('on');it.dataset.on=it.classList.contains('on')?'1':'0';update()};
-    listEl.appendChild(it);
+  if (_raf !== null) { cancelAnimationFrame(_raf); _raf = null; }
+  _ac?.abort();
+  _ac = new AbortController();
+
+  const x = c.getContext('2d'); let W, H, t = 0;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function sz() { W = c.width = innerWidth; H = c.height = innerHeight; } sz();
+  window.addEventListener('resize', sz, { signal: _ac.signal });
+  const bl=[{cx:.25,cy:.35,r:.5,col:[86,33,94]},{cx:.75,cy:.3,r:.45,col:[59,18,67]},{cx:.55,cy:.7,r:.5,col:[142,77,151]},{cx:.4,cy:.5,r:.3,col:[245,189,2]}];
+  function dr(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,0,W,H);
+  bl.forEach((b,i)=>{const px=(b.cx+Math.sin(t+i*1.7)*.06)*W,py=(b.cy+Math.cos(t*.9+i*2.1)*.06)*H,rad=b.r*Math.min(W,H)*(i===3?.5:1);
+  const g=x.createRadialGradient(px,py,0,px,py,rad);const a=i===3?.12:.5;
+  g.addColorStop(0,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);g.addColorStop(1,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
+  x.fillStyle=g;x.beginPath();x.arc(px,py,rad,0,7);x.fill()});if(!reduce)_raf=requestAnimationFrame(dr);}
+  dr();
+
+  const groups=[
+    {cat:'A · První dojem (první 3 vteřiny)',items:[
+      ['Jasné sdělení, kdo jste a co nabízíte','Návštěvník do 3 vteřin pozná typ podniku a atmosféru.','Baroko: koncept „restaurace a bar" hned v hero sekci.'],
+      ['Kvalitní fotky jídla a prostoru','Host jí očima. Vlastní profesionální foto, ne stock.',''],
+      ['Rychlé načítání na mobilu','Web nad 3 vteřiny ztrácí hosty dřív, než něco uvidí.',''],
+      ['Otevírací doba viditelná hned','Nejčastější důvod návštěvy webu. Bez hledání.','Baroko: dynamická otevírací doba s aktuálním stavem.'],
+    ]},
+    {cat:'B · Orientace (co u vás je)',items:[
+      ['Aktuální menu s cenami','Bez cen host odejde. Menu na webu, ne nečitelné PDF.',''],
+      ['Denní menu / aktuální nabídka','Snadno aktualizovatelné bez programátora.',''],
+      ['Označení alergenů a diet','Rozhoduje, jestli k vám skupina vůbec přijde.',''],
+    ]},
+    {cat:'C · Rozhodnutí (proč zrovna vy)',items:[
+      ['Aktuální akce a události','Důvod přijít právě teď, ne někdy.','Baroko: akce přímo v hero, první co host uvidí.'],
+      ['Atmosféra v obrazech','Host si potřebuje představit, že tam sedí.',''],
+      ['Příběh podniku','Lidé chodí za lidmi a příběhem, ne za anonymní kuchyní.',''],
+      ['Jasná cenová hladina','Host chce vědět, jestli je to na něj.',''],
+    ]},
+    {cat:'D · Rezervace (klíčový moment)',items:[
+      ['Online rezervační systém','Host chce rezervovat ve 23:00 z gauče, ne volat.','Baroko: chytrý rezervační formulář přímo na webu.'],
+      ['Rezervace dostupná z každé stránky','Tlačítko stále po ruce, ne schované v kontaktu.',''],
+      ['Potvrzení a připomínka rezervace','Snižuje no-show a působí profesionálně.',''],
+      ['Telefon na jeden klik','Kdo chce volat, ať klikne a vytočí.',''],
+    ]},
+    {cat:'E · Důvěra a dohledatelnost',items:[
+      ['Google recenze na webu','Hodnocení od hostů buduje důvěru víc než vaše slova.','Na Rachačkách: Google hodnocení napojené na web.'],
+      ['Mapa a snadná navigace','Vložená mapa, odkaz do navigace, parkování.',''],
+      ['Google profil propojený s webem','Tady vás lidé hledají nejvíc.',''],
+      ['Odkazy na sociální sítě','Propojené, aktivní, ne mrtvé.',''],
+      ['Web v souladu s GDPR','Nejen zákon — i signál, že to myslíte vážně.',''],
+      ['Konzistentní vizuální identita','Web, menu, sítě i podnik ladí. To dělá úroveň.',''],
+    ]},
+  ];
+
+  const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M5 12l5 5L20 6"/></svg>';
+  let n=0;
+  const listEl=document.getElementById('list');
+  listEl.innerHTML='';
+
+  groups.forEach(g=>{
+    const cat=document.createElement('div');cat.className='cat';cat.textContent=g.cat;listEl.appendChild(cat);
+    g.items.forEach(([name,desc,ex])=>{
+      n++;const no=String(n).padStart(2,'0');
+      const it=document.createElement('div');it.className='item';it.dataset.on='0';
+      it.innerHTML=`<div class="box">${checkSvg}</div><div class="tx"><div class="n"><span class="no">${no}</span>${name}</div><div class="d">${desc}</div>${ex?`<div class="ex">${ex}</div>`:''}</div>`;
+      it.onclick=()=>{it.classList.toggle('on');it.dataset.on=it.classList.contains('on')?'1':'0';update();};
+      listEl.appendChild(it);
+    });
   });
-});
-const TOTAL=n;
+  const TOTAL=n;
 
-function verdictFor(s){
-  if(s===0)return['Zaškrtejte prvky, které váš web má.','',''];
-  if(s>=17)return[`<b>Skvělá práce.</b> Web vám reálně pracuje.`,'Web pracuje pro vás','Máte hotovo, co většina restaurací nemá. Pár posledních detailů a jste na špičce.'];
-  if(s>=10)return[`<b>Solidní základ</b> — ale necháváte hosty na stole.`,'Solidní základ, ale…','Máte rozjeto, jenže chybějící prvky vás stojí rezervace každý týden. Dají se doplnit.'];
-  return[`<b>Web vás stojí rezervace</b> každý den.`,'Tady se ztrácí hosté','Web teď spíš brzdí než pomáhá. Dobrá zpráva: každý doplněný prvek je vidět hned.'];
-}
-function update(){
-  const s=[...document.querySelectorAll('.item')].filter(i=>i.dataset.on==='1').length;
-  document.getElementById('scoreNum').textContent=s;
-  document.getElementById('fill').style.width=(s/TOTAL*100)+'%';
-  const [v]=verdictFor(s);
-  document.getElementById('verdict').innerHTML=v;
-  const btn=document.getElementById('showResult');
-  btn.classList.toggle('ready',s>0);
-}
-update();
-
-function openModal(){
-  const s=[...document.querySelectorAll('.item')].filter(i=>i.dataset.on==='1').length;
-  const [,title,text]=verdictFor(s);
-  document.getElementById('mScore').textContent=s;
-  document.getElementById('mTitle').textContent=title||'Začněte zaškrtávat';
-  document.getElementById('mText').textContent=text||'';
-  document.getElementById('modal').classList.add('on');
-}
-document.getElementById('showResult').onclick=openModal;
-document.getElementById('close').onclick=()=>document.getElementById('modal').classList.remove('on');
-document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')document.getElementById('modal').classList.remove('on')};
-document.getElementById('send').onclick=async()=>{
-  const emailEl=document.getElementById('email');
-  const sendBtn=document.getElementById('send');
-  const e=emailEl.value.trim();
-  if(!/^[^@]+@[^@]+\.[^@]+$/.test(e)){emailEl.style.borderColor='#D64545';return}
-  emailEl.style.borderColor='';
-  sendBtn.disabled=true;sendBtn.textContent='Odesílám…';
-  const items=[...document.querySelectorAll('.item')];
-  const s=items.filter(i=>i.dataset.on==='1').length;
-  const[,verdict,verdictText]=verdictFor(s);
-  const getName=i=>i.querySelector('.n').textContent.replace(/^\d+\s*/,'').trim();
-  const checked=items.filter(i=>i.dataset.on==='1').map(getName);
-  const missing=items.filter(i=>i.dataset.on==='0').map(getName);
-  try{
-    const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({type:'restaurant',email:e,score:s,total:TOTAL,verdict,verdictText,checked,missing})});
-    const data=await res.json();
-    if(res.ok&&data.ok){
-      emailEl.value='';emailEl.disabled=true;
-      document.getElementById('ok').classList.add('on');
-    }else{
-      sendBtn.disabled=false;sendBtn.textContent='Poslat plán';
-      emailEl.style.borderColor='#D64545';
-    }
-  }catch{
-    sendBtn.disabled=false;sendBtn.textContent='Poslat plán';
+  function verdictFor(s){
+    if(s===0)return['Zaškrtejte prvky, které váš web má.','',''];
+    if(s>=17)return['<b>Skvělá práce.</b> Web vám reálně pracuje.','Web pracuje pro vás','Máte hotovo, co většina restaurací nemá. Pár posledních detailů a jste na špičce.'];
+    if(s>=10)return['<b>Solidní základ</b> — ale necháváte hosty na stole.','Solidní základ, ale…','Máte rozjeto, jenže chybějící prvky vás stojí rezervace každý týden. Dají se doplnit.'];
+    return['<b>Web vás stojí rezervace</b> každý den.','Tady se ztrácí hosté','Web teď spíš brzdí než pomáhá. Dobrá zpráva: každý doplněný prvek je vidět hned.'];
   }
-};
+  function update(){
+    const s=[...document.querySelectorAll('.item')].filter(i=>i.dataset.on==='1').length;
+    document.getElementById('scoreNum').textContent=s;
+    document.getElementById('fill').style.width=(s/TOTAL*100)+'%';
+    const[v]=verdictFor(s);
+    document.getElementById('verdict').innerHTML=v;
+    document.getElementById('showResult').classList.toggle('ready',s>0);
+  }
+  update();
+
+  function openModal(){
+    const s=[...document.querySelectorAll('.item')].filter(i=>i.dataset.on==='1').length;
+    const[,title,text]=verdictFor(s);
+    document.getElementById('mScore').textContent=s;
+    document.getElementById('mTitle').textContent=title||'Začněte zaškrtávat';
+    document.getElementById('mText').textContent=text||'';
+    document.getElementById('modal').classList.add('on');
+  }
+  document.getElementById('showResult').onclick=openModal;
+  document.getElementById('close').onclick=()=>document.getElementById('modal').classList.remove('on');
+  document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')document.getElementById('modal').classList.remove('on');};
+  document.getElementById('send').onclick=async()=>{
+    const emailEl=document.getElementById('email');
+    const sendBtn=document.getElementById('send');
+    const e=emailEl.value.trim();
+    if(!/^[^@]+@[^@]+\.[^@]+$/.test(e)){emailEl.style.borderColor='#D64545';return;}
+    emailEl.style.borderColor='';
+    sendBtn.disabled=true;sendBtn.textContent='Odesílám…';
+    const items=[...document.querySelectorAll('.item')];
+    const s=items.filter(i=>i.dataset.on==='1').length;
+    const[,verdict,verdictText]=verdictFor(s);
+    const getName=i=>i.querySelector('.n').textContent.replace(/^\d+\s*/,'').trim();
+    const checked=items.filter(i=>i.dataset.on==='1').map(getName);
+    const missing=items.filter(i=>i.dataset.on==='0').map(getName);
+    try{
+      const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({type:'restaurant',email:e,score:s,total:TOTAL,verdict,verdictText,checked,missing})});
+      const data=await res.json();
+      if(res.ok&&data.ok){emailEl.value='';emailEl.disabled=true;document.getElementById('ok').classList.add('on');}
+      else{sendBtn.disabled=false;sendBtn.textContent='Poslat plán';emailEl.style.borderColor='#D64545';}
+    }catch{sendBtn.disabled=false;sendBtn.textContent='Poslat plán';}
+  };
+});
 </script>
 
 </Base>
