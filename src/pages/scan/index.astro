@@ -195,117 +195,111 @@ import Topbar from '../../components/Topbar.astro';
     }
   </style>
 
-  <script is:inline>
-    const $=s=>document.querySelector(s);
-    const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  <script>
+    let _raf = null;
+    let _ac = null;
 
-    /* ----- AURORA pozadí ----- */
-    const c=$('#aurora'),x=c.getContext('2d');let W,H,t=0;
-    function size(){W=c.width=innerWidth;H=c.height=innerHeight}
-    size();addEventListener('resize',size);
-    const blobs=[{cx:.25,cy:.35,r:.5,col:[86,33,94]},{cx:.75,cy:.3,r:.45,col:[59,18,67]},{cx:.55,cy:.7,r:.5,col:[142,77,151]},{cx:.4,cy:.5,r:.3,col:[245,189,2]}];
-    function draw(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,0,W,H);
-      blobs.forEach((b,i)=>{const px=(b.cx+Math.sin(t+i*1.7)*.06)*W,py=(b.cy+Math.cos(t*.9+i*2.1)*.06)*H,rad=b.r*Math.min(W,H)*(i===3?.5:1);
-      const g=x.createRadialGradient(px,py,0,px,py,rad);const a=i===3?.13:.5;
-      g.addColorStop(0,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);g.addColorStop(1,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
-      x.fillStyle=g;x.beginPath();x.arc(px,py,rad,0,7);x.fill()});
-      if(!reduce)requestAnimationFrame(draw)}
-    draw();
+    document.addEventListener('astro:page-load', () => {
+      const c = document.getElementById('aurora');
+      if (!c) return;
 
-    /* ----- SCAN logika ----- */
-    const statuses=['Načítám web…','Měřím rychlost…','Kontroluji mobilní verzi…','Prověřuji SEO základy…','Testuju bezpečnostní hlavičky…','Měřím ekologickou stopu…','Skládám výsledky…'];
-    let stI=0,stTimer,lastScanData=null;
+      if (_raf !== null) { cancelAnimationFrame(_raf); _raf = null; }
+      _ac?.abort();
+      _ac = new AbortController();
+      const sig = _ac.signal;
 
-    function showError(msg){$('#errMsg').textContent=msg;$('#errMsg').style.display='block'}
-    function clearError(){$('#errMsg').style.display='none'}
+      const $ = s => document.querySelector(s);
+      const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-    $('#scanBtn').onclick=async()=>{
-      let url=$('#urlInput').value.trim();
-      if(!url){showError('Zadejte adresu webu.');return}
-      if(!/^https?:\/\//.test(url))url='https://'+url;
-      if(!/^https?:\/\/.+\..+/.test(url)){showError('Zadejte platnou adresu včetně domény.');return}
-      clearError();
-      $('#formStep').style.display='none';
-      $('#scanning').classList.add('on');
-      stI=0;$('#status').textContent=statuses[0];
-      stTimer=setInterval(()=>{stI=(stI+1)%statuses.length;$('#status').textContent=statuses[stI]},2600);
+      /* AURORA */
+      const x = c.getContext('2d'); let W, H, t = 0;
+      function size() { W = c.width = innerWidth; H = c.height = innerHeight; }
+      size();
+      window.addEventListener('resize', size, { signal: sig });
+      const blobs=[{cx:.25,cy:.35,r:.5,col:[86,33,94]},{cx:.75,cy:.3,r:.45,col:[59,18,67]},{cx:.55,cy:.7,r:.5,col:[142,77,151]},{cx:.4,cy:.5,r:.3,col:[245,189,2]}];
+      function draw(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,0,W,H);
+        blobs.forEach((b,i)=>{const px=(b.cx+Math.sin(t+i*1.7)*.06)*W,py=(b.cy+Math.cos(t*.9+i*2.1)*.06)*H,rad=b.r*Math.min(W,H)*(i===3?.5:1);
+        const g=x.createRadialGradient(px,py,0,px,py,rad);const a=i===3?.13:.5;
+        g.addColorStop(0,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);g.addColorStop(1,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
+        x.fillStyle=g;x.beginPath();x.arc(px,py,rad,0,7);x.fill()});
+        if(!reduce)_raf=requestAnimationFrame(draw);}
+      draw();
 
-      try{
-        const r=await fetch(`/api/scan?url=${encodeURIComponent(url)}&strategy=mobile`);
-        const data=await r.json();
-        clearInterval(stTimer);
-        if(!r.ok){throw new Error(data.error||'Scan se nezdařil.')}
-        saveUrl(url);
-        lastScanData=data;
-        renderResults(data);
-      }catch(e){
-        clearInterval(stTimer);
+      /* SCAN */
+      const statuses=['Načítám web…','Měřím rychlost…','Kontroluji mobilní verzi…','Prověřuji SEO základy…','Testuju bezpečnostní hlavičky…','Měřím ekologickou stopu…','Skládám výsledky…'];
+      let stI=0, stTimer=null, lastScanData=null;
+
+      function showError(msg){$('#errMsg').textContent=msg;$('#errMsg').style.display='block';}
+      function clearError(){$('#errMsg').style.display='none';}
+
+      $('#scanBtn').onclick=async()=>{
+        let url=$('#urlInput').value.trim();
+        if(!url){showError('Zadejte adresu webu.');return;}
+        if(!/^https?:\/\//.test(url))url='https://'+url;
+        if(!/^https?:\/\/.+\..+/.test(url)){showError('Zadejte platnou adresu včetně domény.');return;}
+        clearError();
+        $('#formStep').style.display='none';
+        $('#scanning').classList.add('on');
+        stI=0;$('#status').textContent=statuses[0];
+        stTimer=setInterval(()=>{stI=(stI+1)%statuses.length;$('#status').textContent=statuses[stI];},2600);
+        try{
+          const r=await fetch(`/api/scan?url=${encodeURIComponent(url)}&strategy=mobile`);
+          const data=await r.json();
+          clearInterval(stTimer);
+          if(!r.ok){throw new Error(data.error||'Scan se nezdařil.');}
+          saveUrl(url);lastScanData=data;renderResults(data);
+        }catch(e){
+          clearInterval(stTimer);
+          $('#scanning').classList.remove('on');
+          $('#formStep').style.display='block';
+          showError(e.message||'Něco se pokazilo. Zkuste to prosím znovu.');
+        }
+      };
+
+      function ring(val){
+        const col=val>=90?'#2FA968':val>=50?'#F5BD02':'#D64545';
+        const r=32,circ=2*Math.PI*r,off=circ*(1-(val||0)/100);
+        return `<div class="ring"><svg width="74" height="74"><circle cx="37" cy="37" r="${r}" fill="none" stroke="rgba(247,247,247,.1)" stroke-width="6"/><circle cx="37" cy="37" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/></svg><span class="val" style="color:${col}">${val??'–'}</span></div>`;
+      }
+
+      function renderResults(d){
         $('#scanning').classList.remove('on');
-        $('#formStep').style.display='block';
-        showError(e.message||'Něco se pokazilo. Zkuste to prosím znovu.');
+        $('#resUrl').textContent=d.url;
+        const map=[['performance','Rychlost'],['seo','SEO'],['accessibility','Přístupnost'],['bestPractices','Kód & postupy']];
+        let html=map.map(([k,lbl])=>`<div class="sc">${ring(d.scores[k])}<div class="lbl">${lbl}</div></div>`).join('');
+        if(d.observatory){html+=`<div class="sc">${ring(d.observatory.score)}<div class="lbl">HTTP hlavičky</div><div class="sc-grade">${d.observatory.grade}</div></div>`;}
+        else{html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">HTTP hlavičky</div></div>`;}
+        if(d.green&&d.green.score!=null){const gl=d.green.green?'🌱 Zelený hosting':'⚫ Konvenční hosting';html+=`<div class="sc">${ring(d.green.score)}<div class="lbl">Ekologie</div><div class="sc-sub">${gl}</div></div>`;}
+        else{html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">Ekologie</div></div>`;}
+        $('#scores').innerHTML=html;
+        $('#results').classList.add('on');
       }
-    };
 
-    function ring(val){
-      const col=val>=90?'#2FA968':val>=50?'#F5BD02':'#D64545';
-      const r=32,circ=2*Math.PI*r,off=circ*(1-(val||0)/100);
-      return `<div class="ring"><svg width="74" height="74">
-        <circle cx="37" cy="37" r="${r}" fill="none" stroke="rgba(247,247,247,.1)" stroke-width="6"/>
-        <circle cx="37" cy="37" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round"
-          stroke-dasharray="${circ}" stroke-dashoffset="${off}"/>
-        </svg><span class="val" style="color:${col}">${val??'–'}</span></div>`;
-    }
+      /* URL HISTORIE */
+      const H_KEY='gp_scan_urls';
+      function loadHistory(){try{return JSON.parse(localStorage.getItem(H_KEY)||'[]');}catch{return[];}}
+      function saveUrl(u){let h=loadHistory().filter(v=>v!==u);h.unshift(u);h=h.slice(0,10);localStorage.setItem(H_KEY,JSON.stringify(h));renderDL();}
+      function renderDL(){const dl=document.getElementById('url-history');if(dl)dl.innerHTML=loadHistory().map(u=>`<option value="${u}">`).join('');}
+      renderDL();
+      $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#scanBtn').click();},{signal:sig});
 
-    function renderResults(d){
-      $('#scanning').classList.remove('on');
-      $('#resUrl').textContent=d.url;
-      const map=[['performance','Rychlost'],['seo','SEO'],['accessibility','Přístupnost'],['bestPractices','Kód & postupy']];
-      let html=map.map(([k,lbl])=>`<div class="sc">${ring(d.scores[k])}<div class="lbl">${lbl}</div></div>`).join('');
-      if(d.observatory){
-        html+=`<div class="sc">${ring(d.observatory.score)}<div class="lbl">HTTP hlavičky</div><div class="sc-grade">${d.observatory.grade}</div></div>`;
-      }else{
-        html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">HTTP hlavičky</div></div>`;
-      }
-      if(d.green&&d.green.score!=null){
-        const gl=d.green.green?'🌱 Zelený hosting':'⚫ Konvenční hosting';
-        html+=`<div class="sc">${ring(d.green.score)}<div class="lbl">Ekologie</div><div class="sc-sub">${gl}</div></div>`;
-      }else{
-        html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">Ekologie</div></div>`;
-      }
-      $('#scores').innerHTML=html;
-      $('#results').classList.add('on');
-    }
-
-    /* ----- URL historie ----- */
-    const H_KEY='gp_scan_urls';
-    function loadHistory(){try{return JSON.parse(localStorage.getItem(H_KEY)||'[]')}catch{return[]}}
-    function saveUrl(u){let h=loadHistory().filter(x=>x!==u);h.unshift(u);h=h.slice(0,10);localStorage.setItem(H_KEY,JSON.stringify(h));renderDL()}
-    function renderDL(){const dl=document.getElementById('url-history');if(dl)dl.innerHTML=loadHistory().map(u=>`<option value="${u}">`).join('')}
-    renderDL();
-    $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#scanBtn').click()});
-
-    /* ----- LEAD capture ----- */
-    $('#sendBtn').onclick=async()=>{
-      const email=$('#emailInput').value.trim();
-      if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){showError('Zadejte platný e-mail.');return}
-      clearError();
-      $('#sendBtn').disabled=true;
-      $('#sendBtn').textContent='Odesílám…';
-      try{
-        const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({type:'scan',email,...(lastScanData||{})})});
-        const data=await res.json();
-        if(res.ok&&data.ok){
-          $('#emailInput').value='';$('#emailInput').disabled=true;
-          $('#okMsg').classList.add('on');
-        }else{
-          showError(data.error||'Něco se pokazilo. Zkuste znovu.');
+      /* LEAD CAPTURE */
+      $('#sendBtn').onclick=async()=>{
+        const email=$('#emailInput').value.trim();
+        if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){showError('Zadejte platný e-mail.');return;}
+        clearError();
+        $('#sendBtn').disabled=true;$('#sendBtn').textContent='Odesílám…';
+        try{
+          const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({type:'scan',email,...(lastScanData||{})})});
+          const data=await res.json();
+          if(res.ok&&data.ok){$('#emailInput').value='';$('#emailInput').disabled=true;$('#okMsg').classList.add('on');}
+          else{showError(data.error||'Něco se pokazilo. Zkuste znovu.');$('#sendBtn').disabled=false;$('#sendBtn').textContent='Poslat výsledky';}
+        }catch{
+          showError('Problém s připojením. Zkuste znovu.');
           $('#sendBtn').disabled=false;$('#sendBtn').textContent='Poslat výsledky';
         }
-      }catch{
-        showError('Problém s připojením. Zkuste znovu.');
-        $('#sendBtn').disabled=false;$('#sendBtn').textContent='Poslat výsledky';
-      }
-    };
+      };
+    });
   </script>
 </Base>
