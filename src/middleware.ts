@@ -29,41 +29,9 @@ const limiters = redis
     }
   : null;
 
-const PREVIEW_SECRET = 'goldenpurple2026';
-const BYPASS_COOKIE  = 'gp_preview';
-
-function hasBypassCookie(request: Request): boolean {
-  return (request.headers.get('cookie') ?? '').includes(`${BYPASS_COOKIE}=1`);
-}
-
-function isPublicPath(path: string): boolean {
-  return (
-    path === '/coming-soon' ||
-    path.startsWith('/api/') ||
-    path.startsWith('/assets/') ||
-    path.startsWith('/_astro/') ||
-    path === '/favicon.svg' ||
-    path === '/favicon.ico' ||
-    path === '/robots.txt' ||
-    path === '/sitemap.xml'
-  );
-}
-
 export const onRequest = defineMiddleware(async ({ request }, next) => {
   const url  = new URL(request.url);
   const path = url.pathname;
-
-  // Coming soon gate
-  if (!isPublicPath(path)) {
-    if (url.searchParams.get('preview') === PREVIEW_SECRET) {
-      const res = new Response(null, { status: 302, headers: { Location: '/' } });
-      res.headers.set('Set-Cookie', `${BYPASS_COOKIE}=1; Path=/; Max-Age=2592000; SameSite=Lax; Secure`);
-      return res;
-    }
-    if (!hasBypassCookie(request)) {
-      return new Response(null, { status: 302, headers: { Location: '/coming-soon' } });
-    }
-  }
 
   // Rate limiting — POST API routes + GET /api/scan
   if (limiters && (request.method === 'POST' || (request.method === 'GET' && path === '/api/scan'))) {
