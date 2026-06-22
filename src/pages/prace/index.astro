@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
+import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('prace', ({ data }) => !data.draft))
@@ -92,19 +93,10 @@ const rest = projects.slice(1);
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
-    <span><b>Golden <span class="p">Purple</span></b> · © <span id="yr"></span></span>
-    <span>Digitálně kreativní agentura · Třebíč · Jihlava · Brno</span>
-  </div>
-</footer>
+<Footer />
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const yr = document.getElementById('yr');
-    if (!yr) return;
-    yr.textContent = String(new Date().getFullYear());
-
     const io = new IntersectionObserver(
       (es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); },
       { threshold: .08, rootMargin: '0px 0px -5% 0px' }
@@ -176,12 +168,6 @@ const rest = projects.slice(1);
 .btn{display:inline-flex;align-items:center;gap:11px;background:var(--gold);color:var(--ink);padding:17px 36px;border-radius:100px;font-family:var(--display);font-weight:600;font-size:1.05rem;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,189,2,.4)}
 @keyframes shine{to{background-position:-200% 0}}
-
-/* FOOTER */
-footer{border-top:1px solid var(--line);padding:40px 0;font-size:.84rem;color:var(--muted)}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
-footer b{font-family:var(--display);font-weight:700}
-footer b .p{color:var(--gold)}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
