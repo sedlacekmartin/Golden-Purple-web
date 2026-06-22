@@ -93,17 +93,22 @@ const rest = projects.slice(1);
 </section>
 
 <script>
+  let _io = null;
+
   document.addEventListener('astro:page-load', () => {
-    const io = new IntersectionObserver(
-      (es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); },
+    _io?.disconnect();
+    const revs = [...document.querySelectorAll('.reveal')];
+    revs.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; });
+
+    // Synchronní reveal elementů, které jsou už ve viewportu — nečekat na IO callback
+    revs.forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('in'); });
+
+    _io = new IntersectionObserver(
+      (es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io.unobserve(e.target); } }); },
       { threshold: .08, rootMargin: '0px 0px -5% 0px' }
     );
-    const revs = document.querySelectorAll('.reveal');
-    revs.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; io.observe(el); });
-    setTimeout(() => {
-      revs.forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * 1.1) el.classList.add('in'); });
-    }, 200);
-    setTimeout(() => revs.forEach(el => el.classList.add('in')), 1200);
+    revs.forEach(el => _io.observe(el));
+    setTimeout(() => revs.forEach(el => el.classList.add('in')), 600);
   });
 </script>
 

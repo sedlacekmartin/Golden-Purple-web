@@ -894,6 +894,15 @@ function initIndex() {
   }, { root: null, threshold: .45 });
   panels.forEach(p => _io!.observe(p));
 
+  // Synchronní aktivace panelu, který je teď ve viewportu — IO je async a mohl by přijít pozdě
+  panels.forEach((p, i) => {
+    const r = p.getBoundingClientRect();
+    if (r.top < innerHeight && r.bottom > 0) {
+      p.classList.add('active');
+      dots.forEach((d, j) => d.classList.toggle('on', j === i));
+    }
+  });
+
   // Keyboard nav
   document.addEventListener('keydown', e => {
     const cur = panels.findIndex(p => p.classList.contains('active'));
