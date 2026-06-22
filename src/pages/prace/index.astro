@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
-import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('prace', ({ data }) => !data.draft))
@@ -92,8 +91,6 @@ const rest = projects.slice(1);
     </a>
   </div>
 </section>
-
-<Footer />
 
 <script>
   document.addEventListener('astro:page-load', () => {

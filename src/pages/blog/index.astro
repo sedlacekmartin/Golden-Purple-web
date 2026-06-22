@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
-import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -100,8 +99,6 @@ const rest = posts.slice(1);
     )}
   </>
 )}
-
-<Footer />
 
 <script>
   document.addEventListener('astro:page-load', () => {

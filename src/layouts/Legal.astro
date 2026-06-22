@@ -1,7 +1,6 @@
 ---
 import Base from './Base.astro';
 import Topbar from '../components/Topbar.astro';
-import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -33,7 +32,6 @@ const { title, description, updatedDate } = Astro.props;
       </div>
     </div>
   </div>
-  <Footer />
 </Base>
 
 <style is:global>
