@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -10,9 +12,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   title="Blog — Golden Purple"
   description="Tipy, postupy a pohled za oponu digitálního marketingu a brandingu od Golden Purple."
 >
-  <div class="topbar-simple">
-    <a href="/" class="logo-link">← Golden Purple</a>
-  </div>
+  <Topbar />
 
   <div class="list-wrap">
     <header class="list-header">
@@ -44,24 +44,16 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
       </div>
     )}
   </div>
+
+  <Footer />
 </Base>
 
 <style is:global>
-  .topbar-simple {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
-    padding: 22px clamp(28px, 6vw, 100px);
-  }
-  .topbar-simple .logo-link {
-    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
-    font-weight: 600; color: var(--muted); transition: color .2s;
-  }
-  .topbar-simple .logo-link:hover { color: var(--gold); }
-
   .eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
 
   .list-wrap {
     max-width: 1100px; margin: 0 auto;
-    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
+    padding: clamp(130px, 16vh, 160px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
   }
 
   .list-header { margin-bottom: clamp(40px, 7vh, 72px); }
