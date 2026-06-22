@@ -1,5 +1,8 @@
 ---
 import Base from './Base.astro';
+import Topbar from '../components/Topbar.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
@@ -12,136 +15,177 @@ interface Props {
 
 const { title, description, pubDate, updatedDate, image, tags = [] } = Astro.props;
 
-const formattedPubDate = pubDate.toLocaleDateString('cs-CZ', {
-  year: 'numeric', month: 'long', day: 'numeric',
-});
-const formattedUpdated = updatedDate?.toLocaleDateString('cs-CZ', {
-  year: 'numeric', month: 'long', day: 'numeric',
-});
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const dateStr = pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' });
+const updatedStr = updatedDate?.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' });
+const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 ---
 
-<Base title={`${title} — Golden Purple`} description={description} image={image}>
-  <div class="topbar-simple">
-    <a href="/" class="logo-link">← Golden Purple</a>
-  </div>
+<Base title={`${title} — Blog — Golden Purple`} description={description} image={image}>
 
-  <article class="post-wrap">
-    <header class="post-header">
+<div class="bp-prog" id="bp-prog"></div>
+
+<Topbar />
+
+<article>
+  <header class="bp-hero">
+    <div class="bpw">
       {tags.length > 0 && (
-        <div class="tags">
-          {tags.map(tag => <span class="tag">{tag}</span>)}
+        <div class="bp-kick rv">
+          {tags.map(t => <span class="bp-tag">{t}</span>)}
         </div>
       )}
-      <h1>{title}</h1>
-      <p class="lead">{description}</p>
-      <time datetime={pubDate.toISOString()}>
-        {formattedPubDate}
-        {updatedDate && <span class="updated"> · Aktualizováno {formattedUpdated}</span>}
-      </time>
-    </header>
-
-    {image && <img src={image} alt={title} class="post-hero" />}
-
-    <div class="prose">
-      <slot />
+      <h1 class="rv">{title}</h1>
+      <p class="bp-lead rv">{description}</p>
+      <div class="bp-meta rv">
+        <time datetime={pubDate.toISOString()}>{dateStr}</time>
+        {updatedStr && <span class="bp-upd">&nbsp;· aktualizováno {updatedStr}</span>}
+      </div>
     </div>
-  </article>
+  </header>
 
-  <footer class="post-footer">
-    <a href="/blog" class="back-link">← Zpět na blog</a>
-  </footer>
+  {image && (
+    <div class="bp-cover rv">
+      <div class="bpww">
+        <img src={image} alt={title} />
+      </div>
+    </div>
+  )}
+
+  <div class="bp-prose bpw">
+    <slot />
+  </div>
+</article>
+
+{morePosts.length > 0 && (
+  <section class="bp-more bpw">
+    <div class="bp-mlab rv">Další články</div>
+    <div class="bp-mgrid">
+      {morePosts.map(p => (
+        <a class="bp-mcard rv" href={`/blog/${p.id}`}>
+          <div class="bp-mc-body">
+            {p.data.tags.length > 0 && <div class="bp-mt">{p.data.tags.slice(0,2).join(' · ')}</div>}
+            <h4>{p.data.title}</h4>
+            <p>{p.data.description}</p>
+          </div>
+          <span class="bp-arr">→</span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<section class="bp-cta">
+  <div class="bp-cglow"></div>
+  <h2 class="rv">Řešíte web nebo brand? <em>Ozvi se.</em></h2>
+  <p class="rv">Napište pár slov o tom, co potřebujete. Ozveme se do dvou dnů s konkrétními nápady.</p>
+  <a class="bp-btn rv" href="/#kontakt">
+    Pojďme do toho
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
+
+<Footer />
+
+<script>
+  let _ac = null;
+
+  document.addEventListener('astro:page-load', () => {
+    const prog = document.getElementById('bp-prog');
+    if (!prog) return;
+
+    _ac?.abort();
+    _ac = new AbortController();
+    const sig = _ac.signal;
+
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+    }, { passive: true, signal: sig });
+
+    const io = new IntersectionObserver(
+      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+      { threshold: .1 }
+    );
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+    setTimeout(() => document.querySelectorAll('.rv').forEach(el => el.classList.add('in')), 1200);
+  });
+</script>
+
 </Base>
 
 <style is:global>
-  .topbar-simple {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
-    padding: 22px clamp(28px, 6vw, 100px);
-  }
-  .topbar-simple .logo-link {
-    font-size: .82rem; letter-spacing: .14em; text-transform: uppercase;
-    font-weight: 600; color: var(--muted); transition: color .2s;
-  }
-  .topbar-simple .logo-link:hover { color: var(--gold); }
+.bpw  { max-width:860px;  margin:0 auto; padding:0 clamp(22px,5vw,56px) }
+.bpww { max-width:1180px; margin:0 auto; padding:0 clamp(22px,5vw,56px) }
 
-  .post-wrap {
-    max-width: 760px; margin: 0 auto;
-    padding: clamp(100px, 14vh, 140px) clamp(28px, 6vw, 60px) clamp(60px, 10vh, 100px);
-  }
+/* PROGRESS */
+#bp-prog { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));z-index:90;width:0;pointer-events:none }
 
-  .post-header { margin-bottom: 48px; }
+/* HERO */
+.bp-hero { padding:150px 0 56px; position:relative; overflow:hidden }
+.bp-hero::before { content:''; position:absolute; top:-20%; right:-10%; width:55%; height:130%; background:radial-gradient(circle,rgba(86,33,94,.5),transparent 65%); filter:blur(70px); pointer-events:none }
+.bp-hero::after  { content:''; position:absolute; bottom:-30%; left:-8%;  width:40%; height:100%; background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%); filter:blur(80px); pointer-events:none }
+.bp-hero .bpw { position:relative; z-index:2 }
 
-  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .tag {
-    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;
-    font-weight: 600; color: var(--gold); border: 1px solid rgba(245,189,2,.3);
-    padding: 5px 12px; border-radius: 100px;
-  }
+.bp-kick { display:flex; align-items:center; gap:10px; margin-bottom:26px; flex-wrap:wrap }
+.bp-tag  { font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(245,189,2,.3); padding:7px 14px; border-radius:100px }
 
-  .post-header h1 {
-    font-family: var(--display); font-weight: 700;
-    font-size: clamp(2.2rem, 6vw, 4rem); line-height: .95;
-    letter-spacing: -.03em; margin-bottom: 20px;
-  }
+.bp-hero h1 { font-family:var(--display); font-weight:600; font-size:clamp(2.8rem,7vw,5.5rem); line-height:.93; letter-spacing:-.035em; margin-bottom:28px }
+.bp-lead { font-size:clamp(1.1rem,2vw,1.35rem); color:#D7CEDB; line-height:1.6; margin-bottom:24px }
+.bp-meta { font-size:.84rem; color:var(--muted) }
+.bp-upd  { opacity:.7 }
 
-  .post-header .lead {
-    font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: #D7CEDB;
-    line-height: 1.6; margin-bottom: 16px;
-  }
+/* COVER IMAGE */
+.bp-cover { padding:0 0 60px }
+.bp-cover img { width:100%; border-radius:20px; border:1px solid var(--line); display:block; aspect-ratio:16/9; object-fit:cover }
 
-  .post-header time {
-    font-size: .82rem; color: var(--muted); letter-spacing: .05em;
-  }
-  .updated { color: var(--muted); }
+/* PROSE */
+.bp-prose { padding:60px 0 90px }
+.bp-prose h2 { font-family:var(--display); font-weight:600; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 18px }
+.bp-prose h2:not(:first-child) { margin-top:60px }
+.bp-prose h3 { font-family:var(--display); font-weight:600; font-size:clamp(1.2rem,2.2vw,1.7rem); line-height:1.1; letter-spacing:-.015em; margin:40px 0 14px }
+.bp-prose p  { color:#CFC4D3; margin-bottom:18px; font-size:1.06rem; line-height:1.78 }
+.bp-prose p b, .bp-prose p strong { color:var(--paper); font-weight:600 }
+.bp-prose ul, .bp-prose ol { padding-left:1.4em; margin-bottom:20px; color:#CFC4D3 }
+.bp-prose li { margin-bottom:10px; font-size:1.02rem; line-height:1.65 }
+.bp-prose li::marker { color:var(--gold) }
+.bp-prose em { font-style:italic; color:var(--gold-soft) }
+.bp-prose hr { border:none; border-top:1px solid var(--line); margin:52px 0 }
+.bp-prose blockquote { border-left:3px solid var(--gold); padding:16px 24px; margin:32px 0; background:rgba(245,189,2,.06); border-radius:0 12px 12px 0 }
+.bp-prose blockquote p { color:var(--paper); font-size:1.1rem; margin:0; font-style:italic }
+.bp-prose img { width:100%; border-radius:14px; border:1px solid var(--line); margin:28px 0 }
+.bp-prose a { color:var(--gold); text-decoration:underline; text-underline-offset:3px }
+.bp-prose code { background:var(--ink-2); color:var(--gold-soft); padding:2px 7px; border-radius:5px; font-size:.9em }
+.bp-prose pre { background:var(--ink-2); border:1px solid var(--line); border-radius:10px; padding:1.2em; overflow-x:auto; margin-bottom:1.4em }
+.bp-prose pre code { background:none; padding:0; color:var(--paper) }
 
-  .post-hero {
-    width: 100%; border-radius: 14px; margin-bottom: 48px;
-    aspect-ratio: 16/9; object-fit: cover;
-  }
+/* DALŠÍ ČLÁNKY */
+.bp-more { border-top:1px solid var(--line); padding:60px 0 }
+.bp-mlab { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:24px }
+.bp-mgrid { display:grid; grid-template-columns:1fr 1fr; gap:20px }
+@media(max-width:640px) { .bp-mgrid { grid-template-columns:1fr } }
+.bp-mcard { border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; justify-content:space-between; align-items:center; gap:20px; transition:.35s; background:linear-gradient(150deg,var(--ink-2),var(--ink)) }
+.bp-mcard:hover { border-color:rgba(245,189,2,.4); transform:translateY(-4px) }
+.bp-mt { font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px }
+.bp-mcard h4 { font-family:var(--display); font-weight:600; font-size:1.2rem; margin-bottom:8px; line-height:1.15 }
+.bp-mc-body p { font-size:.88rem; color:#C6BBCC; line-height:1.5 }
+.bp-arr { color:var(--gold); font-size:1.4rem; flex-shrink:0 }
 
-  .prose { line-height: 1.75; color: #D7CEDB; }
-  .prose h2 {
-    font-family: var(--display); font-weight: 600;
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem); letter-spacing: -.02em;
-    color: var(--paper); margin: 2.5em 0 .8em; line-height: 1.1;
-  }
-  .prose h3 {
-    font-family: var(--display); font-weight: 600;
-    font-size: clamp(1.2rem, 2.5vw, 1.7rem); letter-spacing: -.015em;
-    color: var(--paper); margin: 2em 0 .6em;
-  }
-  .prose p { margin-bottom: 1.4em; }
-  .prose strong { color: var(--paper); font-weight: 600; }
-  .prose em { color: var(--gold-soft); font-style: normal; }
-  .prose a { color: var(--gold); border-bottom: 1px solid rgba(245,189,2,.4); transition: border-color .2s; }
-  .prose a:hover { border-color: var(--gold); }
-  .prose ul, .prose ol { padding-left: 1.4em; margin-bottom: 1.4em; }
-  .prose li { margin-bottom: .5em; }
-  .prose blockquote {
-    border-left: 3px solid var(--gold); padding-left: 1.2em;
-    margin: 2em 0; color: var(--muted);
-    font-style: italic; font-size: 1.05rem;
-  }
-  .prose img { width: 100%; border-radius: 10px; margin: 2em 0; }
-  .prose hr { border: none; border-top: 1px solid var(--line); margin: 2.5em 0; }
-  .prose code {
-    background: var(--ink-2); color: var(--gold-soft);
-    padding: 2px 7px; border-radius: 5px; font-size: .9em;
-  }
-  .prose pre {
-    background: var(--ink-2); border: 1px solid var(--line);
-    border-radius: 10px; padding: 1.2em; overflow-x: auto;
-    margin-bottom: 1.4em;
-  }
-  .prose pre code { background: none; padding: 0; color: var(--paper); }
+/* CTA */
+.bp-cta { text-align:center; padding:90px 0 110px; position:relative; overflow:hidden }
+.bp-cglow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:60%; height:200%; background:radial-gradient(circle,rgba(86,33,94,.35),transparent 60%); filter:blur(70px); pointer-events:none }
+.bp-cta h2 { position:relative; font-family:var(--display); font-weight:600; font-size:clamp(2rem,5vw,3.8rem); line-height:1; letter-spacing:-.02em; margin-bottom:20px }
+.bp-cta h2 em { font-style:normal; color:var(--gold) }
+.bp-cta p { position:relative; color:#CFC4D3; max-width:42ch; margin:0 auto 32px }
+.bp-btn { position:relative; display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--ink); font-family:var(--display); font-weight:600; font-size:1.08rem; padding:17px 32px; border-radius:100px; transition:transform .3s,box-shadow .3s }
+.bp-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(245,189,2,.4) }
+.bp-btn svg { transition:transform .3s }
+.bp-btn:hover svg { transform:translateX(5px) }
 
-  .post-footer {
-    max-width: 760px; margin: 0 auto;
-    padding: 0 clamp(28px, 6vw, 60px) clamp(60px, 10vh, 100px);
-    border-top: 1px solid var(--line); padding-top: 40px;
-  }
-  .back-link {
-    font-size: .9rem; color: var(--muted); transition: color .2s;
-    letter-spacing: .06em;
-  }
-  .back-link:hover { color: var(--gold); }
+/* REVEAL */
+.rv { opacity:0; transform:translateY(32px); transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1) }
+.rv.in { opacity:1; transform:none }
+@media(prefers-reduced-motion:reduce) { .rv { opacity:1; transform:none; transition:none } }
 </style>

@@ -6,96 +6,175 @@ import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featured = posts[0];
+const rest = posts.slice(1);
 ---
 
 <Base
   title="Blog — Golden Purple"
   description="Tipy, postupy a pohled za oponu digitálního marketingu a brandingu od Golden Purple."
 >
-  <Topbar />
 
-  <div class="list-wrap">
-    <header class="list-header">
-      <p class="eyebrow">Blog</p>
-      <h1>Tipy & <em>pohled za oponu</em>.</h1>
-    </header>
+<Topbar />
 
-    {posts.length === 0 ? (
-      <p class="empty">Zatím žádné příspěvky. Brzy se dočkáš.</p>
-    ) : (
-      <div class="post-grid">
-        {posts.map(post => (
-          <a href={`/blog/${post.slug}`} class="post-card">
-            {post.data.image && <img src={post.data.image} alt={post.data.title} class="card-img" />}
-            <div class="card-body">
-              {post.data.tags.length > 0 && (
-                <div class="card-tags">
-                  {post.data.tags.slice(0, 2).map(t => <span>{t}</span>)}
-                </div>
+<section class="bhero">
+  <div class="bwrap">
+    <span class="eyebrow rv">Blog</span>
+    <h1 class="rv">Tipy & <em>pohled za oponu</em>.</h1>
+    <p class="rv">Jak přemýšlíme o webu, brandingu a digitálním marketingu — bez zbytečné omáčky.</p>
+  </div>
+</section>
+
+{posts.length === 0 ? (
+  <div class="bwrap bempty rv">
+    <p>Zatím žádné příspěvky. Brzy se dočkáš.</p>
+  </div>
+) : (
+  <>
+    {featured && (
+      <section class="bfeatured">
+        <div class="bwrap">
+          <a class="bfcard rv" href={`/blog/${featured.id}`}>
+            <div class="bfvis">
+              {featured.data.image
+                ? <img src={featured.data.image} alt={featured.data.title} />
+                : <span class="bfbignum">01</span>
+              }
+              {featured.data.tags.length > 0 && (
+                <span class="bftag">{featured.data.tags.slice(0,2).join(' · ')}</span>
               )}
-              <h2>{post.data.title}</h2>
-              <p>{post.data.description}</p>
-              <time datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </time>
+            </div>
+            <div class="bfbody">
+              {featured.data.tags.length > 0 && (
+                <span class="bfkick">{featured.data.tags.join(' · ')}</span>
+              )}
+              <h2>{featured.data.title}</h2>
+              <p>{featured.data.description}</p>
+              <div class="bffooter">
+                <time datetime={featured.data.pubDate.toISOString()}>
+                  {featured.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <span class="bfgo">
+                  Číst článek
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
             </div>
           </a>
-        ))}
-      </div>
+        </div>
+      </section>
     )}
-  </div>
 
-  <Footer />
+    {rest.length > 0 && (
+      <section class="bgrid-sec">
+        <div class="bwrap">
+          <div class="bgh">Všechny články</div>
+          <div class="bgrid">
+            {rest.map((post, i) => (
+              <a class="bcard rv" href={`/blog/${post.id}`}>
+                {post.data.image
+                  ? <img src={post.data.image} alt={post.data.title} class="bcard-img" />
+                  : <div class="bcard-ph"><span class="bcard-n">0{i + 2}</span></div>
+                }
+                <div class="bcard-body">
+                  {post.data.tags.length > 0 && (
+                    <div class="bcard-tags">
+                      {post.data.tags.slice(0,2).map(t => <span>{t}</span>)}
+                    </div>
+                  )}
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                  <div class="bcard-foot">
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                    <span class="bcard-arr">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </>
+)}
+
+<Footer />
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const io = new IntersectionObserver(
+      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+      { threshold: .08, rootMargin: '0px 0px -5% 0px' }
+    );
+    const revs = document.querySelectorAll('.rv');
+    revs.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; io.observe(el); });
+    setTimeout(() => {
+      revs.forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * 1.1) el.classList.add('in'); });
+    }, 200);
+    setTimeout(() => revs.forEach(el => el.classList.add('in')), 1200);
+  });
+</script>
+
 </Base>
 
 <style is:global>
-  .eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+.bwrap { max-width:1280px; margin:0 auto; padding:0 clamp(24px,5vw,64px) }
 
-  .list-wrap {
-    max-width: 1100px; margin: 0 auto;
-    padding: clamp(130px, 16vh, 160px) clamp(28px, 6vw, 60px) clamp(80px, 12vh, 120px);
-  }
+/* HERO */
+.bhero { padding:160px 0 70px }
+.eyebrow { font-size:.78rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600; color:var(--gold); margin-bottom:22px; display:block }
+.bhero h1 { font-family:var(--display); font-weight:600; font-size:clamp(3rem,9vw,7rem); line-height:.92; letter-spacing:-.03em; max-width:14ch }
+.bhero h1 em { font-style:normal; color:var(--gold) }
+.bhero p { font-size:clamp(1.05rem,2vw,1.35rem); max-width:52ch; color:#D7CEDB; margin-top:26px }
 
-  .list-header { margin-bottom: clamp(40px, 7vh, 72px); }
-  .list-header h1 {
-    font-family: var(--display); font-weight: 700;
-    font-size: clamp(2.8rem, 8vw, 6rem); line-height: .9;
-    letter-spacing: -.04em; margin-top: 14px;
-  }
-  .list-header h1 em { font-style: normal; color: var(--gold); }
+.bempty { padding:60px 0 120px; color:var(--muted); font-size:1.05rem }
 
-  .empty { color: var(--muted); font-size: 1.05rem; }
+/* FEATURED */
+.bfeatured { padding:30px 0 24px }
+.bfcard { position:relative; display:grid; grid-template-columns:1.1fr 1fr; gap:0; background:linear-gradient(160deg,var(--ink-2),var(--ink)); border:1px solid var(--line); border-radius:24px; overflow:hidden; transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .4s; min-height:440px }
+.bfcard:hover { transform:translateY(-6px); border-color:var(--gold) }
+.bfvis { position:relative; background:radial-gradient(circle at 30% 30%,rgba(86,33,94,.6),transparent 60%),linear-gradient(135deg,#2a2030,#15101c); display:flex; align-items:center; justify-content:center; overflow:hidden }
+.bfvis img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; opacity:.8 }
+.bfbignum { font-family:var(--display); font-weight:700; font-size:13rem; line-height:1; color:transparent; -webkit-text-stroke:1.5px rgba(245,189,2,.25); user-select:none }
+.bftag { position:absolute; top:24px; left:24px; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--gold); background:rgba(245,189,2,.1); border:1px solid rgba(245,189,2,.25); padding:7px 14px; border-radius:100px; z-index:2 }
+.bfbody { padding:clamp(30px,4vw,54px); display:flex; flex-direction:column; justify-content:center }
+.bfkick { font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block }
+.bfbody h2 { font-family:var(--display); font-weight:600; font-size:clamp(2.2rem,4.5vw,3.4rem); line-height:.96; letter-spacing:-.02em; margin-bottom:18px }
+.bfbody p { color:#D7CEDB; font-size:1.05rem; margin-bottom:28px; max-width:42ch; line-height:1.6 }
+.bffooter { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap }
+.bffooter time { font-size:.82rem; color:var(--muted) }
+.bfgo { display:inline-flex; align-items:center; gap:8px; font-family:var(--display); font-weight:600; color:var(--gold); font-size:.95rem }
+.bfgo svg { transition:transform .3s }
+.bfcard:hover .bfgo svg { transform:translateX(5px) }
+@media(max-width:860px) { .bfcard { grid-template-columns:1fr } .bfvis { min-height:240px } .bfbignum { font-size:8rem } }
 
-  .post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 28px;
-  }
+/* GRID */
+.bgrid-sec { padding:24px 0 120px }
+.bgh { font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin:36px 0 24px; padding-bottom:14px; border-bottom:1px solid var(--line) }
+.bgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px }
+@media(max-width:960px) { .bgrid { grid-template-columns:repeat(2,1fr) } }
+@media(max-width:600px) { .bgrid { grid-template-columns:1fr } }
 
-  .post-card {
-    display: block; background: linear-gradient(160deg, var(--ink-2), var(--ink));
-    border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
-    transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;
-  }
-  .post-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+.bcard { position:relative; background:linear-gradient(160deg,var(--ink-2),var(--ink)); border:1px solid var(--line); border-radius:18px; overflow:hidden; transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s; display:flex; flex-direction:column }
+.bcard:hover { transform:translateY(-6px); border-color:var(--gold) }
+.bcard-img { width:100%; aspect-ratio:16/10; object-fit:cover; display:block }
+.bcard-ph { aspect-ratio:16/10; background:radial-gradient(circle at 60% 30%,rgba(86,33,94,.45),transparent 60%),linear-gradient(135deg,#241b2c,#140f1a); display:flex; align-items:center; justify-content:center }
+.bcard-n { font-family:var(--display); font-weight:700; font-size:5rem; color:transparent; -webkit-text-stroke:1px rgba(245,189,2,.2) }
+.bcard-body { padding:24px 26px 28px; flex:1; display:flex; flex-direction:column }
+.bcard-tags { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap }
+.bcard-tags span { font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:var(--gold) }
+.bcard h3 { font-family:var(--display); font-weight:600; font-size:1.4rem; letter-spacing:-.01em; margin-bottom:10px; line-height:1.1 }
+.bcard p { font-size:.92rem; color:#C6BBCC; line-height:1.5; margin-bottom:16px; flex:1 }
+.bcard-foot { display:flex; justify-content:space-between; align-items:center }
+.bcard-foot time { font-size:.76rem; color:var(--muted) }
+.bcard-arr { color:var(--gold); transition:transform .3s; font-style:normal }
+.bcard:hover .bcard-arr { transform:translateX(5px) }
 
-  .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-
-  .card-body { padding: 24px 22px; }
-
-  .card-tags { display: flex; gap: 8px; margin-bottom: 12px; }
-  .card-tags span {
-    font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
-    font-weight: 600; color: var(--gold);
-  }
-
-  .post-card h2 {
-    font-family: var(--display); font-weight: 600;
-    font-size: 1.3rem; letter-spacing: -.01em;
-    margin-bottom: 10px; line-height: 1.1;
-  }
-
-  .post-card p { font-size: .92rem; color: #CFC4D3; line-height: 1.5; margin-bottom: 14px; }
-
-  .post-card time { font-size: .78rem; color: var(--muted); }
+/* REVEAL */
+.rv { opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1) }
+.rv.in { opacity:1; transform:none }
+@media(prefers-reduced-motion:reduce) { .rv { opacity:1; transform:none; transition:none } }
 </style>
