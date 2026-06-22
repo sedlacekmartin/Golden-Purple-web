@@ -894,12 +894,18 @@ function initIndex() {
   }, { root: null, threshold: .45 });
   panels.forEach(p => _io!.observe(p));
 
-  // Synchronní aktivace panelu, který je teď ve viewportu — IO je async a mohl by přijít pozdě
+  // Okamžitá aktivace viditelného panelu — IO je async, cv elementy mají 0.9s transition
+  // které by způsobily blank page po VT animaci
   panels.forEach((p, i) => {
     const r = p.getBoundingClientRect();
     if (r.top < innerHeight && r.bottom > 0) {
+      // Potlačit transition pro cv elementy při prvním page-load po VT
+      p.querySelectorAll('.cv').forEach(el => { (el as HTMLElement).style.transition = 'none'; });
       p.classList.add('active');
       dots.forEach((d, j) => d.classList.toggle('on', j === i));
+      requestAnimationFrame(() => {
+        p.querySelectorAll('.cv').forEach(el => { (el as HTMLElement).style.transition = ''; });
+      });
     }
   });
 
