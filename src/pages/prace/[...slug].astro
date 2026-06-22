@@ -2,6 +2,8 @@
 import CaseStudy from '../../layouts/CaseStudy.astro';
 import { getCollection, render } from 'astro:content';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const projects = await getCollection('prace', ({ data }) => !data.draft);
   return projects.map(p => ({
