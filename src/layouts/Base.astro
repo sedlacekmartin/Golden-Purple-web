@@ -116,6 +116,74 @@ const ldSchema = {
 
   {!noFooter && <Footer />}
 
+  <!-- View-transition recovery: keep pages visible even if a local reveal script misses a swap. -->
+  <script>
+    (() => {
+      let revealObserver: IntersectionObserver | null = null;
+      const revealSelector = '.rv, .reveal, .cv';
+
+      function scrollToPageStart() {
+        if (location.hash) return;
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        document.querySelector<HTMLElement>('.scroller')?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      }
+
+      function settlePageStart() {
+        scrollToPageStart();
+        window.setTimeout(scrollToPageStart, 0);
+        window.setTimeout(scrollToPageStart, 80);
+      }
+
+      function revealVisible() {
+        const els = [...document.querySelectorAll<HTMLElement>(revealSelector)];
+        if (!els.length) return;
+
+        els.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.top < innerHeight && r.bottom > 0) {
+            el.style.transition = 'none';
+            el.classList.add('in', 'active');
+          }
+        });
+
+        requestAnimationFrame(() => {
+          els.forEach((el) => {
+            el.style.transition = '';
+          });
+        });
+      }
+
+      function initRevealFallback() {
+        revealObserver?.disconnect();
+        revealVisible();
+
+        const hidden = [...document.querySelectorAll<HTMLElement>(revealSelector)]
+          .filter((el) => !el.classList.contains('in') && !el.classList.contains('active'));
+
+        revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target as HTMLElement;
+            el.classList.add('in', 'active');
+            revealObserver?.unobserve(el);
+          });
+        }, { threshold: 0.04, rootMargin: '0px 0px -2% 0px' });
+
+        hidden.forEach((el) => revealObserver?.observe(el));
+
+        window.setTimeout(revealVisible, 120);
+        window.setTimeout(revealVisible, 600);
+      }
+
+      document.addEventListener('astro:after-swap', () => {
+        settlePageStart();
+        initRevealFallback();
+      });
+      document.addEventListener('astro:page-load', initRevealFallback);
+      document.addEventListener('DOMContentLoaded', initRevealFallback);
+    })();
+  </script>
+
   <!-- Cookie Consent init -->
   <script type="module">
     import CookieConsent from 'https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.esm.js';
@@ -245,6 +313,13 @@ const ldSchema = {
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   [hidden] { display: none !important; }
+  .rv.in,
+  .reveal.in,
+  .cv.in,
+  .cv.active {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   html { overflow-x: clip; }
   body {
     background: var(--ink);
