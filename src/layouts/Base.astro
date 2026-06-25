@@ -205,7 +205,7 @@ const ldSchema = {
 
     // Preserve #cc-main across VT body swaps — the element is appended to body
     // by vanilla-cookieconsent and would be destroyed when Astro replaces the body.
-    let savedCcMain: Element | null = null;
+    let savedCcMain = null;
     document.addEventListener('astro:before-swap', () => {
       savedCcMain = document.getElementById('cc-main');
       savedCcMain?.remove();
