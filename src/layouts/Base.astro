@@ -121,9 +121,12 @@ const ldSchema = {
     (() => {
       let revealObserver: IntersectionObserver | null = null;
       const revealSelector = '.rv, .reveal, .cv';
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
       function scrollToPageStart() {
         if (location.hash) return;
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         document.querySelector<HTMLElement>('.scroller')?.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       }
@@ -142,7 +145,8 @@ const ldSchema = {
           const r = el.getBoundingClientRect();
           if (r.top < innerHeight && r.bottom > 0) {
             el.style.transition = 'none';
-            el.classList.add('in', 'active');
+            el.classList.add('in');
+            if (el.classList.contains('cv')) el.classList.add('active');
           }
         });
 
@@ -164,7 +168,8 @@ const ldSchema = {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             const el = entry.target as HTMLElement;
-            el.classList.add('in', 'active');
+            el.classList.add('in');
+            if (el.classList.contains('cv')) el.classList.add('active');
             revealObserver?.unobserve(el);
           });
         }, { threshold: 0.04, rootMargin: '0px 0px -2% 0px' });
