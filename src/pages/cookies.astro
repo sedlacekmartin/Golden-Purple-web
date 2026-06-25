@@ -79,14 +79,6 @@ import Legal from '../layouts/Legal.astro';
 
 </Legal>
 
-<script>
-  document.addEventListener('astro:page-load', () => {
-    document.getElementById('ccPrefsBtn')?.addEventListener('click', () => {
-      (window as any).__cc?.showPreferences();
-    });
-  });
-</script>
-
 <style is:global>
   .prose h2 {
     font-family: var(--display); font-weight: 600;

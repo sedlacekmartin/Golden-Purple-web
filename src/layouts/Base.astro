@@ -203,6 +203,28 @@ const ldSchema = {
       })(window, document, "clarity", "script", "x9oaprggqn");
     }
 
+    // Preserve #cc-main across VT body swaps — the element is appended to body
+    // by vanilla-cookieconsent and would be destroyed when Astro replaces the body.
+    let savedCcMain: Element | null = null;
+    document.addEventListener('astro:before-swap', () => {
+      savedCcMain = document.getElementById('cc-main');
+      savedCcMain?.remove();
+    });
+    document.addEventListener('astro:after-swap', () => {
+      if (savedCcMain && !document.getElementById('cc-main')) {
+        document.body.appendChild(savedCcMain);
+      }
+      savedCcMain = null;
+    });
+
+    // Wire up "Nastavení cookies" button on /cookies — called directly in closure
+    // so CookieConsent.showPreferences() always refers to the live module function.
+    document.addEventListener('astro:page-load', () => {
+      document.getElementById('ccPrefsBtn')?.addEventListener('click', () => {
+        CookieConsent.showPreferences();
+      });
+    });
+
     window.__cc = CookieConsent;
 
     CookieConsent.run({
