@@ -302,8 +302,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   const resend = new Resend(apiKey);
 
+  const fromEmail = import.meta.env.RESEND_FROM ?? 'Golden Purple <onboarding@resend.dev>';
+
   const { error } = await resend.emails.send({
-    from: 'Golden Purple <onboarding@resend.dev>',
+    from: fromEmail,
     to: email,
     subject: subjects[type],
     html: builders[type](data),

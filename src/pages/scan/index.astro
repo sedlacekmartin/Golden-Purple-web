@@ -279,7 +279,7 @@ import Topbar from '../../components/Topbar.astro';
       const H_KEY='gp_scan_urls';
       function loadHistory(){try{return JSON.parse(localStorage.getItem(H_KEY)||'[]');}catch{return[];}}
       function saveUrl(u){let h=loadHistory().filter(v=>v!==u);h.unshift(u);h=h.slice(0,10);localStorage.setItem(H_KEY,JSON.stringify(h));renderDL();}
-      function renderDL(){const dl=document.getElementById('url-history');if(dl)dl.innerHTML=loadHistory().map(u=>`<option value="${u}">`).join('');}
+      function renderDL(){const dl=document.getElementById('url-history');if(!dl)return;dl.innerHTML='';loadHistory().forEach(u=>{const o=document.createElement('option');o.value=u;dl.appendChild(o);});}
       renderDL();
       $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#scanBtn').click();},{signal:sig});
 

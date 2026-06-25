@@ -82,8 +82,10 @@ export const POST: APIRoute = async ({ request }) => {
   // Strip newlines from subject to prevent header injection
   const safeNameForSubject = name.replace(/[\r\n]/g, ' ').slice(0, 80);
 
+  const fromEmail = import.meta.env.RESEND_FROM ?? 'Golden Purple <onboarding@resend.dev>';
+
   const { error } = await resend.emails.send({
-    from: 'Golden Purple <onboarding@resend.dev>',
+    from: fromEmail,
     to: toEmail,
     ...(isEmail ? { replyTo: contact } : {}),
     subject: `Nová poptávka od ${safeNameForSubject}`,

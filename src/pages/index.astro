@@ -911,8 +911,10 @@ function initIndex() {
     }
   });
 
-  // Keyboard nav
+  // Keyboard nav — skip when focus is inside a form element or link
   document.addEventListener('keydown', e => {
+    const t = e.target as HTMLElement;
+    if (t.matches('input,textarea,select,button,a,[contenteditable]')) return;
     const cur = panels.findIndex(p => p.classList.contains('active'));
     if (e.key === 'ArrowDown' && cur < panels.length - 1) { e.preventDefault(); panels[cur + 1].scrollIntoView(); }
     if (e.key === 'ArrowUp'   && cur > 0)                  { e.preventDefault(); panels[cur - 1].scrollIntoView(); }
