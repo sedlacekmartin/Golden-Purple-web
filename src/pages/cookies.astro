@@ -68,7 +68,7 @@ import Legal from '../layouts/Legal.astro';
 <h2>Jak spravovat cookies</h2>
 <p>Svůj souhlas můžete kdykoli změnit nebo odvolat:</p>
 <ul>
-  <li>Kliknutím na <button type="button" class="link-btn" data-cc="show-preferencesModal">Nastavení cookies</button> na tomto webu</li>
+  <li>Kliknutím na <button type="button" class="link-btn" id="openCcPrefs">Nastavení cookies</button> na tomto webu</li>
   <li>V nastavení vašeho prohlížeče (Chrome: Nastavení → Soukromí → Cookies)</li>
   <li>Na stránce <a href="https://www.youronlinechoices.com" target="_blank" rel="noopener noreferrer">youronlinechoices.com</a></li>
 </ul>
@@ -78,6 +78,14 @@ import Legal from '../layouts/Legal.astro';
 <p>Dotazy k cookies nebo ochraně osobních údajů zasílejte na <a href="mailto:info@goldenpurple.cz">info@goldenpurple.cz</a>.</p>
 
 </Legal>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('openCcPrefs')?.addEventListener('click', () => {
+      (window as any).__cc?.showPreferences?.();
+    });
+  });
+</script>
 
 <style is:global>
   .prose h2 {
