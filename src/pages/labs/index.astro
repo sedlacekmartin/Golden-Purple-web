@@ -107,13 +107,31 @@ import Topbar from '../../components/Topbar.astro';
 <script>
   let _io: IntersectionObserver | null = null;
 
-  document.addEventListener('astro:page-load', () => {
-    _io?.disconnect();
+  function revealAboveFold() {
     const revs = [...document.querySelectorAll<HTMLElement>('.rv')];
-
+    if (!revs.length) return;
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
       if (r.top < innerHeight && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('in');
+      }
+    });
+    requestAnimationFrame(() => revs.forEach(el => { el.style.transition = ''; }));
+  }
+
+  // After-swap fires before VT animation — elements revealed before capture → visible during fade-in
+  document.addEventListener('astro:after-swap', revealAboveFold);
+
+  document.addEventListener('astro:page-load', () => {
+    _io?.disconnect();
+    const revs = [...document.querySelectorAll<HTMLElement>('.rv')];
+    if (!revs.length) return;
+
+    // Fallback reveal for any above-fold elements missed by after-swap
+    revs.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0 && !el.classList.contains('in')) {
         el.style.transition = 'none';
         el.classList.add('in');
       }

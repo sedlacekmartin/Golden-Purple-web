@@ -281,10 +281,6 @@ const serviceSchema = {
     <div class="srow cv"><span class="sn">02</span><span class="st">Značka, která působí dráž</span><span class="sd">Logo, brand manuál a materiály, které sjednotí komunikaci a zvednou vnímanou hodnotu firmy.</span></div>
     <div class="srow cv"><span class="sn">03</span><span class="st">Marketing s výsledkem</span><span class="sd">Google, Meta a e-mail cílené tak, aby každá koruna reklamy vedla ke konkrétní akci.</span></div>
     <div class="srow cv"><span class="sn">04</span><span class="st">Systémy, které šetří čas</span><span class="sd">Rezervace, správa obsahu a automatizace — vlastní nástroje místo náhodného lepení pluginů.</span></div>
-    <a class="labs-line cv" href="/labs/">
-      <span>Vyvíjíme i vlastní digitální produkty pod hlavičkou Golden Labs — Suite, Fleet, QR Tracking &amp; Get my Reservation</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
   </section>
 
   <section class="panel" id="spoluprace">
@@ -332,6 +328,19 @@ const serviceSchema = {
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="panel" id="labs">
+    <div class="ltease-glow"></div>
+    <div class="ltease-inner">
+      <p class="eyebrow cv">Golden Labs</p>
+      <h2 class="cv">Vlastní digitální nástroje.<br><em>Stavěné k použití.</em></h2>
+      <p class="ltease-desc cv">Vedle klientské práce vyvíjíme vlastní produkty — rezervační systémy, správu flotil, QR tracking a provozní balíky pro WordPress. Protože správné řešení někdy prostě neexistuje hotové.</p>
+      <a class="btn cv" href="/labs/">
+        Prohlédnout produkty
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
   </section>
 
@@ -614,12 +623,14 @@ h1.big .ln span{display:inline-block;transform:translateY(110%);animation:rise 1
 .srow .sd{font-size:.95rem;color:var(--muted);max-width:34ch;text-align:right}
 @media(max-width:760px){.srow .sd{display:none}}
 
-/* LABS LINE (one-liner in sluzby) */
-.labs-line{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:clamp(24px,4vh,36px);padding-top:clamp(24px,4vh,36px);border-top:1px solid var(--line);color:var(--muted);font-size:.94rem;transition:color .25s}
-.labs-line:hover{color:var(--gold)}
-.labs-line svg{flex-shrink:0;transition:transform .3s}
-.labs-line:hover svg{transform:translateX(5px)}
-.labs-line span{max-width:70ch}
+/* LABS TEASER PANEL */
+#labs{justify-content:center;overflow:hidden}
+.ltease-glow{position:absolute;top:40%;right:-80px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.38),transparent 62%);filter:blur(80px);z-index:0;pointer-events:none}
+.ltease-inner{position:relative;z-index:2;max-width:680px}
+.ltease-inner .eyebrow{display:block;margin-bottom:20px}
+.ltease-inner h2{font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,6.5vw,5rem);line-height:.93;letter-spacing:-.03em;margin-bottom:24px}
+.ltease-inner h2 em{font-style:normal;color:var(--gold)}
+.ltease-desc{font-size:clamp(1rem,1.7vw,1.2rem);color:#D7CEDB;max-width:52ch;line-height:1.7;margin-bottom:40px}
 
 /* SPOLUPRACE */
 #spoluprace{justify-content:center;overflow:hidden}
@@ -833,7 +844,7 @@ function initIndex() {
 
   // Panels + dots
   const panels = [...document.querySelectorAll<HTMLElement>('.panel')];
-  const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Jak to funguje','Nástroje zdarma','Ceník','Martin Sedláček','FAQ','Kontakt'];
+  const panelLabels = ['Úvod','Poznáte se?','AMFELS','Restaurace Baroko','Arlex','Na Rachačkách','Realizace','Golden Vision','Co umíme','Jak to funguje','Golden Labs','Nástroje zdarma','Ceník','Martin Sedláček','FAQ','Kontakt'];
   const dotsWrap = document.getElementById('dots');
   if (dotsWrap) {
     dotsWrap.innerHTML = '';
