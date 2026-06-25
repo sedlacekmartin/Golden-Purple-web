@@ -1,0 +1,191 @@
+---
+import Base from '../../layouts/Base.astro';
+import Topbar from '../../components/Topbar.astro';
+---
+
+<Base
+  title="Golden Labs — Digitální produkty — Golden Purple"
+  description="Vlastní digitální produkty Golden Purple — rezervační systémy, správa flotily, QR tracking a provozní nástroje pro firemní weby."
+>
+
+<Topbar />
+
+<section class="lhero">
+  <div class="lw">
+    <span class="eyebrow rv">Golden Labs</span>
+    <h1 class="rv">Digitální produkty.<br><em>Stavěné k použití.</em></h1>
+    <p class="lhero-sub rv">Vedle klientské práce vyvíjíme vlastní nástroje — protože správné řešení někdy prostě neexistuje hotové. Klientům to přináší systémy na míru místo náhodného lepení pluginů.</p>
+  </div>
+</section>
+
+<section class="lproducts">
+  <div class="lw">
+    <div class="labs-grid">
+
+      <div class="lprod rv">
+        <span class="lp-status live">Dostupný</span>
+        <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">Suite</span></div>
+        <h3>Chytrý provozní balík pro firemní weby</h3>
+        <p>WordPress pluginy, které firmám přidají na web rezervace, otevírací dobu, poptávky, nabídky, akce, recenze a jednoduchou správu kontaktů. Vše jako jednotný balík místo hromady nesourodých pluginů.</p>
+        <div class="lp-chips"><span>WordPress</span><span>Rezervace</span><span>Otevírací doba</span><span>Poptávky</span><span>Recenze</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row s"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lprod rv">
+        <span class="lp-status soon">Beta</span>
+        <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">Fleet</span></div>
+        <h3>Správa flotily vozidel</h3>
+        <p>Přehled nad celou firemní flotilou na jednom místě — pojištění, STK, dálniční známky, povinné ručení, havarijní pojištění a termíny servisů. Žádné tabulky v Excelu, žádné prohledávání složek.</p>
+        <div class="lp-chips"><span>STK</span><span>Pojištění</span><span>Dálniční známky</span><span>Servis</span><span>Náklady</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row s"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lprod rv">
+        <span class="lp-status soon">Beta</span>
+        <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">QR Tracking</span></div>
+        <h3>QR tracking platforma</h3>
+        <p>Vlastní platforma pro tvorbu dynamických QR kódů, měření scanů, správu kampaní a propojení offline marketingu s webovou analytikou. Zjistěte, které tiskové materiály skutečně fungují.</p>
+        <div class="lp-chips"><span>Dynamické QR</span><span>Tracking</span><span>Kampaně</span><span>Analytika</span></div>
+        <div class="lp-screen" aria-hidden="true">
+          <div class="lps-bar"><i></i><i></i><i></i></div>
+          <div class="lps-body">
+            <div class="lps-row"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row s"></div>
+            <div class="lps-row a"></div>
+            <div class="lps-row"></div>
+            <div class="lps-row s"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lprod rv">
+        <span class="lp-status live">Verze 1.7</span>
+        <div class="lp-label"><span class="lg">GET MY</span><span class="lsep">·</span><span class="ln2">Reservation</span></div>
+        <h3>Rezervační systém pro restaurace</h3>
+        <p>Komplexní dynamický rezervační systém — správa stolů, kapacit, časových slotů a online rezervací v reálném čase přímo z webu restaurace. Bez prostředníků, bez provizí, bez zbytečné složitosti.</p>
+        <div class="lp-chips"><span>Restaurace</span><span>Online rezervace</span><span>Správa stolů</span><span>Real-time</span></div>
+        <div class="lp-screen lp-screen--photo" aria-hidden="true">
+          <img src="/assets/gmr-dashboard.png" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:left top;display:block" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="lcta">
+  <div class="lcta-glow"></div>
+  <h2 class="rv">Máte zájem o některý z nástrojů?</h2>
+  <p class="rv">Napište nám — rádi probereme, jak by konkrétní produkt zapadl do vašeho provozu.</p>
+  <a class="lbtn rv" href="/#kontakt">
+    Ozvěte se
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
+
+<script>
+  let _io: IntersectionObserver | null = null;
+
+  document.addEventListener('astro:page-load', () => {
+    _io?.disconnect();
+    const revs = [...document.querySelectorAll<HTMLElement>('.rv')];
+
+    revs.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('in');
+      }
+    });
+    requestAnimationFrame(() => revs.forEach(el => { el.style.transition = ''; }));
+
+    const hidden = revs.filter(el => !el.classList.contains('in'));
+    hidden.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; });
+    _io = new IntersectionObserver(
+      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io!.unobserve(e.target); } }),
+      { threshold: .08, rootMargin: '0px 0px -5% 0px' }
+    );
+    hidden.forEach(el => _io!.observe(el));
+    setTimeout(() => revs.forEach(el => el.classList.add('in')), 600);
+  });
+</script>
+
+</Base>
+
+<style is:global>
+.lw { max-width: 1280px; margin: 0 auto; padding: 0 clamp(24px,5vw,64px); }
+
+/* HERO */
+.lhero { padding: 160px 0 80px; }
+.lhero .eyebrow { display: block; margin-bottom: 20px; font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--gold) }
+.lhero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(3rem,9vw,7rem); line-height: .92; letter-spacing: -.03em; margin-bottom: 28px; }
+.lhero h1 em { font-style: normal; color: var(--gold); }
+.lhero-sub { font-size: clamp(1.05rem,1.8vw,1.3rem); color: #D7CEDB; max-width: 56ch; line-height: 1.65; }
+
+/* PRODUCTS */
+.lproducts { padding: 20px 0 100px; }
+.labs-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+@media(max-width:820px) { .labs-grid { grid-template-columns: 1fr; } }
+
+.lprod { background: linear-gradient(160deg,var(--ink-2),var(--ink)); border: 1px solid var(--line); border-radius: 18px; padding: 28px 44% 28px 26px; transition: transform .3s cubic-bezier(.22,1,.36,1),border-color .3s; position: relative; overflow: hidden; }
+.lprod:hover { transform: translateY(-5px); border-color: rgba(245,189,2,.35); }
+.lp-label { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+.lp-label .lg { color: var(--gold); font-weight: 700; }
+.lp-label .lsep { color: var(--line); }
+.lp-label .ln2 { color: var(--muted); font-weight: 600; }
+.lprod h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem,2vw,1.5rem); letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.08; }
+.lprod p { font-size: .92rem; color: #C6BBCC; line-height: 1.6; margin-bottom: 16px; }
+.lp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lp-chips span { font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); padding: 4px 10px; border-radius: 100px; color: var(--muted); }
+.lp-status { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 4px 11px; border-radius: 100px; position: absolute; top: 18px; right: 18px; z-index: 2; }
+.lp-status.soon { color: var(--muted); background: rgba(169,156,174,.08); border: 1px solid rgba(169,156,174,.2); }
+.lp-status.live { color: var(--gold); background: rgba(245,189,2,.1); border: 1px solid rgba(245,189,2,.28); }
+.lp-screen { position: absolute; right: 0; top: 0; bottom: 0; width: 42%; background: #060210; border-left: 1px solid rgba(247,247,247,.08); border-radius: 0 17px 17px 0; overflow: hidden; pointer-events: none; display: flex; flex-direction: column; }
+.lp-screen::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 36px; background: linear-gradient(to right,#060210,transparent); z-index: 1; pointer-events: none; }
+.lp-screen--photo::before { display: none; }
+.lp-screen--photo img { transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.lprod:hover .lp-screen--photo img { transform: scale(1.06); }
+.lps-bar { display: flex; align-items: center; gap: 4px; padding: 7px 10px; background: rgba(86,33,94,.5); border-bottom: 1px solid rgba(247,247,247,.08); flex-shrink: 0; }
+.lps-bar i { width: 5px; height: 5px; border-radius: 50%; background: rgba(247,247,247,.4); display: block; }
+.lps-body { padding: 14px 14px 14px 18px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+.lps-row { height: 5px; border-radius: 100px; background: rgba(247,247,247,.1); }
+.lps-row.a { background: rgba(245,189,2,.45); width: 52%; }
+.lps-row.s { width: 70%; }
+@media(max-width:520px) { .lp-screen { display: none; } .lprod { padding-right: 26px; } }
+
+/* CTA */
+.lcta { text-align: center; padding: 80px 0 110px; position: relative; overflow: hidden; }
+.lcta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60%; height: 200%; background: radial-gradient(circle,rgba(86,33,94,.35),transparent 60%); filter: blur(70px); pointer-events: none; }
+.lcta h2 { position: relative; font-family: var(--display); font-weight: 600; font-size: clamp(2rem,5vw,3.8rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 20px; }
+.lcta p { position: relative; color: #CFC4D3; max-width: 42ch; margin: 0 auto 32px; }
+.lbtn { position: relative; display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 1.08rem; padding: 17px 32px; border-radius: 100px; transition: transform .3s,box-shadow .3s; }
+.lbtn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(245,189,2,.4); }
+.lbtn svg { transition: transform .3s; }
+.lbtn:hover svg { transform: translateX(5px); }
+
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(32px); transition: opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1); }
+.rv.in { opacity: 1; transform: none; }
+@media(prefers-reduced-motion:reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+</style>
