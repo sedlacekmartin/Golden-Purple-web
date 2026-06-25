@@ -17,7 +17,6 @@ const { title, description, updatedDate } = Astro.props;
   noindex={true}
 >
   <Topbar />
-  <canvas id="aurora"></canvas>
 
   <div class="shell">
     <div class="legal-wrap">
@@ -35,7 +34,6 @@ const { title, description, updatedDate } = Astro.props;
 </Base>
 
 <style is:global>
-  #aurora { position: fixed; inset: 0; z-index: 0; }
   .shell {
     position: relative; z-index: 2;
     min-height: 100dvh;
@@ -107,47 +105,3 @@ const { title, description, updatedDate } = Astro.props;
   .link-btn:hover { opacity: .8; }
 </style>
 
-<script>
-  let _raf = null;
-  let _ac = null;
-
-  document.addEventListener('astro:page-load', () => {
-    const c = document.getElementById('aurora');
-    if (!c) return;
-
-    if (_raf !== null) { cancelAnimationFrame(_raf); _raf = null; }
-    _ac?.abort();
-    _ac = new AbortController();
-    const sig = _ac.signal;
-
-    const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
-    const x = c.getContext('2d');
-    let W, H, t = 0;
-    function size() { W = c.width = innerWidth; H = c.height = innerHeight; }
-    size();
-    window.addEventListener('resize', size, { signal: sig });
-    const blobs = [
-      { cx: .25, cy: .35, r: .5,  col: [86,  33,  94]  },
-      { cx: .75, cy: .3,  r: .45, col: [59,  18,  67]  },
-      { cx: .55, cy: .7,  r: .5,  col: [142, 77,  151] },
-      { cx: .4,  cy: .5,  r: .3,  col: [245, 189, 2]   },
-    ];
-    function draw() {
-      t += .003;
-      x.clearRect(0, 0, W, H);
-      x.fillStyle = '#0C0610'; x.fillRect(0, 0, W, H);
-      blobs.forEach((b, i) => {
-        const px = (b.cx + Math.sin(t + i * 1.7) * .06) * W;
-        const py = (b.cy + Math.cos(t * .9 + i * 2.1) * .06) * H;
-        const rad = b.r * Math.min(W, H) * (i === 3 ? .5 : 1);
-        const g = x.createRadialGradient(px, py, 0, px, py, rad);
-        const a = i === 3 ? .13 : .5;
-        g.addColorStop(0, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);
-        g.addColorStop(1, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
-        x.fillStyle = g; x.beginPath(); x.arc(px, py, rad, 0, 7); x.fill();
-      });
-      if (!reduce) _raf = requestAnimationFrame(draw);
-    }
-    draw();
-  });
-</script>
