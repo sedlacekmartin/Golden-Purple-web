@@ -450,42 +450,47 @@ const ldSchema = {
   #cc-main .pm-close-btn { color: #A99CAE; }
   #cc-main .pm-close-btn:hover { color: #F7F7F7; background: rgba(247,247,247,.08); }
 
-  /* Toggle section rows */
-  #cc-main .pm-section--toggle .pm-section-title-wrapper,
-  #cc-main [class*="section-toggle"] .pm-section-title-wrapper {
-    border-radius: 8px;
-    transition: background .15s ease, border-color .15s ease;
-  }
-  #cc-main .pm-section--toggle .pm-section-title-wrapper:hover,
-  #cc-main [class*="section-toggle"] .pm-section-title-wrapper:hover {
-    background: rgba(247,247,247,.06) !important;
-    border-color: rgba(247,247,247,.12) !important;
-  }
+  /* ── Toggle section rows — wildcard selectors cover all v3 naming variants ── */
 
-  /* Force readable text in toggle sections at all states */
-  #cc-main .pm-section-title { color: #F7F7F7 !important; font-size: .875rem; font-weight: 600; }
-  #cc-main .pm-section-desc  { font-size: .81rem; color: #A99CAE !important; line-height: 1.65; }
-  #cc-main .pm-section-desc a { color: #F5BD02 !important; }
-  #cc-main .pm-section-title-wrapper a { color: #F5BD02 !important; }
-
-  /* Read-only toggle (Nezbytné) — locked appearance */
-  #cc-main .pm-toggle-btn[disabled],
-  #cc-main .pm-toggle-btn[aria-disabled="true"],
-  #cc-main .toggle-btn[disabled] {
-    opacity: .45;
-    cursor: not-allowed;
+  /* Base block: force dark bg regardless of library defaults */
+  #cc-main [class*="section-toggle"],
+  #cc-main .pm-section--toggle {
+    background: rgba(247,247,247,.04) !important;
+    border: 1px solid rgba(247,247,247,.07) !important;
+    border-radius: 10px !important;
+    transition: background .15s, border-color .15s;
   }
 
-  /* Info-only section (Více informací — no toggle) */
-  #cc-main .pm-section:not(.pm-section--toggle) .pm-section-title {
-    font-size: .68rem;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
+  /* Hover: gold-tinted dark — stays readable */
+  #cc-main [class*="section-toggle"]:hover,
+  #cc-main .pm-section--toggle:hover,
+  #cc-main [class*="section-toggle"] [class*="title-wrapper"]:hover,
+  #cc-main .pm-section--toggle .pm-section-title-wrapper:hover {
+    background: rgba(245,189,2,.07) !important;
+    border-color: rgba(245,189,2,.22) !important;
+  }
+
+  /* Force readable text at every state */
+  #cc-main [class*="section-title"] { color: #F7F7F7 !important; font-size: .875rem; font-weight: 600; }
+  #cc-main [class*="section-desc"]  { font-size: .81rem !important; color: #A99CAE !important; line-height: 1.65 !important; }
+  #cc-main [class*="section-desc"] a,
+  #cc-main [class*="section-title"] a,
+  #cc-main [class*="title-wrapper"] a { color: #F5BD02 !important; }
+
+  /* Read-only toggle (Nezbytné) */
+  #cc-main [class*="toggle"][disabled],
+  #cc-main [class*="toggle"][aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+
+  /* Info-only section (Více informací) — no toggle, render as label */
+  #cc-main .pm-section:not(.pm-section--toggle):not([class*="section-toggle"]) .pm-section-title,
+  #cc-main .pm-section:not(.pm-section--toggle):not([class*="section-toggle"]) [class*="section-title"] {
+    font-size: .68rem !important;
+    font-weight: 600 !important;
+    letter-spacing: .12em !important;
+    text-transform: uppercase !important;
     color: #F5BD02 !important;
     margin-bottom: 6px;
   }
-  #cc-main .pm-section:not(.pm-section--toggle) .pm-section-desc { color: #A99CAE !important; }
 
   #cc-main .pm-footer { border-top: 1px solid rgba(247,247,247,.08); padding: 16px 24px; gap: 10px; }
   #cc-main .pm-footer .btn { font-size: .84rem; padding: 9px 18px; font-weight: 600; }
