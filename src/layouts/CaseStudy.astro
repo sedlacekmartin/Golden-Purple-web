@@ -79,12 +79,12 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
   </div>
 </section>
 
-<div class="cs-prose csw rv">
+<div class="cs-prose wrap-content rv">
   <slot />
 </div>
 
 {nextTwo.length > 0 && (
-  <section class="cs-nextp csw">
+  <section class="cs-nextp wrap-content">
     <div class="cs-nlab rv">Další projekty</div>
     <div class="cs-nextgrid">
       {nextTwo.map(p => (
@@ -151,7 +151,7 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
 .cs-hero-bg { position:absolute;inset:0;background-size:cover;background-position:center 20%;opacity:.28;z-index:0;mask-image:linear-gradient(to bottom,black 30%,transparent 88%);-webkit-mask-image:linear-gradient(to bottom,black 30%,transparent 88%) }
 .cs-hero .hglow { position:absolute;top:-20%;right:-10%;width:55%;height:130%;background:radial-gradient(circle,rgba(86,33,94,.55),transparent 65%);filter:blur(70px);pointer-events:none;z-index:1 }
 .cs-hero .hglow2 { position:absolute;bottom:-30%;left:-8%;width:40%;height:100%;background:radial-gradient(circle,rgba(245,189,2,.15),transparent 65%);filter:blur(80px);pointer-events:none;z-index:1 }
-.cs-hero .csw { position:relative;z-index:2 }
+.cs-hero .wrap-content { position:relative;z-index:2 }
 .cs-hero .cs-metastrip { position:relative;z-index:2 }
 .cs-kick { display:flex;align-items:center;gap:10px;margin-bottom:26px;flex-wrap:wrap }
 .cs-tag { font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(245,189,2,.3);padding:7px 14px;border-radius:100px }

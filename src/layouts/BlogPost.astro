@@ -54,13 +54,13 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
     </div>
   )}
 
-  <div class="bp-prose bpw">
+  <div class="bp-prose wrap-text">
     <slot />
   </div>
 </article>
 
 {morePosts.length > 0 && (
-  <section class="bp-more bpw">
+  <section class="bp-more wrap-text">
     <div class="bp-mlab rv">Další články</div>
     <div class="bp-mgrid">
       {morePosts.map(p => (
@@ -134,7 +134,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-hero { padding:150px 0 56px; position:relative; overflow:hidden }
 .bp-hero::before { content:''; position:absolute; top:-20%; right:-10%; width:55%; height:130%; background:radial-gradient(circle,rgba(86,33,94,.5),transparent 65%); filter:blur(70px); pointer-events:none }
 .bp-hero::after  { content:''; position:absolute; bottom:-30%; left:-8%;  width:40%; height:100%; background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%); filter:blur(80px); pointer-events:none }
-.bp-hero .bpw { position:relative; z-index:2 }
+.bp-hero .wrap-text { position:relative; z-index:2 }
 
 .bp-kick { display:flex; align-items:center; gap:10px; margin-bottom:26px; flex-wrap:wrap }
 .bp-tag  { font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(245,189,2,.3); padding:7px 14px; border-radius:100px }
