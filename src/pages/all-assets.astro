@@ -189,15 +189,16 @@ import Arrow from '../components/Arrow.astro';
 
         <!-- Body text variants -->
         <div class="ds-block">
-          <p class="ds-label">Body — Hero perex / velký body (.h-vp, .martin-bio, .gv-desc)</p>
+          <p class="ds-label">Body — perex / velký body (.h-vp, .martin-bio, .gv-desc, .ltease-desc)</p>
           <p class="typo-lead">Tvoříme digitální zážitky, které přivádějí poptávky, šetří ruční práci a zvedají vnímanou hodnotu vaší firmy.</p>
           <div class="typo-spec">
             <span>Font: <strong>General Sans</strong></span>
             <span>Weight: <strong>400</strong></span>
-            <span>Size: <strong>clamp(1.05rem, 1.6–1.7vw, 1.2–1.3rem)</strong></span>
-            <span>Line-height: <strong>1.65–1.7</strong></span>
+            <span>Size: <strong>clamp(1.05rem, 1.7vw, 1.3rem)</strong></span>
+            <span>Line-height: <strong>1.7</strong></span>
             <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
-            <span>Color: <strong>var(--text-soft)</strong> (světlejší než --muted, tmavší než --paper)</span>
+            <span>Color: <strong>var(--text-soft)</strong></span>
+            <span>Max-width: layout-specific (54ch hero · 56ch martin-bio · 40ch gv-desc · 52ch labs)</span>
           </div>
         </div>
 
@@ -222,20 +223,6 @@ import Arrow from '../components/Arrow.astro';
             <span>Weight: <strong>400</strong></span>
             <span>Size: <strong>.78–.95rem</strong></span>
             <span>Color: <strong>--muted</strong> = #A99CAE</span>
-          </div>
-        </div>
-
-        <div class="ds-block">
-          <p class="ds-label">Bio text — .martin-bio (sekce O nás / Martin)</p>
-          <p class="typo-martin-bio">Spojuji webdesign, grafiku, marketing a technické řešení do jednoho procesu. Neřeším jen, jestli web vypadá dobře — řeším, jestli zákazník pochopí nabídku, uvěří jí a udělá další krok.</p>
-          <div class="typo-spec">
-            <span>Font: <strong>General Sans</strong></span>
-            <span>Weight: <strong>400</strong></span>
-            <span>Size: <strong>clamp(1.05rem, 1.7vw, 1.3rem)</strong></span>
-            <span>Line-height: <strong>1.7</strong> (nejvolnější z body textů)</span>
-            <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
-            <span>Color: <strong>var(--text-soft)</strong> (hardcoded, světlejší než --muted)</span>
-            <span>Max-width: <strong>56ch</strong></span>
           </div>
         </div>
 
@@ -946,9 +933,9 @@ import Arrow from '../components/Arrow.astro';
     line-height: 1.05;
   }
   .typo-lead {
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
     color: var(--text-soft);
-    line-height: 1.65;
+    line-height: 1.7;
     max-width: 56ch;
   }
   .typo-body { color: var(--paper); line-height: 1.6; max-width: 60ch; font-size: .95rem; }
@@ -962,12 +949,6 @@ import Arrow from '../components/Arrow.astro';
     font-style: normal;
     border: none;
     padding: 0;
-  }
-  .typo-martin-bio {
-    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
-    color: var(--text-soft);
-    line-height: 1.7;
-    max-width: 56ch;
   }
   .typo-cenik-note {
     font-size: .86rem;
