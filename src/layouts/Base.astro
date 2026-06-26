@@ -392,7 +392,7 @@ const ldSchema = {
     --cc-cookie-category-block-bg: rgba(247,247,247,.04);
     --cc-cookie-category-block-bg-hover: rgba(247,247,247,.07);
     --cc-cookie-category-block-border: 1px solid rgba(247,247,247,.06);
-    --cc-cookie-category-block-hover-border: 1px solid rgba(247,247,247,.10);
+    --cc-cookie-category-block-hover-border: 1px solid rgba(247,247,247,.12);
     --cc-cookie-category-expanded-block-bg: rgba(247,247,247,.03);
     --cc-cookie-category-expanded-block-hover-bg: rgba(247,247,247,.05);
 
@@ -404,7 +404,7 @@ const ldSchema = {
     --cc-toggle-knob-icon-color: transparent;
   }
 
-  /* consent modal box */
+  /* ── Consent modal box ── */
   #cc-main .cm {
     border: 1px solid rgba(245,189,2,.18);
     box-shadow: 0 0 0 1px rgba(245,189,2,.06), 0 12px 56px rgba(0,0,0,.75);
@@ -421,32 +421,25 @@ const ldSchema = {
     color: #F7F7F7;
     margin-bottom: 8px;
   }
-  #cc-main .cm-text {
-    font-size: .82rem;
-    line-height: 1.65;
-    color: #A99CAE;
-  }
+  #cc-main .cm-text { font-size: .82rem; line-height: 1.65; color: #A99CAE; }
   #cc-main .cm-text a { color: #F5BD02; }
 
-  #cc-main .cm-footer {
-    padding: 14px 22px 22px;
-    flex-direction: column;
-    gap: 8px;
-  }
+  #cc-main .cm-footer { padding: 14px 22px 22px; flex-direction: column; gap: 8px; }
   #cc-main .cm-btn-group { gap: 8px; }
-
-  /* make all three buttons same width in column layout */
   #cc-main .cm-footer .btn { width: 100%; justify-content: center; font-size: .84rem; padding: 9px 16px; }
   #cc-main .cm-footer .btn--primary { font-weight: 600; }
   #cc-main .cm-footer .btn--secondary { font-weight: 500; }
 
-  /* preferences modal */
+  /* ── Preferences modal ── */
   #cc-main .pm {
     border: 1px solid rgba(247,247,247,.10);
     box-shadow: 0 16px 72px rgba(0,0,0,.8);
     max-width: 500px;
   }
-  #cc-main .pm-header { border-bottom: 1px solid rgba(247,247,247,.08); padding: 22px 24px 18px; }
+  #cc-main .pm-header {
+    border-bottom: 1px solid rgba(247,247,247,.08);
+    padding: 22px 24px 18px;
+  }
   #cc-main .pm-title {
     font-family: 'Clash Display', 'General Sans', system-ui, sans-serif;
     font-weight: 600;
@@ -454,16 +447,46 @@ const ldSchema = {
     letter-spacing: -.02em;
     color: #F7F7F7;
   }
+  #cc-main .pm-close-btn { color: #A99CAE; }
+  #cc-main .pm-close-btn:hover { color: #F7F7F7; background: rgba(247,247,247,.08); }
 
-  #cc-main .pm-section--toggle .pm-section-title { color: #F7F7F7; font-size: .88rem; font-weight: 600; }
-  #cc-main .pm-section--toggle .pm-section-desc { font-size: .81rem; color: #A99CAE; line-height: 1.6; }
-
-  #cc-main .pm-section-title-wrapper a { color: #F5BD02; }
-
-  #cc-main .pm-footer {
-    border-top: 1px solid rgba(247,247,247,.08);
-    padding: 16px 24px;
-    gap: 10px;
+  /* Toggle section rows */
+  #cc-main .pm-section--toggle .pm-section-title-wrapper,
+  #cc-main [class*="section-toggle"] .pm-section-title-wrapper {
+    border-radius: 8px;
+    transition: background .15s ease, border-color .15s ease;
   }
+  #cc-main .pm-section--toggle .pm-section-title-wrapper:hover,
+  #cc-main [class*="section-toggle"] .pm-section-title-wrapper:hover {
+    background: rgba(247,247,247,.06) !important;
+    border-color: rgba(247,247,247,.12) !important;
+  }
+
+  /* Force readable text in toggle sections at all states */
+  #cc-main .pm-section-title { color: #F7F7F7 !important; font-size: .875rem; font-weight: 600; }
+  #cc-main .pm-section-desc  { font-size: .81rem; color: #A99CAE !important; line-height: 1.65; }
+  #cc-main .pm-section-desc a { color: #F5BD02 !important; }
+  #cc-main .pm-section-title-wrapper a { color: #F5BD02 !important; }
+
+  /* Read-only toggle (Nezbytné) — locked appearance */
+  #cc-main .pm-toggle-btn[disabled],
+  #cc-main .pm-toggle-btn[aria-disabled="true"],
+  #cc-main .toggle-btn[disabled] {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  /* Info-only section (Více informací — no toggle) */
+  #cc-main .pm-section:not(.pm-section--toggle) .pm-section-title {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #F5BD02 !important;
+    margin-bottom: 6px;
+  }
+  #cc-main .pm-section:not(.pm-section--toggle) .pm-section-desc { color: #A99CAE !important; }
+
+  #cc-main .pm-footer { border-top: 1px solid rgba(247,247,247,.08); padding: 16px 24px; gap: 10px; }
   #cc-main .pm-footer .btn { font-size: .84rem; padding: 9px 18px; font-weight: 600; }
 </style>
