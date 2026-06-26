@@ -81,7 +81,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
   <div class="bp-cglow"></div>
   <h2 class="rv">Řešíte web nebo brand? <em>Ozvi se.</em></h2>
   <p class="rv">Napište pár slov o tom, co potřebujete. Ozveme se do dvou dnů s konkrétními nápady.</p>
-  <a class="bp-btn rv" href="/#kontakt">
+  <a class="btn rv" href="/#kontakt">
     Pojďme do toho
     <Arrow size={18} />
   </a>
@@ -188,10 +188,6 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-cta h2 { position:relative; font-family:var(--display); font-weight:600; font-size:clamp(2rem,5vw,3.8rem); line-height:1; letter-spacing:-.02em; margin-bottom:20px }
 .bp-cta h2 em { font-style:normal; color:var(--gold) }
 .bp-cta p { position:relative; color:var(--text-card); max-width:42ch; margin:0 auto 32px }
-.bp-btn { position:relative; display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--ink); font-family:var(--display); font-weight:600; font-size:1.08rem; padding:17px 32px; border-radius:100px; transition:transform .3s,box-shadow .3s }
-.bp-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(245,189,2,.4) }
-.bp-btn svg { transition:transform .3s }
-.bp-btn:hover svg { transform:translateX(5px) }
 
 /* REVEAL */
 .rv { opacity:0; transform:translateY(32px); transition:opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1) }

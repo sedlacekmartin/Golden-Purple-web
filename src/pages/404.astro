@@ -15,7 +15,7 @@ import Arrow from '../components/Arrow.astro';
     <h1>Tahle stránka<br/><em>neexistuje.</em></h1>
     <p class="e4-txt">Překlep v URL, starý odkaz, nebo jsme ji přesunuli.<br/>Zbytek webu je na místě.</p>
     <div class="e4-cta">
-      <a class="e4-btn" href="/">
+      <a class="btn" href="/">
         Zpátky na hlavní
         <Arrow />
       </a>
@@ -34,8 +34,6 @@ import Arrow from '../components/Arrow.astro';
 .e4-wrap h1 em{font-style:normal;color:var(--gold)}
 .e4-txt{color:var(--text-card);font-size:clamp(1rem,1.7vw,1.18rem);line-height:1.65;margin-bottom:40px;opacity:0;animation:e4Up .7s .25s cubic-bezier(.19,1,.22,1) forwards}
 .e4-cta{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;opacity:0;animation:e4Up .7s .4s cubic-bezier(.19,1,.22,1) forwards}
-.e4-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:600;font-size:1.05rem;padding:16px 30px;border-radius:100px;text-decoration:none;transition:transform .3s,box-shadow .3s}
-.e4-btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,189,2,.35)}
 .e4-sec{font-size:.88rem;color:var(--muted);text-decoration:none;letter-spacing:.05em;transition:color .2s}
 .e4-sec:hover{color:var(--paper)}
 @keyframes e4Up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}

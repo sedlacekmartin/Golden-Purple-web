@@ -98,7 +98,7 @@ import Topbar from '../../components/Topbar.astro';
   <div class="lcta-glow"></div>
   <h2 class="rv">Máte zájem o některý z nástrojů?</h2>
   <p class="rv">Napište nám — rádi probereme, jak by konkrétní produkt zapadl do vašeho provozu.</p>
-  <a class="lbtn rv" href="/#kontakt">
+  <a class="btn rv" href="/#kontakt">
     Ozvěte se
     <Arrow size={17} />
   </a>
@@ -196,10 +196,6 @@ import Topbar from '../../components/Topbar.astro';
 .lcta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60%; height: 200%; background: radial-gradient(circle,rgba(86,33,94,.35),transparent 60%); filter: blur(70px); pointer-events: none; }
 .lcta h2 { position: relative; font-family: var(--display); font-weight: 600; font-size: clamp(2rem,5vw,3.8rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 20px; }
 .lcta p { position: relative; color: var(--text-card); max-width: 42ch; margin: 0 auto 32px; }
-.lbtn { position: relative; display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 1.08rem; padding: 17px 32px; border-radius: 100px; transition: transform .3s,box-shadow .3s; }
-.lbtn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(245,189,2,.4); }
-.lbtn svg { transition: transform .3s; }
-.lbtn:hover svg { transform: translateX(5px); }
 
 /* REVEAL */
 .rv { opacity: 0; transform: translateY(32px); transition: opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1); }

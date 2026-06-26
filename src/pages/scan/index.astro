@@ -27,7 +27,7 @@ import Arrow from '../../components/Arrow.astro';
           <div class="field">
             <input id="urlInput" type="url" placeholder="https://vasweb.cz" autocomplete="off" spellcheck="false" list="url-history">
             <datalist id="url-history"></datalist>
-            <button class="btn" id="scanBtn">Spustit scan
+            <button class="scan-btn" id="scanBtn">Spustit scan
               <Arrow />
             </button>
           </div>
@@ -51,7 +51,7 @@ import Arrow from '../../components/Arrow.astro';
               <p>Pošleme vám shrnutí skóre a konkrétní tipy pro váš web. Zdarma, do pár minut.</p>
               <div class="field">
                 <input id="emailInput" type="email" placeholder="vas@email.cz" autocomplete="email">
-                <button class="btn" id="sendBtn">Poslat výsledky</button>
+                <button class="scan-btn" id="sendBtn">Poslat výsledky</button>
               </div>
               <p class="ok" id="okMsg">✓ Hotovo — výsledky dorazí do pár minut.</p>
             </div>
@@ -131,8 +131,8 @@ import Arrow from '../../components/Arrow.astro';
     .field input { flex: 1; min-width: 220px; background: rgba(247,247,247,.04); border: 1px solid var(--line); border-radius: 12px; padding: 17px 20px; color: var(--paper); font-family: var(--body); font-size: 1.05rem; outline: none; transition: border-color .2s }
     .field input:focus { border-color: var(--gold) }
     .field input::placeholder { color: var(--muted) }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: var(--ink); border: none; padding: 17px 30px; border-radius: 12px; font-family: var(--display); font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: transform .2s, box-shadow .2s }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(245,189,2,.38) }
+    .scan-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: var(--ink); border: none; padding: 17px 30px; border-radius: 12px; font-family: var(--display); font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: transform .2s, box-shadow .2s }
+    .scan-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(245,189,2,.38) }
     .btn:disabled { opacity: .6; cursor: wait; transform: none; box-shadow: none }
     .hint { color: var(--muted); font-size: .85rem; margin-top: 14px; text-align: center }
     .err { color: var(--red); font-size: .9rem; margin-top: 14px; text-align: center; display: none }

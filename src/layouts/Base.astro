@@ -343,6 +343,26 @@ const ldSchema = {
     --error: #ff6b6b;
   }
 
+  /* Primary CTA button */
+  .btn {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold); color: var(--ink);
+    font-family: var(--display); font-weight: 600; font-size: 1.05rem;
+    padding: 17px 32px; border-radius: 100px;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(245,189,2,.4); }
+  .btn svg { transition: transform .3s; }
+  .btn:hover svg { transform: translateX(5px); }
+
+  /* Link button — inline text action */
+  .link-btn {
+    background: none; border: none; color: var(--gold);
+    cursor: pointer; font-size: .95rem; padding: 0;
+    font-family: inherit; text-decoration: underline;
+  }
+  .link-btn:hover { opacity: .8; }
+
   /* Mono label — uppercase small text v tazích a badge */
   .mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
 
