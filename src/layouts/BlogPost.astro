@@ -32,11 +32,6 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 <article>
   <header class="bp-hero">
     <div class="wrap-text">
-      {tags.length > 0 && (
-        <div class="bp-kick rv">
-          {tags.map(t => <span class="bp-tag">{t}</span>)}
-        </div>
-      )}
       <h1 class="rv">{title}</h1>
       <p class="bp-lead rv">{description}</p>
       <div class="bp-meta rv">
@@ -66,7 +61,6 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
       {morePosts.map(p => (
         <a class="bp-mcard rv" href={`/blog/${p.id}`}>
           <div class="bp-mc-body">
-            {p.data.tags.length > 0 && <div class="bp-mt">{p.data.tags.slice(0,2).join(' · ')}</div>}
             <h4>{p.data.title}</h4>
             <p>{p.data.description}</p>
           </div>
@@ -136,9 +130,6 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-hero::after  { content:''; position:absolute; bottom:-30%; left:-8%;  width:40%; height:100%; background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%); filter:blur(80px); pointer-events:none }
 .bp-hero .wrap-text { position:relative; z-index:2 }
 
-.bp-kick { display:flex; align-items:center; gap:10px; margin-bottom:26px; flex-wrap:wrap }
-.bp-tag  { font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(245,189,2,.3); padding:7px 14px; border-radius:100px }
-
 .bp-hero h1 { font-family:var(--display); font-weight:600; font-size:clamp(2.8rem,7vw,5.5rem); line-height:.93; letter-spacing:-.035em; margin-bottom:28px }
 .bp-lead { font-size:clamp(1.1rem,2vw,1.35rem); color:var(--text-soft); line-height:1.6; margin-bottom:24px }
 .bp-meta { font-size:.84rem; color:var(--muted) }
@@ -175,7 +166,6 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 @media(max-width:640px) { .bp-mgrid { grid-template-columns:1fr } }
 .bp-mcard { border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; justify-content:space-between; align-items:center; gap:20px; transition:.35s; background:linear-gradient(150deg,var(--ink-2),var(--ink)) }
 .bp-mcard:hover { border-color:rgba(245,189,2,.4); transform:translateY(-4px) }
-.bp-mt { font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px }
 .bp-mcard h4 { font-family:var(--display); font-weight:600; font-size:1.2rem; margin-bottom:8px; line-height:1.15 }
 .bp-mc-body p { font-size:.88rem; color:var(--text-prose); line-height:1.5 }
 .bp-arr { color:var(--gold); font-size:1.4rem; flex-shrink:0 }
