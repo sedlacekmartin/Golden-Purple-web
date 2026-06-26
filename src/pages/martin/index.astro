@@ -184,7 +184,7 @@ import Arrow from '../../components/Arrow.astro';
 .mph-glow{position:absolute;top:20%;left:-60px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(80px);z-index:0;pointer-events:none}
 .mph-inner{position:relative;z-index:2}
 .mp-hero h1{font-family:var(--display);font-weight:700;font-size:clamp(5rem,18vw,14rem);line-height:.85;letter-spacing:-.04em;margin-bottom:32px}
-.shine{background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3.5s linear infinite alternate}
+.shine{background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 @keyframes shine{to{background-position:-250% 0}}
 .mph-role{font-size:clamp(1rem,2vw,1.3rem);color:var(--text-soft);margin-bottom:28px;letter-spacing:.04em}
 .mph-chips{display:flex;flex-wrap:wrap;gap:10px}
@@ -241,7 +241,7 @@ import Arrow from '../../components/Arrow.astro';
 .mp-cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70vw;height:70vw;max-width:900px;max-height:900px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.5),transparent 60%);filter:blur(70px);z-index:0;pointer-events:none}
 .mp-cta-inner{position:relative;z-index:2}
 .mp-cta h2{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,9vw,7rem);line-height:.9;letter-spacing:-.04em;margin:0 0 28px}
-.mp-cta h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3.5s linear infinite alternate}
+.mp-cta h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 .mp-cta p{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);max-width:46ch;margin:0 auto 44px;line-height:1.6}
 .mp-cta-btns{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:11px;background:var(--gold);color:var(--ink);padding:18px 38px;border-radius:100px;font-weight:600;font-family:var(--display);font-size:1.1rem;transition:transform .2s,box-shadow .2s}
