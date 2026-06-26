@@ -74,22 +74,6 @@ import Topbar from '../../components/Topbar.astro';
 .tx .d{font-size:.92rem;color:var(--text-prose);line-height:1.45}
 .tx .ex{font-size:.86rem;color:var(--gold);margin-top:5px;padding-left:11px;border-left:2px solid rgba(245,189,2,.4);font-style:italic}
 
-.scorebar{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(12,6,16,.9);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
-.scorebar .in{max-width:760px;margin:0 auto;padding:16px 22px;display:flex;align-items:center;gap:20px}
-.scorebar .meter{flex:1}
-.scorebar .meter .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
-.scorebar .meter .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.scorebar .meter .num{font-family:var(--display);font-weight:600;font-size:1.5rem}
-.scorebar .meter .num b{color:var(--gold)}
-.scorebar .track{height:8px;background:rgba(247,247,247,.1);border-radius:100px;overflow:hidden}
-.scorebar .fill{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));transition:width .4s cubic-bezier(.22,1,.36,1)}
-.scorebar .verdict{font-size:.82rem;color:var(--text-soft);margin-top:7px;min-height:1.2em}
-.scorebar .verdict b{color:var(--gold)}
-.scorebar .cta-btn{flex-shrink:0;background:var(--gold);color:var(--ink);border:none;padding:14px 22px;border-radius:11px;font-family:var(--display);font-weight:600;font-size:.98rem;cursor:pointer;transition:transform .2s,box-shadow .2s;opacity:.5;pointer-events:none}
-.scorebar .cta-btn.ready{opacity:1;pointer-events:auto}
-.scorebar .cta-btn.ready:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(245,189,2,.4)}
-@media(max-width:600px){.scorebar .cta-btn{display:none}.scorebar .verdict{display:none}}
-
 .modal{position:fixed;inset:0;z-index:30;background:rgba(12,6,16,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
 .modal.on{display:flex}
 .card{background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:22px;padding:40px 34px;max-width:480px;width:100%;text-align:center;position:relative}
