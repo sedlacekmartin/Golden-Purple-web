@@ -180,11 +180,18 @@ import Topbar from '../components/Topbar.astro';
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">Contact submit — .ct-btn</p>
+          <p class="ds-label">Form submit — .ct-btn (výchozí · hover · disabled)</p>
           <div class="ds-row-wrap">
-            <button type="button" class="ct-btn">Odeslat zprávu <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            <button type="button" class="ct-btn">
+              <span class="ct-btn-label">Odeslat poptávku</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <button type="button" class="ct-btn ct-btn--loading" disabled>
+              <span class="ct-btn-label">Odesílám…</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
           </div>
-          <p class="ds-meta">Stejný styl jako .btn, ale menší padding a s ikonou</p>
+          <p class="ds-meta">font-family: <strong style="color:var(--gold)">Clash Display</strong> (ne General Sans!) · background: --gold · color: --ink · padding: 14px 26px · border-radius: 100px<br>hover: translateY(-2px) + box-shadow 0 12px 32px rgba(245,189,2,.35) (gold glow)<br>disabled: opacity .55 + cursor not-allowed · label text se mění JS na "Odesílám…"</p>
         </div>
 
         <div class="ds-block">
@@ -476,7 +483,10 @@ import Topbar from '../components/Topbar.astro';
               <label class="ctf-label">Zpráva</label>
               <textarea class="ctf-input ctf-textarea" placeholder="Popište váš projekt..."></textarea>
             </div>
-            <button type="submit" class="ct-btn">Odeslat zprávu <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            <button type="submit" class="ct-btn">
+              <span class="ct-btn-label">Odeslat poptávku</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
             <p class="ctf-gdpr">Odesláním souhlasíte se zpracováním osobních údajů.</p>
           </form>
           <p class="ds-meta">background: rgba(247,247,247,.04) · border: 1px solid --line · border-radius: 20px · input focus: border --gold</p>
@@ -758,14 +768,18 @@ import Topbar from '../components/Topbar.astro';
   .link-btn:hover { opacity: .8; }
 
   .ct-btn {
-    display: inline-flex; align-items: center; gap: 8px;
+    display: inline-flex; align-items: center; gap: 10px;
     background: var(--gold); color: var(--ink);
-    padding: 13px 24px; border-radius: 100px;
-    font-weight: 600; font-size: .9rem;
-    border: none; cursor: pointer;
-    transition: background .2s;
+    font-family: var(--display); font-weight: 600; font-size: 1rem;
+    padding: 14px 26px; border-radius: 100px;
+    border: none; cursor: pointer; flex-shrink: 0;
+    transition: transform .3s, box-shadow .3s, opacity .3s;
   }
-  .ct-btn:hover { background: var(--gold-soft); }
+  .ct-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(245,189,2,.35);
+  }
+  .ct-btn:disabled { opacity: .55; cursor: not-allowed; }
 
   .vp-arr-demo { font-size: 1.2rem; color: var(--muted); }
 
