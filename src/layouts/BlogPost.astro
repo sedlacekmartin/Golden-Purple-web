@@ -31,7 +31,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 
 <article>
   <header class="bp-hero">
-    <div class="bpw">
+    <div class="wrap-text">
       {tags.length > 0 && (
         <div class="bp-kick rv">
           {tags.map(t => <span class="bp-tag">{t}</span>)}
@@ -48,7 +48,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 
   {image && (
     <div class="bp-cover rv">
-      <div class="bpww">
+      <div class="wrap-content">
         <img src={image} alt={title} />
       </div>
     </div>
@@ -126,8 +126,6 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 </Base>
 
 <style is:global>
-.bpw  { max-width:860px;  margin:0 auto; padding:0 clamp(22px,5vw,56px) }
-.bpww { max-width:1180px; margin:0 auto; padding:0 clamp(22px,5vw,56px) }
 
 /* PROGRESS */
 #bp-prog { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));z-index:90;width:0;pointer-events:none }

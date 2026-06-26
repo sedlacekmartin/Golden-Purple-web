@@ -19,7 +19,7 @@ const rest = posts.slice(1);
 <Topbar />
 
 <section class="bhero">
-  <div class="bwrap">
+  <div class="wrap">
     <span class="eyebrow rv">Blog</span>
     <h1 class="rv">Tipy & <em>pohled za oponu</em>.</h1>
     <p class="rv">Jak přemýšlíme o webu, brandingu a digitálním marketingu — bez zbytečné omáčky.</p>
@@ -27,14 +27,14 @@ const rest = posts.slice(1);
 </section>
 
 {posts.length === 0 ? (
-  <div class="bwrap bempty rv">
+  <div class="wrap bempty rv">
     <p>Zatím žádné příspěvky. Brzy se dočkáš.</p>
   </div>
 ) : (
   <>
     {featured && (
       <section class="bfeatured">
-        <div class="bwrap">
+        <div class="wrap">
           <a class="bfcard rv" href={`/blog/${featured.id}`}>
             <div class="bfvis">
               {featured.data.image
@@ -68,7 +68,7 @@ const rest = posts.slice(1);
 
     {rest.length > 0 && (
       <section class="bgrid-sec">
-        <div class="bwrap">
+        <div class="wrap">
           <div class="bgh">Všechny články</div>
           <div class="bgrid">
             {rest.map((post, i) => (
@@ -134,7 +134,6 @@ const rest = posts.slice(1);
 </Base>
 
 <style is:global>
-.bwrap { max-width:1280px; margin:0 auto; padding:0 clamp(24px,5vw,64px) }
 
 /* HERO */
 .bhero { padding:160px 0 70px }

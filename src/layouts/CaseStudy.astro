@@ -38,7 +38,7 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
   {heroImage && <div class="cs-hero-bg" style={`background-image:url('${heroImage}')`}></div>}
   <div class="hglow"></div>
   <div class="hglow2"></div>
-  <div class="csw">
+  <div class="wrap-content">
     <div class="cs-kick rv">
       {tags.map(t => <span class="cs-tag">{t}</span>)}
     </div>
@@ -46,7 +46,7 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
     <p class="cs-lead rv">{description}</p>
   </div>
   <div class="cs-metastrip rv">
-    <div class="csww">
+    <div class="wrap-wide">
       <div class="ms-grid">
         <div class="ms-cell"><div class="ms-l">Klient</div><div class="ms-v">{client}</div></div>
         <div class="ms-cell"><div class="ms-l">Obor</div><div class="ms-v">{tags[0]}</div></div>
@@ -58,7 +58,7 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
 </section>
 
 <section class="cs-showcase">
-  <div class="csww rv">
+  <div class="wrap-wide rv">
     <div class="cs-devices">
       <div class="cs-desktop">
         <div class="cs-dbar"><i></i><i></i><i></i><div class="cs-durl"></div></div>
@@ -142,8 +142,6 @@ for (let i = 1; i < allProjects.length && nextTwo.length < 2; i++) {
 </Base>
 
 <style is:global>
-.csw  { max-width:1180px;margin:0 auto;padding:0 clamp(22px,5vw,56px) }
-.csww { max-width:1340px;margin:0 auto;padding:0 clamp(22px,5vw,56px) }
 
 /* PROGRESS */
 #cs-progress { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold-soft),var(--gold));z-index:90;width:0;pointer-events:none }
