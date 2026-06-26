@@ -15,6 +15,7 @@ import Topbar from '../components/Topbar.astro';
       <a href="#typography">Typografie</a>
       <a href="#buttons">Tlačítka</a>
       <a href="#tags">Tagy & badges</a>
+      <a href="#chips">Chips</a>
       <a href="#cards">Karty</a>
       <a href="#forms">Formuláře</a>
       <a href="#dividers">Separátory</a>
@@ -126,6 +127,18 @@ import Topbar from '../components/Topbar.astro';
           <p class="ds-label">Section number</p>
           <p class="typo-num">01</p>
           <p class="ds-meta">General Sans 500 · .75rem · color: --gold</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">.shine — hero keyword (bílý sweep přes gold)</p>
+          <h1 class="typo-h1"><span class="ds-shine">královsky.</span></h1>
+          <p class="ds-meta">background: gold-deep→gold→gold-soft→<strong style="color:var(--paper)">white</strong>→gold-soft→gold→gold-deep · background-size: 250% · animation: shine 5.5s linear infinite<br>Použití: klíčové slovo v hero H1 (index, /martin)</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">h2 &lt;em&gt; — zvýraznění slova v sekčním nadpisu (gold gradient, bez bílého swepu)</p>
+          <h2 class="typo-h2">Postaráme se o <em class="ds-em">vás</em> dobře.</h2>
+          <p class="ds-meta">background: gold-deep→gold-soft→gold-deep · background-size: 200% · animation: shine 5s linear infinite<br>Scoped na konkrétní sekci (ne globální): .gv-left h2 em · #cenik h2 em · .ct-left h2 em · .mp-cta h2 em</p>
         </div>
       </section>
 
@@ -239,6 +252,54 @@ import Topbar from '../components/Topbar.astro';
         </div>
       </section>
 
+      <!-- ════════════════════ CHIPS ════════════════════ -->
+      <section id="chips" class="ds-section">
+        <h2 class="ds-title">Chips</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">Martin chips — .martin-chips span (index + /martin)</p>
+          <div class="ds-chips">
+            <span class="chip-martin">Třebíč · Jihlava · Brno</span>
+            <span class="chip-martin">Webdesign</span>
+            <span class="chip-martin">Branding</span>
+            <span class="chip-martin">Marketing</span>
+            <span class="chip-martin">Digitální produkty</span>
+          </div>
+          <p class="ds-meta">border: 1px solid --line · padding: 8px 16px · border-radius: 100px · color: #CFC4D3 · font-size: .8rem · letter-spacing: .08em</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Labs chips — .lp-chips span (/labs)</p>
+          <div class="ds-chips">
+            <span class="chip-labs">WordPress</span>
+            <span class="chip-labs">Rezervace</span>
+            <span class="chip-labs">Otevírací doba</span>
+            <span class="chip-labs">Poptávky</span>
+          </div>
+          <p class="ds-meta">border: 1px solid --line · padding: 4px 10px · border-radius: 100px · color: --muted · font-size: .64rem · uppercase · letter-spacing: .1em</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Brand scorecard chip — .pchip + .pchip.done (/brand-scorecard)</p>
+          <div class="ds-chips">
+            <span class="chip-score">Vizuální identita</span>
+            <span class="chip-score chip-score--done">Copywriting</span>
+            <span class="chip-score">SEO</span>
+            <span class="chip-score chip-score--done">UX</span>
+          </div>
+          <p class="ds-meta">výchozí: border --line · color --muted · done state: background --gold · color --ink · border --gold</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">⚠ Nekonzistence: 3 různé chip styly pro stejný koncept</p>
+          <div class="ds-warn">
+            <p>martin-chips = color #CFC4D3, padding 8×16, velikost .8rem</p>
+            <p>lp-chips = color --muted, padding 4×10, velikost .64rem, <strong>uppercase</strong></p>
+            <p>pchip = color --muted, padding 6×12, velikost .66rem, uppercase, <strong>+ done stav</strong></p>
+          </div>
+        </div>
+      </section>
+
       <!-- ════════════════════ CARDS ════════════════════ -->
       <section id="cards" class="ds-section">
         <h2 class="ds-title">Karty</h2>
@@ -280,7 +341,7 @@ import Topbar from '../components/Topbar.astro';
               <a href="#" class="tc-go">Stáhnout checklist →</a>
             </div>
           </div>
-          <p class="ds-meta">background: linear-gradient(160deg, --ink-2, --ink) · border: 1px solid --line · border-radius: 18px · position: relative</p>
+          <p class="ds-meta">background: linear-gradient(160deg, --ink-2, --ink) · border: 1px solid --line · border-radius: 18px · position: relative<br><strong style="color:var(--gold)">Hover:</strong> border-color: --gold + translateY(-6px) — záměrně jiný než ostatní karty (tools = klikatelné interaktivní nástroje)</p>
         </div>
 
         <!-- pricing card -->
@@ -908,6 +969,70 @@ import Topbar from '../components/Topbar.astro';
   .tpb-links { display: flex; gap: 28px; }
   .tpb-links a { font-size: .83rem; color: var(--muted); transition: color .2s; }
   .tpb-links a:hover { color: var(--paper); }
+
+  /* ── Shine & em ── */
+  .ds-shine {
+    background: linear-gradient(100deg, var(--gold-deep) 0%, var(--gold) 28%, var(--gold-soft) 47%, #fff 51%, var(--gold-soft) 55%, var(--gold) 70%, var(--gold-deep) 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ds-shine 5.5s linear infinite;
+    display: inline-block;
+  }
+  .ds-em {
+    font-style: normal;
+    background: linear-gradient(100deg, var(--gold-deep), var(--gold-soft), var(--gold-deep));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ds-shine 5s linear infinite;
+  }
+  @keyframes ds-shine { to { background-position: -250% 0; } }
+
+  /* ── Chips ── */
+  .ds-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .chip-martin {
+    font-size: .8rem; letter-spacing: .08em;
+    border: 1px solid var(--line); padding: 8px 16px;
+    border-radius: 100px; color: #CFC4D3;
+  }
+  .chip-labs {
+    font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid var(--line); padding: 4px 10px;
+    border-radius: 100px; color: var(--muted);
+  }
+  .chip-score {
+    font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+    border: 1px solid var(--line); padding: 6px 12px;
+    border-radius: 100px; color: var(--muted);
+    transition: .3s;
+  }
+  .chip-score--done {
+    color: var(--ink);
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* ── Warning box ── */
+  .ds-warn {
+    background: rgba(245,189,2,.06);
+    border: 1px solid rgba(245,189,2,.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .ds-warn p { font-size: .8rem; color: #CFC4D3; font-family: monospace; }
+  .ds-warn strong { color: var(--gold); }
+
+  /* ── Tool card hover (matches actual site) ── */
+  .tool-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold) !important;
+    transition: transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;
+  }
 
   @media(max-width: 768px) {
     .ds-wrap { grid-template-columns: 1fr; }
