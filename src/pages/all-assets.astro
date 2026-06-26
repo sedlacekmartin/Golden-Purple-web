@@ -1245,7 +1245,11 @@ import Arrow from '../components/Arrow.astro';
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: ds-shine var(--shine-dur) linear infinite alternate alternate;
+    animation-name: shine;
+    animation-duration: var(--shine-dur);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
     display: inline-block;
   }
   .ds-em-plain {
@@ -1259,9 +1263,12 @@ import Arrow from '../components/Arrow.astro';
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: ds-shine var(--shine-dur) linear infinite alternate alternate;
+    animation-name: shine;
+    animation-duration: var(--shine-dur);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
   }
-  @keyframes ds-shine { to { background-position: -250% 0; } }
 
   /* ── Chips ── */
   .ds-chips { display: flex; flex-wrap: wrap; gap: 8px; }
