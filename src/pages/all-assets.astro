@@ -310,9 +310,9 @@ import Arrow from '../components/Arrow.astro';
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">.shine — hero keyword (bílý sweep přes gold)</p>
+          <p class="ds-label">.shine — hero keyword (gold gradient sweep, shodný s h2 em)</p>
           <h1 class="typo-h1"><span class="ds-shine">královsky.</span></h1>
-          <p class="ds-meta">background: gold-deep→gold→gold-soft→<strong style="color:var(--paper)">white</strong>→gold-soft→gold→gold-deep · background-size: 250% · animation: shine 5.5s linear infinite<br>Použití: klíčové slovo v hero H1 (index, /martin)</p>
+          <p class="ds-meta">background: gold-deep→gold-soft→gold-deep · background-size: 200% · animation: shine 5s linear infinite<br>Použití: klíčové slovo v hero H1 (index, /martin)</p>
         </div>
 
         <div class="ds-block">
@@ -1240,12 +1240,12 @@ import Arrow from '../components/Arrow.astro';
 
   /* ── Shine & em ── */
   .ds-shine {
-    background: linear-gradient(100deg, var(--gold-deep) 0%, var(--gold) 28%, var(--gold-soft) 47%, #fff 51%, var(--gold-soft) 55%, var(--gold) 70%, var(--gold-deep) 100%);
-    background-size: 250% 100%;
+    background: linear-gradient(100deg, var(--gold-deep), var(--gold-soft), var(--gold-deep));
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: ds-shine 5.5s linear infinite;
+    animation: ds-shine 5s linear infinite;
     display: inline-block;
   }
   .ds-em-plain {
