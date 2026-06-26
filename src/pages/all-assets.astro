@@ -203,8 +203,36 @@ import Topbar from '../components/Topbar.astro';
           </div>
         </div>
 
+        <div class="ds-block">
+          <p class="ds-label">Bio text — .martin-bio (sekce O nás / Martin)</p>
+          <p class="typo-martin-bio">Spojuji webdesign, grafiku, marketing a technické řešení do jednoho procesu. Neřeším jen, jestli web vypadá dobře — řeším, jestli zákazník pochopí nabídku, uvěří jí a udělá další krok.</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>400</strong></span>
+            <span>Size: <strong>clamp(1.05rem, 1.7vw, 1.3rem)</strong></span>
+            <span>Line-height: <strong>1.7</strong> (nejvolnější z body textů)</span>
+            <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
+            <span>Color: <strong>#D7CEDB</strong> (hardcoded, světlejší než --muted)</span>
+            <span>Max-width: <strong>56ch</strong></span>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Poznámka pod ceníkem — .cenik-note</p>
+          <p class="typo-cenik-note">Konzultace a strategie <b>2 000 Kč/h</b> · expresní práce mimo plán <b>+50 %</b> · ceny jsou orientační, finální podle rozsahu. Nejsem plátce DPH.</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>400</strong> / tučné hodnoty <strong>600</strong></span>
+            <span>Size: <strong>.86rem</strong></span>
+            <span>Line-height: <strong>1.6</strong></span>
+            <span>Letter-spacing: <strong>není nastavené</strong></span>
+            <span>Color: <strong>--muted</strong> (#A99CAE) · <code>&lt;b&gt;</code> uvnitř = <strong>#D7CEDB</strong> (zvýraznění čísel)</span>
+            <span>Max-width: <strong>80ch</strong> (nejširší text blok na webu)</span>
+          </div>
+        </div>
+
         <div class="ds-warn" style="margin-bottom:20px">
-          <p>Pozor: na webu jsou 3 různé tmavé barvy textu: #D7CEDB (světlejší perex), #CFC4D3 (střední karty), #C6BBCC (právní stránky). Nejsou pojmenované proměnné, jen hardcoded hex.</p>
+          <p>Pozor: na webu jsou 3 různé tmavé barvy textu: #D7CEDB (světlejší perex / martin-bio), #CFC4D3 (střední karty), #C6BBCC (právní stránky). Nejsou pojmenované proměnné, jen hardcoded hex.</p>
         </div>
 
         <!-- Labels / uppercase -->
@@ -929,6 +957,19 @@ import Topbar from '../components/Topbar.astro';
     border: none;
     padding: 0;
   }
+  .typo-martin-bio {
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    color: #D7CEDB;
+    line-height: 1.7;
+    max-width: 56ch;
+  }
+  .typo-cenik-note {
+    font-size: .86rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 80ch;
+  }
+  .typo-cenik-note b { color: #D7CEDB; font-weight: 600; }
   .typo-mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
   .typo-eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
   .typo-num { font-size: .75rem; font-weight: 500; color: var(--gold); letter-spacing: .08em; }
