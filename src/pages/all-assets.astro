@@ -216,16 +216,17 @@ import Arrow from '../components/Arrow.astro';
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">Body — Muted / pomocný text (.cenik-note, GDPR texty, poznámky)</p>
+          <p class="ds-label">Body — Muted / pomocný text — globální třída <code>.text-muted</code> (Base.astro)</p>
           <p class="typo-muted">Zpracováváme osobní údaje v souladu s GDPR. Souhlas lze kdykoliv odvolat.</p>
           <p class="typo-cenik-note" style="margin-top:10px">Konzultace a strategie <b>2 000 Kč/h</b> · expresní práce mimo plán <b>+50 %</b> · ceny jsou orientační. Nejsem plátce DPH.</p>
           <div class="typo-spec">
+            <span>Třída: <strong>.text-muted</strong> (globální, Base.astro)</span>
             <span>Font: <strong>General Sans</strong></span>
             <span>Weight: <strong>400</strong></span>
-            <span>Size: <strong>.78–.95rem</strong> (typicky .86rem)</span>
+            <span>Size: <strong>.86rem</strong></span>
             <span>Line-height: <strong>1.6</strong></span>
             <span>Color: <strong>var(--muted)</strong> = #A99CAE · <code>&lt;b&gt;</code> uvnitř = <strong>var(--text-soft)</strong></span>
-            <span>Max-width: kontext-specific (60–80ch)</span>
+            <span>Max-width: layout-specific (přes vlastní třídu, .cenik-note má 80ch)</span>
           </div>
         </div>
 
