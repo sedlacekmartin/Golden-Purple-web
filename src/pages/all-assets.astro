@@ -321,14 +321,15 @@ import Topbar from '../components/Topbar.astro';
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">h2 &lt;em&gt; typ B — animovaný gold gradient sweep (jen klíčové CTA sekce)</p>
+          <p class="ds-label">h2 &lt;em&gt; — animovaný gold gradient sweep (všechny sekce)</p>
           <h2 class="typo-h2">Postaráme se o <em class="ds-em">vás</em> dobře.</h2>
-          <p class="ds-meta">font-style: normal · background: gold-deep→gold-soft→gold-deep · background-clip: text · animation: shine 5s linear infinite<br>Kde (pouze 5 míst): .gv-left h2 · #cenik h2 · .ct-left h2 · .mp-cta h2 · .endcta h2 (/prace)</p>
+          <p class="ds-meta">font-style: normal · background: gold-deep→gold-soft→gold-deep · background-clip: text · animation: shine 5s linear infinite<br>
+          Kde (index.astro): .vp-left h2 · .bolesti-head h2 · .gv-left h2 · #sluzby h2 · .ltease-inner h2 · .collab-left h2 · #nastroje h2 · #cenik h2 · .ct-left h2 · #faq h2<br>
+          Další stránky: .mp-cta h2 (/martin) · .endcta h2 (/prace)</p>
         </div>
 
-        <div class="ds-warn" style="margin-top:-10px; margin-bottom:20px">
-          <p>Pravidlo není psané — Typ B je na sekcích Golden Vision, Ceník, Kontakt, /martin CTA, /práce CTA.</p>
-          <p>Všude jinde = Typ A. Pokud chceš konzistenci, rozhodni se pro jedno.</p>
+        <div class="ds-warn" style="margin-top:-10px; margin-bottom:20px; border-color: rgba(47,169,104,.3); background: rgba(47,169,104,.06)">
+          <p style="color: var(--success)">✓ Sjednoceno — Typ A (prostá zlatá) zrušen. Všechny h2 &lt;em&gt; na webu teď jedou Typ B (gradient sweep).</p>
         </div>
       </section>
 
