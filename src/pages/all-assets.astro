@@ -1,0 +1,916 @@
+---
+import Base from '../layouts/Base.astro';
+import Topbar from '../components/Topbar.astro';
+---
+
+<Base title="Design System — Golden Purple" noindex={true}>
+  <Topbar />
+
+  <div class="ds-wrap">
+
+    <!-- ── SIDEBAR ── -->
+    <nav class="ds-nav">
+      <p class="ds-nav-label">Obsah</p>
+      <a href="#colors">Barvy</a>
+      <a href="#typography">Typografie</a>
+      <a href="#buttons">Tlačítka</a>
+      <a href="#tags">Tagy & badges</a>
+      <a href="#cards">Karty</a>
+      <a href="#forms">Formuláře</a>
+      <a href="#dividers">Separátory</a>
+      <a href="#sections">Sekce vzory</a>
+    </nav>
+
+    <!-- ── MAIN ── -->
+    <main class="ds-main">
+
+      <header class="ds-header">
+        <div class="ds-header-tag"><span class="d"></span><span class="mono">Internal</span></div>
+        <h1>Design System</h1>
+        <p class="ds-header-sub">Všechny UI elementy webu na jednom místě. Pokud jsou dvě věci stejné, měly by vypadat stejně.</p>
+      </header>
+
+      <!-- ════════════════════ COLORS ════════════════════ -->
+      <section id="colors" class="ds-section">
+        <h2 class="ds-title">Barvy</h2>
+
+        <div class="ds-row">
+          <div class="ds-swatch-group">
+            <p class="ds-label">Brand</p>
+            <div class="ds-swatches">
+              <div class="ds-swatch" style="background:#F5BD02"><span>--gold<br>#F5BD02</span></div>
+              <div class="ds-swatch" style="background:#FFD75E"><span>--gold-soft<br>#FFD75E</span></div>
+              <div class="ds-swatch" style="background:#C99700"><span>--gold-deep<br>#C99700</span></div>
+              <div class="ds-swatch" style="background:#56215E"><span>--purple<br>#56215E</span></div>
+              <div class="ds-swatch" style="background:#3B1243"><span>--purple-deep<br>#3B1243</span></div>
+              <div class="ds-swatch" style="background:#8E4D97"><span>--purple-bright<br>#8E4D97</span></div>
+            </div>
+          </div>
+          <div class="ds-swatch-group">
+            <p class="ds-label">Neutrals</p>
+            <div class="ds-swatches">
+              <div class="ds-swatch" style="background:#0C0610; border:1px solid rgba(247,247,247,.12)"><span>--ink<br>#0C0610</span></div>
+              <div class="ds-swatch" style="background:#150A1A; border:1px solid rgba(247,247,247,.12)"><span>--ink-2<br>#150A1A</span></div>
+              <div class="ds-swatch" style="background:#F7F7F7; color:#0C0610"><span>--paper<br>#F7F7F7</span></div>
+              <div class="ds-swatch" style="background:#A99CAE; color:#0C0610"><span>--muted<br>#A99CAE</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════ TYPOGRAPHY ════════════════════ -->
+      <section id="typography" class="ds-section">
+        <h2 class="ds-title">Typografie</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">H1 — Display hero</p>
+          <h1 class="typo-h1">Stavíme weby,<br>co vydělávají.</h1>
+          <p class="ds-meta">Clash Display 700 · clamp(3.4rem, 10vw, 9.5rem) · line-height .86</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">H1 — Section hero</p>
+          <h1 class="typo-h1-sec">Jak to funguje</h1>
+          <p class="ds-meta">Clash Display 700 · clamp(2.6rem, 7vw, 6rem) · line-height .92</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">H2 — Section heading</p>
+          <h2 class="typo-h2">Vybraná práce</h2>
+          <p class="ds-meta">Clash Display 600 · clamp(1.8rem, 4vw, 3rem) · letter-spacing -.02em</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">H3 — Subsection</p>
+          <h3 class="typo-h3">Co dostanete</h3>
+          <p class="ds-meta">Clash Display 600 · clamp(1.2rem, 2.5vw, 1.7rem)</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">H4 — Card title</p>
+          <h4 class="typo-h4">Analytické cookies</h4>
+          <p class="ds-meta">General Sans 600 · .95rem</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Body — Default</p>
+          <p class="typo-body">Tvoříme digitální zážitky, které přivádějí poptávky, šetří ruční práci a zvedají vnímanou hodnotu vaší firmy. Stavíme na datech, řízeném designu a čistém kódu.</p>
+          <p class="ds-meta">General Sans 400 · 17px · line-height 1.6</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Body — Muted</p>
+          <p class="typo-muted">Zpracováváme osobní údaje v souladu s GDPR. Souhlas lze kdykoliv odvolat.</p>
+          <p class="ds-meta">General Sans 400 · color: --muted</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Lead / Perex</p>
+          <p class="typo-lead">Většina webů vypadá OK, ale nic neprodává. Proč? Protože nemají jasný cíl, strukturu ani příběh.</p>
+          <p class="ds-meta">General Sans 400/500 · clamp(1rem, 1.5vw, 1.2rem) · color: --paper</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Mono / Label (uppercase)</p>
+          <p class="typo-mono">Golden Purple Studio</p>
+          <p class="ds-meta">General Sans 600 · .72rem · letter-spacing .16em · uppercase</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Eyebrow / Kicker (gold)</p>
+          <p class="typo-eyebrow">Co umíme</p>
+          <p class="ds-meta">General Sans 600 · .74rem · letter-spacing .3em · uppercase · color: --gold</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Section number</p>
+          <p class="typo-num">01</p>
+          <p class="ds-meta">General Sans 500 · .75rem · color: --gold</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════ BUTTONS ════════════════════ -->
+      <section id="buttons" class="ds-section">
+        <h2 class="ds-title">Tlačítka</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">Primary — .btn</p>
+          <div class="ds-row-wrap">
+            <a href="#" class="btn">Zjistit více</a>
+            <a href="#" class="btn btn-sm">Zjistit více</a>
+          </div>
+          <p class="ds-meta">background: --gold · color: --ink · border-radius: 100px · padding: 18px 38px · font-weight: 600</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Secondary text link — .h-sec</p>
+          <div class="ds-row-wrap">
+            <a href="#" class="h-sec">Zobrazit všechny projekty</a>
+          </div>
+          <p class="ds-meta">color: --muted · border-bottom: 1px solid --line · font-weight: 600</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Ghost / Outline</p>
+          <div class="ds-row-wrap">
+            <a href="#" class="btn-ghost">Kontaktovat</a>
+          </div>
+          <p class="ds-meta">border: 1px solid --line · background: transparent · border-radius: 100px</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Text / Link button — .link-btn</p>
+          <div class="ds-row-wrap">
+            <button type="button" class="link-btn">Nastavení cookies</button>
+          </div>
+          <p class="ds-meta">background: none · color: --gold · text-decoration: underline</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Contact submit — .ct-btn</p>
+          <div class="ds-row-wrap">
+            <button type="button" class="ct-btn">Odeslat zprávu <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+          <p class="ds-meta">Stejný styl jako .btn, ale menší padding a s ikonou</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Navigační šipka (vybrana prace) — .vp-arr</p>
+          <div class="ds-row-wrap">
+            <span class="vp-arr-demo">→</span>
+          </div>
+          <p class="ds-meta">Čistý → šipka, color: --muted · přechod na --gold při hoveru na řádku</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════ TAGS & BADGES ════════════════════ -->
+      <section id="tags" class="ds-section">
+        <h2 class="ds-title">Tagy & Badges</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">Hero badge — .h-badge</p>
+          <div class="ds-row-wrap">
+            <div class="h-badge"><span class="d"></span><span class="mono">Třebíč · Jihlava · Brno</span></div>
+          </div>
+          <p class="ds-meta">border: 1px solid --line · background: rgba(247,247,247,.04) · border-radius: 100px · obsahuje pulzující dot</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Legal tag — .tag</p>
+          <div class="ds-row-wrap">
+            <div class="tag"><span class="d"></span><span class="mono">Právní dokumenty</span></div>
+          </div>
+          <p class="ds-meta">Stejný styl jako .h-badge, méně padding</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Blog / case study tag — .bp-tag</p>
+          <div class="ds-row-wrap">
+            <span class="bp-tag">Web design</span>
+            <span class="bp-tag">Branding</span>
+            <span class="bp-tag">E-shop</span>
+          </div>
+          <p class="ds-meta">border: 1px solid rgba(245,189,2,.3) · color: --gold · font-size .7rem · uppercase · letter-spacing .12em · border-radius: 100px</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Blog card mini tag — .bp-mt</p>
+          <div class="ds-row-wrap">
+            <span class="bp-mt">SEO</span>
+            <span class="bp-mt">Copywriting</span>
+          </div>
+          <p class="ds-meta">Bez bordurou, čistý uppercase gold label pro karty</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Free / Gold badge — .free</p>
+          <div class="ds-row-wrap">
+            <span class="free-demo">Zdarma</span>
+          </div>
+          <p class="ds-meta">background: --gold · color: --ink · pozice: absolute top-right na tool kartě</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Project kicker — .vp-tag</p>
+          <div class="ds-row-wrap">
+            <span class="vp-tag-demo">Web design & Dev</span>
+          </div>
+          <p class="ds-meta">font-size .68rem · uppercase · color: --muted · bez bordurou</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════ CARDS ════════════════════ -->
+      <section id="cards" class="ds-section">
+        <h2 class="ds-title">Karty</h2>
+
+        <!-- bcard -->
+        <div class="ds-block">
+          <p class="ds-label">Pain point karta — .bcard</p>
+          <div class="ds-grid-2">
+            <div class="bcard">
+              <div class="bc-n">01</div>
+              <p class="bc-t">Web, co nic neprodává</p>
+              <p class="bc-d">Hezký design nestačí. Bez jasné struktury a výzvy k akci návštěvníci odcházejí bez kontaktu.</p>
+            </div>
+            <div class="bcard">
+              <div class="bc-n">02</div>
+              <p class="bc-t">Žádná viditelnost na Googlu</p>
+              <p class="bc-d">Bez SEO a technické optimalizace vás zákazníci jednoduše nenajdou.</p>
+            </div>
+          </div>
+          <p class="ds-meta">background: linear-gradient(160deg, --ink-2, --ink) · border: 1px solid --line · border-radius: 16px</p>
+        </div>
+
+        <!-- tool card -->
+        <div class="ds-block">
+          <p class="ds-label">Nástroj karta — .tool</p>
+          <div class="ds-grid-2">
+            <div class="tool-card">
+              <span class="free-badge">Zdarma</span>
+              <div class="tc-icon">⚡</div>
+              <h4 class="tc-title">Web Skener</h4>
+              <p class="tc-desc">Automaticky otestuje váš web na rychlost, SEO a dostupnost. Výsledky za 30 sekund.</p>
+              <a href="#" class="tc-go">Spustit skener →</a>
+            </div>
+            <div class="tool-card">
+              <span class="free-badge">Zdarma</span>
+              <div class="tc-icon">📊</div>
+              <h4 class="tc-title">Marketing audit</h4>
+              <p class="tc-desc">Checklist 40 bodů pro váš web a marketing. Zjistěte co vám uniká.</p>
+              <a href="#" class="tc-go">Stáhnout checklist →</a>
+            </div>
+          </div>
+          <p class="ds-meta">background: linear-gradient(160deg, --ink-2, --ink) · border: 1px solid --line · border-radius: 18px · position: relative</p>
+        </div>
+
+        <!-- pricing card -->
+        <div class="ds-block">
+          <p class="ds-label">Ceník karta — .cprod (výchozí + featured)</p>
+          <div class="ds-grid-2">
+            <div class="price-card">
+              <p class="pc-label">Základ</p>
+              <p class="pc-for">Pro firmy hledající solidní online prezentaci</p>
+              <p class="pc-price">od 25 000 <span>Kč</span></p>
+              <p class="pc-unit">jednorázová platba</p>
+              <ul class="pc-list">
+                <li>Responzivní design</li>
+                <li>Rychlý web (Core Web Vitals)</li>
+                <li>Základní SEO</li>
+              </ul>
+            </div>
+            <div class="price-card price-card--feat">
+              <p class="pc-label">Premium</p>
+              <p class="pc-for">Pro firmy co chtějí web, který aktivně prodává</p>
+              <p class="pc-price">od 65 000 <span>Kč</span></p>
+              <p class="pc-unit">jednorázová platba</p>
+              <ul class="pc-list">
+                <li>Vše ze Základu</li>
+                <li>Copywriting & strategie</li>
+                <li>Konverzní optimalizace</li>
+              </ul>
+            </div>
+          </div>
+          <p class="ds-meta">featured variant: border-color rgba(245,189,2,.45) · background s purple tint</p>
+        </div>
+
+        <!-- blog card -->
+        <div class="ds-block">
+          <p class="ds-label">Blog karta — .bp-mcard</p>
+          <div class="blog-card">
+            <div class="blc-body">
+              <span class="bp-mt">SEO</span>
+              <h4 class="blc-title">Proč váš web nefunguje (a jak to změnit)</h4>
+              <p class="blc-date">15. 6. 2026</p>
+            </div>
+            <span class="blc-arr">→</span>
+          </div>
+          <p class="ds-meta">border: 1px solid --line · border-radius: 16px · background: linear-gradient</p>
+        </div>
+
+        <!-- service row -->
+        <div class="ds-block">
+          <p class="ds-label">Služba řádek — .srow</p>
+          <div class="srow-demo">
+            <div class="srow-item">
+              <span class="sr-n">01</span>
+              <div class="sr-body">
+                <h4 class="sr-title">Web design & vývoj</h4>
+                <p class="sr-desc">Weby na míru v Astro a Next.js. Rychlé, přístupné, na výsledky zaměřené.</p>
+              </div>
+            </div>
+            <div class="srow-item">
+              <span class="sr-n">02</span>
+              <div class="sr-body">
+                <h4 class="sr-title">Branding & identita</h4>
+                <p class="sr-desc">Logo, typografie, vizuální jazyk — vše co tvoří zapamatovatelnou značku.</p>
+              </div>
+            </div>
+          </div>
+          <p class="ds-meta">display: flex · gap: 28px · border-top: 1px solid --line · číslo + nadpis + popis</p>
+        </div>
+
+        <!-- step card -->
+        <div class="ds-block">
+          <p class="ds-label">Krok spolupráce — .cstep</p>
+          <div class="cstep-demo">
+            <div class="cstep-item">
+              <div class="cst-n">1</div>
+              <div class="cst-body">
+                <h4 class="cst-title">Úvodní hovor</h4>
+                <p class="cst-desc">30 minut. Zjistíme co potřebujete a jestli si sedneme.</p>
+              </div>
+            </div>
+            <div class="cstep-item">
+              <div class="cst-n">2</div>
+              <div class="cst-body">
+                <h4 class="cst-title">Strategie & nabídka</h4>
+                <p class="cst-desc">Do týdne dostanete konkrétní návrh s rozsahem a cenou.</p>
+              </div>
+            </div>
+          </div>
+          <p class="ds-meta">grid: 54px 1fr · kroužek s číslem + nadpis + popis · border-top: 1px solid --line</p>
+        </div>
+
+        <!-- vp-item (portfolio row) -->
+        <div class="ds-block">
+          <p class="ds-label">Portfolio řádek — .vp-item</p>
+          <div class="vp-list-demo">
+            <a href="#" class="vpi-row">
+              <span class="vpi-n">01</span>
+              <div class="vpi-meta">
+                <span class="vpi-name">Amfels</span>
+                <span class="vpi-tag">E-shop · Branding</span>
+              </div>
+              <span class="vpi-arr">→</span>
+            </a>
+            <a href="#" class="vpi-row">
+              <span class="vpi-n">02</span>
+              <div class="vpi-meta">
+                <span class="vpi-name">Baroko</span>
+                <span class="vpi-tag">Web design</span>
+              </div>
+              <span class="vpi-arr">→</span>
+            </a>
+          </div>
+          <p class="ds-meta">border-top: 1px solid --line · číslo · název · tag · šipka</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════ FORMS ════════════════════ -->
+      <section id="forms" class="ds-section">
+        <h2 class="ds-title">Formuláře</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">Kontaktní formulář — .ct-form</p>
+          <form class="ct-form-demo" onsubmit="return false">
+            <div class="ctf-field">
+              <label class="ctf-label">Jméno a příjmení</label>
+              <input type="text" class="ctf-input" placeholder="Jan Novák" />
+            </div>
+            <div class="ctf-field">
+              <label class="ctf-label">E-mail</label>
+              <input type="email" class="ctf-input" placeholder="jan@firma.cz" />
+            </div>
+            <div class="ctf-field">
+              <label class="ctf-label">Zpráva</label>
+              <textarea class="ctf-input ctf-textarea" placeholder="Popište váš projekt..."></textarea>
+            </div>
+            <button type="submit" class="ct-btn">Odeslat zprávu <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            <p class="ctf-gdpr">Odesláním souhlasíte se zpracováním osobních údajů.</p>
+          </form>
+          <p class="ds-meta">background: rgba(247,247,247,.04) · border: 1px solid --line · border-radius: 20px · input focus: border --gold</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════ DIVIDERS ════════════════════ -->
+      <section id="dividers" class="ds-section">
+        <h2 class="ds-title">Separátory & dekorace</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">Řádkový separátor — --line</p>
+          <div class="div-line"></div>
+          <p class="ds-meta">border-top: 1px solid rgba(247,247,247,.12)</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Gold dot — .d (v badge)</p>
+          <div class="ds-row-wrap" style="align-items:center; gap:12px;">
+            <span class="d"></span>
+            <span style="color:var(--muted); font-size:.85rem">Pulzující zlatý dot v badge elementech</span>
+          </div>
+          <p class="ds-meta">width: 7px · height: 7px · background: --gold · box-shadow: 0 0 10px --gold · animation: pulse</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Progress bar</p>
+          <div class="prog-demo">
+            <div class="prog-bar" style="width:60%"></div>
+          </div>
+          <p class="ds-meta">height: 3px · background: linear-gradient(90deg, --gold-soft, --gold) · používá se jako reading progress na blogu</p>
+        </div>
+      </section>
+
+      <!-- ════════════════════ SECTION PATTERNS ════════════════════ -->
+      <section id="sections" class="ds-section">
+        <h2 class="ds-title">Vzory sekcí</h2>
+
+        <div class="ds-block">
+          <p class="ds-label">Section head pattern</p>
+          <div class="sec-head-demo">
+            <p class="typo-eyebrow">Co umíme</p>
+            <h2 class="typo-h2" style="margin-top:10px">Všechno, co váš<br>web potřebuje.</h2>
+          </div>
+          <p class="ds-meta">eyebrow (gold uppercase) + display H2 — standardní úvod sekce</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Navigační tečky — .dots</p>
+          <div class="dots-demo">
+            <div class="dot-item dot-active"></div>
+            <div class="dot-item"></div>
+            <div class="dot-item"></div>
+            <div class="dot-item"></div>
+          </div>
+          <p class="ds-meta">position: fixed right · tečky jako navigace mezi panely</p>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Topbar struktura</p>
+          <div class="tpb-demo">
+            <span class="tpb-logo">Golden Purple</span>
+            <div class="tpb-links">
+              <a href="#">Práce</a>
+              <a href="#">Blog</a>
+              <a href="#">Ceník</a>
+            </div>
+            <a href="#" class="btn btn-sm">Kontakt</a>
+          </div>
+          <p class="ds-meta">position: fixed · background on scroll: rgba(12,6,16,.88) + blur(18px) · view-transition-name: topbar</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</Base>
+
+<style is:global>
+  /* ── Design System page layout ── */
+  .ds-wrap {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-height: 100dvh;
+    padding-top: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 0 40px;
+    padding-left: clamp(20px, 4vw, 60px);
+    padding-right: clamp(20px, 4vw, 60px);
+  }
+
+  /* Sidebar nav */
+  .ds-nav {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 0;
+  }
+  .ds-nav-label {
+    font-size: .62rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .ds-nav a {
+    font-size: .82rem;
+    color: var(--muted);
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: color .15s, background .15s;
+    display: block;
+  }
+  .ds-nav a:hover { color: var(--paper); background: rgba(247,247,247,.06); }
+
+  .ds-main { padding: 40px 0 120px; }
+
+  /* Page header */
+  .ds-header {
+    margin-bottom: 64px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ds-header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--line);
+    background: rgba(247,247,247,.03);
+    padding: 7px 14px;
+    border-radius: 100px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .ds-header h1 {
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: .95;
+    margin-bottom: 14px;
+  }
+  .ds-header-sub { color: var(--muted); font-size: .92rem; max-width: 52ch; line-height: 1.6; }
+
+  /* Section */
+  .ds-section {
+    margin-bottom: 72px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ds-title {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: var(--paper);
+    margin-bottom: 32px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(245,189,2,.25);
+    display: inline-block;
+  }
+  .ds-block { margin-bottom: 36px; }
+  .ds-label {
+    font-size: .65rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .ds-meta {
+    font-size: .72rem;
+    color: var(--muted);
+    margin-top: 10px;
+    font-family: monospace;
+    opacity: .8;
+    line-height: 1.5;
+  }
+  .ds-row { display: flex; gap: 32px; flex-wrap: wrap; }
+  .ds-row-wrap { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .ds-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media(max-width: 640px) { .ds-grid-2 { grid-template-columns: 1fr; } }
+
+  /* ── Colors ── */
+  .ds-swatch-group { flex: 1; min-width: 280px; }
+  .ds-swatch-group .ds-label { margin-bottom: 10px; }
+  .ds-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ds-swatch {
+    width: 88px; height: 72px;
+    border-radius: 10px;
+    display: flex; align-items: flex-end;
+    padding: 6px 8px;
+  }
+  .ds-swatch span { font-size: .6rem; color: rgba(247,247,247,.7); line-height: 1.3; font-family: monospace; }
+
+  /* ── Typography demos ── */
+  .typo-h1 {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 6vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: .9;
+  }
+  .typo-h1-sec {
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: .92;
+  }
+  .typo-h2 {
+    font-family: var(--display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -.02em;
+  }
+  .typo-h3 {
+    font-family: var(--display);
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-weight: 600;
+    letter-spacing: -.02em;
+  }
+  .typo-h4 { font-size: .95rem; font-weight: 600; color: var(--paper); }
+  .typo-body { color: var(--paper); line-height: 1.6; max-width: 60ch; }
+  .typo-muted { color: var(--muted); line-height: 1.6; max-width: 60ch; }
+  .typo-lead {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    color: var(--paper);
+    line-height: 1.65;
+    max-width: 56ch;
+  }
+  .typo-mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+  .typo-eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+  .typo-num { font-size: .75rem; font-weight: 500; color: var(--gold); }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold); color: var(--ink);
+    padding: 16px 34px; border-radius: 100px;
+    font-weight: 600; font-size: .95rem;
+    border: none; cursor: pointer;
+    transition: background .2s, transform .15s;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--gold-soft); }
+  .btn-sm { padding: 11px 22px; font-size: .82rem; }
+
+  .h-sec {
+    font-weight: 600; font-size: .95rem;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+    text-decoration: none;
+  }
+  .h-sec:hover { color: var(--paper); border-color: var(--paper); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line);
+    background: transparent; color: var(--paper);
+    padding: 14px 28px; border-radius: 100px;
+    font-weight: 500; font-size: .9rem;
+    cursor: pointer; transition: border-color .2s, background .2s;
+    text-decoration: none;
+  }
+  .btn-ghost:hover { border-color: rgba(247,247,247,.3); background: rgba(247,247,247,.05); }
+
+  .link-btn {
+    background: none; border: none; color: var(--gold);
+    cursor: pointer; font-size: .95rem; padding: 0;
+    font-family: inherit; text-decoration: underline;
+  }
+  .link-btn:hover { opacity: .8; }
+
+  .ct-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--ink);
+    padding: 13px 24px; border-radius: 100px;
+    font-weight: 600; font-size: .9rem;
+    border: none; cursor: pointer;
+    transition: background .2s;
+  }
+  .ct-btn:hover { background: var(--gold-soft); }
+
+  .vp-arr-demo { font-size: 1.2rem; color: var(--muted); }
+
+  /* ── Tags & Badges ── */
+  .h-badge, .tag {
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--line);
+    background: rgba(247,247,247,.04);
+    padding: 8px 16px; border-radius: 100px;
+    color: var(--muted);
+  }
+  .d {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 10px var(--gold);
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 6px var(--gold); }
+    50% { box-shadow: 0 0 16px var(--gold); }
+  }
+  .mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
+
+  .bp-tag {
+    font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(245,189,2,.3);
+    padding: 6px 13px; border-radius: 100px; display: inline-block;
+  }
+  .bp-mt {
+    font-size: .64rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); display: inline-block;
+  }
+  .free-demo {
+    display: inline-block;
+    font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink); background: var(--gold);
+    padding: 4px 10px; border-radius: 100px; font-weight: 600;
+  }
+  .vp-tag-demo {
+    font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Cards ── */
+  /* bcard */
+  .bcard {
+    background: linear-gradient(160deg, var(--ink-2), var(--ink));
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 24px 22px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .bc-n { font-size: .8rem; color: var(--gold); font-weight: 500; }
+  .bc-t { font-family: var(--display); font-size: 1.05rem; font-weight: 600; letter-spacing: -.01em; }
+  .bc-d { font-size: .83rem; color: var(--muted); line-height: 1.6; }
+
+  /* tool card */
+  .tool-card {
+    background: linear-gradient(160deg, var(--ink-2), var(--ink));
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 28px 24px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: border-color .2s;
+  }
+  .tool-card:hover { border-color: rgba(247,247,247,.22); }
+  .free-badge {
+    position: absolute; top: 18px; right: 18px;
+    font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink); background: var(--gold);
+    padding: 4px 10px; border-radius: 100px; font-weight: 600;
+  }
+  .tc-icon { font-size: 1.4rem; margin-bottom: 4px; }
+  .tc-title { font-family: var(--display); font-size: 1.05rem; font-weight: 600; letter-spacing: -.01em; }
+  .tc-desc { font-size: .83rem; color: var(--muted); line-height: 1.6; flex: 1; }
+  .tc-go { font-size: .82rem; color: var(--gold); font-weight: 500; margin-top: 6px; }
+
+  /* pricing card */
+  .price-card {
+    background: linear-gradient(160deg, var(--ink-2), var(--ink));
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: border-color .2s;
+  }
+  .price-card--feat {
+    border-color: rgba(245,189,2,.45);
+    background: linear-gradient(160deg, rgba(86,33,94,.2), var(--ink));
+  }
+  .pc-label { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .pc-for { font-size: .8rem; color: var(--muted); line-height: 1.5; margin-top: 2px; margin-bottom: 10px; font-style: italic; }
+  .pc-price { font-family: var(--display); font-size: 2rem; font-weight: 700; letter-spacing: -.03em; }
+  .pc-price span { font-size: 1rem; font-weight: 400; }
+  .pc-unit { font-size: .75rem; color: var(--muted); margin-bottom: 14px; }
+  .pc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 6px; }
+  .pc-list li { font-size: .83rem; color: var(--muted); padding-left: 16px; position: relative; }
+  .pc-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+  /* blog card */
+  .blog-card {
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 24px 28px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    background: linear-gradient(150deg, var(--ink-2), var(--ink));
+    transition: border-color .2s;
+    cursor: pointer;
+  }
+  .blog-card:hover { border-color: rgba(247,247,247,.22); }
+  .blc-body { display: flex; flex-direction: column; gap: 7px; }
+  .blc-title { font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; }
+  .blc-date { font-size: .72rem; color: var(--muted); }
+  .blc-arr { font-size: 1.2rem; color: var(--muted); flex-shrink: 0; }
+
+  /* service row */
+  .srow-demo { display: flex; flex-direction: column; }
+  .srow-item {
+    display: flex; align-items: flex-start; gap: 28px;
+    padding: 20px 0; border-top: 1px solid var(--line);
+  }
+  .sr-n { font-size: .75rem; color: var(--gold); font-weight: 500; min-width: 28px; padding-top: 3px; }
+  .sr-body { display: flex; flex-direction: column; gap: 5px; }
+  .sr-title { font-size: .95rem; font-weight: 600; }
+  .sr-desc { font-size: .83rem; color: var(--muted); line-height: 1.55; }
+
+  /* step card */
+  .cstep-demo { display: flex; flex-direction: column; }
+  .cstep-item {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 20px; padding: 20px 0; border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .cst-n {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(245,189,2,.1); border: 1px solid rgba(245,189,2,.3);
+    color: var(--gold); font-size: .8rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cst-body { display: flex; flex-direction: column; gap: 4px; }
+  .cst-title { font-size: .95rem; font-weight: 600; }
+  .cst-desc { font-size: .83rem; color: var(--muted); line-height: 1.55; }
+
+  /* vp-item (portfolio row) */
+  .vp-list-demo { display: flex; flex-direction: column; }
+  .vpi-row {
+    display: flex; align-items: center; gap: 18px;
+    padding: 16px 0; border-top: 1px solid var(--line);
+    text-decoration: none; color: inherit;
+    transition: opacity .2s;
+  }
+  .vpi-row:hover .vpi-arr { color: var(--gold); }
+  .vpi-n { font-size: .75rem; color: var(--gold); font-weight: 500; min-width: 24px; }
+  .vpi-meta { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .vpi-name { font-size: .95rem; font-weight: 600; }
+  .vpi-tag { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .vpi-arr { font-size: 1.1rem; color: var(--muted); transition: color .2s; }
+
+  /* ── Forms ── */
+  .ct-form-demo {
+    background: rgba(247,247,247,.04);
+    border: 1px solid var(--line); border-radius: 20px;
+    padding: clamp(20px, 3vw, 32px);
+    display: flex; flex-direction: column; gap: 16px;
+    max-width: 480px;
+  }
+  .ctf-field { display: flex; flex-direction: column; gap: 7px; }
+  .ctf-label {
+    font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600;
+  }
+  .ctf-input {
+    background: rgba(247,247,247,.05);
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; color: var(--paper);
+    font-family: var(--body); font-size: .9rem;
+    transition: border-color .2s, background .2s;
+    outline: none;
+  }
+  .ctf-input::placeholder { color: rgba(169,156,174,.45); }
+  .ctf-input:focus { border-color: rgba(245,189,2,.45); background: rgba(247,247,247,.08); }
+  .ctf-textarea { resize: vertical; min-height: 100px; }
+  .ctf-gdpr { font-size: .68rem; color: var(--muted); opacity: .7; line-height: 1.5; }
+
+  /* ── Dividers ── */
+  .div-line { border-top: 1px solid var(--line); width: 100%; }
+  .prog-demo { background: rgba(247,247,247,.08); border-radius: 4px; height: 3px; width: 100%; max-width: 400px; overflow: hidden; }
+  .prog-bar { height: 100%; background: linear-gradient(90deg, var(--gold-soft), var(--gold)); border-radius: 4px; }
+
+  /* ── Section patterns ── */
+  .sec-head-demo { padding: 24px; background: rgba(247,247,247,.02); border-radius: 12px; border: 1px solid var(--line); }
+
+  .dots-demo { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: rgba(247,247,247,.02); border-radius: 12px; border: 1px solid var(--line); width: fit-content; }
+  .dot-item { width: 7px; height: 7px; border-radius: 50%; background: rgba(247,247,247,.25); transition: background .2s; }
+  .dot-active { background: var(--gold); }
+
+  .tpb-demo {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px; border-radius: 12px;
+    background: rgba(12,6,16,.88); border: 1px solid var(--line);
+    backdrop-filter: blur(18px);
+  }
+  .tpb-logo { font-family: var(--display); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; }
+  .tpb-links { display: flex; gap: 28px; }
+  .tpb-links a { font-size: .83rem; color: var(--muted); transition: color .2s; }
+  .tpb-links a:hover { color: var(--paper); }
+
+  @media(max-width: 768px) {
+    .ds-wrap { grid-template-columns: 1fr; }
+    .ds-nav { display: none; }
+  }
+</style>
