@@ -1,6 +1,7 @@
 ﻿---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
+import Arrow from '../../components/Arrow.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('prace', ({ data }) => !data.draft))
@@ -46,7 +47,7 @@ const rest = projects.slice(1);
           </div>
           <span class="go">
             Zobrazit projekt
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <Arrow />
           </span>
         </div>
       </a>
@@ -86,7 +87,7 @@ const rest = projects.slice(1);
     <p class="reveal">Napište pár slov o tom, co řešíte. Ozveme se do dvou dnů s konkrétními nápady.</p>
     <a class="btn reveal" href="/#kontakt">
       Pojďme do toho
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <Arrow size={17} />
     </a>
   </div>
 </section>

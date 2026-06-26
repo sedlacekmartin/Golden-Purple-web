@@ -1,6 +1,7 @@
 ﻿---
 import Base from './Base.astro';
 import Topbar from '../components/Topbar.astro';
+import Arrow from '../components/Arrow.astro';
 import { getCollection } from 'astro:content';
 
 interface Props {
@@ -82,7 +83,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
   <p class="rv">Napište pár slov o tom, co potřebujete. Ozveme se do dvou dnů s konkrétními nápady.</p>
   <a class="bp-btn rv" href="/#kontakt">
     Pojďme do toho
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    <Arrow size={18} />
   </a>
 </section>
 

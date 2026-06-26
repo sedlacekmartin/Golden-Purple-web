@@ -1,6 +1,7 @@
 ﻿---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
+import Arrow from '../../components/Arrow.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -56,7 +57,7 @@ const rest = posts.slice(1);
                 </time>
                 <span class="bfgo">
                   Číst článek
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  <Arrow />
                 </span>
               </div>
             </div>

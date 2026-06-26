@@ -1,6 +1,7 @@
 ﻿---
 import Base from '../layouts/Base.astro';
 import Topbar from '../components/Topbar.astro';
+import Arrow from '../components/Arrow.astro';
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -143,7 +144,7 @@ const serviceSchema = {
       <p class="h-vp">Stavíme weby, značky a systémy, které firmám přivádí poptávky, šetří ruční práci a zvedají jejich vnímanou hodnotu.</p>
 
       <div class="h-cta">
-        <a class="btn" href="/scan/">Zjistit, co brzdí můj web<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="/scan/">Zjistit, co brzdí můj web<Arrow size={17} /></a>
         <a class="h-sec" href="/prace/">Prohlédnout realizace</a>
       </div>
 
@@ -172,7 +173,7 @@ const serviceSchema = {
       </div>
       <div class="bolesti-cta cv">
         <p>Pokud se v tom poznáváte, začněte bezplatným web scanem.</p>
-        <a class="btn" href="/scan/">Spustit web scan zdarma <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="/scan/">Spustit web scan zdarma <Arrow size={17} /></a>
       </div>
     </div>
   </section>
@@ -223,7 +224,7 @@ const serviceSchema = {
         </div>
         <a class="btn cv" href="/prace/">
           Prohlédnout všechny projekty
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <Arrow size={17} />
         </a>
       </div>
       <div class="vp-right cv">
@@ -361,7 +362,7 @@ const serviceSchema = {
       <p class="ltease-desc cv">Vedle klientské práce vyvíjíme vlastní produkty — rezervační systémy, správu flotil, QR tracking a provozní balíky pro WordPress. Protože správné řešení někdy prostě neexistuje hotové.</p>
       <a class="btn cv" href="/labs/">
         Prohlédnout produkty
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <Arrow size={17} />
       </a>
     </div>
   </section>
@@ -374,21 +375,21 @@ const serviceSchema = {
         <span class="tno">01 · Web</span>
         <h3>Web scan</h3>
         <p>Zadejte URL a za chvíli uvidíte, jak je na tom rychlost, mobil a SEO vašeho webu — a co zlepšit.</p>
-        <span class="go">Spustit scan <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="go">Spustit scan <Arrow size={15} /></span>
       </a>
       <a class="tool cv" href="/test-restaurace/">
         <span class="free">Zdarma</span>
         <span class="tno">02 · Restaurace</span>
         <h3>Plní váš web stoly?</h3>
         <p>Interaktivní test 21 prvků, které musí mít web restaurace, aby z návštěvníka udělal hosta u stolu.</p>
-        <span class="go">Spustit test <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="go">Spustit test <Arrow size={15} /></span>
       </a>
       <a class="tool cv" href="/brand-scorecard/">
         <span class="free">Zdarma</span>
         <span class="tno">03 · Značka</span>
         <h3>Jak silná je vaše značka?</h3>
         <p>Brand scorecard napříč 5 pilíři. Za 3 minuty zjistíte, který pilíř vaší značky kulhá a proč.</p>
-        <span class="go">Spustit scorecard <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="go">Spustit scorecard <Arrow size={15} /></span>
       </a>
     </div>
   </section>
@@ -467,7 +468,7 @@ const serviceSchema = {
       </div>
       <a class="btn martin-cta cv" href="/martin/">
         Více o mně
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <Arrow size={17} />
       </a>
     </div>
   </section>
@@ -512,7 +513,7 @@ const serviceSchema = {
           <div class="ct-bottom">
             <button class="ct-btn" type="submit" id="ctBtn">
               <span class="ct-btn-label">Odeslat poptávku</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <Arrow />
             </button>
             <p class="ct-gdpr">Odesláním souhlasíte se zpracováním údajů za účelem odpovědi na poptávku.</p>
           </div>

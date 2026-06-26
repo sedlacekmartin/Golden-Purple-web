@@ -1,6 +1,7 @@
 ﻿---
 import Base from '../layouts/Base.astro';
 import Topbar from '../components/Topbar.astro';
+import Arrow from '../components/Arrow.astro';
 ---
 
 <Base title="Design System — Golden Purple" noindex={true}>
@@ -375,11 +376,11 @@ import Topbar from '../components/Topbar.astro';
           <div class="ds-row-wrap">
             <button type="button" class="ct-btn">
               <span class="ct-btn-label">Odeslat poptávku</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <Arrow />
             </button>
             <button type="button" class="ct-btn ct-btn--loading" disabled>
               <span class="ct-btn-label">Odesílám…</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <Arrow />
             </button>
           </div>
           <p class="ds-meta">font-family: <strong style="color:var(--gold)">Clash Display</strong> (ne General Sans!) · background: --gold · color: --ink · padding: 14px 26px · border-radius: 100px<br>hover: translateY(-2px) + box-shadow 0 12px 32px rgba(245,189,2,.35) (gold glow)<br>disabled: opacity .55 + cursor not-allowed · label text se mění JS na "Odesílám…"</p>
@@ -659,7 +660,7 @@ import Topbar from '../components/Topbar.astro';
             </div>
             <button type="submit" class="ct-btn">
               <span class="ct-btn-label">Odeslat poptávku</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <Arrow />
             </button>
             <p class="ctf-gdpr">Odesláním souhlasíte se zpracováním osobních údajů.</p>
           </form>
