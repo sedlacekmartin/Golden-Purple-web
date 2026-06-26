@@ -343,12 +343,15 @@ const ldSchema = {
     --error: #ff6b6b;
   }
 
-  /* Chip — unified component */
+  /* Chip — unified component, vizuál jako .h-badge bez dotu a backgroundu */
   .pchip {
-    font-family: var(--mono, monospace); font-size: .66rem; letter-spacing: .08em;
+    display: inline-flex; align-items: center;
+    font-family: var(--body); font-size: .76rem; letter-spacing: .12em;
     text-transform: uppercase; color: var(--muted);
-    border: 1px solid var(--line); padding: 6px 12px;
-    border-radius: 100px; transition: .3s;
+    border: 1px solid var(--line); padding: 9px 18px;
+    border-radius: 100px;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: .3s;
   }
   .pchip.done { color: var(--ink); background: var(--gold); border-color: var(--gold); }
 
