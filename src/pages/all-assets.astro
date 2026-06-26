@@ -63,70 +63,200 @@ import Topbar from '../components/Topbar.astro';
       <section id="typography" class="ds-section">
         <h2 class="ds-title">Typografie</h2>
 
+        <!-- H1 variants -->
         <div class="ds-block">
-          <p class="ds-label">H1 — Display hero</p>
+          <p class="ds-label">H1 — Hero (homepage, největší na webu)</p>
           <h1 class="typo-h1">Stavíme weby,<br>co vydělávají.</h1>
-          <p class="ds-meta">Clash Display 700 · clamp(3.4rem, 10vw, 9.5rem) · line-height .86</p>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>700</strong></span>
+            <span>Size: <strong>clamp(3.4rem, 10vw, 9.5rem)</strong></span>
+            <span>Line-height: <strong>.86</strong> (velmi těsné)</span>
+            <span>Letter-spacing: <strong>-.04em</strong> (písmenka blíž k sobě)</span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">H1 — Section hero</p>
-          <h1 class="typo-h1-sec">Jak to funguje</h1>
-          <p class="ds-meta">Clash Display 700 · clamp(2.6rem, 7vw, 6rem) · line-height .92</p>
+          <p class="ds-label">H1 — Martin / velký section hero</p>
+          <h1 class="typo-h1-martin">Martin Sedláček</h1>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>700</strong></span>
+            <span>Size: <strong>clamp(3rem, 9vw, 7rem)</strong></span>
+            <span>Line-height: <strong>.9</strong></span>
+            <span>Letter-spacing: <strong>-.04em</strong></span>
+          </div>
+        </div>
+
+        <!-- H2 variants — jsou 3 různé velikostní skupiny -->
+        <div class="ds-block">
+          <p class="ds-label">H2 — XL (Golden Vision, Kontakt) — největší sekční nadpisy</p>
+          <h2 class="typo-h2-xl">Postaráme se o vás</h2>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>700</strong></span>
+            <span>Size: <strong>clamp(2.8rem, 6–8vw, 5.5–6.5rem)</strong></span>
+            <span>Line-height: <strong>.9–.92</strong></span>
+            <span>Letter-spacing: <strong>-.035em</strong></span>
+            <span>Kde: .gv-left h2, .ct-left h2</span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">H2 — Section heading</p>
-          <h2 class="typo-h2">Vybraná práce</h2>
-          <p class="ds-meta">Clash Display 600 · clamp(1.8rem, 4vw, 3rem) · letter-spacing -.02em</p>
+          <p class="ds-label">H2 — L (Výzvy, Služby, Labs, FAQ, Ceník…) — standardní sekční nadpis</p>
+          <h2 class="typo-h2-l">Co vás trápí nejvíc</h2>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>clamp(2.4rem, 6vw, 4.5rem)</strong></span>
+            <span>Line-height: <strong>.95</strong></span>
+            <span>Letter-spacing: <strong>-.025em</strong></span>
+            <span>Kde: .bolesti-head h2, #sluzby h2, #faq h2, .ltease-inner h2, .collab-left h2</span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">H3 — Subsection</p>
-          <h3 class="typo-h3">Co dostanete</h3>
-          <p class="ds-meta">Clash Display 600 · clamp(1.2rem, 2.5vw, 1.7rem)</p>
+          <p class="ds-label">H2 — M (Vybraná práce, Ceník, Nástroje) — kompaktnější nadpis</p>
+          <h2 class="typo-h2-m">Vybraná práce</h2>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>clamp(2.2rem, 4.5–5.5vw, 3.6–4rem)</strong></span>
+            <span>Line-height: <strong>.95–.96</strong></span>
+            <span>Letter-spacing: <strong>-.025em</strong></span>
+            <span>Kde: .vp-left h2, #cenik h2, #nastroje h2</span>
+          </div>
+        </div>
+
+        <!-- H3 variants -->
+        <div class="ds-block">
+          <p class="ds-label">H3 — Service row title (.srow .st)</p>
+          <h3 class="typo-h3-service">Web design & vývoj</h3>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>clamp(1.6rem, 4vw, 3rem)</strong></span>
+            <span>Line-height: <strong>1.1</strong></span>
+            <span>Letter-spacing: <strong>-.02em</strong></span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">H4 — Card title</p>
-          <h4 class="typo-h4">Analytické cookies</h4>
-          <p class="ds-meta">General Sans 600 · .95rem</p>
+          <p class="ds-label">H3 — Card / step title (.cs-body h3, .gvs-t)</p>
+          <h3 class="typo-h3-card">Strategie & nabídka</h3>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>clamp(1.15–1.4rem, 2.2–3vw, 1.5–2.2rem)</strong></span>
+            <span>Line-height: <strong>1.1</strong></span>
+            <span>Letter-spacing: <strong>-.015em až -.02em</strong></span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">Body — Default</p>
-          <p class="typo-body">Tvoříme digitální zážitky, které přivádějí poptávky, šetří ruční práci a zvedají vnímanou hodnotu vaší firmy. Stavíme na datech, řízeném designu a čistém kódu.</p>
-          <p class="ds-meta">General Sans 400 · 17px · line-height 1.6</p>
+          <p class="ds-label">H3 — Tool card title (.tool h3)</p>
+          <h3 class="typo-h3-tool">Web Skener</h3>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>1.5rem</strong> (fixní, ne clamp)</span>
+            <span>Line-height: <strong>1.05</strong></span>
+            <span>Letter-spacing: <strong>-.01em</strong></span>
+          </div>
+        </div>
+
+        <!-- Body text variants -->
+        <div class="ds-block">
+          <p class="ds-label">Body — Hero perex / velký body (.h-vp, .martin-bio, .gv-desc)</p>
+          <p class="typo-lead">Tvoříme digitální zážitky, které přivádějí poptávky, šetří ruční práci a zvedají vnímanou hodnotu vaší firmy.</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>400</strong></span>
+            <span>Size: <strong>clamp(1.05rem, 1.6–1.7vw, 1.2–1.3rem)</strong></span>
+            <span>Line-height: <strong>1.65–1.7</strong></span>
+            <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
+            <span>Color: <strong>#D7CEDB</strong> (světlejší než --muted, tmavší než --paper)</span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">Body — Muted</p>
+          <p class="ds-label">Body — Standard / card text</p>
+          <p class="typo-body">Zpracováváme osobní údaje v souladu s GDPR. Pokud máte dotazy, kontaktujte nás na info@goldenpurple.cz</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>400</strong></span>
+            <span>Size: <strong>17px</strong> (base) nebo <strong>.88–.95rem</strong> v kartách</span>
+            <span>Line-height: <strong>1.5–1.6</strong></span>
+            <span>Letter-spacing: <strong>není nastavené</strong></span>
+            <span>Color: <strong>#CFC4D3</strong> v kartách (tmavší varianta mutu)</span>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Body — Muted / pomocný text</p>
           <p class="typo-muted">Zpracováváme osobní údaje v souladu s GDPR. Souhlas lze kdykoliv odvolat.</p>
-          <p class="ds-meta">General Sans 400 · color: --muted</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>400</strong></span>
+            <span>Size: <strong>.78–.95rem</strong></span>
+            <span>Color: <strong>--muted</strong> = #A99CAE</span>
+          </div>
         </div>
 
-        <div class="ds-block">
-          <p class="ds-label">Lead / Perex</p>
-          <p class="typo-lead">Většina webů vypadá OK, ale nic neprodává. Proč? Protože nemají jasný cíl, strukturu ani příběh.</p>
-          <p class="ds-meta">General Sans 400/500 · clamp(1rem, 1.5vw, 1.2rem) · color: --paper</p>
+        <div class="ds-warn" style="margin-bottom:20px">
+          <p>Pozor: na webu jsou 3 různé tmavé barvy textu: #D7CEDB (světlejší perex), #CFC4D3 (střední karty), #C6BBCC (právní stránky). Nejsou pojmenované proměnné, jen hardcoded hex.</p>
         </div>
 
+        <!-- Labels / uppercase -->
         <div class="ds-block">
-          <p class="ds-label">Mono / Label (uppercase)</p>
-          <p class="typo-mono">Golden Purple Studio</p>
-          <p class="ds-meta">General Sans 600 · .72rem · letter-spacing .16em · uppercase</p>
-        </div>
-
-        <div class="ds-block">
-          <p class="ds-label">Eyebrow / Kicker (gold)</p>
+          <p class="ds-label">Eyebrow / Kicker — .eyebrow (nad sekcemi, gold)</p>
           <p class="typo-eyebrow">Co umíme</p>
-          <p class="ds-meta">General Sans 600 · .74rem · letter-spacing .3em · uppercase · color: --gold</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>.74rem</strong></span>
+            <span>Letter-spacing: <strong>.3em</strong> (nejroztaženější text na webu)</span>
+            <span>Text-transform: <strong>uppercase</strong></span>
+            <span>Color: <strong>--gold</strong></span>
+          </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">Section number</p>
+          <p class="ds-label">Mono label — .mono (v badge, navigaci)</p>
+          <p class="typo-mono">Golden Purple Studio</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>600</strong></span>
+            <span>Size: <strong>.72rem</strong></span>
+            <span>Letter-spacing: <strong>.16em</strong></span>
+            <span>Text-transform: <strong>uppercase</strong></span>
+            <span>Color: <strong>--muted</strong></span>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Section number / label (.eyebrow variant)</p>
           <p class="typo-num">01</p>
-          <p class="ds-meta">General Sans 500 · .75rem · color: --gold</p>
+          <div class="typo-spec">
+            <span>Font: <strong>General Sans</strong></span>
+            <span>Weight: <strong>500</strong></span>
+            <span>Size: <strong>.72–.85rem</strong></span>
+            <span>Letter-spacing: <strong>.08–.14em</strong></span>
+            <span>Text-transform: <strong>uppercase</strong></span>
+            <span>Color: <strong>--gold</strong></span>
+          </div>
+        </div>
+
+        <div class="ds-block">
+          <p class="ds-label">Blockquote / recenze (speciální styl)</p>
+          <blockquote class="typo-quote">"Výsledky překonaly naše očekávání. Zákazníci si nás teď sami nacházejí."</blockquote>
+          <div class="typo-spec">
+            <span>Font: <strong>Clash Display</strong></span>
+            <span>Weight: <strong>500</strong></span>
+            <span>Size: <strong>clamp(1.8rem, 4.5vw, 3.4rem)</strong></span>
+            <span>Line-height: <strong>1.18</strong></span>
+            <span>Letter-spacing: <strong>-.015em</strong></span>
+          </div>
         </div>
 
         <div class="ds-block">
@@ -697,45 +827,111 @@ import Topbar from '../components/Topbar.astro';
   }
   .ds-swatch span { font-size: .6rem; color: rgba(247,247,247,.7); line-height: 1.3; font-family: monospace; }
 
+  /* ── Typography spec table ── */
+  .typo-spec {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 16px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: rgba(247,247,247,.03);
+    border: 1px solid rgba(247,247,247,.07);
+    border-radius: 8px;
+  }
+  .typo-spec span {
+    font-size: .72rem;
+    color: var(--muted);
+    font-family: monospace;
+    white-space: nowrap;
+  }
+  .typo-spec strong { color: var(--paper); }
+
   /* ── Typography demos ── */
   .typo-h1 {
     font-family: var(--display);
-    font-size: clamp(2.2rem, 6vw, 5rem);
+    font-size: clamp(2.5rem, 7vw, 6rem);
     font-weight: 700;
-    letter-spacing: -.03em;
+    letter-spacing: -.04em;
+    line-height: .86;
+  }
+  .typo-h1-martin {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -.04em;
     line-height: .9;
   }
-  .typo-h1-sec {
+  .typo-h2-xl {
     font-family: var(--display);
-    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-size: clamp(2.2rem, 5vw, 4rem);
     font-weight: 700;
-    letter-spacing: -.03em;
+    letter-spacing: -.035em;
     line-height: .92;
   }
+  .typo-h2-l {
+    font-family: var(--display);
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: .95;
+  }
+  .typo-h2-m {
+    font-family: var(--display);
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: .96;
+  }
+  /* keep .typo-h2 as alias for h2-m for other uses */
   .typo-h2 {
     font-family: var(--display);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
     font-weight: 600;
-    letter-spacing: -.02em;
+    letter-spacing: -.025em;
+    line-height: .96;
   }
-  .typo-h3 {
+  .typo-h3-service {
     font-family: var(--display);
-    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
     font-weight: 600;
     letter-spacing: -.02em;
+    line-height: 1.1;
   }
-  .typo-h4 { font-size: .95rem; font-weight: 600; color: var(--paper); }
-  .typo-body { color: var(--paper); line-height: 1.6; max-width: 60ch; }
-  .typo-muted { color: var(--muted); line-height: 1.6; max-width: 60ch; }
+  .typo-h3-card {
+    font-family: var(--display);
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -.015em;
+    line-height: 1.1;
+  }
+  .typo-h3-tool {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.05;
+  }
   .typo-lead {
-    font-size: clamp(1rem, 1.5vw, 1.15rem);
-    color: var(--paper);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    color: #D7CEDB;
     line-height: 1.65;
     max-width: 56ch;
   }
+  .typo-body { color: var(--paper); line-height: 1.6; max-width: 60ch; font-size: .95rem; }
+  .typo-muted { color: var(--muted); line-height: 1.6; max-width: 60ch; font-size: .9rem; }
+  .typo-quote {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    line-height: 1.18;
+    letter-spacing: -.015em;
+    font-style: normal;
+    border: none;
+    padding: 0;
+  }
   .typo-mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
   .typo-eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
-  .typo-num { font-size: .75rem; font-weight: 500; color: var(--gold); }
+  .typo-num { font-size: .75rem; font-weight: 500; color: var(--gold); letter-spacing: .08em; }
 
   /* ── Buttons ── */
   .btn {
