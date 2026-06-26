@@ -21,7 +21,7 @@ const { title, description, updatedDate } = Astro.props;
   <div class="shell">
     <div class="legal-wrap">
       <header class="legal-header">
-        <div class="tag"><span class="d"></span><span class="mono">Právní dokumenty</span></div>
+        <div class="itag"><span class="d"></span><span class="mono">Právní dokumenty</span></div>
         <h1>{title}</h1>
         {updatedDate && <p class="updated">Poslední aktualizace: {updatedDate}</p>}
       </header>
@@ -43,13 +43,6 @@ const { title, description, updatedDate } = Astro.props;
   .legal-wrap { max-width: 760px; margin: 0 auto; width: 100%; }
 
   .legal-header { margin-bottom: 52px; }
-  .tag {
-    display: inline-flex; align-items: center; gap: 9px;
-    border: 1px solid var(--line); background: rgba(247,247,247,.03);
-    padding: 8px 16px; border-radius: 100px; color: var(--muted); margin-bottom: 22px;
-  }
-  .tag .d { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); flex-shrink: 0; }
-  .mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
   .legal-header h1 {
     font-family: var(--display); font-weight: 700;
     font-size: clamp(2.2rem, 6vw, 4rem); line-height: .95;

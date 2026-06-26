@@ -13,7 +13,7 @@ import Topbar from '../../components/Topbar.astro';
 
 <div class="shell">
   <div class="intro">
-    <div class="tag"><span class="d"></span><span class="mono">Brand scorecard · 3 minuty</span></div>
+    <div class="itag"><span class="d"></span><span class="mono">Brand scorecard · 3 minuty</span></div>
     <h1>Jak silná je <em>vaše značka</em>?</h1>
     <p>Pět pilířů, 20 otázek. Zaškrtejte, co o vaší značce platí — dole uvidíte naživo, jak na tom jste.</p>
   </div>
@@ -77,13 +77,10 @@ import Topbar from '../../components/Topbar.astro';
 </div>
 
 <style is:global>
-.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
 #aurora{position:fixed;inset:0;z-index:0}
 .shell{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:100px 22px 170px}
 
 .intro{text-align:center;margin-bottom:14px}
-.intro .tag{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:rgba(247,247,247,.03);padding:8px 16px;border-radius:100px;color:var(--muted);margin-bottom:22px}
-.intro .tag .d{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
 .intro h1{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5.5vw,3.2rem);line-height:1;letter-spacing:-.025em;margin-bottom:16px}
 .intro h1 em{font-style:normal;color:var(--gold)}
 .intro p{color:var(--text-soft);max-width:46ch;margin:0 auto;font-size:1.02rem}
