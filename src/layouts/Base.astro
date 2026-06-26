@@ -229,7 +229,7 @@ const ldSchema = {
 
     CookieConsent.run({
       guiOptions: {
-        consentModal: { layout: 'bar', position: 'bottom center', equalWeightButtons: false },
+        consentModal: { layout: 'box', position: 'bottom right', equalWeightButtons: false },
         preferencesModal: { layout: 'box' },
       },
       onConsent: () => {
@@ -359,4 +359,111 @@ const ldSchema = {
   }
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--gold); color: var(--ink); }
+
+  /* ── Cookie Consent — Golden Purple theme ── */
+  #cc-main {
+    --cc-font-family: 'General Sans', system-ui, sans-serif;
+    --cc-bg: #150A1A;
+    --cc-primary-color: #F7F7F7;
+    --cc-secondary-color: #A99CAE;
+    --cc-modal-border-radius: .875rem;
+    --cc-btn-border-radius: .5rem;
+    --cc-btn-icon-border-radius: .5rem;
+    --cc-overlay-bg: rgba(12,6,16,.75);
+
+    /* primary = gold */
+    --cc-btn-primary-bg: #F5BD02;
+    --cc-btn-primary-color: #0C0610;
+    --cc-btn-primary-border-color: #F5BD02;
+    --cc-btn-primary-hover-bg: #FFD75E;
+    --cc-btn-primary-hover-color: #0C0610;
+    --cc-btn-primary-hover-border-color: #FFD75E;
+
+    /* secondary = ghost */
+    --cc-btn-secondary-bg: transparent;
+    --cc-btn-secondary-color: #A99CAE;
+    --cc-btn-secondary-border-color: rgba(247,247,247,.14);
+    --cc-btn-secondary-hover-bg: rgba(247,247,247,.07);
+    --cc-btn-secondary-hover-color: #F7F7F7;
+    --cc-btn-secondary-hover-border-color: rgba(247,247,247,.22);
+
+    /* separators & blocks */
+    --cc-separator-border-color: rgba(247,247,247,.09);
+    --cc-cookie-category-block-bg: rgba(247,247,247,.04);
+    --cc-cookie-category-block-bg-hover: rgba(247,247,247,.07);
+    --cc-cookie-category-block-border: 1px solid rgba(247,247,247,.06);
+    --cc-cookie-category-block-hover-border: 1px solid rgba(247,247,247,.10);
+    --cc-cookie-category-expanded-block-bg: rgba(247,247,247,.03);
+    --cc-cookie-category-expanded-block-hover-bg: rgba(247,247,247,.05);
+
+    /* toggle */
+    --cc-toggle-bg-on: #F5BD02;
+    --cc-toggle-bg-off: rgba(247,247,247,.18);
+    --cc-toggle-bg-readonly: rgba(247,247,247,.10);
+    --cc-toggle-knob-bg: #0C0610;
+    --cc-toggle-knob-icon-color: transparent;
+  }
+
+  /* consent modal box */
+  #cc-main .cm {
+    border: 1px solid rgba(245,189,2,.18);
+    box-shadow: 0 0 0 1px rgba(245,189,2,.06), 0 12px 56px rgba(0,0,0,.75);
+    max-width: 330px;
+  }
+
+  #cc-main .cm-body { padding: 22px 22px 6px; }
+
+  #cc-main .cm-title {
+    font-family: 'Clash Display', 'General Sans', system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: #F7F7F7;
+    margin-bottom: 8px;
+  }
+  #cc-main .cm-text {
+    font-size: .82rem;
+    line-height: 1.65;
+    color: #A99CAE;
+  }
+  #cc-main .cm-text a { color: #F5BD02; }
+
+  #cc-main .cm-footer {
+    padding: 14px 22px 22px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #cc-main .cm-btn-group { gap: 8px; }
+
+  /* make all three buttons same width in column layout */
+  #cc-main .cm-footer .btn { width: 100%; justify-content: center; font-size: .84rem; padding: 9px 16px; }
+  #cc-main .cm-footer .btn--primary { font-weight: 600; }
+  #cc-main .cm-footer .btn--secondary { font-weight: 500; }
+
+  /* preferences modal */
+  #cc-main .pm {
+    border: 1px solid rgba(247,247,247,.10);
+    box-shadow: 0 16px 72px rgba(0,0,0,.8);
+    max-width: 500px;
+  }
+  #cc-main .pm-header { border-bottom: 1px solid rgba(247,247,247,.08); padding: 22px 24px 18px; }
+  #cc-main .pm-title {
+    font-family: 'Clash Display', 'General Sans', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -.02em;
+    color: #F7F7F7;
+  }
+
+  #cc-main .pm-section--toggle .pm-section-title { color: #F7F7F7; font-size: .88rem; font-weight: 600; }
+  #cc-main .pm-section--toggle .pm-section-desc { font-size: .81rem; color: #A99CAE; line-height: 1.6; }
+
+  #cc-main .pm-section-title-wrapper a { color: #F5BD02; }
+
+  #cc-main .pm-footer {
+    border-top: 1px solid rgba(247,247,247,.08);
+    padding: 16px 24px;
+    gap: 10px;
+  }
+  #cc-main .pm-footer .btn { font-size: .84rem; padding: 9px 18px; font-weight: 600; }
 </style>
