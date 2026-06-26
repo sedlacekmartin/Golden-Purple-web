@@ -27,7 +27,7 @@ import Topbar from '../../components/Topbar.astro';
         <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">Suite</span></div>
         <h3>Chytrý provozní balík pro firemní weby</h3>
         <p>WordPress pluginy, které firmám přidají na web rezervace, otevírací dobu, poptávky, nabídky, akce, recenze a jednoduchou správu kontaktů. Vše jako jednotný balík místo hromady nesourodých pluginů.</p>
-        <div class="lp-chips"><span>WordPress</span><span>Rezervace</span><span>Otevírací doba</span><span>Poptávky</span><span>Recenze</span></div>
+        <div class="lp-chips"><span class="pchip">WordPress</span><span class="pchip">Rezervace</span><span class="pchip">Otevírací doba</span><span class="pchip">Poptávky</span><span class="pchip">Recenze</span></div>
         <div class="lp-screen" aria-hidden="true">
           <div class="lps-bar"><i></i><i></i><i></i></div>
           <div class="lps-body">
@@ -46,7 +46,7 @@ import Topbar from '../../components/Topbar.astro';
         <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">Fleet</span></div>
         <h3>Správa flotily vozidel</h3>
         <p>Přehled nad celou firemní flotilou na jednom místě — pojištění, STK, dálniční známky, povinné ručení, havarijní pojištění a termíny servisů. Žádné tabulky v Excelu, žádné prohledávání složek.</p>
-        <div class="lp-chips"><span>STK</span><span>Pojištění</span><span>Dálniční známky</span><span>Servis</span><span>Náklady</span></div>
+        <div class="lp-chips"><span class="pchip">STK</span><span class="pchip">Pojištění</span><span class="pchip">Dálniční známky</span><span class="pchip">Servis</span><span class="pchip">Náklady</span></div>
         <div class="lp-screen" aria-hidden="true">
           <div class="lps-bar"><i></i><i></i><i></i></div>
           <div class="lps-body">
@@ -65,7 +65,7 @@ import Topbar from '../../components/Topbar.astro';
         <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">QR Tracking</span></div>
         <h3>QR tracking platforma</h3>
         <p>Vlastní platforma pro tvorbu dynamických QR kódů, měření scanů, správu kampaní a propojení offline marketingu s webovou analytikou. Zjistěte, které tiskové materiály skutečně fungují.</p>
-        <div class="lp-chips"><span>Dynamické QR</span><span>Tracking</span><span>Kampaně</span><span>Analytika</span></div>
+        <div class="lp-chips"><span class="pchip">Dynamické QR</span><span class="pchip">Tracking</span><span class="pchip">Kampaně</span><span class="pchip">Analytika</span></div>
         <div class="lp-screen" aria-hidden="true">
           <div class="lps-bar"><i></i><i></i><i></i></div>
           <div class="lps-body">
@@ -84,7 +84,7 @@ import Topbar from '../../components/Topbar.astro';
         <div class="lp-label"><span class="lg">GET MY</span><span class="lsep">·</span><span class="ln2">Reservation</span></div>
         <h3>Rezervační systém pro restaurace</h3>
         <p>Komplexní dynamický rezervační systém — správa stolů, kapacit, časových slotů a online rezervací v reálném čase přímo z webu restaurace. Bez prostředníků, bez provizí, bez zbytečné složitosti.</p>
-        <div class="lp-chips"><span>Restaurace</span><span>Online rezervace</span><span>Správa stolů</span><span>Real-time</span></div>
+        <div class="lp-chips"><span class="pchip">Restaurace</span><span class="pchip">Online rezervace</span><span class="pchip">Správa stolů</span><span class="pchip">Real-time</span></div>
         <div class="lp-screen lp-screen--photo" aria-hidden="true">
           <img src="/assets/gmr-dashboard.png" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:left top;display:block" />
         </div>
@@ -175,7 +175,6 @@ import Topbar from '../../components/Topbar.astro';
 .lprod h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem,2vw,1.5rem); letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.08; }
 .lprod p { font-size: .92rem; color: var(--text-prose); line-height: 1.6; margin-bottom: 16px; }
 .lp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.lp-chips span { font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); padding: 4px 10px; border-radius: 100px; color: var(--muted); }
 .lp-status { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 4px 11px; border-radius: 100px; position: absolute; top: 18px; right: 18px; z-index: 2; }
 .lp-status.soon { color: var(--muted); background: rgba(169,156,174,.08); border: 1px solid rgba(169,156,174,.2); }
 .lp-status.live { color: var(--gold); background: rgba(245,189,2,.1); border: 1px solid rgba(245,189,2,.28); }

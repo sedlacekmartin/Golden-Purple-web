@@ -455,46 +455,29 @@ import Topbar from '../components/Topbar.astro';
         <h2 class="ds-title">Chips</h2>
 
         <div class="ds-block">
-          <p class="ds-label">Martin chips — .martin-chips span (index + /martin)</p>
+          <p class="ds-label">.pchip — výchozí stav</p>
           <div class="ds-chips">
-            <span class="chip-martin">Třebíč · Jihlava · Brno</span>
-            <span class="chip-martin">Webdesign</span>
-            <span class="chip-martin">Branding</span>
-            <span class="chip-martin">Marketing</span>
-            <span class="chip-martin">Digitální produkty</span>
+            <span class="pchip">Třebíč · Jihlava · Brno</span>
+            <span class="pchip">Webdesign</span>
+            <span class="pchip">WordPress</span>
+            <span class="pchip">Vizuální identita</span>
           </div>
-          <p class="ds-meta">border: 1px solid --line · padding: 8px 16px · border-radius: 100px · color: var(--text-card) · font-size: .8rem · letter-spacing: .08em</p>
+          <p class="ds-meta">font-size: .66rem · uppercase · letter-spacing: .08em · color: --muted · border: 1px solid --line · padding: 6px 12px · border-radius: 100px · transition: .3s<br>Globální třída v Base.astro — používá se na index, /martin, /labs, /brand-scorecard</p>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">Labs chips — .lp-chips span (/labs)</p>
+          <p class="ds-label">.pchip.done — aktivní/hotový stav</p>
           <div class="ds-chips">
-            <span class="chip-labs">WordPress</span>
-            <span class="chip-labs">Rezervace</span>
-            <span class="chip-labs">Otevírací doba</span>
-            <span class="chip-labs">Poptávky</span>
+            <span class="pchip">SEO</span>
+            <span class="pchip done">Copywriting</span>
+            <span class="pchip">UX</span>
+            <span class="pchip done">Branding</span>
           </div>
-          <p class="ds-meta">border: 1px solid --line · padding: 4px 10px · border-radius: 100px · color: --muted · font-size: .64rem · uppercase · letter-spacing: .1em</p>
+          <p class="ds-meta">background: --gold · color: --ink · border-color: --gold<br>Používá se na /brand-scorecard pro označení splněných oblastí</p>
         </div>
 
-        <div class="ds-block">
-          <p class="ds-label">Brand scorecard chip — .pchip + .pchip.done (/brand-scorecard)</p>
-          <div class="ds-chips">
-            <span class="chip-score">Vizuální identita</span>
-            <span class="chip-score chip-score--done">Copywriting</span>
-            <span class="chip-score">SEO</span>
-            <span class="chip-score chip-score--done">UX</span>
-          </div>
-          <p class="ds-meta">výchozí: border --line · color --muted · done state: background --gold · color --ink · border --gold</p>
-        </div>
-
-        <div class="ds-block">
-          <p class="ds-label">⚠ Nekonzistence: 3 různé chip styly pro stejný koncept</p>
-          <div class="ds-warn">
-            <p>martin-chips = color var(--text-card), padding 8×16, velikost .8rem</p>
-            <p>lp-chips = color --muted, padding 4×10, velikost .64rem, <strong>uppercase</strong></p>
-            <p>pchip = color --muted, padding 6×12, velikost .66rem, uppercase, <strong>+ done stav</strong></p>
-          </div>
+        <div class="ds-warn" style="border-color: rgba(47,169,104,.3); background: rgba(47,169,104,.06)">
+          <p style="color: var(--success)">✓ Sjednoceno — .chip-martin, .chip-labs a .chip-score zrušeny. Všechny chipy jedou přes .pchip (globální, Base.astro).</p>
         </div>
       </section>
 
@@ -1282,27 +1265,7 @@ import Topbar from '../components/Topbar.astro';
   /* ── Chips ── */
   .ds-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
-  .chip-martin {
-    font-size: .8rem; letter-spacing: .08em;
-    border: 1px solid var(--line); padding: 8px 16px;
-    border-radius: 100px; color: var(--text-card);
-  }
-  .chip-labs {
-    font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
-    border: 1px solid var(--line); padding: 4px 10px;
-    border-radius: 100px; color: var(--muted);
-  }
-  .chip-score {
-    font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
-    border: 1px solid var(--line); padding: 6px 12px;
-    border-radius: 100px; color: var(--muted);
-    transition: .3s;
-  }
-  .chip-score--done {
-    color: var(--ink);
-    background: var(--gold);
-    border-color: var(--gold);
-  }
+  /* .pchip styles come from Base.astro (global) */
 
   /* ── Warning box ── */
   .ds-warn {

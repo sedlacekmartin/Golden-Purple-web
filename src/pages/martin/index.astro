@@ -19,10 +19,10 @@ import Topbar from '../../components/Topbar.astro';
         <h1>Martin<br><span class="shine">Sedláček</span></h1>
         <p class="mph-role">Webdesigner · Grafik · Digitální stratég</p>
         <div class="mph-chips">
-          <span>Třebíč</span>
-          <span>Jihlava</span>
-          <span>Brno</span>
-          <span>Neplátce DPH</span>
+          <span class="pchip">Třebíč</span>
+          <span class="pchip">Jihlava</span>
+          <span class="pchip">Brno</span>
+          <span class="pchip">Neplátce DPH</span>
         </div>
       </div>
     </section>
@@ -187,7 +187,6 @@ import Topbar from '../../components/Topbar.astro';
 @keyframes shine{to{background-position:-250% 0}}
 .mph-role{font-size:clamp(1rem,2vw,1.3rem);color:var(--text-soft);margin-bottom:28px;letter-spacing:.04em}
 .mph-chips{display:flex;flex-wrap:wrap;gap:10px}
-.mph-chips span{font-size:.8rem;letter-spacing:.08em;border:1px solid var(--line);padding:8px 16px;border-radius:100px;color:var(--text-card)}
 
 /* SECTIONS */
 .mp-section{padding:clamp(60px,10vh,120px) clamp(28px,6vw,100px)}

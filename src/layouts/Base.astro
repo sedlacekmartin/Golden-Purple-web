@@ -328,17 +328,26 @@ const ldSchema = {
     --body: 'General Sans', system-ui, sans-serif;
 
     /* Text colour tokens */
-    --text-soft:   var(--text-soft);
-    --text-card:   var(--text-card);
-    --text-prose:  var(--text-prose);
-    --text-bright: var(--text-bright);
-    --text-faint:  var(--text-faint);
+    --text-soft: #D7CEDB;
+    --text-card: #CFC4D3;
+    --text-prose: #C6BBCC;
+    --text-bright: #E4DBE8;
+    --text-faint: #5a5060;
 
     /* Semantic tokens */
-    --success: var(--success);
-    --danger:  var(--danger);
-    --error:   var(--error);
+    --success: #2FA968;
+    --danger: #D64545;
+    --error: #ff6b6b;
   }
+
+  /* Chip — unified component */
+  .pchip {
+    font-family: var(--mono, monospace); font-size: .66rem; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--line); padding: 6px 12px;
+    border-radius: 100px; transition: .3s;
+  }
+  .pchip.done { color: var(--ink); background: var(--gold); border-color: var(--gold); }
 
   /* View Transitions */
   @keyframes vtIn  { from { opacity: 0; transform: translateY(8px); } }
