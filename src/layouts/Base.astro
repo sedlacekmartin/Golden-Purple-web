@@ -450,46 +450,73 @@ const ldSchema = {
   #cc-main .pm-close-btn { color: #A99CAE; }
   #cc-main .pm-close-btn:hover { color: #F7F7F7; background: rgba(247,247,247,.08); }
 
-  /* ── Toggle section rows — wildcard selectors cover all v3 naming variants ── */
+  /* ── Toggle section rows (exact class names from vanilla-cookieconsent v3 HTML) ── */
 
-  /* Base block: force dark bg regardless of library defaults */
-  #cc-main [class*="section-toggle"],
-  #cc-main .pm-section--toggle {
-    background: rgba(247,247,247,.04) !important;
-    border: 1px solid rgba(247,247,247,.07) !important;
-    border-radius: 10px !important;
-    transition: background .15s, border-color .15s;
+  /* Title row — reset library's light hover bg */
+  #cc-main .pm__section-title-wrapper {
+    border-radius: 8px;
+    transition: background .15s, outline-color .15s;
+    outline: 1px solid transparent;
   }
-
-  /* Hover: gold-tinted dark — stays readable */
-  #cc-main [class*="section-toggle"]:hover,
-  #cc-main .pm-section--toggle:hover,
-  #cc-main [class*="section-toggle"] [class*="title-wrapper"]:hover,
-  #cc-main .pm-section--toggle .pm-section-title-wrapper:hover {
+  #cc-main .pm__section-title-wrapper:hover {
     background: rgba(245,189,2,.07) !important;
-    border-color: rgba(245,189,2,.22) !important;
+    outline-color: rgba(245,189,2,.2) !important;
   }
 
-  /* Force readable text at every state */
-  #cc-main [class*="section-title"] { color: #F7F7F7 !important; font-size: .875rem; font-weight: 600; }
-  #cc-main [class*="section-desc"]  { font-size: .81rem !important; color: #A99CAE !important; line-height: 1.65 !important; }
-  #cc-main [class*="section-desc"] a,
-  #cc-main [class*="section-title"] a,
-  #cc-main [class*="title-wrapper"] a { color: #F5BD02 !important; }
-
-  /* Read-only toggle (Nezbytné) */
-  #cc-main [class*="toggle"][disabled],
-  #cc-main [class*="toggle"][aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
-
-  /* Info-only section (Více informací) — no toggle, render as label */
-  #cc-main .pm-section:not(.pm-section--toggle):not([class*="section-toggle"]) .pm-section-title,
-  #cc-main .pm-section:not(.pm-section--toggle):not([class*="section-toggle"]) [class*="section-title"] {
-    font-size: .68rem !important;
+  /* Section title button */
+  #cc-main .pm__section-title {
+    color: #F7F7F7 !important;
+    font-size: .875rem !important;
     font-weight: 600 !important;
+    font-family: 'General Sans', system-ui, sans-serif !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  /* Arrow chevron */
+  #cc-main .pm__section-arrow svg { stroke: #A99CAE; transition: stroke .15s; }
+  #cc-main .pm__section-title-wrapper:hover .pm__section-arrow svg { stroke: #F7F7F7; }
+
+  /* Description text */
+  #cc-main .pm__section-desc { color: #A99CAE !important; font-size: .82rem !important; line-height: 1.65 !important; }
+  #cc-main .pm__section-desc a { color: #F5BD02 !important; }
+
+  /* ── Toggle switch colors ── */
+
+  /* Track — OFF state */
+  #cc-main .toggle__icon {
+    background: rgba(247,247,247,.2) !important;
+    transition: background .2s !important;
+  }
+  /* Track — ON state (checkbox checked) */
+  #cc-main .section__toggle:checked + .toggle__icon {
+    background: #F5BD02 !important;
+  }
+  /* Track — disabled (Nezbytné, always ON) */
+  #cc-main .section__toggle:disabled + .toggle__icon {
+    background: rgba(245,189,2,.45) !important;
+    cursor: not-allowed !important;
+  }
+
+  /* Knob */
+  #cc-main .toggle__icon-circle {
+    background: #F7F7F7 !important;
+    transition: background .2s !important;
+  }
+  #cc-main .section__toggle:checked + .toggle__icon .toggle__icon-circle {
+    background: #0C0610 !important;
+  }
+
+  /* Icons inside knob */
+  #cc-main .toggle__icon-off svg path { stroke: rgba(247,247,247,.45) !important; }
+  #cc-main .toggle__icon-on svg path  { stroke: #F5BD02 !important; }
+
+  /* Info section (Více informací) — no toggle */
+  #cc-main .pm__section:not(.pm__section--toggle) .pm__section-title {
+    font-size: .68rem !important;
     letter-spacing: .12em !important;
     text-transform: uppercase !important;
     color: #F5BD02 !important;
-    margin-bottom: 6px;
   }
 
   #cc-main .pm-footer { border-top: 1px solid rgba(247,247,247,.08); padding: 16px 24px; gap: 10px; }
