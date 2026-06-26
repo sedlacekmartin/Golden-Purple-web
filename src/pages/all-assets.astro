@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../layouts/Base.astro';
 import Topbar from '../components/Topbar.astro';
 ---
@@ -54,6 +54,27 @@ import Topbar from '../components/Topbar.astro';
               <div class="ds-swatch" style="background:#150A1A; border:1px solid rgba(247,247,247,.12)"><span>--ink-2<br>#150A1A</span></div>
               <div class="ds-swatch" style="background:#F7F7F7; color:#0C0610"><span>--paper<br>#F7F7F7</span></div>
               <div class="ds-swatch" style="background:#A99CAE; color:#0C0610"><span>--muted<br>#A99CAE</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-row" style="margin-top:24px">
+          <div class="ds-swatch-group">
+            <p class="ds-label">Text tokeny</p>
+            <div class="ds-swatches">
+              <div class="ds-swatch" style="background:#E4DBE8; color:#0C0610"><span>--text-bright<br>#E4DBE8</span></div>
+              <div class="ds-swatch" style="background:#D7CEDB; color:#0C0610"><span>--text-soft<br>#D7CEDB<br><small>perex, martin-bio</small></span></div>
+              <div class="ds-swatch" style="background:#CFC4D3; color:#0C0610"><span>--text-card<br>#CFC4D3<br><small>popis karet</small></span></div>
+              <div class="ds-swatch" style="background:#C6BBCC; color:#0C0610"><span>--text-prose<br>#C6BBCC<br><small>právní texty, odstavce</small></span></div>
+              <div class="ds-swatch" style="background:#5a5060; border:1px solid rgba(247,247,247,.12)"><span>--text-faint<br>#5a5060<br><small>potlačené detaily</small></span></div>
+            </div>
+          </div>
+          <div class="ds-swatch-group">
+            <p class="ds-label">Sémantické barvy</p>
+            <div class="ds-swatches">
+              <div class="ds-swatch" style="background:#2FA968; color:#0C0610"><span>--success<br>#2FA968</span></div>
+              <div class="ds-swatch" style="background:#D64545"><span>--danger<br>#D64545</span></div>
+              <div class="ds-swatch" style="background:#ff6b6b"><span>--error<br>#ff6b6b</span></div>
             </div>
           </div>
         </div>
@@ -175,7 +196,7 @@ import Topbar from '../components/Topbar.astro';
             <span>Size: <strong>clamp(1.05rem, 1.6–1.7vw, 1.2–1.3rem)</strong></span>
             <span>Line-height: <strong>1.65–1.7</strong></span>
             <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
-            <span>Color: <strong>#D7CEDB</strong> (světlejší než --muted, tmavší než --paper)</span>
+            <span>Color: <strong>var(--text-soft)</strong> (světlejší než --muted, tmavší než --paper)</span>
           </div>
         </div>
 
@@ -188,7 +209,7 @@ import Topbar from '../components/Topbar.astro';
             <span>Size: <strong>17px</strong> (base) nebo <strong>.88–.95rem</strong> v kartách</span>
             <span>Line-height: <strong>1.5–1.6</strong></span>
             <span>Letter-spacing: <strong>není nastavené</strong></span>
-            <span>Color: <strong>#CFC4D3</strong> v kartách (tmavší varianta mutu)</span>
+            <span>Color: <strong>var(--text-card)</strong> v kartách (tmavší varianta mutu)</span>
           </div>
         </div>
 
@@ -212,7 +233,7 @@ import Topbar from '../components/Topbar.astro';
             <span>Size: <strong>clamp(1.05rem, 1.7vw, 1.3rem)</strong></span>
             <span>Line-height: <strong>1.7</strong> (nejvolnější z body textů)</span>
             <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
-            <span>Color: <strong>#D7CEDB</strong> (hardcoded, světlejší než --muted)</span>
+            <span>Color: <strong>var(--text-soft)</strong> (hardcoded, světlejší než --muted)</span>
             <span>Max-width: <strong>56ch</strong></span>
           </div>
         </div>
@@ -226,13 +247,13 @@ import Topbar from '../components/Topbar.astro';
             <span>Size: <strong>.86rem</strong></span>
             <span>Line-height: <strong>1.6</strong></span>
             <span>Letter-spacing: <strong>není nastavené</strong></span>
-            <span>Color: <strong>--muted</strong> (#A99CAE) · <code>&lt;b&gt;</code> uvnitř = <strong>#D7CEDB</strong> (zvýraznění čísel)</span>
+            <span>Color: <strong>--muted</strong> (#A99CAE) · <code>&lt;b&gt;</code> uvnitř = <strong>var(--text-soft)</strong> (zvýraznění čísel)</span>
             <span>Max-width: <strong>80ch</strong> (nejširší text blok na webu)</span>
           </div>
         </div>
 
-        <div class="ds-warn" style="margin-bottom:20px">
-          <p>Pozor: na webu jsou 3 různé tmavé barvy textu: #D7CEDB (světlejší perex / martin-bio), #CFC4D3 (střední karty), #C6BBCC (právní stránky). Nejsou pojmenované proměnné, jen hardcoded hex.</p>
+        <div class="ds-warn" style="margin-bottom:20px; border-color: rgba(47,169,104,.3); background: rgba(47,169,104,.06)">
+          <p style="color: var(--success)">✓ Textové barvy jsou teď tokeny v Base.astro :root — více níže v sekci Barvy.</p>
         </div>
 
         <!-- Labels / uppercase -->
@@ -441,7 +462,7 @@ import Topbar from '../components/Topbar.astro';
             <span class="chip-martin">Marketing</span>
             <span class="chip-martin">Digitální produkty</span>
           </div>
-          <p class="ds-meta">border: 1px solid --line · padding: 8px 16px · border-radius: 100px · color: #CFC4D3 · font-size: .8rem · letter-spacing: .08em</p>
+          <p class="ds-meta">border: 1px solid --line · padding: 8px 16px · border-radius: 100px · color: var(--text-card) · font-size: .8rem · letter-spacing: .08em</p>
         </div>
 
         <div class="ds-block">
@@ -469,7 +490,7 @@ import Topbar from '../components/Topbar.astro';
         <div class="ds-block">
           <p class="ds-label">⚠ Nekonzistence: 3 různé chip styly pro stejný koncept</p>
           <div class="ds-warn">
-            <p>martin-chips = color #CFC4D3, padding 8×16, velikost .8rem</p>
+            <p>martin-chips = color var(--text-card), padding 8×16, velikost .8rem</p>
             <p>lp-chips = color --muted, padding 4×10, velikost .64rem, <strong>uppercase</strong></p>
             <p>pchip = color --muted, padding 6×12, velikost .66rem, uppercase, <strong>+ done stav</strong></p>
           </div>
@@ -941,7 +962,7 @@ import Topbar from '../components/Topbar.astro';
   }
   .typo-lead {
     font-size: clamp(1rem, 1.6vw, 1.2rem);
-    color: #D7CEDB;
+    color: var(--text-soft);
     line-height: 1.65;
     max-width: 56ch;
   }
@@ -959,7 +980,7 @@ import Topbar from '../components/Topbar.astro';
   }
   .typo-martin-bio {
     font-size: clamp(1.05rem, 1.7vw, 1.3rem);
-    color: #D7CEDB;
+    color: var(--text-soft);
     line-height: 1.7;
     max-width: 56ch;
   }
@@ -969,7 +990,7 @@ import Topbar from '../components/Topbar.astro';
     line-height: 1.6;
     max-width: 80ch;
   }
-  .typo-cenik-note b { color: #D7CEDB; font-weight: 600; }
+  .typo-cenik-note b { color: var(--text-soft); font-weight: 600; }
   .typo-mono { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
   .typo-eyebrow { font-size: .74rem; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
   .typo-num { font-size: .75rem; font-weight: 500; color: var(--gold); letter-spacing: .08em; }
@@ -1263,7 +1284,7 @@ import Topbar from '../components/Topbar.astro';
   .chip-martin {
     font-size: .8rem; letter-spacing: .08em;
     border: 1px solid var(--line); padding: 8px 16px;
-    border-radius: 100px; color: #CFC4D3;
+    border-radius: 100px; color: var(--text-card);
   }
   .chip-labs {
     font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
@@ -1290,7 +1311,7 @@ import Topbar from '../components/Topbar.astro';
     padding: 14px 18px;
     display: flex; flex-direction: column; gap: 5px;
   }
-  .ds-warn p { font-size: .8rem; color: #CFC4D3; font-family: monospace; }
+  .ds-warn p { font-size: .8rem; color: var(--text-card); font-family: monospace; }
   .ds-warn strong { color: var(--gold); }
 
   /* ── Tool card hover (matches actual site) ── */

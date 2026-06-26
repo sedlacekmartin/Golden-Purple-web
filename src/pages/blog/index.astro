@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
 import { getCollection } from 'astro:content';
@@ -140,7 +140,7 @@ const rest = posts.slice(1);
 .eyebrow { font-size:.78rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600; color:var(--gold); margin-bottom:22px; display:block }
 .bhero h1 { font-family:var(--display); font-weight:600; font-size:clamp(3rem,9vw,7rem); line-height:.92; letter-spacing:-.03em; max-width:14ch }
 .bhero h1 em { font-style:normal; color:var(--gold) }
-.bhero p { font-size:clamp(1.05rem,2vw,1.35rem); max-width:52ch; color:#D7CEDB; margin-top:26px }
+.bhero p { font-size:clamp(1.05rem,2vw,1.35rem); max-width:52ch; color:var(--text-soft); margin-top:26px }
 
 .bempty { padding:60px 0 120px; color:var(--muted); font-size:1.05rem }
 
@@ -155,7 +155,7 @@ const rest = posts.slice(1);
 .bfbody { padding:clamp(30px,4vw,54px); display:flex; flex-direction:column; justify-content:center }
 .bfkick { font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block }
 .bfbody h2 { font-family:var(--display); font-weight:600; font-size:clamp(2.2rem,4.5vw,3.4rem); line-height:.96; letter-spacing:-.02em; margin-bottom:18px }
-.bfbody p { color:#D7CEDB; font-size:1.05rem; margin-bottom:28px; max-width:42ch; line-height:1.6 }
+.bfbody p { color:var(--text-soft); font-size:1.05rem; margin-bottom:28px; max-width:42ch; line-height:1.6 }
 .bffooter { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap }
 .bffooter time { font-size:.82rem; color:var(--muted) }
 .bfgo { display:inline-flex; align-items:center; gap:8px; font-family:var(--display); font-weight:600; color:var(--gold); font-size:.95rem }
@@ -179,7 +179,7 @@ const rest = posts.slice(1);
 .bcard-tags { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap }
 .bcard-tags span { font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:var(--gold) }
 .bcard h3 { font-family:var(--display); font-weight:600; font-size:1.4rem; letter-spacing:-.01em; margin-bottom:10px; line-height:1.1 }
-.bcard p { font-size:.92rem; color:#C6BBCC; line-height:1.5; margin-bottom:16px; flex:1 }
+.bcard p { font-size:.92rem; color:var(--text-prose); line-height:1.5; margin-bottom:16px; flex:1 }
 .bcard-foot { display:flex; justify-content:space-between; align-items:center }
 .bcard-foot time { font-size:.76rem; color:var(--muted) }
 .bcard-arr { color:var(--gold); transition:transform .3s; font-style:normal }

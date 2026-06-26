@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
 ---
@@ -159,7 +159,7 @@ import Topbar from '../../components/Topbar.astro';
 .lhero .eyebrow { display: block; margin-bottom: 20px; font-size:.74rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--gold) }
 .lhero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(3rem,9vw,7rem); line-height: .92; letter-spacing: -.03em; margin-bottom: 28px; }
 .lhero h1 em { font-style: normal; color: var(--gold); }
-.lhero-sub { font-size: clamp(1.05rem,1.8vw,1.3rem); color: #D7CEDB; max-width: 56ch; line-height: 1.65; }
+.lhero-sub { font-size: clamp(1.05rem,1.8vw,1.3rem); color: var(--text-soft); max-width: 56ch; line-height: 1.65; }
 
 /* PRODUCTS */
 .lproducts { padding: 20px 0 100px; }
@@ -173,7 +173,7 @@ import Topbar from '../../components/Topbar.astro';
 .lp-label .lsep { color: var(--line); }
 .lp-label .ln2 { color: var(--muted); font-weight: 600; }
 .lprod h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem,2vw,1.5rem); letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.08; }
-.lprod p { font-size: .92rem; color: #C6BBCC; line-height: 1.6; margin-bottom: 16px; }
+.lprod p { font-size: .92rem; color: var(--text-prose); line-height: 1.6; margin-bottom: 16px; }
 .lp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .lp-chips span { font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); padding: 4px 10px; border-radius: 100px; color: var(--muted); }
 .lp-status { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 4px 11px; border-radius: 100px; position: absolute; top: 18px; right: 18px; z-index: 2; }
@@ -196,7 +196,7 @@ import Topbar from '../../components/Topbar.astro';
 .lcta { text-align: center; padding: 80px 0 110px; position: relative; overflow: hidden; }
 .lcta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60%; height: 200%; background: radial-gradient(circle,rgba(86,33,94,.35),transparent 60%); filter: blur(70px); pointer-events: none; }
 .lcta h2 { position: relative; font-family: var(--display); font-weight: 600; font-size: clamp(2rem,5vw,3.8rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 20px; }
-.lcta p { position: relative; color: #CFC4D3; max-width: 42ch; margin: 0 auto 32px; }
+.lcta p { position: relative; color: var(--text-card); max-width: 42ch; margin: 0 auto 32px; }
 .lbtn { position: relative; display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 1.08rem; padding: 17px 32px; border-radius: 100px; transition: transform .3s,box-shadow .3s; }
 .lbtn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(245,189,2,.4); }
 .lbtn svg { transition: transform .3s; }

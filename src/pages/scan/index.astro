@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
 ---
@@ -108,8 +108,8 @@ import Topbar from '../../components/Topbar.astro';
   <style is:global>
     :root {
       --mono: 'Space Grotesk', monospace;
-      --green: #2FA968;
-      --red: #D64545;
+      --green: var(--success);
+      --red: var(--danger);
       --ink-2: #150A1A;
     }
     .mono { font-family: var(--mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase }
@@ -125,7 +125,7 @@ import Topbar from '../../components/Topbar.astro';
     .intro .tag .d { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold) }
     .intro h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2.2rem,6vw,3.8rem); line-height: .98; letter-spacing: -.025em; margin-bottom: 18px }
     .intro h1 em { font-style: normal; color: var(--gold) }
-    .intro p { color: #D7CEDB; max-width: 48ch; margin: 0 auto; font-size: 1.05rem }
+    .intro p { color: var(--text-soft); max-width: 48ch; margin: 0 auto; font-size: 1.05rem }
 
     /* FORM */
     .scanbox { background: linear-gradient(160deg,var(--ink-2),rgba(12,6,16,.5)); border: 1px solid var(--line); border-radius: 20px; padding: 30px; backdrop-filter: blur(8px) }
@@ -171,7 +171,7 @@ import Topbar from '../../components/Topbar.astro';
     .gate::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0,rgba(245,189,2,.2),transparent 60%); pointer-events: none }
     .gate .gi { position: relative; z-index: 2 }
     .gate h3 { font-family: var(--display); font-weight: 600; font-size: 1.6rem; margin-bottom: 10px }
-    .gate p { color: #E4DBE8; font-size: .97rem; max-width: 42ch; margin: 0 auto 22px }
+    .gate p { color: var(--text-bright); font-size: .97rem; max-width: 42ch; margin: 0 auto 22px }
     .gate .field { max-width: 440px; margin: 0 auto }
     .gate .ok { display: none; color: var(--gold); font-family: var(--display); font-size: 1.2rem; margin-top: 8px }
     .gate .ok.on { display: block }
@@ -187,7 +187,7 @@ import Topbar from '../../components/Topbar.astro';
     .edu-item h4 { font-family: var(--display); font-weight: 600; font-size: .9rem; letter-spacing: -.01em; margin-bottom: 7px; color: var(--paper) }
     .edu-item p { font-size: .82rem; color: var(--muted); line-height: 1.6 }
     .edu-item p sup { font-size: .65rem; color: var(--gold); vertical-align: super; line-height: 0 }
-    .edu-sources { font-size: .72rem; color: #5a5060; line-height: 2; text-align: center }
+    .edu-sources { font-size: .72rem; color: var(--text-faint); line-height: 2; text-align: center }
 
     @media(prefers-reduced-motion:reduce) {
       .radar::before, .radar::after { animation: none }
@@ -257,7 +257,7 @@ import Topbar from '../../components/Topbar.astro';
       };
 
       function ring(val){
-        const col=val>=90?'#2FA968':val>=50?'#F5BD02':'#D64545';
+        const col=val>=90?'var(--success)':val>=50?'#F5BD02':'var(--danger)';
         const r=32,circ=2*Math.PI*r,off=circ*(1-(val||0)/100);
         return `<div class="ring"><svg width="74" height="74"><circle cx="37" cy="37" r="${r}" fill="none" stroke="rgba(247,247,247,.1)" stroke-width="6"/><circle cx="37" cy="37" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/></svg><span class="val" style="color:${col}">${val??'–'}</span></div>`;
       }

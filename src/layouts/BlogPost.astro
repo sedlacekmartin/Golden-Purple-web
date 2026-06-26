@@ -1,4 +1,4 @@
----
+﻿---
 import Base from './Base.astro';
 import Topbar from '../components/Topbar.astro';
 import { getCollection } from 'astro:content';
@@ -141,7 +141,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-tag  { font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(245,189,2,.3); padding:7px 14px; border-radius:100px }
 
 .bp-hero h1 { font-family:var(--display); font-weight:600; font-size:clamp(2.8rem,7vw,5.5rem); line-height:.93; letter-spacing:-.035em; margin-bottom:28px }
-.bp-lead { font-size:clamp(1.1rem,2vw,1.35rem); color:#D7CEDB; line-height:1.6; margin-bottom:24px }
+.bp-lead { font-size:clamp(1.1rem,2vw,1.35rem); color:var(--text-soft); line-height:1.6; margin-bottom:24px }
 .bp-meta { font-size:.84rem; color:var(--muted) }
 .bp-upd  { opacity:.7 }
 
@@ -154,9 +154,9 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-prose h2 { font-family:var(--display); font-weight:600; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 18px }
 .bp-prose h2:not(:first-child) { margin-top:60px }
 .bp-prose h3 { font-family:var(--display); font-weight:600; font-size:clamp(1.2rem,2.2vw,1.7rem); line-height:1.1; letter-spacing:-.015em; margin:40px 0 14px }
-.bp-prose p  { color:#CFC4D3; margin-bottom:18px; font-size:1.06rem; line-height:1.78 }
+.bp-prose p  { color:var(--text-card); margin-bottom:18px; font-size:1.06rem; line-height:1.78 }
 .bp-prose p b, .bp-prose p strong { color:var(--paper); font-weight:600 }
-.bp-prose ul, .bp-prose ol { padding-left:1.4em; margin-bottom:20px; color:#CFC4D3 }
+.bp-prose ul, .bp-prose ol { padding-left:1.4em; margin-bottom:20px; color:var(--text-card) }
 .bp-prose li { margin-bottom:10px; font-size:1.02rem; line-height:1.65 }
 .bp-prose li::marker { color:var(--gold) }
 .bp-prose em { font-style:italic; color:var(--gold-soft) }
@@ -178,7 +178,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-mcard:hover { border-color:rgba(245,189,2,.4); transform:translateY(-4px) }
 .bp-mt { font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px }
 .bp-mcard h4 { font-family:var(--display); font-weight:600; font-size:1.2rem; margin-bottom:8px; line-height:1.15 }
-.bp-mc-body p { font-size:.88rem; color:#C6BBCC; line-height:1.5 }
+.bp-mc-body p { font-size:.88rem; color:var(--text-prose); line-height:1.5 }
 .bp-arr { color:var(--gold); font-size:1.4rem; flex-shrink:0 }
 
 /* CTA */
@@ -186,7 +186,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-cglow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:60%; height:200%; background:radial-gradient(circle,rgba(86,33,94,.35),transparent 60%); filter:blur(70px); pointer-events:none }
 .bp-cta h2 { position:relative; font-family:var(--display); font-weight:600; font-size:clamp(2rem,5vw,3.8rem); line-height:1; letter-spacing:-.02em; margin-bottom:20px }
 .bp-cta h2 em { font-style:normal; color:var(--gold) }
-.bp-cta p { position:relative; color:#CFC4D3; max-width:42ch; margin:0 auto 32px }
+.bp-cta p { position:relative; color:var(--text-card); max-width:42ch; margin:0 auto 32px }
 .bp-btn { position:relative; display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--ink); font-family:var(--display); font-weight:600; font-size:1.08rem; padding:17px 32px; border-radius:100px; transition:transform .3s,box-shadow .3s }
 .bp-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(245,189,2,.4) }
 .bp-btn svg { transition:transform .3s }

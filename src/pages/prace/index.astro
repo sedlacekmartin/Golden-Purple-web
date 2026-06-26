@@ -1,4 +1,4 @@
----
+﻿---
 import Base from '../../layouts/Base.astro';
 import Topbar from '../../components/Topbar.astro';
 import { getCollection } from 'astro:content';
@@ -127,7 +127,7 @@ const rest = projects.slice(1);
 .phero{padding:160px 0 70px}
 .phero .eyebrow{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--gold);margin-bottom:22px;display:block}
 .phero h1{font-family:var(--display);font-weight:600;font-size:clamp(3rem,9vw,7rem);line-height:.92;letter-spacing:-.03em;max-width:14ch}
-.phero p{font-size:clamp(1.05rem,2vw,1.35rem);max-width:52ch;color:#D7CEDB;margin-top:26px}
+.phero p{font-size:clamp(1.05rem,2vw,1.35rem);max-width:52ch;color:var(--text-soft);margin-top:26px}
 .phero .stats{display:flex;gap:48px;margin-top:44px;flex-wrap:wrap}
 .phero .stats .s b{font-family:var(--display);font-weight:600;font-size:2.4rem;display:block;line-height:1;color:var(--gold)}
 .phero .stats .s span{font-size:.85rem;color:var(--muted);margin-top:6px;display:block}
@@ -142,9 +142,9 @@ const rest = projects.slice(1);
 .fcard .body{padding:clamp(30px,4vw,54px);display:flex;flex-direction:column;justify-content:center}
 .fcard .body .kick{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .fcard .body h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,5vw,3.6rem);line-height:.96;letter-spacing:-.02em;margin-bottom:18px}
-.fcard .body p{color:#D7CEDB;font-size:1.05rem;margin-bottom:24px;max-width:42ch}
+.fcard .body p{color:var(--text-soft);font-size:1.05rem;margin-bottom:24px;max-width:42ch}
 .fcard .body .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
-.fcard .body .meta span{font-size:.8rem;border:1px solid var(--line);padding:6px 13px;border-radius:100px;color:#CFC4D3}
+.fcard .body .meta span{font-size:.8rem;border:1px solid var(--line);padding:6px 13px;border-radius:100px;color:var(--text-card)}
 .fcard .body .go{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;color:var(--gold)}
 .fcard .body .go svg{transition:transform .3s}
 .fcard:hover .body .go svg{transform:translateX(6px)}
@@ -163,7 +163,7 @@ const rest = projects.slice(1);
 .pcard .pvis .t{position:absolute;top:16px;left:16px;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--gold);background:rgba(245,189,2,.1);border:1px solid rgba(245,189,2,.2);padding:5px 11px;border-radius:100px}
 .pcard .pbody{padding:24px 26px 28px;flex:1;display:flex;flex-direction:column}
 .pcard h3{font-family:var(--display);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;margin-bottom:8px}
-.pcard .desc{font-size:.92rem;color:#C6BBCC;line-height:1.5;margin-bottom:16px;flex:1}
+.pcard .desc{font-size:.92rem;color:var(--text-prose);line-height:1.5;margin-bottom:16px;flex:1}
 .pcard .foot{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .pcard .foot .arr{color:var(--gold);transition:transform .3s;font-style:normal}
 .pcard:hover .foot .arr{transform:translateX(5px)}
@@ -172,7 +172,7 @@ const rest = projects.slice(1);
 .endcta{text-align:center;padding:90px 0 110px;position:relative}
 .endcta h2{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,4.4rem);line-height:.96;letter-spacing:-.03em;max-width:18ch;margin:0 auto 22px}
 .endcta h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
-.endcta p{color:#D7CEDB;max-width:42ch;margin:0 auto 32px}
+.endcta p{color:var(--text-soft);max-width:42ch;margin:0 auto 32px}
 .btn{display:inline-flex;align-items:center;gap:11px;background:var(--gold);color:var(--ink);padding:17px 36px;border-radius:100px;font-family:var(--display);font-weight:600;font-size:1.05rem;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,189,2,.4)}
 @keyframes shine{to{background-position:-200% 0}}

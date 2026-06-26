@@ -1,4 +1,4 @@
----
+﻿---
 import { ClientRouter } from 'astro:transitions';
 import Footer from '../components/Footer.astro';
 
@@ -326,6 +326,18 @@ const ldSchema = {
     --line: rgba(247,247,247,.12);
     --display: 'Clash Display', 'General Sans', system-ui, sans-serif;
     --body: 'General Sans', system-ui, sans-serif;
+
+    /* Text colour tokens */
+    --text-soft:   var(--text-soft);
+    --text-card:   var(--text-card);
+    --text-prose:  var(--text-prose);
+    --text-bright: var(--text-bright);
+    --text-faint:  var(--text-faint);
+
+    /* Semantic tokens */
+    --success: var(--success);
+    --danger:  var(--danger);
+    --error:   var(--error);
   }
 
   /* View Transitions */
