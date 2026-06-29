@@ -669,7 +669,8 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 @media(max-width:760px){.srow .sd{display:none}}
 
 /* FAQ accordion */
-#faq .srow{cursor:pointer;flex-wrap:wrap}
+#faq .srow{cursor:pointer;flex-wrap:wrap;transition:none}
+#faq .srow:hover{padding-left:0}
 #faq .srow .sd{display:none;width:100%;font-size:.95rem;color:var(--text-card);line-height:1.7;padding:10px 0 8px 72px;text-align:left;max-width:none}
 #faq .srow.open .sd{display:block}
 #faq .srow::after{content:'›';margin-left:auto;color:var(--muted);font-size:1.5rem;line-height:1;flex-shrink:0;transition:transform .3s,color .3s}
