@@ -98,107 +98,57 @@ import Arrow from '../components/Arrow.astro';
           </div>
         </div>
 
+        <!-- H2 — unified single variant -->
         <div class="ds-block">
-          <p class="ds-label">H1 — Martin / velký section hero</p>
-          <h1 class="typo-h1-martin">Martin Sedláček</h1>
-          <div class="typo-spec">
-            <span>Font: <strong>Clash Display</strong></span>
-            <span>Weight: <strong>700</strong></span>
-            <span>Size: <strong>clamp(3rem, 9vw, 7rem)</strong></span>
-            <span>Line-height: <strong>.9</strong></span>
-            <span>Letter-spacing: <strong>-.04em</strong></span>
-          </div>
-        </div>
-
-        <!-- H2 variants — jsou 3 různé velikostní skupiny -->
-        <div class="ds-block">
-          <p class="ds-label">H2 — XL (Golden Vision, Kontakt) — největší sekční nadpisy</p>
-          <h2 class="typo-h2-xl">Postaráme se o vás</h2>
-          <div class="typo-spec">
-            <span>Font: <strong>Clash Display</strong></span>
-            <span>Weight: <strong>700</strong></span>
-            <span>Size: <strong>clamp(2.8rem, 6–8vw, 5.5–6.5rem)</strong></span>
-            <span>Line-height: <strong>.9–.92</strong></span>
-            <span>Letter-spacing: <strong>-.035em</strong></span>
-            <span>Kde: .gv-left h2, .ct-left h2</span>
-          </div>
-        </div>
-
-        <div class="ds-block">
-          <p class="ds-label">H2 — L (Výzvy, Služby, Labs, FAQ, Ceník…) — standardní sekční nadpis</p>
-          <h2 class="typo-h2-l">Co vás trápí nejvíc</h2>
+          <p class="ds-label">H2 — sekční nadpis (všechny sekce, sjednoceno)</p>
+          <h2 class="typo-h2">Co vás trápí nejvíc</h2>
           <div class="typo-spec">
             <span>Font: <strong>Clash Display</strong></span>
             <span>Weight: <strong>600</strong></span>
             <span>Size: <strong>clamp(2.4rem, 6vw, 4.5rem)</strong></span>
             <span>Line-height: <strong>.95</strong></span>
             <span>Letter-spacing: <strong>-.025em</strong></span>
-            <span>Kde: .bolesti-head h2, #sluzby h2, #faq h2, .ltease-inner h2, .collab-left h2</span>
-          </div>
-        </div>
-
-        <div class="ds-block">
-          <p class="ds-label">H2 — M (Vybraná práce, Ceník, Nástroje) — kompaktnější nadpis</p>
-          <h2 class="typo-h2-m">Vybraná práce</h2>
-          <div class="typo-spec">
-            <span>Font: <strong>Clash Display</strong></span>
-            <span>Weight: <strong>600</strong></span>
-            <span>Size: <strong>clamp(2.2rem, 4.5–5.5vw, 3.6–4rem)</strong></span>
-            <span>Line-height: <strong>.95–.96</strong></span>
-            <span>Letter-spacing: <strong>-.025em</strong></span>
-            <span>Kde: .vp-left h2, #cenik h2, #nastroje h2</span>
+            <span>Kde: všechny sekce — .vp-left h2, .bolesti-head h2, .gv-left h2, #sluzby h2, .ltease-inner h2, .collab-left h2, #nastroje h2, #cenik h2, .ct-left h2, .martin-h2, #faq h2</span>
           </div>
         </div>
 
         <!-- H3 variants -->
         <div class="ds-block">
-          <p class="ds-label">H3 — Service row title (.srow .st)</p>
+          <p class="ds-label">H3 — Service row title (.srow .st, .gvs-t)</p>
           <h3 class="typo-h3-service">Web design & vývoj</h3>
           <div class="typo-spec">
             <span>Font: <strong>Clash Display</strong></span>
             <span>Weight: <strong>600</strong></span>
-            <span>Size: <strong>clamp(1.6rem, 4vw, 3rem)</strong></span>
+            <span>Size: <strong>clamp(1.4rem, 3vw, 2.2rem)</strong></span>
             <span>Line-height: <strong>1.1</strong></span>
             <span>Letter-spacing: <strong>-.02em</strong></span>
           </div>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">H3 — Card / step title (.cs-body h3, .gvs-t)</p>
+          <p class="ds-label">H3 — Card / step / tool title (.cs-body h3, .vp-name, .tool h3, .ct-success h3)</p>
           <h3 class="typo-h3-card">Strategie & nabídka</h3>
           <div class="typo-spec">
             <span>Font: <strong>Clash Display</strong></span>
             <span>Weight: <strong>600</strong></span>
-            <span>Size: <strong>clamp(1.15–1.4rem, 2.2–3vw, 1.5–2.2rem)</strong></span>
+            <span>Size: <strong>clamp(1.15rem, 2.2vw, 1.5rem)</strong></span>
             <span>Line-height: <strong>1.1</strong></span>
-            <span>Letter-spacing: <strong>-.015em až -.02em</strong></span>
-          </div>
-        </div>
-
-        <div class="ds-block">
-          <p class="ds-label">H3 — Tool card title (.tool h3)</p>
-          <h3 class="typo-h3-tool">Web Skener</h3>
-          <div class="typo-spec">
-            <span>Font: <strong>Clash Display</strong></span>
-            <span>Weight: <strong>600</strong></span>
-            <span>Size: <strong>1.5rem</strong> (fixní, ne clamp)</span>
-            <span>Line-height: <strong>1.05</strong></span>
-            <span>Letter-spacing: <strong>-.01em</strong></span>
+            <span>Letter-spacing: <strong>-.015em</strong></span>
           </div>
         </div>
 
         <!-- Body text variants -->
         <div class="ds-block">
-          <p class="ds-label">Body — perex / velký body (.h-vp, .martin-bio, .gv-desc, .ltease-desc)</p>
+          <p class="ds-label">Body — perex / velký body (.bolesti-sub, .gv-desc, .collab-sub, .ltease-desc, .cenik-intro, .martin-bio, .ct-left p)</p>
           <p class="typo-lead">Tvoříme digitální zážitky, které přivádějí poptávky, šetří ruční práci a zvedají vnímanou hodnotu vaší firmy.</p>
           <div class="typo-spec">
             <span>Font: <strong>General Sans</strong></span>
             <span>Weight: <strong>400</strong></span>
-            <span>Size: <strong>clamp(1.05rem, 1.7vw, 1.3rem)</strong></span>
+            <span>Size: <strong>clamp(1rem, 1.7vw, 1.2rem)</strong></span>
             <span>Line-height: <strong>1.7</strong></span>
             <span>Letter-spacing: <strong>není nastavené</strong> (výchozí 0)</span>
             <span>Color: <strong>var(--text-soft)</strong></span>
-            <span>Max-width: layout-specific (54ch hero · 56ch martin-bio · 40ch gv-desc · 52ch labs)</span>
+            <span>Max-width: layout-specific (40ch gv-desc · 36ch collab-sub · 52ch labs · 54ch cenik · 56ch martin · 38ch kontakt)</span>
           </div>
         </div>
 
@@ -867,39 +817,20 @@ import Arrow from '../components/Arrow.astro';
   }
   .typo-h1-martin {
     font-family: var(--display);
-    font-size: clamp(2.2rem, 6vw, 4.5rem);
-    font-weight: 700;
-    letter-spacing: -.04em;
-    line-height: .9;
-  }
-  .typo-h2-xl {
-    font-family: var(--display);
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    font-weight: 700;
-    letter-spacing: -.035em;
-    line-height: .92;
-  }
-  .typo-h2-l {
-    font-family: var(--display);
-    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
     font-weight: 600;
     letter-spacing: -.025em;
     line-height: .95;
   }
-  .typo-h2-m {
-    font-family: var(--display);
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-    font-weight: 600;
-    letter-spacing: -.025em;
-    line-height: .96;
-  }
-  /* keep .typo-h2 as alias for h2-m for other uses */
+  .typo-h2-xl,
+  .typo-h2-l,
+  .typo-h2-m,
   .typo-h2 {
     font-family: var(--display);
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
     font-weight: 600;
     letter-spacing: -.025em;
-    line-height: .96;
+    line-height: .95;
   }
   .typo-h3-service {
     font-family: var(--display);
@@ -917,13 +848,13 @@ import Arrow from '../components/Arrow.astro';
   }
   .typo-h3-tool {
     font-family: var(--display);
-    font-size: 1.5rem;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
     font-weight: 600;
-    letter-spacing: -.01em;
-    line-height: 1.05;
+    letter-spacing: -.015em;
+    line-height: 1.1;
   }
   .typo-lead {
-    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    font-size: clamp(1rem, 1.7vw, 1.2rem);
     color: var(--text-soft);
     line-height: 1.7;
     max-width: 56ch;
