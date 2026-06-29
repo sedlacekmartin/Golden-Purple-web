@@ -549,7 +549,7 @@ html{scroll-behavior:smooth}
 .dots{position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:16px}
 .dots button{width:10px;height:10px;border-radius:50%;border:1px solid rgba(247,247,247,.4);background:transparent;padding:0;transition:.3s;position:relative;cursor:pointer}
 .dots button::after{content:'';position:absolute;inset:-17px}
-.dots button.on{background:var(--gold);border-color:var(--gold);transform:scale(1.3);box-shadow:0 0 12px var(--gold)}
+.dots button.on{background:var(--gold);border-color:var(--gold);box-shadow:0 0 16px var(--gold)}
 .dot-label{position:absolute;right:calc(100% + 16px);top:50%;transform:translateY(-50%) translateX(14px);opacity:0;white-space:nowrap;font-family:var(--display);font-weight:600;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:rgba(12,6,16,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:5px 14px;border-radius:100px;border:1px solid var(--line);transition:opacity .2s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1);pointer-events:none}
 .dots button:hover .dot-label{opacity:1;transform:translateY(-50%) translateX(0)}
 @media(max-width:760px){.dots{right:16px;gap:12px}}
@@ -667,6 +667,14 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .srow:hover .st{color:var(--gold)}
 .srow .sd{font-size:.95rem;color:var(--muted);max-width:34ch;text-align:right}
 @media(max-width:760px){.srow .sd{display:none}}
+
+/* FAQ accordion */
+#faq .srow{cursor:pointer;flex-wrap:wrap}
+#faq .srow .sd{display:none;width:100%;font-size:.95rem;color:var(--text-card);line-height:1.7;padding:10px 0 8px 72px;text-align:left;max-width:none}
+#faq .srow.open .sd{display:block}
+#faq .srow::after{content:'›';margin-left:auto;color:var(--muted);font-size:1.5rem;line-height:1;flex-shrink:0;transition:transform .3s,color .3s}
+#faq .srow.open::after{transform:rotate(90deg);color:var(--gold)}
+#faq .srow.open .st{color:var(--gold)}
 
 /* LABS TEASER PANEL */
 #labs{justify-content:center;overflow:hidden}
@@ -786,6 +794,8 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .ct-foot a{color:var(--muted);transition:color .2s}
 .ct-foot a:hover{color:var(--gold)}
 @media(max-width:860px){.ct-grid{grid-template-columns:1fr}.ct-left h2{font-size:clamp(2.6rem,9vw,4rem)}}
+#kontakt{padding-bottom:80px}
+@media(max-width:760px){.ct-foot{position:static;margin-top:40px;padding:0;text-align:center}}
 
 /* CURSOR */
 
@@ -880,18 +890,30 @@ function initIndex() {
   }
   const dots = [...(dotsWrap?.children ?? [])];
 
+  // Track visible ratio of each panel — highlight whichever panel has the most visible area.
+  // Threshold .45 breaks for tall panels (Ceník, Bolesti) that never reach 45% on short viewports.
+  const visRatios = new Map<HTMLElement, number>(panels.map(p => [p, 0]));
   _io = new IntersectionObserver((es) => {
     es.forEach(e => {
-      if (e.isIntersecting) {
-        const i = panels.indexOf(e.target as HTMLElement);
-        e.target.classList.add('active');
-        dots.forEach((d, j) => d.classList.toggle('on', j === i));
-      } else {
-        e.target.classList.remove('active');
-      }
+      const p = e.target as HTMLElement;
+      visRatios.set(p, e.intersectionRatio);
+      if (e.isIntersecting) p.classList.add('active');
+      else p.classList.remove('active');
     });
-  }, { root: null, threshold: .45 });
+    let bestIdx = -1, bestRatio = 0;
+    panels.forEach((p, i) => { const r = visRatios.get(p) ?? 0; if (r > bestRatio) { bestRatio = r; bestIdx = i; } });
+    if (bestIdx >= 0) dots.forEach((d, j) => d.classList.toggle('on', j === bestIdx));
+  }, { root: null, threshold: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1] });
   panels.forEach(p => _io!.observe(p));
+
+  // FAQ accordion
+  document.querySelectorAll<HTMLElement>('#faq .srow').forEach(row => {
+    row.addEventListener('click', () => {
+      const wasOpen = row.classList.contains('open');
+      document.querySelectorAll('#faq .srow').forEach(r => r.classList.remove('open'));
+      if (!wasOpen) row.classList.add('open');
+    }, { signal: sig });
+  });
 
   // Okamžitá aktivace viditelného panelu — IO je async, cv elementy mají 0.9s transition
   // které by způsobily blank page po VT animaci
