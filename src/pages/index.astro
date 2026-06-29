@@ -187,38 +187,38 @@ const serviceSchema = {
         <div class="vp-list">
           <a class="vp-item cv" href="/prace/amfels/" data-i="0" aria-selected="false">
             <span class="vp-n">01</span>
-            <span class="vp-meta">
-              <span class="vp-name">AMFELS</span>
+            <div class="vp-meta">
+              <h3 class="vp-name">AMFELS</h3>
               <span class="vp-tag">Web · Landing · SEO</span>
               <span class="vp-desc-mob">Z technicky široké nabídky přehledný obchodní web — služby, důvěra, reference a cesta k poptávce.</span>
-            </span>
+            </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a class="vp-item cv" href="/prace/baroko/" data-i="1" aria-selected="false">
             <span class="vp-n">02</span>
-            <span class="vp-meta">
-              <span class="vp-name">Restaurace Baroko</span>
+            <div class="vp-meta">
+              <h3 class="vp-name">Restaurace Baroko</h3>
               <span class="vp-tag">Web · Rezervace · Branding</span>
               <span class="vp-desc-mob">Z klasického restauračního webu výraznější prezentace s rezervací, akcemi a atmosférou baru.</span>
-            </span>
+            </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a class="vp-item cv" href="/prace/arlex/" data-i="2" aria-selected="false">
             <span class="vp-n">03</span>
-            <span class="vp-meta">
-              <span class="vp-name">Arlex</span>
+            <div class="vp-meta">
+              <h3 class="vp-name">Arlex</h3>
               <span class="vp-tag">E-shop · B2B · Branding</span>
               <span class="vp-desc-mob">B2B e-shop pro tisícovku produktů, schvalované účty a objednávky bez zbytečné ruční práce.</span>
-            </span>
+            </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a class="vp-item cv" href="/prace/na-rachackach/" data-i="3" aria-selected="false">
             <span class="vp-n">04</span>
-            <span class="vp-meta">
-              <span class="vp-name">Na Rachačkách</span>
+            <div class="vp-meta">
+              <h3 class="vp-name">Na Rachačkách</h3>
               <span class="vp-tag">Web · Ubytování · Rezervace</span>
               <span class="vp-desc-mob">Web, který z dobrého Google hodnocení dělá důvod k rezervaci.</span>
-            </span>
+            </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -595,7 +595,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .vp-n{font-family:var(--display);font-weight:700;font-size:.85rem;color:var(--muted);transition:color .3s;min-width:1.5rem}
 .vp-item[aria-selected="true"] .vp-n{color:var(--gold)}
 .vp-meta{flex:1}
-.vp-name{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,2.2vw,1.5rem);display:block;line-height:1.1;transition:color .3s}
+.vp-name{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);letter-spacing:-.015em;line-height:1.1;transition:color .3s}
 .vp-item[aria-selected="true"] .vp-name,.vp-item:hover .vp-name{color:var(--gold)}
 .vp-tag{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-top:3px}
 .vp-arr{color:var(--gold);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .3s;flex-shrink:0}
@@ -712,7 +712,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .tool{display:block;background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:18px;padding:28px 26px;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s;position:relative;overflow:hidden}
 .tool:hover{transform:translateY(-6px);border-color:var(--gold)}
 .tool .tno{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-.tool h3{font-family:var(--display);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;margin:14px 0 10px;line-height:1.05}
+.tool h3{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);letter-spacing:-.015em;margin:14px 0 10px;line-height:1.1}
 .tool p{font-size:clamp(.9rem,1.5vw,1.05rem);color:var(--text-soft);line-height:1.7;margin-bottom:18px}
 .tool .go{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.92rem;color:var(--gold)}
 .tool .go svg{transition:transform .3s}
@@ -788,7 +788,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .ct-btn:disabled{opacity:.55;cursor:not-allowed}
 .ct-gdpr{font-size:.68rem;color:var(--muted);line-height:1.5;max-width:26ch;opacity:.7}
 .ct-success{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:clamp(24px,3vw,36px)}
-.ct-success h3{font-family:var(--display);font-weight:600;font-size:1.6rem}
+.ct-success h3{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);letter-spacing:-.015em;line-height:1.1}
 .ct-success p{color:var(--text-soft)}
 .ct-error{color:var(--error);font-size:.9rem;margin-top:4px}
 .ct-foot{position:absolute;bottom:28px;left:0;right:0;text-align:center;font-size:.78rem;color:var(--muted);z-index:2;padding:0 clamp(28px,6vw,100px)}
