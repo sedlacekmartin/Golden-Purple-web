@@ -95,13 +95,28 @@ const rest = projects.slice(1);
 <script>
   let _io = null;
 
+  function revealAboveFold() {
+    const revs = [...document.querySelectorAll('.reveal')];
+    if (!revs.length) return;
+    revs.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) {
+        el.style.transition = 'none';
+        el.classList.add('in');
+      }
+    });
+    requestAnimationFrame(() => revs.forEach(el => { el.style.transition = ''; }));
+  }
+
+  document.addEventListener('astro:after-swap', revealAboveFold);
+
   document.addEventListener('astro:page-load', () => {
     _io?.disconnect();
     const revs = [...document.querySelectorAll('.reveal')];
 
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
-      if (r.top < innerHeight && r.bottom > 0) {
+      if (r.top < innerHeight && r.bottom > 0 && !el.classList.contains('in')) {
         el.style.transition = 'none';
         el.classList.add('in');
       }

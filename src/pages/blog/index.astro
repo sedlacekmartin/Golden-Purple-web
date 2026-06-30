@@ -93,12 +93,9 @@ const rest = posts.slice(1);
 <script>
   let _io = null;
 
-  document.addEventListener('astro:page-load', () => {
-    _io?.disconnect();
+  function revealAboveFold() {
     const revs = [...document.querySelectorAll('.reveal')];
-
-    // Above-fold: okamžitý reveal bez transition — astro:page-load přichází AŽ po VT animaci,
-    // jinak by user viděl 800ms prázdnou stránku než fade-in doběhne
+    if (!revs.length) return;
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
       if (r.top < innerHeight && r.bottom > 0) {
@@ -107,8 +104,23 @@ const rest = posts.slice(1);
       }
     });
     requestAnimationFrame(() => revs.forEach(el => { el.style.transition = ''; }));
+  }
 
-    // Below-fold: IO se staggered animací
+  document.addEventListener('astro:after-swap', revealAboveFold);
+
+  document.addEventListener('astro:page-load', () => {
+    _io?.disconnect();
+    const revs = [...document.querySelectorAll('.reveal')];
+
+    revs.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0 && !el.classList.contains('in')) {
+        el.style.transition = 'none';
+        el.classList.add('in');
+      }
+    });
+    requestAnimationFrame(() => revs.forEach(el => { el.style.transition = ''; }));
+
     const hidden = revs.filter(el => !el.classList.contains('in'));
     hidden.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; });
     _io = new IntersectionObserver(
