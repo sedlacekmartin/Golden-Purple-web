@@ -84,6 +84,9 @@ const { title, description, updatedDate } = Astro.props;
     text-transform: uppercase; color: var(--muted); font-weight: 600;
   }
   .prose td { padding: 12px 14px; color: var(--text-prose); border-top: 1px solid var(--line); vertical-align: top; }
+  .prose td:first-child { white-space: nowrap; }
+  .link-btn { background: none; border: none; padding: 0; color: var(--gold); cursor: pointer; font-family: inherit; font-size: inherit; }
+  .link-btn:hover { text-decoration: underline; }
   @media(max-width: 600px) {
     .prose table, .prose thead, .prose tbody, .prose th, .prose td, .prose tr { display: block; }
     .prose thead { display: none; }
