@@ -148,7 +148,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-hero { padding:150px 0 56px; position:relative; overflow:hidden }
 .bp-hero::before { content:''; position:absolute; top:-20%; right:-10%; width:55%; height:130%; background:radial-gradient(circle,rgba(86,33,94,.5),transparent 65%); filter:blur(70px); pointer-events:none }
 .bp-hero::after  { content:''; position:absolute; bottom:-30%; left:-8%;  width:40%; height:100%; background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%); filter:blur(80px); pointer-events:none }
-.bp-hero .wrap-text { position:relative; z-index:2; max-width:760px }
+.bp-hero .wrap-text { position:relative; z-index:2; max-width:760px; padding-left:0; padding-right:0 }
 
 .bp-hero h1 { font-family:var(--display); font-weight:600; font-size:clamp(2.2rem,6vw,3.8rem); line-height:.93; letter-spacing:-.035em; margin-bottom:28px }
 .bp-lead { font-size:clamp(1.1rem,2vw,1.35rem); color:var(--text-soft); line-height:1.7; margin-bottom:24px }
