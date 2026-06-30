@@ -9,7 +9,6 @@ import Arrow from '../../components/Arrow.astro';
 >
 
   <div class="shell">
-    <div class="scan-wrap">
 
       <div class="intro" id="intro">
         <div class="itag"><span class="d"></span><span class="mono">Web scan · zdarma</span></div>
@@ -99,7 +98,6 @@ import Arrow from '../../components/Arrow.astro';
       </div>
 
       <p class="foot">Powered by <a href="https://goldenpurple.cz">Golden Purple</a> — postaráme se o vás královsky.</p>
-    </div>
   </div>
 
   <style is:global>
@@ -109,8 +107,7 @@ import Arrow from '../../components/Arrow.astro';
       --red: var(--danger);
     }
     /* ambient */
-    .shell { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 0 60px }
-    .scan-wrap { max-width: 780px; margin: 0 auto; padding: 0 24px }
+    .shell { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; max-width: 780px; margin: 0 auto; padding: 100px 24px 60px }
 
     /* INTRO */
     .intro { margin-bottom: 42px }
