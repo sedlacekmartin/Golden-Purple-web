@@ -82,6 +82,7 @@ const rest = projects.slice(1);
 )}
 
 <section class="endcta">
+  <div class="endcta-glow"></div>
   <div class="wrap">
     <h2 class="reveal">Váš projekt může být <em>další v řadě</em>.</h2>
     <p class="reveal">Napište pár slov o tom, co řešíte. Ozveme se do dvou dnů s konkrétními nápady.</p>
@@ -183,7 +184,9 @@ const rest = projects.slice(1);
 .pcard:hover .foot .arr{transform:translateX(5px)}
 
 /* CTA */
-.endcta{text-align:center;padding:90px 0 110px;position:relative}
+.endcta{text-align:center;padding:90px 0 110px;position:relative;overflow:hidden}
+.endcta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:200%;background:radial-gradient(circle,rgba(86,33,94,.35),transparent 60%);filter:blur(70px);pointer-events:none}
+.endcta .wrap{position:relative}
 .endcta h2{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5vw,3.8rem);line-height:1;letter-spacing:-.02em;max-width:18ch;margin:0 auto 22px}
 .endcta h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 .endcta p{color:var(--text-soft);max-width:42ch;margin:0 auto 32px}
