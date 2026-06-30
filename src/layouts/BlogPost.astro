@@ -184,8 +184,8 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-mlab { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:24px }
 .bp-mgrid { display:grid; grid-template-columns:1fr 1fr; gap:20px }
 @media(max-width:640px) { .bp-mgrid { grid-template-columns:1fr } }
-.bp-mcard { border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; justify-content:space-between; align-items:center; gap:20px; transition:.35s; background:linear-gradient(150deg,var(--ink-2),var(--ink)) }
-.bp-mcard:hover { border-color:rgba(245,189,2,.4); transform:translateY(-4px) }
+.bp-mcard { border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; justify-content:space-between; align-items:center; gap:20px; transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s; background:linear-gradient(150deg,var(--ink-2),var(--ink)) }
+.bp-mcard:hover { border-color:var(--gold); transform:translateY(-5px) }
 .bp-mcard h4 { font-family:var(--display); font-weight:600; font-size:1.2rem; margin-bottom:8px; line-height:1.15 }
 .bp-mc-body p { font-size:.88rem; color:var(--text-prose); line-height:1.5 }
 .bp-arr { color:var(--gold); font-size:1.4rem; flex-shrink:0 }
