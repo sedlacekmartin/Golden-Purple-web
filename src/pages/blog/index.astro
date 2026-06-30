@@ -91,10 +91,10 @@ const rest = posts.slice(1);
 )}
 
 <script>
-  let _io = null;
+  let _io: IntersectionObserver | null = null;
 
   function revealAboveFold() {
-    const revs = [...document.querySelectorAll('.reveal')];
+    const revs = [...document.querySelectorAll<HTMLElement>('.reveal')];
     if (!revs.length) return;
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -110,7 +110,8 @@ const rest = posts.slice(1);
 
   document.addEventListener('astro:page-load', () => {
     _io?.disconnect();
-    const revs = [...document.querySelectorAll('.reveal')];
+    const revs = [...document.querySelectorAll<HTMLElement>('.reveal')];
+    if (!revs.length) return;
 
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -124,10 +125,10 @@ const rest = posts.slice(1);
     const hidden = revs.filter(el => !el.classList.contains('in'));
     hidden.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; });
     _io = new IntersectionObserver(
-      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io.unobserve(e.target); } }),
+      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io!.unobserve(e.target); } }),
       { threshold: .08, rootMargin: '0px 0px -5% 0px' }
     );
-    hidden.forEach(el => _io.observe(el));
+    hidden.forEach(el => _io!.observe(el));
     setTimeout(() => revs.forEach(el => el.classList.add('in')), 600);
   });
 </script>
@@ -168,13 +169,13 @@ const rest = posts.slice(1);
 @media(max-width:960px) { .bgrid { grid-template-columns:repeat(2,1fr) } }
 @media(max-width:600px) { .bgrid { grid-template-columns:1fr } }
 
-.bcard { position:relative; background:linear-gradient(160deg,var(--ink-2),var(--ink)); border:1px solid var(--line); border-radius:18px; overflow:hidden; transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s; display:flex; flex-direction:column }
-.bcard:hover { transform:translateY(-6px); border-color:var(--gold) }
+.bcard { position:relative; background:linear-gradient(160deg,var(--ink-2),var(--ink)); border:1px solid var(--line); border-radius:18px; overflow:hidden; transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s; display:flex; flex-direction:column }
+.bcard:hover { transform:translateY(-5px); border-color:var(--gold) }
 .bcard-img { width:100%; aspect-ratio:16/10; object-fit:cover; display:block }
 .bcard-ph { aspect-ratio:16/10; background:radial-gradient(circle at 60% 30%,rgba(86,33,94,.45),transparent 60%),linear-gradient(135deg,#241b2c,#140f1a); display:flex; align-items:center; justify-content:center }
 .bcard-n { font-family:var(--display); font-weight:700; font-size:5rem; color:transparent; -webkit-text-stroke:1px rgba(245,189,2,.2) }
 .bcard-body { padding:24px 26px 28px; flex:1; display:flex; flex-direction:column }
-.bcard h3 { font-family:var(--display); font-weight:600; font-size:clamp(1.15rem,2vw,1.5rem); letter-spacing:-.01em; margin-bottom:10px; line-height:1.1 }
+.bcard h3 { font-family:var(--display); font-weight:600; font-size:clamp(1.15rem,2vw,1.5rem); letter-spacing:-.01em; margin-bottom:12px; line-height:1.1 }
 .bcard p { font-size:.92rem; color:var(--text-prose); line-height:1.6; margin-bottom:16px; flex:1 }
 .bcard-foot { display:flex; justify-content:space-between; align-items:center }
 .bcard-foot time { font-size:.76rem; color:var(--muted) }

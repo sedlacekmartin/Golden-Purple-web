@@ -171,7 +171,7 @@ import Arrow from '../../components/Arrow.astro';
 .lp-label .lg { color: var(--gold); font-weight: 700; }
 .lp-label .lsep { color: var(--line); }
 .lp-label .ln2 { color: var(--muted); font-weight: 600; }
-.lprod h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem,2vw,1.5rem); letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.08; }
+.lprod h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.15rem,2vw,1.5rem); letter-spacing: -.01em; margin-bottom: 12px; line-height: 1.1; }
 .lprod p { font-size: .92rem; color: var(--text-prose); line-height: 1.6; margin-bottom: 16px; }
 .lp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .lp-status { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; padding: 4px 11px; border-radius: 100px; position: absolute; top: 18px; right: 18px; z-index: 2; }
@@ -191,10 +191,10 @@ import Arrow from '../../components/Arrow.astro';
 @media(max-width:520px) { .lp-screen { display: none; } .lprod { padding-right: 26px; } }
 
 /* CTA */
-.lcta { text-align: center; padding: 80px 0 110px; position: relative; overflow: hidden; }
+.lcta { text-align: center; padding: 90px 0 110px; position: relative; overflow: hidden; }
 .lcta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60%; height: 200%; background: radial-gradient(circle,rgba(86,33,94,.35),transparent 60%); filter: blur(70px); pointer-events: none; }
 .lcta h2 { position: relative; font-family: var(--display); font-weight: 600; font-size: clamp(2rem,5vw,3.8rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 20px; }
-.lcta p { position: relative; color: var(--text-card); max-width: 42ch; margin: 0 auto 32px; }
+.lcta p { position: relative; color: var(--text-soft); max-width: 42ch; margin: 0 auto 32px; }
 
 /* REVEAL */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1); }

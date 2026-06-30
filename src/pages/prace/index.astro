@@ -93,10 +93,10 @@ const rest = projects.slice(1);
 </section>
 
 <script>
-  let _io = null;
+  let _io: IntersectionObserver | null = null;
 
   function revealAboveFold() {
-    const revs = [...document.querySelectorAll('.reveal')];
+    const revs = [...document.querySelectorAll<HTMLElement>('.reveal')];
     if (!revs.length) return;
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -112,7 +112,8 @@ const rest = projects.slice(1);
 
   document.addEventListener('astro:page-load', () => {
     _io?.disconnect();
-    const revs = [...document.querySelectorAll('.reveal')];
+    const revs = [...document.querySelectorAll<HTMLElement>('.reveal')];
+    if (!revs.length) return;
 
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -126,10 +127,10 @@ const rest = projects.slice(1);
     const hidden = revs.filter(el => !el.classList.contains('in'));
     hidden.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; });
     _io = new IntersectionObserver(
-      (es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io.unobserve(e.target); } }); },
+      (es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io!.unobserve(e.target); } }); },
       { threshold: .08, rootMargin: '0px 0px -5% 0px' }
     );
-    hidden.forEach(el => _io.observe(el));
+    hidden.forEach(el => _io!.observe(el));
     setTimeout(() => revs.forEach(el => el.classList.add('in')), 600);
   });
 </script>
@@ -155,7 +156,7 @@ const rest = projects.slice(1);
 .fcard .body{padding:clamp(30px,4vw,54px);display:flex;flex-direction:column;justify-content:center}
 .fcard .body .kick{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .fcard .body h2{font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:.96;letter-spacing:-.02em;margin-bottom:18px}
-.fcard .body p{color:var(--text-soft);font-size:1.05rem;margin-bottom:24px;max-width:42ch}
+.fcard .body p{color:var(--text-soft);font-size:1.05rem;margin-bottom:28px;max-width:42ch;line-height:1.6}
 .fcard .body .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
 .fcard .body .meta span{font-size:.8rem;border:1px solid var(--line);padding:6px 13px;border-radius:100px;color:var(--text-card)}
 .fcard .body .go{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;color:var(--gold)}
@@ -169,13 +170,13 @@ const rest = projects.slice(1);
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 @media(max-width:960px){.pgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.pgrid{grid-template-columns:1fr}}
-.pcard{position:relative;background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s;display:flex;flex-direction:column}
-.pcard:hover{transform:translateY(-6px);border-color:var(--gold)}
+.pcard{position:relative;background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-5px);border-color:var(--gold)}
 .pcard .pvis{aspect-ratio:16/11;position:relative;background:radial-gradient(circle at 60% 30%,rgba(86,33,94,.45),transparent 60%),linear-gradient(135deg,#241b2c,#140f1a);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .pcard .pvis .n{font-family:var(--display);font-weight:700;font-size:5rem;color:transparent;-webkit-text-stroke:1px rgba(245,189,2,.2)}
 .pcard .pvis .t{position:absolute;top:16px;left:16px;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--gold);background:rgba(245,189,2,.1);border:1px solid rgba(245,189,2,.2);padding:5px 11px;border-radius:100px}
 .pcard .pbody{padding:24px 26px 28px;flex:1;display:flex;flex-direction:column}
-.pcard h3{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2vw,1.5rem);letter-spacing:-.01em;margin-bottom:8px}
+.pcard h3{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2vw,1.5rem);letter-spacing:-.01em;margin-bottom:12px;line-height:1.1}
 .pcard .desc{font-size:.92rem;color:var(--text-prose);line-height:1.6;margin-bottom:16px;flex:1}
 .pcard .foot{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .pcard .foot .arr{color:var(--gold);transition:transform .3s;font-style:normal}
