@@ -19,16 +19,14 @@ const { title, description, updatedDate } = Astro.props;
   <Topbar />
 
   <div class="shell">
-    <div class="legal-wrap">
-      <header class="legal-header">
-        <div class="itag"><span class="d"></span><span class="mono">Právní dokumenty</span></div>
-        <h1>{title}</h1>
-        {updatedDate && <p class="updated">Poslední aktualizace: {updatedDate}</p>}
-      </header>
+    <header class="legal-header">
+      <div class="itag"><span class="d"></span><span class="mono">Právní dokumenty</span></div>
+      <h1>{title}</h1>
+      {updatedDate && <p class="updated">Poslední aktualizace: {updatedDate}</p>}
+    </header>
 
-      <div class="prose">
-        <slot />
-      </div>
+    <div class="prose">
+      <slot />
     </div>
   </div>
 </Base>
@@ -37,10 +35,9 @@ const { title, description, updatedDate } = Astro.props;
   .shell {
     position: relative; z-index: 2;
     min-height: 100dvh;
-    display: flex; flex-direction: column;
-    padding: clamp(100px, 14vh, 140px) clamp(24px, 6vw, 80px) clamp(80px, 10vh, 120px);
+    max-width: 760px; margin: 0 auto;
+    padding: clamp(100px, 14vh, 140px) 22px clamp(80px, 10vh, 120px);
   }
-  .legal-wrap { max-width: 760px; margin: 0 auto; width: 100%; }
 
   .legal-header { margin-bottom: 52px; }
   .legal-header h1 {
