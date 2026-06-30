@@ -127,7 +127,7 @@ const rest = projects.slice(1);
     const hidden = revs.filter(el => !el.classList.contains('in'));
     hidden.forEach((el, i) => { el.style.transitionDelay = (i % 3 * 70) + 'ms'; });
     _io = new IntersectionObserver(
-      (es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io!.unobserve(e.target); } }); },
+      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io!.unobserve(e.target); } }),
       { threshold: .08, rootMargin: '0px 0px -5% 0px' }
     );
     hidden.forEach(el => _io!.observe(el));
@@ -154,7 +154,7 @@ const rest = projects.slice(1);
 .fcard .vis .bignum{font-family:var(--display);font-weight:700;font-size:13rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(245,189,2,.25);user-select:none}
 .fcard .vis .ftag{position:absolute;top:24px;left:24px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--gold);background:rgba(245,189,2,.1);border:1px solid rgba(245,189,2,.25);padding:7px 14px;border-radius:100px}
 .fcard .body{padding:clamp(30px,4vw,54px);display:flex;flex-direction:column;justify-content:center}
-.fcard .body .kick{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.fcard .body .kick{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .fcard .body h2{font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:.96;letter-spacing:-.02em;margin-bottom:18px}
 .fcard .body p{color:var(--text-soft);font-size:1.05rem;margin-bottom:28px;max-width:42ch;line-height:1.6}
 .fcard .body .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
