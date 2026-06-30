@@ -20,14 +20,14 @@ const rest = posts.slice(1);
 
 <section class="bhero">
   <div class="wrap">
-    <span class="eyebrow rv">Blog</span>
-    <h1 class="rv">Tipy & <em>pohled za oponu</em>.</h1>
-    <p class="rv">Jak přemýšlíme o webu, brandingu a digitálním marketingu — bez zbytečné omáčky.</p>
+    <span class="eyebrow reveal">Blog</span>
+    <h1 class="reveal">Tipy & <em>pohled za oponu</em>.</h1>
+    <p class="reveal">Jak přemýšlíme o webu, brandingu a digitálním marketingu — bez zbytečné omáčky.</p>
   </div>
 </section>
 
 {posts.length === 0 ? (
-  <div class="wrap bempty rv">
+  <div class="wrap bempty reveal">
     <p>Zatím žádné příspěvky. Brzy se dočkáš.</p>
   </div>
 ) : (
@@ -35,7 +35,7 @@ const rest = posts.slice(1);
     {featured && (
       <section class="bfeatured">
         <div class="wrap">
-          <a class="bfcard rv" href={`/blog/${featured.id}`}>
+          <a class="bfcard reveal" href={`/blog/${featured.id}`}>
             <div class="bfvis">
               {featured.data.image
                 ? <img src={featured.data.image} alt={featured.data.title} />
@@ -66,7 +66,7 @@ const rest = posts.slice(1);
           <div class="bgh">Všechny články</div>
           <div class="bgrid">
             {rest.map((post, i) => (
-              <a class="bcard rv" href={`/blog/${post.id}`}>
+              <a class="bcard reveal" href={`/blog/${post.id}`}>
                 {post.data.image
                   ? <img src={post.data.image} alt={post.data.title} class="bcard-img" />
                   : <div class="bcard-ph"><span class="bcard-n">0{i + 2}</span></div>
@@ -95,7 +95,7 @@ const rest = posts.slice(1);
 
   document.addEventListener('astro:page-load', () => {
     _io?.disconnect();
-    const revs = [...document.querySelectorAll('.rv')];
+    const revs = [...document.querySelectorAll('.reveal')];
 
     // Above-fold: okamžitý reveal bez transition — astro:page-load přichází AŽ po VT animaci,
     // jinak by user viděl 800ms prázdnou stránku než fade-in doběhne
@@ -170,7 +170,7 @@ const rest = posts.slice(1);
 .bcard:hover .bcard-arr { transform:translateX(5px) }
 
 /* REVEAL */
-.rv { opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1) }
-.rv.in { opacity:1; transform:none }
-@media(prefers-reduced-motion:reduce) { .rv { opacity:1; transform:none; transition:none } }
+.reveal { opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1) }
+.reveal.in { opacity:1; transform:none }
+@media(prefers-reduced-motion:reduce) { .reveal { opacity:1; transform:none; transition:none } }
 </style>

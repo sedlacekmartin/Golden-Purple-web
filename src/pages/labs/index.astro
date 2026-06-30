@@ -13,9 +13,9 @@ import Arrow from '../../components/Arrow.astro';
 
 <section class="lhero">
   <div class="wrap">
-    <span class="eyebrow rv">Golden Labs</span>
-    <h1 class="rv">Digitální produkty.<br><em>Stavěné k použití.</em></h1>
-    <p class="lhero-sub rv">Vedle klientské práce vyvíjíme vlastní nástroje — protože správné řešení někdy prostě neexistuje hotové. Klientům to přináší systémy na míru místo náhodného lepení pluginů.</p>
+    <span class="eyebrow reveal">Golden Labs</span>
+    <h1 class="reveal">Digitální produkty.<br><em>Stavěné k použití.</em></h1>
+    <p class="lhero-sub reveal">Vedle klientské práce vyvíjíme vlastní nástroje — protože správné řešení někdy prostě neexistuje hotové. Klientům to přináší systémy na míru místo náhodného lepení pluginů.</p>
   </div>
 </section>
 
@@ -23,7 +23,7 @@ import Arrow from '../../components/Arrow.astro';
   <div class="wrap">
     <div class="labs-grid">
 
-      <div class="lprod rv">
+      <div class="lprod reveal">
         <span class="lp-status live">Dostupný</span>
         <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">Suite</span></div>
         <h3>Chytrý provozní balík pro firemní weby</h3>
@@ -42,7 +42,7 @@ import Arrow from '../../components/Arrow.astro';
         </div>
       </div>
 
-      <div class="lprod rv">
+      <div class="lprod reveal">
         <span class="lp-status soon">Beta</span>
         <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">Fleet</span></div>
         <h3>Správa flotily vozidel</h3>
@@ -61,7 +61,7 @@ import Arrow from '../../components/Arrow.astro';
         </div>
       </div>
 
-      <div class="lprod rv">
+      <div class="lprod reveal">
         <span class="lp-status soon">Beta</span>
         <div class="lp-label"><span class="lg">GOLDEN</span><span class="lsep">·</span><span class="ln2">QR Tracking</span></div>
         <h3>QR tracking platforma</h3>
@@ -80,7 +80,7 @@ import Arrow from '../../components/Arrow.astro';
         </div>
       </div>
 
-      <div class="lprod rv">
+      <div class="lprod reveal">
         <span class="lp-status live">Verze 1.7</span>
         <div class="lp-label"><span class="lg">GET MY</span><span class="lsep">·</span><span class="ln2">Reservation</span></div>
         <h3>Rezervační systém pro restaurace</h3>
@@ -97,9 +97,9 @@ import Arrow from '../../components/Arrow.astro';
 
 <section class="lcta">
   <div class="lcta-glow"></div>
-  <h2 class="rv">Máte zájem o některý z nástrojů?</h2>
-  <p class="rv">Napište nám — rádi probereme, jak by konkrétní produkt zapadl do vašeho provozu.</p>
-  <a class="btn rv" href="/#kontakt">
+  <h2 class="reveal">Máte zájem o některý z nástrojů?</h2>
+  <p class="reveal">Napište nám — rádi probereme, jak by konkrétní produkt zapadl do vašeho provozu.</p>
+  <a class="btn reveal" href="/#kontakt">
     Ozvěte se
     <Arrow size={17} />
   </a>
@@ -109,7 +109,7 @@ import Arrow from '../../components/Arrow.astro';
   let _io: IntersectionObserver | null = null;
 
   function revealAboveFold() {
-    const revs = [...document.querySelectorAll<HTMLElement>('.rv')];
+    const revs = [...document.querySelectorAll<HTMLElement>('.reveal')];
     if (!revs.length) return;
     revs.forEach(el => {
       const r = el.getBoundingClientRect();
@@ -126,7 +126,7 @@ import Arrow from '../../components/Arrow.astro';
 
   document.addEventListener('astro:page-load', () => {
     _io?.disconnect();
-    const revs = [...document.querySelectorAll<HTMLElement>('.rv')];
+    const revs = [...document.querySelectorAll<HTMLElement>('.reveal')];
     if (!revs.length) return;
 
     // Fallback reveal for any above-fold elements missed by after-swap
@@ -156,9 +156,9 @@ import Arrow from '../../components/Arrow.astro';
 
 /* HERO */
 .lhero { padding: 160px 0 80px; }
-.lhero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(3rem,9vw,7rem); line-height: .92; letter-spacing: -.03em; margin-bottom: 28px; }
+.lhero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(3rem,9vw,7rem); line-height: .92; letter-spacing: -.03em; max-width: 14ch; }
 .lhero h1 em { font-style: normal; color: var(--gold); }
-.lhero-sub { font-size: clamp(1.05rem,1.8vw,1.3rem); color: var(--text-soft); max-width: 56ch; line-height: 1.65; }
+.lhero-sub { font-size: clamp(1.05rem,2vw,1.35rem); max-width: 52ch; color: var(--text-soft); margin-top: 26px; }
 
 /* PRODUCTS */
 .lproducts { padding: 20px 0 100px; }
@@ -197,7 +197,7 @@ import Arrow from '../../components/Arrow.astro';
 .lcta p { position: relative; color: var(--text-card); max-width: 42ch; margin: 0 auto 32px; }
 
 /* REVEAL */
-.rv { opacity: 0; transform: translateY(32px); transition: opacity .9s cubic-bezier(.19,1,.22,1),transform .9s cubic-bezier(.19,1,.22,1); }
-.rv.in { opacity: 1; transform: none; }
-@media(prefers-reduced-motion:reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media(prefers-reduced-motion:reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
