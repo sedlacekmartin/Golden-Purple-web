@@ -1,15 +1,11 @@
 ﻿---
-import Base from '../../layouts/Base.astro';
-import Topbar from '../../components/Topbar.astro';
+import Tools from '../../layouts/Tools.astro';
 ---
 
-<Base
+<Tools
   title="Test: Plní váš web restaurace stoly? — Golden Purple"
   description="Interaktivní checklist 21 prvků webu restaurace. Zaškrtejte, co máte, a zjistěte své skóre. Od Golden Purple."
 >
-
-<Topbar />
-<canvas id="aurora"></canvas>
 
 <div class="shell">
   <div class="intro">
@@ -53,13 +49,11 @@ import Topbar from '../../components/Topbar.astro';
 </div>
 
 <style is:global>
-#aurora{position:fixed;inset:0;z-index:0}
 .shell{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:100px 22px 160px}
 
-.intro{text-align:center;margin-bottom:36px}
-.intro h1{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5.5vw,3.2rem);line-height:1;letter-spacing:-.025em;margin-bottom:16px}
-.intro h1 em{font-style:normal;color:var(--gold)}
-.intro p{color:var(--text-soft);max-width:46ch;margin:0 auto;font-size:1.02rem}
+.intro{margin-bottom:36px}
+.intro h1{font-size:clamp(2rem,5.5vw,3.2rem)}
+.intro p{max-width:46ch;font-size:1.02rem}
 
 .cat{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:30px 0 10px;padding-bottom:9px;border-bottom:1px solid var(--line)}
 .item{display:flex;gap:15px;align-items:flex-start;padding:15px 16px;border-radius:13px;cursor:pointer;transition:background .2s;border:1px solid transparent}
@@ -91,35 +85,12 @@ import Topbar from '../../components/Topbar.astro';
 .okmsg{display:none;color:var(--gold);font-family:var(--display);margin-top:10px}
 .okmsg.on{display:block}
 .close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;line-height:1}
-.foot{text-align:center;margin-top:40px;color:var(--muted);font-size:.82rem}
-.foot a{color:var(--gold)}
+.foot{margin-top:40px}
 @media(prefers-reduced-motion:reduce){.fill{transition:none}}
 </style>
 
 <script>
-let _raf = null;
-let _ac = null;
-
 document.addEventListener('astro:page-load', () => {
-  const c = document.getElementById('aurora');
-  if (!c) return;
-
-  if (_raf !== null) { cancelAnimationFrame(_raf); _raf = null; }
-  _ac?.abort();
-  _ac = new AbortController();
-
-  const x = c.getContext('2d'); let W, H, t = 0;
-  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function sz() { W = c.width = innerWidth; H = c.height = innerHeight; } sz();
-  window.addEventListener('resize', sz, { signal: _ac.signal });
-  const bl=[{cx:.25,cy:.35,r:.5,col:[86,33,94]},{cx:.75,cy:.3,r:.45,col:[59,18,67]},{cx:.55,cy:.7,r:.5,col:[142,77,151]},{cx:.4,cy:.5,r:.3,col:[245,189,2]}];
-  function dr(){t+=.003;x.clearRect(0,0,W,H);x.fillStyle='#0C0610';x.fillRect(0,0,W,H);
-  bl.forEach((b,i)=>{const px=(b.cx+Math.sin(t+i*1.7)*.06)*W,py=(b.cy+Math.cos(t*.9+i*2.1)*.06)*H,rad=b.r*Math.min(W,H)*(i===3?.5:1);
-  const g=x.createRadialGradient(px,py,0,px,py,rad);const a=i===3?.12:.5;
-  g.addColorStop(0,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);g.addColorStop(1,`rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
-  x.fillStyle=g;x.beginPath();x.arc(px,py,rad,0,7);x.fill()});if(!reduce)_raf=requestAnimationFrame(dr);}
-  dr();
-
   const groups=[
     {cat:'A · První dojem (první 3 vteřiny)',items:[
       ['Jasné sdělení, kdo jste a co nabízíte','Návštěvník do 3 vteřin pozná typ podniku a atmosféru.','Baroko: koncept „restaurace a bar" hned v hero sekci.'],
@@ -222,4 +193,4 @@ document.addEventListener('astro:page-load', () => {
 });
 </script>
 
-</Base>
+</Tools>

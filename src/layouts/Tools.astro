@@ -1,0 +1,73 @@
+---
+import Base from './Base.astro';
+import Topbar from '../components/Topbar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex } = Astro.props;
+---
+
+<Base {title} {description} {noindex} noFooter={true}>
+  <Topbar />
+  <canvas id="aurora"></canvas>
+  <slot />
+
+  <script>
+    let _toolRaf: number | null = null;
+    let _toolAc: AbortController | null = null;
+
+    document.addEventListener('astro:page-load', () => {
+      const c = document.getElementById('aurora') as HTMLCanvasElement | null;
+      if (!c) return;
+      if (_toolRaf !== null) { cancelAnimationFrame(_toolRaf); _toolRaf = null; }
+      _toolAc?.abort();
+      _toolAc = new AbortController();
+      const ctx = c.getContext('2d')!;
+      let W: number, H: number, t = 0;
+      const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      function sz() { W = c.width = innerWidth; H = c.height = innerHeight; } sz();
+      window.addEventListener('resize', sz, { signal: _toolAc.signal });
+      const bl = [
+        { cx: .25, cy: .35, r: .5,  col: [86, 33, 94]   },
+        { cx: .75, cy: .3,  r: .45, col: [59, 18, 67]   },
+        { cx: .55, cy: .7,  r: .5,  col: [142, 77, 151] },
+        { cx: .4,  cy: .5,  r: .3,  col: [245, 189, 2]  },
+      ];
+      function dr() {
+        t += .003;
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#0C0610';
+        ctx.fillRect(0, 0, W, H);
+        bl.forEach((b, i) => {
+          const px = (b.cx + Math.sin(t + i * 1.7) * .06) * W;
+          const py = (b.cy + Math.cos(t * .9 + i * 2.1) * .06) * H;
+          const rad = b.r * Math.min(W, H) * (i === 3 ? .5 : 1);
+          const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
+          const a = i === 3 ? .12 : .5;
+          g.addColorStop(0, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`);
+          g.addColorStop(1, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(px, py, rad, 0, 7);
+          ctx.fill();
+        });
+        if (!reduce) _toolRaf = requestAnimationFrame(dr);
+      }
+      dr();
+    });
+  </script>
+
+  <style is:global>
+    #aurora { position: fixed; inset: 0; z-index: 0; }
+    .intro { text-align: center; }
+    .intro h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2rem,5.5vw,3.5rem); line-height: 1; letter-spacing: -.025em; margin-bottom: 16px; }
+    .intro h1 em { font-style: normal; color: var(--gold); }
+    .intro p { color: var(--text-soft); margin: 0 auto; }
+    .foot { text-align: center; color: var(--muted); font-size: .82rem; }
+    .foot a { color: var(--gold); }
+  </style>
+</Base>
