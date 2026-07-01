@@ -31,8 +31,8 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 
 <article>
   <header class="bp-hero">
-    <div class="wrap-text">
-      <h1 class="rv">{title}</h1>
+    <div class="bp-col">
+      <h1 class="reveal">{title}</h1>
       <p class="bp-lead reveal">{description}</p>
       <div class="bp-meta reveal">
         <time datetime={pubDate.toISOString()}>{dateStr}</time>
@@ -49,13 +49,13 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
     </div>
   )}
 
-  <div class="bp-prose wrap-text">
+  <div class="bp-prose bp-col">
     <slot />
   </div>
 </article>
 
 {morePosts.length > 0 && (
-  <section class="bp-more wrap-text">
+  <section class="bp-more bp-col">
     <div class="bp-mlab reveal">Další články</div>
     <div class="bp-mgrid">
       {morePosts.map(p => (
@@ -73,8 +73,8 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 
 <section class="bp-cta">
   <div class="bp-cglow"></div>
-  <h2 class="rv">Řešíte web nebo brand? <em>Ozvi se.</em></h2>
-  <p class="rv">Napište pár slov o tom, co potřebujete. Ozveme se do dvou dnů s konkrétními nápady.</p>
+  <h2 class="reveal">Řešíte web nebo brand? <em>Ozvi se.</em></h2>
+  <p class="reveal">Napište pár slov o tom, co potřebujete. Ozveme se do dvou dnů s konkrétními nápady.</p>
   <a class="btn reveal" href="/#kontakt">
     Pojďme do toho
     <Arrow size={18} />
@@ -148,8 +148,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-hero { padding:150px 0 56px; position:relative; overflow:hidden }
 .bp-hero::before { content:''; position:absolute; top:-20%; right:-10%; width:55%; height:130%; background:radial-gradient(circle,rgba(86,33,94,.5),transparent 65%); filter:blur(70px); pointer-events:none }
 .bp-hero::after  { content:''; position:absolute; bottom:-30%; left:-8%;  width:40%; height:100%; background:radial-gradient(circle,rgba(245,189,2,.12),transparent 65%); filter:blur(80px); pointer-events:none }
-.bp-hero .wrap-text { position:relative; z-index:2; max-width:760px; padding-left:0; padding-right:0 }
-@media(max-width:700px) { .bp-hero .wrap-text { padding-left:22px; padding-right:22px } }
+.bp-col { max-width:760px; margin:0 auto; padding-left:clamp(22px,5vw,56px); padding-right:clamp(22px,5vw,56px); position:relative; z-index:2 }
 
 .bp-hero h1 { font-family:var(--display); font-weight:600; font-size:clamp(2.2rem,6vw,3.8rem); line-height:.93; letter-spacing:-.035em; margin-bottom:28px }
 .bp-lead { font-size:clamp(1.1rem,2vw,1.35rem); color:var(--text-soft); line-height:1.7; margin-bottom:24px }
@@ -161,7 +160,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-cover img { width:100%; border-radius:20px; border:1px solid var(--line); display:block; aspect-ratio:16/9; object-fit:cover }
 
 /* PROSE */
-.bp-prose { padding:60px clamp(22px,5vw,56px) 90px; max-width:760px }
+.bp-prose { padding-top:60px; padding-bottom:90px }
 .bp-prose h2 { font-family:var(--display); font-weight:600; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 18px }
 .bp-prose h2:not(:first-child) { margin-top:60px }
 .bp-prose h3 { font-family:var(--display); font-weight:600; font-size:clamp(1.2rem,2.2vw,1.7rem); line-height:1.1; letter-spacing:-.015em; margin:40px 0 14px }
@@ -181,7 +180,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-prose pre code { background:none; padding:0; color:var(--paper) }
 
 /* DALŠÍ ČLÁNKY */
-.bp-more { border-top:1px solid var(--line); padding:60px clamp(22px,5vw,56px); max-width:760px }
+.bp-more { border-top:1px solid var(--line); padding-top:60px; padding-bottom:60px }
 .bp-mlab { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:24px }
 .bp-mgrid { display:grid; grid-template-columns:1fr 1fr; gap:20px }
 @media(max-width:640px) { .bp-mgrid { grid-template-columns:1fr } }
