@@ -161,7 +161,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-cover img { width:100%; border-radius:20px; border:1px solid var(--line); display:block; aspect-ratio:16/9; object-fit:cover }
 
 /* PROSE */
-.bp-prose { padding:60px 0 90px; max-width:760px }
+.bp-prose { padding:60px clamp(22px,5vw,56px) 90px; max-width:760px }
 .bp-prose h2 { font-family:var(--display); font-weight:600; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 18px }
 .bp-prose h2:not(:first-child) { margin-top:60px }
 .bp-prose h3 { font-family:var(--display); font-weight:600; font-size:clamp(1.2rem,2.2vw,1.7rem); line-height:1.1; letter-spacing:-.015em; margin:40px 0 14px }
@@ -181,7 +181,7 @@ const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
 .bp-prose pre code { background:none; padding:0; color:var(--paper) }
 
 /* DALŠÍ ČLÁNKY */
-.bp-more { border-top:1px solid var(--line); padding:60px 0; max-width:760px }
+.bp-more { border-top:1px solid var(--line); padding:60px clamp(22px,5vw,56px); max-width:760px }
 .bp-mlab { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:24px }
 .bp-mgrid { display:grid; grid-template-columns:1fr 1fr; gap:20px }
 @media(max-width:640px) { .bp-mgrid { grid-template-columns:1fr } }
