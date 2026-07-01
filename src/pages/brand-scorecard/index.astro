@@ -74,30 +74,9 @@ import Tools from '../../layouts/Tools.astro';
 
 <style is:global>
 .shell{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:100px 22px 170px}
-
-.intro{margin-bottom:14px}
-
 .pillars{display:flex;gap:8px;margin:30px 0 8px;flex-wrap:wrap;justify-content:center}
 .cat{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:30px 0 10px;padding-bottom:9px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
 .cat .cnt{color:var(--muted)}
-.item{display:flex;gap:15px;align-items:flex-start;padding:15px 16px;border-radius:13px;cursor:pointer;transition:background .2s;border:1px solid transparent}
-.item:hover{background:rgba(247,247,247,.03)}
-.item.on{background:rgba(245,189,2,.06);border-color:rgba(245,189,2,.22)}
-.box{flex-shrink:0;width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);display:flex;align-items:center;justify-content:center;margin-top:2px;transition:.2s}
-.item.on .box{border-color:var(--gold);background:var(--gold)}
-.box svg{width:13px;height:13px;color:var(--ink);opacity:0;transition:opacity .2s}
-.item.on .box svg{opacity:1}
-.tx .n{font-weight:600;font-size:1.05rem;margin-bottom:2px}
-.tx .d{font-size:.92rem;color:var(--text-prose);line-height:1.45}
-
-.modal{position:fixed;inset:0;z-index:30;background:rgba(12,6,16,.8);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
-.modal.on{display:flex}
-.card{background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:22px;padding:40px 34px;max-width:480px;width:100%;text-align:center;position:relative;max-height:90vh;overflow-y:auto}
-.card .big{font-family:var(--display);font-weight:700;font-size:3.4rem;line-height:1;margin-bottom:6px}
-.card .big b{color:var(--gold)}
-.card .of{color:var(--muted);font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
-.card h3{font-family:var(--display);font-weight:600;font-size:1.5rem;margin-bottom:10px}
-.card .vtext{color:var(--text-soft);font-size:.97rem;margin-bottom:24px}
 .breakdown{text-align:left;margin:0 0 22px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .bd{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line)}
 .bd:last-child{border-bottom:none}
@@ -105,15 +84,6 @@ import Tools from '../../layouts/Tools.astro';
 .bd .bt{height:6px;width:80px;background:rgba(247,247,247,.1);border-radius:100px;overflow:hidden}
 .bd .bf{height:100%;background:var(--gold);border-radius:100px}
 .bd .bv{font-family:var(--mono);font-size:.74rem;color:var(--muted);min-width:30px;text-align:right}
-.gate{background:linear-gradient(150deg,var(--purple),var(--purple-deep));border-radius:14px;padding:22px}
-.gate p{font-size:.9rem;color:var(--text-bright);margin-bottom:14px}
-.field{display:flex;gap:9px}
-.field input{flex:1;background:rgba(12,6,16,.4);border:1px solid rgba(247,247,247,.2);border-radius:10px;padding:13px 15px;color:var(--paper);font-family:var(--body);outline:none}
-.field input:focus{border-color:var(--gold)}
-.field button{background:var(--gold);color:var(--ink);border:none;padding:13px 18px;border-radius:10px;font-family:var(--display);font-weight:600;cursor:pointer;white-space:nowrap}
-.okmsg{display:none;color:var(--gold);font-family:var(--display);margin-top:10px}
-.okmsg.on{display:block}
-.close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;line-height:1}
 .sources{margin-top:48px;padding:30px 26px;background:rgba(247,247,247,.025);border:1px solid var(--line);border-radius:18px}
 .sources .sh{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
 .sources .si{font-size:.92rem;color:var(--text-prose);line-height:1.5;margin-bottom:18px;max-width:56ch}

@@ -102,15 +102,11 @@ import Arrow from '../../components/Arrow.astro';
 
   <style is:global>
     :root {
-      --mono: 'Space Grotesk', monospace;
       --green: var(--success);
       --red: var(--danger);
     }
     /* ambient */
-    .shell { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; max-width: 780px; margin: 0 auto; padding: 100px 24px 60px }
-
-    /* INTRO */
-    .intro { margin-bottom: 42px }
+    .shell { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; max-width: 760px; margin: 0 auto; padding: 100px 22px 60px }
 
     /* FORM */
     .scanbox { background: linear-gradient(160deg,var(--ink-2),rgba(12,6,16,.5)); border: 1px solid var(--line); border-radius: 20px; padding: 30px; backdrop-filter: blur(8px) }
@@ -179,7 +175,7 @@ import Arrow from '../../components/Arrow.astro';
   </style>
 
   <script>
-    let _scanAc = null;
+    let _scanAc: AbortController | null = null;
 
     document.addEventListener('astro:page-load', () => {
       _scanAc?.abort();
