@@ -311,14 +311,15 @@ const ldSchema = {
   <!-- Animated favicon ticker -->
   <script>
     let _favRaf: number | null = null;
+    let _favTimer: ReturnType<typeof setInterval> | null = null;
     let _favImg: HTMLImageElement | null = null;
-    let _favPaused = false;
+    let _favTick: (() => void) | null = null;
+    let _favLast = 0;
 
     async function getFavImg(): Promise<HTMLImageElement> {
       if (_favImg) return _favImg;
       const resp = await fetch('/assets/logo-inline.svg');
       const text = await resp.text();
-      // Swap fill to gold, add explicit dimensions so the Image element knows its size
       const gold = text
         .replace(/fill="#F7F7F7"/g, 'fill="#F5BD02"')
         .replace('<svg ', '<svg width="590.35" height="49.68" ');
@@ -331,12 +332,16 @@ const ldSchema = {
       });
     }
 
-    function runTicker(img: HTMLImageElement) {
+    function stopFav() {
       if (_favRaf !== null) { cancelAnimationFrame(_favRaf); _favRaf = null; }
+      if (_favTimer !== null) { clearInterval(_favTimer); _favTimer = null; }
+    }
+
+    function runTicker(img: HTMLImageElement) {
+      stopFav();
 
       const SZ    = 64;
-      const SPEED = 50; // canvas px per second — full cycle ≈ 10s
-      // Logo aspect: 590.35 / 49.68 ≈ 11.877
+      const SPEED = 50; // canvas px/s — full cycle ≈ 10s
       const logoH = 36;
       const logoW = Math.round((590.35 / 49.68) * logoH); // ≈ 428
       const yOff  = Math.round((SZ - logoH) / 2);
@@ -345,36 +350,42 @@ const ldSchema = {
       const canvas = document.createElement('canvas');
       canvas.width = canvas.height = SZ;
       const ctx = canvas.getContext('2d')!;
-
       const link = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
 
-      let x    = SZ;  // logo starts just off the right edge
-      let last = 0;
+      let x = SZ; // start just off right edge
+      _favLast = performance.now();
 
-      function frame(ts: number) {
-        _favRaf = requestAnimationFrame(frame);
-        if (_favPaused) return;
-
-        // Delta-time: cap at 50ms so a returning hidden tab doesn't jump
-        const delta = Math.min(ts - last, 50);
-        last = ts;
-
+      function draw(now: number) {
+        const delta = Math.min(now - _favLast, 200); // cap handles throttled wakeup
+        _favLast = now;
         x -= SPEED * delta / 1000;
         if (x <= -logoW) x += cycle;
-
         ctx.clearRect(0, 0, SZ, SZ);
         ctx.drawImage(img, x, yOff, logoW, logoH);
         if (x + logoW < SZ) ctx.drawImage(img, x + cycle, yOff, logoW, logoH);
-
         if (link) link.href = canvas.toDataURL('image/png');
       }
-      _favRaf = requestAnimationFrame(frame);
+
+      _favTick = () => draw(performance.now());
+
+      function rafLoop(ts: number) {
+        draw(ts);
+        _favRaf = requestAnimationFrame(rafLoop);
+      }
+
+      function startRaf()      { stopFav(); _favRaf = requestAnimationFrame(rafLoop); }
+      // setInterval keeps running in background tabs (browser throttles to ~1 fps but it moves)
+      function startInterval() { stopFav(); _favTimer = setInterval(_favTick!, 50); }
+
+      document.hidden ? startInterval() : startRaf();
+
+      document.addEventListener('visibilitychange', () => {
+        document.hidden ? startInterval() : startRaf();
+      });
     }
 
-    document.addEventListener('visibilitychange', () => { _favPaused = document.hidden; });
-
     document.addEventListener('astro:page-load', () => {
-      getFavImg().then(runTicker).catch(() => {/* keep static favicon on error */});
+      getFavImg().then(runTicker).catch(() => {});
     });
   </script>
 
