@@ -335,13 +335,12 @@ const ldSchema = {
       if (_favRaf !== null) { cancelAnimationFrame(_favRaf); _favRaf = null; }
 
       const SZ    = 64;
-      const SPEED = 2;       // px per frame (canvas px)
-      const FPS   = 15;
+      const SPEED = 50; // canvas px per second — full cycle ≈ 10s
       // Logo aspect: 590.35 / 49.68 ≈ 11.877
       const logoH = 36;
       const logoW = Math.round((590.35 / 49.68) * logoH); // ≈ 428
-      const yOff  = Math.round((SZ - logoH) / 2);         // vertical center
-      const cycle = logoW + SZ;   // distance before seamless repeat
+      const yOff  = Math.round((SZ - logoH) / 2);
+      const cycle = logoW + SZ;
 
       const canvas = document.createElement('canvas');
       canvas.width = canvas.height = SZ;
@@ -349,23 +348,23 @@ const ldSchema = {
 
       const link = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
 
-      let x    = SZ;   // logo starts just off the right edge
+      let x    = SZ;  // logo starts just off the right edge
       let last = 0;
-      const dt = 1000 / FPS;
 
       function frame(ts: number) {
         _favRaf = requestAnimationFrame(frame);
-        if (_favPaused || ts - last < dt) return;
+        if (_favPaused) return;
+
+        // Delta-time: cap at 50ms so a returning hidden tab doesn't jump
+        const delta = Math.min(ts - last, 50);
         last = ts;
+
+        x -= SPEED * delta / 1000;
+        if (x <= -logoW) x += cycle;
 
         ctx.clearRect(0, 0, SZ, SZ);
         ctx.drawImage(img, x, yOff, logoW, logoH);
-        // Seamless: when the trailing edge of the logo approaches the left edge,
-        // start drawing the next copy from the right side.
         if (x + logoW < SZ) ctx.drawImage(img, x + cycle, yOff, logoW, logoH);
-
-        x -= SPEED;
-        if (x <= -logoW) x += cycle;
 
         if (link) link.href = canvas.toDataURL('image/png');
       }
