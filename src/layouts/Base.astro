@@ -308,6 +308,77 @@ const ldSchema = {
     });
   </script>
 
+  <!-- Animated favicon ticker -->
+  <script>
+    let _favRaf: number | null = null;
+    let _favImg: HTMLImageElement | null = null;
+    let _favPaused = false;
+
+    async function getFavImg(): Promise<HTMLImageElement> {
+      if (_favImg) return _favImg;
+      const resp = await fetch('/assets/logo-inline.svg');
+      const text = await resp.text();
+      // Swap fill to gold, add explicit dimensions so the Image element knows its size
+      const gold = text
+        .replace(/fill="#F7F7F7"/g, 'fill="#F5BD02"')
+        .replace('<svg ', '<svg width="590.35" height="49.68" ');
+      const blob = new Blob([gold], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      return new Promise(res => {
+        const img = new Image();
+        img.onload = () => { URL.revokeObjectURL(url); _favImg = img; res(img); };
+        img.src = url;
+      });
+    }
+
+    function runTicker(img: HTMLImageElement) {
+      if (_favRaf !== null) { cancelAnimationFrame(_favRaf); _favRaf = null; }
+
+      const SZ    = 64;
+      const SPEED = 2;       // px per frame (canvas px)
+      const FPS   = 15;
+      // Logo aspect: 590.35 / 49.68 ≈ 11.877
+      const logoH = 36;
+      const logoW = Math.round((590.35 / 49.68) * logoH); // ≈ 428
+      const yOff  = Math.round((SZ - logoH) / 2);         // vertical center
+      const cycle = logoW + SZ;   // distance before seamless repeat
+
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = SZ;
+      const ctx = canvas.getContext('2d')!;
+
+      const link = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
+
+      let x    = SZ;   // logo starts just off the right edge
+      let last = 0;
+      const dt = 1000 / FPS;
+
+      function frame(ts: number) {
+        _favRaf = requestAnimationFrame(frame);
+        if (_favPaused || ts - last < dt) return;
+        last = ts;
+
+        ctx.clearRect(0, 0, SZ, SZ);
+        ctx.drawImage(img, x, yOff, logoW, logoH);
+        // Seamless: when the trailing edge of the logo approaches the left edge,
+        // start drawing the next copy from the right side.
+        if (x + logoW < SZ) ctx.drawImage(img, x + cycle, yOff, logoW, logoH);
+
+        x -= SPEED;
+        if (x <= -logoW) x += cycle;
+
+        if (link) link.href = canvas.toDataURL('image/png');
+      }
+      _favRaf = requestAnimationFrame(frame);
+    }
+
+    document.addEventListener('visibilitychange', () => { _favPaused = document.hidden; });
+
+    document.addEventListener('astro:page-load', () => {
+      getFavImg().then(runTicker).catch(() => {/* keep static favicon on error */});
+    });
+  </script>
+
 </body>
 </html>
 
@@ -419,6 +490,11 @@ const ldSchema = {
   .scorebar .cta-btn.ready{opacity:1;pointer-events:auto}
   .scorebar .cta-btn.ready:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(245,189,2,.4)}
   @media(max-width:600px){.scorebar .cta-btn{display:none}.scorebar .verdict{display:none}}
+
+  /* Reveal animation — shared across all pages */
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1) }
+  .reveal.in { opacity:1; transform:none }
+  @media(prefers-reduced-motion:reduce) { .reveal { opacity:1; transform:none; transition:none } }
 
   /* View Transitions */
   @keyframes vtIn  { from { opacity: 0; transform: translateY(8px); } }
