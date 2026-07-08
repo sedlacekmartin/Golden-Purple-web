@@ -88,14 +88,8 @@ const ldSchema = {
   <ClientRouter />
 
   <script type="application/ld+json" set:html={JSON.stringify(ldSchema)} />
-
-  <!-- GTM — nahraď GTM-XXXXXXX svým Container ID -->
-  <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script> -->
 </head>
 <body>
-
-  <!-- GTM noscript -->
-  <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
 
   <slot />
 
@@ -189,6 +183,21 @@ const ldSchema = {
       })(window, document, "clarity", "script", "x9oaprggqn");
     }
 
+    function loadGA4() {
+      if (window._ga4Loaded) return;
+      window._ga4Loaded = true;
+      const GA_ID = 'G-7RYG3VLGEK';
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    }
+
     // Preserve #cc-main across VT body swaps — the element is appended to body
     // by vanilla-cookieconsent and would be destroyed when Astro replaces the body.
     let savedCcMain = null;
@@ -219,11 +228,11 @@ const ldSchema = {
         preferencesModal: { layout: 'box' },
       },
       onConsent: () => {
-        if (CookieConsent.acceptedCategory('analytics')) loadClarity();
+        if (CookieConsent.acceptedCategory('analytics')) { loadClarity(); loadGA4(); }
       },
       onChange: ({ changedCategories }) => {
         if (changedCategories.includes('analytics')) {
-          if (CookieConsent.acceptedCategory('analytics')) loadClarity();
+          if (CookieConsent.acceptedCategory('analytics')) { loadClarity(); loadGA4(); }
         }
       },
       categories: {
