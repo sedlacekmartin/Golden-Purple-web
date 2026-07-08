@@ -347,7 +347,18 @@ const ldSchema = {
       const canvas = document.createElement('canvas');
       canvas.width = canvas.height = SZ;
       const ctx = canvas.getContext('2d')!;
-      const link = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
+
+      // Vlastní <link> pro animaci — NIKDY nepřepisujeme statický /favicon.svg odkaz.
+      // Search Console i další nástroje (Slack, FB náhledy) potřebují stabilní
+      // stažitelnou URL, ne data: URI — jinak spadnou na starou/výchozí ikonu.
+      let link = document.getElementById('favicon-ticker') as HTMLLinkElement | null;
+      if (!link) {
+        link = document.createElement('link');
+        link.id = 'favicon-ticker';
+        link.rel = 'icon';
+        link.type = 'image/png';
+        document.head.appendChild(link);
+      }
 
       let x = SZ; // start just off right edge
       _favLast = performance.now();
