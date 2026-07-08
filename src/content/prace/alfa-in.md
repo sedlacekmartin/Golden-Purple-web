@@ -20,6 +20,8 @@ ALFA IN vyrábí svařovací techniku a její produktová řada roste rychleji n
 - Veletržní letáky a akční tiskoviny
 - Vlastní produktové fotografie tam, kde podklady chyběly
 
+![Stejná kampaň laserového svařování ve třech formátech pro sociální sítě — 1:1, 4:5 a 9:16](/assets/prace/alfa-in-formats.jpg)
+
 ## Výsledek
 
 Obchodní tým má podklady, se kterými se dá prodávat: katalog slouží přímo v jednáních — zákazníci podle něj objednávají díly a příslušenství. Bannery pokrývají kampaně ve třech zemích v jednotném vizuálu.
