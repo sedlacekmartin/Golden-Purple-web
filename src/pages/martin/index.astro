@@ -154,6 +154,9 @@ import Arrow from '../../components/Arrow.astro';
         <div class="mp-label">Certifikace</div>
         <div class="mp-certs">
           <div class="mcert">
+            <a class="mcert-shot" href="/assets/certifikaty/skvot-rozvoj-a-budovani-znacky.pdf" target="_blank" rel="noopener" aria-label="Otevřít certifikát SKVOT v PDF">
+              <img src="/assets/certifikaty/skvot-cert.jpg" alt="Certifikát SKVOT — Rozvoj a budování značky" loading="lazy" decoding="async" />
+            </a>
             <span class="mcert-y">2025 · SKVOT</span>
             <h3>Rozvoj a budování značky</h3>
             <p>Celý proces tvorby značky: analýza trhu a konkurence, brand positioning, brand platforma (mise, vize, hodnoty), komunikační strategie, brand guidelines a měření výkonu značky. Pod vedením Libora Uhlíka (Leo Burnett, Saatchi &amp; Saatchi, Behavio).</p>
@@ -166,6 +169,9 @@ import Arrow from '../../components/Arrow.astro';
             </div>
           </div>
           <div class="mcert">
+            <a class="mcert-shot" href="/assets/certifikaty/laba-marketingovy-reditel.pdf" target="_blank" rel="noopener" aria-label="Otevřít certifikát Laba v PDF">
+              <img src="/assets/certifikaty/laba-cert.jpg" alt="Certifikát Laba — Marketingový ředitel" loading="lazy" decoding="async" />
+            </a>
             <span class="mcert-y">2024 · Laba Czech</span>
             <h3>Marketingový ředitel</h3>
             <p>Řízení marketingu z pohledu CMO: marketingová strategie od nuly, audit, segmentace trhu a pozice značky, framework See-Think-Do-Care, KPI, vedení týmu a rozpočtů. Pod vedením Jaroslava Kauckého, exCMO ZOOT.</p>
@@ -266,8 +272,11 @@ import Arrow from '../../components/Arrow.astro';
 /* CERTIFIKACE */
 .mp-certs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media(max-width:640px){.mp-certs{grid-template-columns:1fr}}
-.mcert{border:1px solid var(--line);border-radius:16px;padding:26px 24px;background:linear-gradient(160deg,rgba(247,247,247,.03),transparent);transition:border-color .3s,transform .3s}
+.mcert{border:1px solid var(--line);border-radius:16px;padding:26px 24px;background:linear-gradient(160deg,rgba(247,247,247,.03),transparent);transition:border-color .3s,transform .3s;overflow:hidden}
 .mcert:hover{border-color:rgba(245,189,2,.3);transform:translateY(-4px)}
+.mcert-shot{display:block;margin:-26px -24px 20px;border-bottom:1px solid var(--line)}
+.mcert-shot img{width:100%;display:block;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.mcert:hover .mcert-shot img{transform:scale(1.03)}
 .mcert-y{font-family:var(--display);font-weight:500;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
 .mcert h3{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,2vw,1.4rem);letter-spacing:-.015em;margin-bottom:8px;line-height:1.15}
 .mcert p{font-size:.92rem;color:var(--text-soft);line-height:1.65;margin-bottom:14px}

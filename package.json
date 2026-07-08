@@ -19,5 +19,9 @@
     "astro": "^6.4.6",
     "resend": "^6.12.4",
     "vanilla-cookieconsent": "^3.1.0"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^1.0.2",
+    "pdfjs-dist": "^6.1.200"
   }
 }
