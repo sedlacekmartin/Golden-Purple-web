@@ -3,6 +3,7 @@ title: AMFELS
 description: Web pro elektroinstalační firmu — přehledná struktura služeb od rodinných domů po fotovoltaiku, trust prvky a SEO migrace na novou doménu.
 client: AMFELS s.r.o.
 tags: ["Web", "Landing page", "SEO"]
+heroImage: /assets/prace/amfels-hero.jpg
 pubDate: 2024-06-01
 order: 1
 ---

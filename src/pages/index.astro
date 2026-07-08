@@ -228,6 +228,7 @@ const serviceSchema = {
       <div class="vp-right cv">
         <div class="vp-previews">
           <div class="vp-preview" data-i="0">
+            <img class="vp-prev-img" src="/assets/prace/amfels-hero.jpg" alt="" loading="lazy" decoding="async" />
             <div class="vp-prev-glow" style="background:radial-gradient(ellipse at 30% 30%,rgba(86,33,94,.72),transparent 65%)"></div>
             <span class="vp-prev-n" aria-hidden="true">01</span>
             <div class="vp-prev-body">
@@ -237,6 +238,7 @@ const serviceSchema = {
             </div>
           </div>
           <div class="vp-preview" data-i="1">
+            <img class="vp-prev-img" src="/assets/prace/baroko-hero.jpg" alt="" loading="lazy" decoding="async" />
             <div class="vp-prev-glow" style="background:radial-gradient(ellipse at 70% 65%,rgba(245,189,2,.22),transparent 65%)"></div>
             <span class="vp-prev-n" aria-hidden="true">02</span>
             <div class="vp-prev-body">
@@ -246,6 +248,7 @@ const serviceSchema = {
             </div>
           </div>
           <div class="vp-preview" data-i="2">
+            <img class="vp-prev-img" src="/assets/prace/arlex-food-hero.jpg" alt="" loading="lazy" decoding="async" />
             <div class="vp-prev-glow" style="background:radial-gradient(ellipse at 40% 40%,rgba(142,77,151,.58),transparent 65%)"></div>
             <span class="vp-prev-n" aria-hidden="true">03</span>
             <div class="vp-prev-body">
@@ -255,6 +258,7 @@ const serviceSchema = {
             </div>
           </div>
           <div class="vp-preview" data-i="3">
+            <img class="vp-prev-img" src="/assets/prace/osmera-hero.jpg" alt="" loading="lazy" decoding="async" />
             <div class="vp-prev-glow" style="background:radial-gradient(ellipse at 60% 70%,rgba(245,189,2,.19),transparent 65%)"></div>
             <span class="vp-prev-n" aria-hidden="true">04</span>
             <div class="vp-prev-body">
@@ -601,7 +605,9 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .vp-previews{position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
 .vp-preview{position:absolute;inset:0;opacity:0;transition:opacity .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,4vw,40px);pointer-events:none}
 .vp-preview.active{opacity:1}
-.vp-prev-glow{position:absolute;inset:0;z-index:0}
+.vp-prev-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;z-index:0}
+.vp-preview::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(12,6,16,.94) 8%,rgba(12,6,16,.45) 55%,rgba(12,6,16,.3) 100%);z-index:1;pointer-events:none}
+.vp-prev-glow{position:absolute;inset:0;z-index:1;opacity:.55}
 .vp-prev-n{position:absolute;top:-10px;right:10px;font-family:var(--display);font-weight:700;font-size:clamp(8rem,16vw,13rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(247,247,247,.06);z-index:1;pointer-events:none;user-select:none}
 .vp-prev-body{position:relative;z-index:2}
 .vp-prev-tags{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}

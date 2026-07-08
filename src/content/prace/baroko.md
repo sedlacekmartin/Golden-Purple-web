@@ -3,7 +3,7 @@ title: Restaurace Baroko
 description: Redesign webu s chytrým rezervačním formulářem, dynamickou otevírací dobou a moderně barokní identitou zaměřenou na mladší hosty.
 client: Restaurace Baroko
 tags: ["Web", "Rezervace", "Branding"]
-heroImage: /assets/prace/restaurace-baroko-hero.png
+heroImage: /assets/prace/baroko-hero.jpg
 pubDate: 2024-03-01
 order: 2
 ---
