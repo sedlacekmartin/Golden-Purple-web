@@ -15,7 +15,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/coming-soon'),
+      // coming-soon a all-assets jsou noindex — v sitemapě by byly rozporný signál
+      filter: (page) => !page.includes('/coming-soon') && !page.includes('/all-assets'),
     }),
   ],
 });

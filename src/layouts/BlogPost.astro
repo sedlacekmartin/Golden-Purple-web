@@ -21,9 +21,26 @@ const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
 const dateStr = pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' });
 const updatedStr = updatedDate?.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' });
 const morePosts = allPosts.filter(p => p.data.title !== title).slice(0, 2);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "datePublished": pubDate.toISOString(),
+  ...(updatedDate ? { "dateModified": updatedDate.toISOString() } : {}),
+  "author": { "@type": "Person", "name": "Martin Sedláček", "url": "https://goldenpurple.cz/martin/" },
+  "publisher": { "@type": "Organization", "name": "Golden Purple", "url": "https://goldenpurple.cz" },
+  "mainEntityOfPage": new URL(Astro.url.pathname, Astro.site).href,
+  ...(image ? { "image": new URL(image, Astro.site).href } : {}),
+  "inLanguage": "cs",
+  ...(tags.length ? { "keywords": tags.join(', ') } : {}),
+};
 ---
 
 <Base title={`${title} — Blog — Golden Purple`} description={description} image={image}>
+
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
 <div class="bp-prog" id="bp-prog"></div>
 
