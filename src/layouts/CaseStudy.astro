@@ -12,11 +12,12 @@ interface Props {
   image?: string;
   heroImage?: string;
   pubDate: Date;
+  yearLabel?: string;
   id?: string;
 }
 
-const { title, description, client, tags = [], image, heroImage, pubDate, id } = Astro.props;
-const year = pubDate.getFullYear();
+const { title, description, client, tags = [], image, heroImage, pubDate, yearLabel, id } = Astro.props;
+const year = yearLabel ?? String(pubDate.getFullYear());
 
 const allProjects = (await getCollection('prace', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);

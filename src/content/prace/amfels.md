@@ -5,7 +5,7 @@ client: AMFELS s.r.o.
 tags: ["Web", "Landing page", "SEO"]
 heroImage: /assets/prace/amfels-hero.jpg
 pubDate: 2024-06-01
-order: 1
+order: 2
 ---
 
 ## Výzva

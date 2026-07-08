@@ -2,7 +2,7 @@
 title: Petr Ošmera
 description: Osobní značka finančního specialisty od nuly — logo, brandbook, web a propagační materiály, které budují důvěru dřív, než padne první slovo.
 client: Petr Ošmera — finanční specialista
-tags: ["Branding", "Web", "Tiskoviny"]
+tags: ["Branding", "Web", "Tiskoviny", "Propagační materiály"]
 heroImage: /assets/prace/osmera-hero.jpg
 pubDate: 2024-10-23
 order: 5

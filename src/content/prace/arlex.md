@@ -4,7 +4,7 @@ description: Značka a B2B e-shop pro velkoobchod s potravinami — WooCommerce 
 client: Arlex s.r.o.
 tags: ["E-shop", "B2B", "Branding"]
 heroImage: /assets/prace/arlex-food-hero.jpg
-pubDate: 2024-01-01
+pubDate: 2026-01-01
 order: 3
 ---
 

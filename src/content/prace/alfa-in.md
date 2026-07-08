@@ -4,7 +4,8 @@ description: Marketingové podklady pro výrobce svařovací techniky — produk
 client: ALFA IN a.s.
 tags: ["Grafika", "B2B", "Marketing"]
 heroImage: /assets/prace/alfa-in-hero.jpg
-pubDate: 2025-02-01
+pubDate: 2026-02-01
+yearLabel: "2020–2026"
 order: 6
 ---
 

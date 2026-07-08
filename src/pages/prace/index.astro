@@ -75,7 +75,7 @@ const rest = projects.slice(1);
               <h3>{p.data.title}</h3>
               <p class="desc">{p.data.description}</p>
               <div class="foot">
-                <span>{p.data.pubDate.getFullYear()}</span>
+                <span>{p.data.yearLabel ?? p.data.pubDate.getFullYear()}</span>
                 <span class="arr">→</span>
               </div>
             </div>
