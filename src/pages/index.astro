@@ -183,7 +183,7 @@ const serviceSchema = {
         <p class="eyebrow cv">Vybraná práce</p>
         <h2 class="cv">Práce, která nevypadá<br><em>jen dobře na monitoru.</em></h2>
         <div class="vp-list">
-          <a class="vp-item cv" href="/prace/baroko/" data-i="0" aria-selected="false">
+          <a class="vp-item cv" href="/prace/baroko/" data-i="0" data-selected="false">
             <span class="vp-n">01</span>
             <div class="vp-meta">
               <h3 class="vp-name">Restaurace Baroko</h3>
@@ -192,7 +192,7 @@ const serviceSchema = {
             </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="vp-item cv" href="/prace/amfels/" data-i="1" aria-selected="false">
+          <a class="vp-item cv" href="/prace/amfels/" data-i="1" data-selected="false">
             <span class="vp-n">02</span>
             <div class="vp-meta">
               <h3 class="vp-name">AMFELS</h3>
@@ -201,7 +201,7 @@ const serviceSchema = {
             </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="vp-item cv" href="/prace/arlex/" data-i="2" aria-selected="false">
+          <a class="vp-item cv" href="/prace/arlex/" data-i="2" data-selected="false">
             <span class="vp-n">03</span>
             <div class="vp-meta">
               <h3 class="vp-name">Arlex Food</h3>
@@ -210,7 +210,7 @@ const serviceSchema = {
             </div>
             <svg class="vp-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="vp-item cv" href="/prace/petr-osmera/" data-i="3" aria-selected="false">
+          <a class="vp-item cv" href="/prace/petr-osmera/" data-i="3" data-selected="false">
             <span class="vp-n">04</span>
             <div class="vp-meta">
               <h3 class="vp-name">Petr Ošmera</h3>
@@ -596,13 +596,13 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .vp-item{display:flex;align-items:center;gap:24px;padding:16px 0;border-top:1px solid var(--line);text-decoration:none;width:100%;color:var(--paper)}
 .vp-item:last-child{border-bottom:1px solid var(--line)}
 .vp-n{font-family:var(--display);font-weight:500;font-size:1rem;color:var(--muted);transition:color .3s;min-width:1.5rem}
-.vp-item[aria-selected="true"] .vp-n{color:var(--gold)}
+.vp-item[data-selected="true"] .vp-n{color:var(--gold)}
 .vp-meta{flex:1}
 .vp-name{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.2vw,1.5rem);letter-spacing:-.015em;line-height:1.1;transition:color .3s}
-.vp-item[aria-selected="true"] .vp-name,.vp-item:hover .vp-name{color:var(--gold)}
+.vp-item[data-selected="true"] .vp-name,.vp-item:hover .vp-name{color:var(--gold)}
 .vp-tag{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-top:3px}
 .vp-arr{color:var(--gold);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .3s;flex-shrink:0}
-.vp-item[aria-selected="true"] .vp-arr,.vp-item:hover .vp-arr{opacity:1;transform:none}
+.vp-item[data-selected="true"] .vp-arr,.vp-item:hover .vp-arr{opacity:1;transform:none}
 .vp-previews{position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
 .vp-base-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.5}
 .vp-preview{position:absolute;inset:0;opacity:0;transition:opacity .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,4vw,40px);pointer-events:none}
@@ -925,7 +925,7 @@ function initIndex() {
   const vpPreviews = [...document.querySelectorAll<HTMLElement>('.vp-preview')];
   if (vpItems.length && vpPreviews.length) {
     const activateVp = (idx: number) => {
-      vpItems.forEach((el, i) => el.setAttribute('aria-selected', i === idx ? 'true' : 'false'));
+      vpItems.forEach((el, i) => el.setAttribute('data-selected', i === idx ? 'true' : 'false'));
       vpPreviews.forEach((el, i) => el.classList.toggle('active', i === idx));
     };
     vpItems.forEach((item, i) => {
