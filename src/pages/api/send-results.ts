@@ -95,7 +95,7 @@ function buildScanRecommendations(
     } else if (scores.seo < 85) {
       tips.push({
         label: '🔍 SEO — drobné mezery',
-        text: 'Základ SEO máte, ale jsou tu mezery. Projděte meta popisky na klíčových stránkách — měly by být unikátní a obsahovat hlavní klíčové slovo. Zkontrolujte také správné nastavení kanoických URL.',
+        text: 'Základ SEO máte, ale jsou tu mezery. Projděte meta popisky na klíčových stránkách — měly by být unikátní a obsahovat hlavní klíčové slovo. Zkontrolujte také správné nastavení kanonických URL.',
         priority: 3,
       });
     }

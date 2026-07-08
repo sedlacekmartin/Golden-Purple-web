@@ -21,4 +21,4 @@ Chalupa Na Rachačkách měla skvělé hodnocení na Google, ale web neodpovída
 
 ## Výsledek
 
-Rezervace přes web vzrostly z 10 % na 65 % celkové obsazenosti. Průměrný čas od první návštěvy webu k odeslání rezervace: 4 minuty.
+Rezervace přes web vzrostly z 10 % na 65 % celkové obsazenosti.
