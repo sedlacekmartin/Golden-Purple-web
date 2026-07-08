@@ -148,6 +148,27 @@ import Arrow from '../../components/Arrow.astro';
       </div>
     </section>
 
+    <!-- CERTIFIKACE -->
+    <section class="mp-section" id="certifikace">
+      <div class="mp-wrap">
+        <div class="mp-label">Certifikace</div>
+        <div class="mp-certs">
+          <div class="mcert">
+            <span class="mcert-y">2025 · SKVOT</span>
+            <h3>Rozvoj a budování značky</h3>
+            <p>Kurz pod vedením Libora Uhlíka — strategie značky, positioning a budování identity, které fungují v praxi.</p>
+            <span class="mcert-meta">18 vyučovacích hodin · 12 lekcí</span>
+          </div>
+          <div class="mcert">
+            <span class="mcert-y">2024 · Laba Czech</span>
+            <h3>Marketingový ředitel</h3>
+            <p>Kurz vedení marketingu — strategie, rozpočty, výkonnostní kanály a řízení značky z pohledu CMO.</p>
+            <span class="mcert-meta">18 vyučovacích hodin · 12 lekcí</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <section class="mp-cta">
       <div class="mp-cta-glow"></div>
@@ -229,6 +250,16 @@ import Arrow from '../../components/Arrow.astro';
 .mpr:last-child{border-bottom:1px solid var(--line)}
 .mpr-l{font-size:clamp(.9rem,1.5vw,1.05rem);color:var(--text-soft)}
 .mpr-v{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--paper)}
+
+/* CERTIFIKACE */
+.mp-certs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:640px){.mp-certs{grid-template-columns:1fr}}
+.mcert{border:1px solid var(--line);border-radius:16px;padding:26px 24px;background:linear-gradient(160deg,rgba(247,247,247,.03),transparent);transition:border-color .3s,transform .3s}
+.mcert:hover{border-color:rgba(245,189,2,.3);transform:translateY(-4px)}
+.mcert-y{font-family:var(--display);font-weight:500;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.mcert h3{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,2vw,1.4rem);letter-spacing:-.015em;margin-bottom:8px;line-height:1.15}
+.mcert p{font-size:.92rem;color:var(--text-soft);line-height:1.65;margin-bottom:14px}
+.mcert-meta{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
 /* CTA */
 .mp-cta{padding:clamp(80px,14vh,160px) clamp(28px,6vw,100px);text-align:center;position:relative;overflow:hidden}
