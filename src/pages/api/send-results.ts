@@ -261,6 +261,23 @@ const subjects: Record<string, string> = {
   restaurant: 'Výsledky testu webu restaurace — Golden Purple',
 };
 
+const followupNouns: Record<string, string> = {
+  scan: 'výsledky scanu vašeho webu',
+  brand: 'výsledky brand scorecard',
+  restaurant: 'výsledky testu webu vaší restaurace',
+};
+
+function buildFollowupHtml(type: string): string {
+  const noun = followupNouns[type] ?? 'výsledky';
+  const body = `
+    <p style="color:#D7CEDB;font-size:15px;line-height:1.7;margin:0 0 18px">Dobrý den,</p>
+    <p style="color:#A99CAE;font-size:14px;line-height:1.7;margin:0 0 18px">před dvěma dny jsme vám poslali ${noun}. Píšeme jen jednou a krátce.</p>
+    <p style="color:#A99CAE;font-size:14px;line-height:1.7;margin:0 0 18px">Pokud vám něco z výsledků nedává smysl, nebo přemýšlíte, co řešit jako první, rádi to s vámi projdeme. Konzultace je zdarma a nezávazná. Dvacet minut, žádný prodejní hovor.</p>
+    <p style="color:#A99CAE;font-size:14px;line-height:1.7;margin:0">Případně rovnou zavolejte: <a href="tel:+420604798369" style="color:#F5BD02;text-decoration:none">+420 604 798 369</a></p>
+    <p style="color:#5a5060;font-size:12px;line-height:1.6;margin:24px 0 0">Pokud už nic nepotřebujete, je tento e-mail poslední. Nic dalšího neposíláme.</p>`;
+  return wrap(body);
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const json = (status: number, body: object) =>
     new Response(JSON.stringify(body), {
@@ -328,9 +345,19 @@ export const POST: APIRoute = async ({ request }) => {
     return json(500, { error: 'Nepodařilo se odeslat. Zkuste to prosím znovu.' });
   }
 
+  // Follow-up za 2 dny — jediný připomínací e-mail, naplánovaný přes Resend scheduledAt.
+  // Jde zrušit v Resend dashboardu (Emails → Scheduled).
+  resend.emails.send({
+    from: fromEmail,
+    to: email,
+    subject: 'Prošli jste si výsledky?',
+    html: buildFollowupHtml(type),
+    scheduledAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
+  }).catch(() => {});
+
   // Lead notification — fire and forget
   resend.emails.send({
-    from: 'Golden Purple <onboarding@resend.dev>',
+    from: fromEmail,
     to: notifyEmail,
     subject: `Nový lead [${type}] — ${escHtml(email)}`,
     html: `<p style="font-family:sans-serif">Nový lead z nástroje <b>${escHtml(type)}</b><br>Email: <b>${escHtml(email)}</b></p><pre style="font-family:monospace;font-size:12px;background:#f5f5f5;padding:16px;border-radius:8px">${escHtml(JSON.stringify(data, null, 2))}</pre>`,
