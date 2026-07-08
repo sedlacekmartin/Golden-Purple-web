@@ -1,22 +1,6 @@
 export const prerender = false;
 
-const ALLOWED_ORIGINS = new Set([
-  'https://goldenpurple.cz',
-  'https://www.goldenpurple.cz',
-]);
-
-function corsHeaders(req) {
-  const origin = req.headers.get('origin') ?? '';
-  const allowed =
-    ALLOWED_ORIGINS.has(origin) ||
-    origin.startsWith('http://localhost') ||
-    origin.startsWith('http://127.0.0.1');
-  return {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': allowed ? origin : 'https://goldenpurple.cz',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  };
-}
+import { corsHeaders, createEmailToken } from '../../lib/security';
 
 export async function GET({ request }) {
   const url = new URL(request.url);
@@ -148,6 +132,8 @@ export async function GET({ request }) {
         details: ps.details,
         observatory: obsResult.status === 'fulfilled' ? obsResult.value : null,
         green: greenResult.status === 'fulfilled' ? greenResult.value : null,
+        // krátkodobý podepsaný token — /api/send-results ho vyžaduje (anti-spam)
+        emailToken: createEmailToken(),
       }),
       { status: 200, headers }
     );

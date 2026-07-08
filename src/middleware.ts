@@ -26,7 +26,11 @@ export const onRequest = defineMiddleware(async ({ request }, next) => {
     const limiter = limiters[path as keyof typeof limiters];
 
     if (limiter) {
-      const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'anonymous';
+      // x-real-ip nastavuje Vercel proxy (nepodvrhnutelné); první hodnota
+      // x-forwarded-for je klientem spoofovatelná, proto jen jako fallback poslední
+      const ip = request.headers.get('x-real-ip')
+        ?? request.headers.get('x-forwarded-for')?.split(',').pop()?.trim()
+        ?? 'anonymous';
       const { success, limit, remaining, reset } = await limiter.limit(ip);
 
       if (!success) {

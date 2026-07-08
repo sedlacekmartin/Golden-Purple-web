@@ -1,21 +1,16 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { Redis } from '@upstash/redis';
+import { isAllowedOrigin, verifyEmailToken } from '../../lib/security';
 
 export const prerender = false;
 
 const BASE = 'https://goldenpurple.cz';
 
-const ALLOWED_ORIGINS = new Set([
-  'https://goldenpurple.cz',
-  'https://www.goldenpurple.cz',
-]);
-
-function isAllowedOrigin(req: Request): boolean {
-  const origin = req.headers.get('origin') ?? '';
-  if (ALLOWED_ORIGINS.has(origin)) return true;
-  if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) return true;
-  return false;
-}
+// Redis pro single-use tokeny — volitelné (v dev bez env se přeskočí)
+const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+  ? Redis.fromEnv()
+  : null;
 
 function escHtml(s: unknown): string {
   return String(s ?? '')
@@ -284,13 +279,31 @@ export const POST: APIRoute = async ({ request }) => {
     return json(400, { error: 'Neplatný požadavek.' });
   }
 
-  const { type, email, ...data } = body as { type: string; email: string } & Record<string, unknown>;
+  const { type, email, emailToken, ...data } = body as { type: string; email: string; emailToken?: unknown } & Record<string, unknown>;
 
   if (!email || typeof email !== 'string' || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 254) {
     return json(400, { error: 'Zadejte platný e-mail.' });
   }
   if (!builders[type]) {
     return json(400, { error: 'Neznámý typ výsledku.' });
+  }
+
+  // Scan výsledky jde poslat jen s platným tokenem z reálně proběhlého scanu —
+  // bez toho byl endpoint volně použitelná e-mailová brána (spam z naší domény).
+  if (type === 'scan') {
+    const sig = verifyEmailToken(emailToken);
+    if (!sig) {
+      return json(403, { error: 'Platnost výsledků vypršela. Spusťte prosím scan znovu.' });
+    }
+    // Max 3 odeslání na jeden scan (oprava překlepu v e-mailu ano, hromadný spam ne)
+    if (redis && sig !== 'no-secret') {
+      const key = `gp:tok:${sig}`;
+      const uses = await redis.incr(key);
+      if (uses === 1) await redis.expire(key, 1200);
+      if (uses > 3) {
+        return json(403, { error: 'Výsledky už byly odeslány. Spusťte prosím scan znovu.' });
+      }
+    }
   }
 
   const apiKey = import.meta.env.RESEND_API_KEY;

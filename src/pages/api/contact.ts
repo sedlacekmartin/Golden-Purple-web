@@ -1,19 +1,8 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { isAllowedOrigin } from '../../lib/security';
 
 export const prerender = false;
-
-const ALLOWED_ORIGINS = new Set([
-  'https://goldenpurple.cz',
-  'https://www.goldenpurple.cz',
-]);
-
-function isAllowedOrigin(req: Request): boolean {
-  const origin = req.headers.get('origin') ?? '';
-  if (ALLOWED_ORIGINS.has(origin)) return true;
-  if (origin.startsWith('http://localhost') || origin.startsWith('http://127.0.0.1')) return true;
-  return false;
-}
 
 function escHtml(s: string): string {
   return s

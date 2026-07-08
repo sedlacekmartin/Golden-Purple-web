@@ -7,8 +7,12 @@
   <a href="/cookies">Cookies</a>
 </footer>
 
-<script is:inline>
-  document.querySelectorAll('.yr').forEach(el => el.textContent = new Date().getFullYear());
+<script>
+  // Bundlovaný (ne is:inline) kvůli CSP bez 'unsafe-inline'; page-load kvůli view transitions
+  const fillYear = () =>
+    document.querySelectorAll('.yr').forEach(el => { el.textContent = String(new Date().getFullYear()); });
+  fillYear();
+  document.addEventListener('astro:page-load', fillYear);
 </script>
 
 <style is:global>
