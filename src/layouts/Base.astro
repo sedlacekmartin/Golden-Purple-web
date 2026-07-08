@@ -183,19 +183,19 @@ const ldSchema = {
       })(window, document, "clarity", "script", "x9oaprggqn");
     }
 
-    function loadGA4() {
-      if (window._ga4Loaded) return;
-      window._ga4Loaded = true;
-      const GA_ID = 'G-7RYG3VLGEK';
-      const s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ window.dataLayer.push(arguments); }
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', GA_ID);
+    function loadGTM() {
+      if (window._gtmLoaded) return;
+      window._gtmLoaded = true;
+      // GA4 (G-7RYG3VLGEK) je nakonfigurována jako tag UVNITŘ tohoto GTM containeru —
+      // nenačítat gtag.js zvlášť, jinak se každá návštěva započítá dvakrát.
+      (function(w,d,s,l,i){
+        w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+        const f=d.getElementsByTagName(s)[0], j=d.createElement(s);
+        const dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+        f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-P68BNZ6M');
     }
 
     // Preserve #cc-main across VT body swaps — the element is appended to body
@@ -228,11 +228,11 @@ const ldSchema = {
         preferencesModal: { layout: 'box' },
       },
       onConsent: () => {
-        if (CookieConsent.acceptedCategory('analytics')) { loadClarity(); loadGA4(); }
+        if (CookieConsent.acceptedCategory('analytics')) { loadClarity(); loadGTM(); }
       },
       onChange: ({ changedCategories }) => {
         if (changedCategories.includes('analytics')) {
-          if (CookieConsent.acceptedCategory('analytics')) { loadClarity(); loadGA4(); }
+          if (CookieConsent.acceptedCategory('analytics')) { loadClarity(); loadGTM(); }
         }
       },
       categories: {
