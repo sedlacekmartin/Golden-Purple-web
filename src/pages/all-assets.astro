@@ -88,14 +88,14 @@ import Arrow from '../components/Arrow.astro';
 
         <!-- H1 variants -->
         <div class="ds-block">
-          <p class="ds-label">H1 — Hero (homepage, největší na webu)</p>
-          <h1 class="typo-h1">Stavíme weby,<br>co vydělávají.</h1>
+          <p class="ds-label">H1 — Hero (sjednoceno pro všechny stránky: homepage, /martin, /prace, /blog, /labs, landing pages)</p>
+          <h1 class="typo-h1">Weby a značky pro firmy,<br>které to myslí vážně.</h1>
           <div class="typo-spec">
             <span>Font: <strong>Clash Display</strong></span>
             <span>Weight: <strong>700</strong></span>
-            <span>Size: <strong>clamp(3.4rem, 10vw, 9.5rem)</strong></span>
-            <span>Line-height: <strong>.86</strong> (velmi těsné)</span>
-            <span>Letter-spacing: <strong>-.04em</strong> (písmenka blíž k sobě)</span>
+            <span>Size: <strong>clamp(2.8rem, 7vw, 6.5rem)</strong></span>
+            <span>Line-height: <strong>.9</strong></span>
+            <span>Letter-spacing: <strong>-.035em</strong></span>
           </div>
         </div>
 
@@ -811,17 +811,10 @@ import Arrow from '../components/Arrow.astro';
   /* ── Typography demos ── */
   .typo-h1 {
     font-family: var(--display);
-    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-size: clamp(2.8rem, 7vw, 6.5rem);
     font-weight: 700;
-    letter-spacing: -.04em;
-    line-height: .86;
-  }
-  .typo-h1-martin {
-    font-family: var(--display);
-    font-size: clamp(2.4rem, 6vw, 4.5rem);
-    font-weight: 600;
-    letter-spacing: -.025em;
-    line-height: .95;
+    letter-spacing: -.035em;
+    line-height: .9;
   }
   .typo-h2-xl,
   .typo-h2-l,
