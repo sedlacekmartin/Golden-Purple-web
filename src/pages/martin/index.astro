@@ -156,14 +156,20 @@ import Arrow from '../../components/Arrow.astro';
           <div class="mcert">
             <span class="mcert-y">2025 · SKVOT</span>
             <h3>Rozvoj a budování značky</h3>
-            <p>Kurz pod vedením Libora Uhlíka — strategie značky, positioning a budování identity, které fungují v praxi.</p>
-            <span class="mcert-meta">18 vyučovacích hodin · 12 lekcí</span>
+            <p>Celý proces tvorby značky: analýza trhu a konkurence, brand positioning, brand platforma (mise, vize, hodnoty), komunikační strategie, brand guidelines a měření výkonu značky. Pod vedením Libora Uhlíka (Leo Burnett, Saatchi &amp; Saatchi, Behavio).</p>
+            <div class="mcert-foot">
+              <span class="mcert-meta">18 vyučovacích hodin · 12 lekcí</span>
+              <a class="mcert-link" href="https://skvt.cz/course/139-tvorba-znacky-krok-za-krokem" target="_blank" rel="noopener">O kurzu ↗</a>
+            </div>
           </div>
           <div class="mcert">
             <span class="mcert-y">2024 · Laba Czech</span>
             <h3>Marketingový ředitel</h3>
-            <p>Kurz vedení marketingu — strategie, rozpočty, výkonnostní kanály a řízení značky z pohledu CMO.</p>
-            <span class="mcert-meta">18 vyučovacích hodin · 12 lekcí</span>
+            <p>Řízení marketingu z pohledu CMO: marketingová strategie od nuly, audit, segmentace trhu a pozice značky, framework See-Think-Do-Care, KPI, vedení týmu a rozpočtů. Pod vedením Jaroslava Kauckého, exCMO ZOOT.</p>
+            <div class="mcert-foot">
+              <span class="mcert-meta">18 vyučovacích hodin · 12 lekcí</span>
+              <a class="mcert-link" href="https://l-a-b-a.cz/lecture/312-marketingovy-reditel" target="_blank" rel="noopener">O kurzu ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -259,7 +265,10 @@ import Arrow from '../../components/Arrow.astro';
 .mcert-y{font-family:var(--display);font-weight:500;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
 .mcert h3{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,2vw,1.4rem);letter-spacing:-.015em;margin-bottom:8px;line-height:1.15}
 .mcert p{font-size:.92rem;color:var(--text-soft);line-height:1.65;margin-bottom:14px}
+.mcert-foot{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
 .mcert-meta{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mcert-link{font-size:.78rem;color:var(--gold);border-bottom:1px solid rgba(245,189,2,.35);padding-bottom:1px;transition:opacity .2s;white-space:nowrap}
+.mcert-link:hover{opacity:.75}
 
 /* CTA */
 .mp-cta{padding:clamp(80px,14vh,160px) clamp(28px,6vw,100px);text-align:center;position:relative;overflow:hidden}
