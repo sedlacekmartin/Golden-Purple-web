@@ -18,7 +18,7 @@ import Arrow from '../../components/Arrow.astro';
       <div class="mph-glow"></div>
       <div class="mph-inner">
         <p class="eyebrow">Za Golden Purple</p>
-        <h1>Martin<br><span class="shine">Sedláček</span></h1>
+        <h1>Martin<br><em>Sedláček</em></h1>
         <p class="mph-role">Webdesigner · Grafik · Digitální stratég</p>
         <div class="mph-chips">
           <span class="pchip">Třebíč</span>
@@ -203,7 +203,7 @@ import Arrow from '../../components/Arrow.astro';
 .mph-glow{position:absolute;top:20%;left:-60px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(80px);z-index:0;pointer-events:none}
 .mph-inner{position:relative;z-index:2}
 .mp-hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,7vw,6.5rem);line-height:.9;letter-spacing:-.035em;margin-bottom:28px}
-.shine{background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+.mp-hero h1 em{font-style:normal;color:var(--gold)} /* shine efekt je POUZE na homepage — podstránky statická zlatá */
 
 .mph-role{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);margin-bottom:28px}
 .mph-chips{display:flex;flex-wrap:wrap;gap:10px}

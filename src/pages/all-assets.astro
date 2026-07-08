@@ -238,27 +238,19 @@ import Arrow from '../components/Arrow.astro';
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">.shine — hero keyword (gold gradient sweep, shodný s h2 em)</p>
+          <p class="ds-label">Shine — animovaný gold gradient sweep (POUZE homepage)</p>
           <h1 class="typo-h1"><span class="ds-shine">královsky.</span></h1>
-          <p class="ds-meta">background: gold-deep→gold-soft→gold-deep · background-size: 200% · animation: shine var(--shine-dur) linear infinite alternate<br>Použití: klíčové slovo v hero H1 (index, /martin)</p>
+          <p class="ds-meta">background: gold-deep→gold-soft→gold-deep · background-size: 200% · animation: shine var(--shine-dur) linear infinite alternate<br>Kde: pouze index.astro — hero H1 poslední řádek (.shine) a sekční h2 em (.panel h2 em)</p>
         </div>
 
         <div class="ds-block">
-          <p class="ds-label">h2 &lt;em&gt; typ A — prostá zlatá barva (většina sekcí)</p>
+          <p class="ds-label">h1/h2 &lt;em&gt; na podstránkách — statická zlatá (bez animace)</p>
           <h2 class="typo-h2">Postaráme se o <em class="ds-em-plain">vás</em> dobře.</h2>
-          <p class="ds-meta">font-style: normal · color: var(--gold) · žádná animace<br>Kde: .vp-left · .bolesti-head · #sluzby · .ltease-inner · .collab-left · #nastroje · #faq · .bp-cta · .cs-cta · .e4-wrap · .bhero · .lhero · /scan · /brand-scorecard</p>
+          <p class="ds-meta">font-style: normal · color: var(--gold) · žádná animace<br>Kde: všechny podstránky — /martin, /prace, /blog, /labs, /tvorba-webu-trebic, /scan, /brand-scorecard, 404, case studies, články</p>
         </div>
 
-        <div class="ds-block">
-          <p class="ds-label">h2 &lt;em&gt; — animovaný gold gradient sweep (všechny sekce)</p>
-          <h2 class="typo-h2">Postaráme se o <em class="ds-em">vás</em> dobře.</h2>
-          <p class="ds-meta">font-style: normal · background: gold-deep→gold-soft→gold-deep · background-clip: text · animation: shine var(--shine-dur) linear infinite alternate<br>
-          Kde (index.astro): .vp-left h2 · .bolesti-head h2 · .gv-left h2 · #sluzby h2 · .ltease-inner h2 · .collab-left h2 · #nastroje h2 · #cenik h2 · .ct-left h2 · #faq h2<br>
-          Další stránky: .mp-cta h2 (/martin) · .endcta h2 (/prace)</p>
-        </div>
-
-        <div class="ds-warn" style="margin-top:-10px; margin-bottom:20px; border-color: rgba(47,169,104,.3); background: rgba(47,169,104,.06)">
-          <p style="color: var(--success)">✓ Sjednoceno — Typ A (prostá zlatá) zrušen. Všechny h2 &lt;em&gt; na webu teď jedou Typ B (gradient sweep).</p>
+        <div class="ds-warn" style="margin-top:-10px; margin-bottom:20px; border-color: rgba(245,189,2,.3); background: rgba(245,189,2,.06)">
+          <p style="color: var(--gold)">⚡ PRAVIDLO: Shine efekt (animovaný gradient) patří VÝHRADNĚ na homepage — je to její poznávací znamení. Všechny podstránky zvýrazňují em statickou zlatou (--gold). Neporušovat.</p>
         </div>
       </section>
 
