@@ -22,7 +22,7 @@ const rest = projects.slice(1);
 <section class="phero">
   <div class="wrap">
     <span class="eyebrow reveal">Naše práce</span>
-    <h1 class="reveal">Projekty, které dávají smysl.</h1>
+    <h1 class="reveal">Projekty, které <em>dávají smysl.</em></h1>
     <p class="reveal">Výběr toho, co jsme postavili — weby, e-shopy, branding a digitální produkty pro firmy, co chtějí působit profesionálně a získávat klienty.</p>
     <div class="stats reveal">
       <div class="s"><b>100%</b><span>na míru, žádné šablony</span></div>
@@ -147,6 +147,7 @@ const rest = projects.slice(1);
 /* HERO */
 .phero{padding:160px 0 80px}
 .phero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,7vw,6.5rem);line-height:.9;letter-spacing:-.035em;max-width:14ch}
+.phero h1 em{font-style:normal;color:var(--gold)} /* shine efekt je POUZE na homepage — podstránky statická zlatá */
 .phero p{font-size:clamp(1.05rem,2vw,1.35rem);max-width:52ch;color:var(--text-soft);margin-top:26px}
 .phero .stats{display:flex;gap:48px;margin-top:44px;flex-wrap:wrap}
 .phero .stats .s b{font-family:var(--display);font-weight:600;font-size:2.4rem;display:block;line-height:1;color:var(--gold)}
