@@ -227,6 +227,7 @@ const serviceSchema = {
       </div>
       <div class="vp-right cv">
         <div class="vp-previews">
+          <img class="vp-base-img" src="/assets/prace-kolaz.jpg" alt="Koláž ukázek z naší práce" loading="lazy" decoding="async" />
           <div class="vp-preview" data-i="0">
             <img class="vp-prev-img" src="/assets/prace/baroko-hero.jpg" alt="" loading="lazy" decoding="async" />
             <div class="vp-prev-glow" style="background:radial-gradient(ellipse at 30% 30%,rgba(86,33,94,.72),transparent 65%)"></div>
@@ -603,6 +604,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .vp-arr{color:var(--gold);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .3s;flex-shrink:0}
 .vp-item[aria-selected="true"] .vp-arr,.vp-item:hover .vp-arr{opacity:1;transform:none}
 .vp-previews{position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--ink-2)}
+.vp-base-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.5}
 .vp-preview{position:absolute;inset:0;opacity:0;transition:opacity .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,4vw,40px);pointer-events:none}
 .vp-preview.active{opacity:1}
 .vp-prev-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;z-index:0}
