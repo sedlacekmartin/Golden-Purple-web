@@ -1,4 +1,5 @@
 ﻿---
+export const prerender = true;
 import Base from '../layouts/Base.astro';
 import Topbar from '../components/Topbar.astro';
 import Arrow from '../components/Arrow.astro';
@@ -537,6 +538,11 @@ const serviceSchema = {
 <style is:global>
 html{scroll-behavior:smooth}
 .panel{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(28px,6vw,100px)}
+
+/* Sekční H2 + zlatý shine em — jediné sdílené pravidlo pro všechny panely */
+.panel h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px}
+.panel h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+
 @media(max-width:760px){
   .panel{min-height:unset;padding-top:90px;padding-bottom:90px}
   #uvod{min-height:100svh}
@@ -580,8 +586,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .vp-glow{position:absolute;bottom:10%;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(245,189,2,.1),transparent 65%);filter:blur(80px);z-index:0;pointer-events:none}
 .vp-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px);align-items:center;width:100%}
 
-.vp-left h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px;margin-bottom:36px}
-.vp-left h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+.vp-left h2{margin-bottom:36px}
 .vp-list{display:flex;flex-direction:column;margin-bottom:36px}
 .vp-item{display:flex;align-items:center;gap:24px;padding:16px 0;border-top:1px solid var(--line);text-decoration:none;width:100%;color:var(--paper)}
 .vp-item:last-child{border-bottom:1px solid var(--line)}
@@ -617,8 +622,6 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .bolesti-glow{position:absolute;top:40%;right:-100px;width:480px;height:480px;border-radius:50%;background:rgba(86,33,94,.3);filter:blur(80px);z-index:0;pointer-events:none}
 .bolesti-inner{position:relative;z-index:2;width:100%}
 .bolesti-head{margin-bottom:clamp(32px,5vh,52px)}
-.bolesti-head h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px}
-.bolesti-head h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 .bolesti-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:clamp(32px,5vh,52px)}
 @media(max-width:900px){.bolesti-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.bolesti-grid{grid-template-columns:1fr}}
@@ -634,8 +637,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 #golden-vision{justify-content:center;overflow:hidden}
 .gv-glow{position:absolute;top:50%;left:35%;transform:translate(-50%,-50%);width:70vw;height:70vw;max-width:800px;max-height:800px;border-radius:50%;background:radial-gradient(circle,rgba(245,189,2,.13),transparent 60%);filter:blur(80px);z-index:0;pointer-events:none}
 .gv-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:center;width:100%}
-.gv-left h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px;margin-bottom:28px}
-.gv-left h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+.gv-left h2{margin-bottom:28px}
 .gv-desc{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);line-height:1.7;max-width:40ch}
 .gv-step{display:flex;align-items:baseline;gap:24px;padding:clamp(18px,3vh,28px) 0;border-top:1px solid var(--line);cursor:default}
 .gv-step:last-child{border-bottom:1px solid var(--line)}
@@ -648,8 +650,6 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 /* SERVICES */
 #sluzby{justify-content:center}
 #sluzby .head{margin-bottom:clamp(30px,5vh,60px)}
-#sluzby h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px}
-#sluzby h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 .srow{display:flex;align-items:center;gap:24px;padding:clamp(18px,3vh,30px) 0;border-top:1px solid var(--line);cursor:default}
 .srow:last-child{border-bottom:1px solid var(--line)}
 .srow .sn{font-family:var(--display);font-weight:500;font-size:1rem;color:var(--gold);min-width:1.5rem}
@@ -675,16 +675,14 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 #labs{justify-content:center;overflow:hidden}
 .ltease-glow{position:absolute;top:40%;right:-80px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.38),transparent 62%);filter:blur(80px);z-index:0;pointer-events:none}
 .ltease-inner{position:relative;z-index:2;max-width:680px}
-.ltease-inner h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px;margin-bottom:24px}
-.ltease-inner h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+.ltease-inner h2{margin-bottom:24px}
 .ltease-desc{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);max-width:52ch;line-height:1.7;margin-bottom:40px}
 
 /* SPOLUPRACE */
 #spoluprace{justify-content:center;overflow:hidden}
 .collab-glow{position:absolute;bottom:10%;left:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(245,189,2,.1),transparent 65%);filter:blur(80px);z-index:0;pointer-events:none}
 .collab-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(40px,8vw,100px);align-items:start;width:100%}
-.collab-left h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px;margin-bottom:20px}
-.collab-left h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+.collab-left h2{margin-bottom:20px}
 .collab-sub{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);line-height:1.7;max-width:36ch}
 .cstep{display:grid;grid-template-columns:54px 1fr;gap:24px;padding:24px 0;border-top:1px solid var(--line);align-items:start}
 .cstep:last-child{border-bottom:1px solid var(--line)}
@@ -698,8 +696,6 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 /* TOOLS */
 #nastroje{justify-content:center}
 #nastroje .head{margin-bottom:clamp(26px,4vh,48px)}
-#nastroje h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px}
-#nastroje h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:820px){.tools{grid-template-columns:1fr}}
 .tool{display:block;background:linear-gradient(160deg,var(--ink-2),var(--ink));border:1px solid var(--line);border-radius:18px;padding:28px 26px;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s;position:relative;overflow:hidden}
@@ -712,24 +708,10 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .tool:hover .go svg{transform:translateX(5px)}
 .tool .free{position:absolute;top:18px;right:18px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:4px 10px;border-radius:100px;font-weight:700}
 
-/* REFERENCES */
-#recenze{justify-content:center;align-items:center;text-align:center}
-#recenze .rinner{max-width:1000px}
-#recenze .mark{font-family:var(--display);font-size:6rem;color:var(--gold);line-height:.4;height:50px}
-#recenze blockquote{font-family:var(--display);font-weight:500;font-size:clamp(1.8rem,4.5vw,3.4rem);line-height:1.18;letter-spacing:-.015em;margin:40px 0 36px}
-#recenze .who{font-size:1rem;color:var(--muted)}
-#recenze .who b{color:var(--paper);font-weight:600}
-#recenze .rnav{display:flex;gap:12px;justify-content:center;margin-top:44px}
-#recenze .rnav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--paper);cursor:pointer;transition:.25s}
-#recenze .rnav button:hover{border-color:var(--gold);color:var(--gold)}
-
-
 /* CENÍK */
 #cenik{justify-content:center;overflow:hidden}
 .cenik-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70vw;height:70vw;max-width:850px;max-height:850px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.3),transparent 60%);filter:blur(80px);z-index:0;pointer-events:none}
 #cenik .head{margin-bottom:clamp(14px,2vh,22px);position:relative;z-index:2}
-#cenik h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px}
-#cenik h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 .cenik-intro{position:relative;z-index:2;color:var(--text-soft);max-width:54ch;font-size:clamp(1rem,1.7vw,1.2rem);line-height:1.7;margin-bottom:clamp(28px,4vh,44px)}
 .cenik-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:980px){.cenik-grid{grid-template-columns:repeat(2,1fr)}}
@@ -753,7 +735,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 #o-nas{justify-content:center;overflow:hidden}
 .martin-glow{position:absolute;top:50%;left:-120px;transform:translateY(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(245,189,2,.11),transparent 60%);filter:blur(80px);z-index:0;pointer-events:none}
 .martin-inner{position:relative;z-index:2;width:100%;max-width:780px}
-.martin-h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin:14px 0 32px}
+.martin-h2{margin-bottom:32px}
 .martin-bio{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);line-height:1.7;max-width:56ch;margin-bottom:18px}
 .martin-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .martin-cta{margin-top:36px}
@@ -763,8 +745,7 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 #kontakt{justify-content:center;position:relative}
 .ct-glow{position:absolute;top:10%;left:20%;width:60%;height:80%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(80px);pointer-events:none;z-index:0}
 .ct-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px);align-items:center;width:100%}
-.ct-left h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin:14px 0 22px}
-.ct-left h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
+.ct-left h2{margin-bottom:22px}
 .ct-left p:not(.eyebrow){color:var(--text-soft);max-width:38ch;margin-bottom:32px;font-size:clamp(1rem,1.7vw,1.2rem);line-height:1.7}
 .ct-channels{display:flex;flex-direction:column;gap:10px}
 .ct-channels a{color:var(--muted);font-size:1rem;transition:.2s;width:fit-content;border-bottom:1px solid transparent;padding-bottom:2px}
@@ -816,8 +797,6 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 /* FAQ */
 #faq{justify-content:center}
 #faq .head{margin-bottom:clamp(30px,5vh,60px)}
-#faq h2{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,6vw,4.5rem);line-height:.95;letter-spacing:-.025em;margin-top:14px}
-#faq h2 em{font-style:normal;background:linear-gradient(100deg,var(--gold-deep),var(--gold-soft),var(--gold-deep));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine var(--shine-dur) linear infinite alternate}
 </style>
 
 <script>

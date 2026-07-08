@@ -25,10 +25,6 @@ export async function GET({ request }) {
 
   const headers = corsHeaders(request);
 
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 200, headers });
-  }
-
   if (!targetUrl || !/^https?:\/\/.+\..+/.test(targetUrl)) {
     return new Response(
       JSON.stringify({ error: 'Zadejte platnou URL včetně https://' }),
@@ -44,7 +40,16 @@ export async function GET({ request }) {
     );
   }
 
-  const hostname = new URL(targetUrl).hostname;
+  let hostname;
+  try {
+    hostname = new URL(targetUrl).hostname;
+  } catch {
+    // regex propustí např. "https://a b.com" — konstruktor URL ne
+    return new Response(
+      JSON.stringify({ error: 'Zadejte platnou URL včetně https://' }),
+      { status: 400, headers }
+    );
+  }
 
   const withTimeout = (p, ms) => Promise.race([
     p,

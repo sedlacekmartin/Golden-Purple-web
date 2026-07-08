@@ -1,6 +1,7 @@
 ﻿---
 import { ClientRouter } from 'astro:transitions';
 import Footer from '../components/Footer.astro';
+import '../styles/fonts.css';
 
 interface Props {
   title: string;
@@ -13,7 +14,7 @@ interface Props {
 const {
   title,
   description = 'Stavíme weby, značky a systémy, které odpovídají kvalitě vaší práce — a přivádějí poptávky. Kreativní studio Golden Purple · Třebíč · Jihlava · Brno.',
-  image = '/assets/og-image.png',
+  image = '/assets/og-image.jpg',
   noindex = false,
   noFooter = false,
 } = Astro.props;
@@ -29,7 +30,7 @@ const ldSchema = {
   "telephone": "+420604798369",
   "email": "info@goldenpurple.cz",
   "logo": new URL("/assets/logo-stacked.svg", Astro.site).href,
-  "image": new URL("/assets/og-image.png", Astro.site).href,
+  "image": new URL("/assets/og-image.jpg", Astro.site).href,
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Třebíč",
@@ -70,7 +71,6 @@ const ldSchema = {
   <meta property="og:image" content={new URL(image, Astro.site)} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:type" content="image/png" />
   <meta property="og:locale" content="cs_CZ" />
 
   <meta name="twitter:card" content="summary_large_image" />
@@ -82,23 +82,8 @@ const ldSchema = {
   <link rel="icon" href="/favicon.ico" />
   <meta name="theme-color" content="#0C0610" />
 
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link
-    href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&f[]=space-grotesk@400,500&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Cookie Consent CSS — non-blocking -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
-  </noscript>
+  <link rel="preload" href="/fonts/clash-display-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin />
 
   <ClientRouter />
 
@@ -189,9 +174,10 @@ const ldSchema = {
     })();
   </script>
 
-  <!-- Cookie Consent init -->
-  <script type="module">
-    import * as CookieConsent from 'https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.esm.js';
+  <!-- Cookie Consent init — bundlováno z npm (žádné CDN) -->
+  <script>
+    import * as CookieConsent from 'vanilla-cookieconsent';
+    import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
     function loadClarity() {
       if (window._clarityLoaded) return;
@@ -313,8 +299,9 @@ const ldSchema = {
     let _favRaf: number | null = null;
     let _favTimer: ReturnType<typeof setInterval> | null = null;
     let _favImg: HTMLImageElement | null = null;
-    let _favTick: (() => void) | null = null;
     let _favLast = 0;
+    let _favLastDraw = 0;
+    let _favOnVis: (() => void) | null = null;
 
     async function getFavImg(): Promise<HTMLImageElement> {
       if (_favImg) return _favImg;
@@ -341,7 +328,8 @@ const ldSchema = {
       stopFav();
 
       const SZ    = 64;
-      const SPEED = 50; // canvas px/s — full cycle ≈ 10s
+      const SPEED = 50;  // canvas px/s — full cycle ≈ 10s
+      const FRAME = 100; // ~10 fps — favicon se v prohlížeči stejně častěji nepřekresluje
       const logoH = 36;
       const logoW = Math.round((590.35 / 49.68) * logoH); // ≈ 428
       const yOff  = Math.round((SZ - logoH) / 2);
@@ -356,6 +344,8 @@ const ldSchema = {
       _favLast = performance.now();
 
       function draw(now: number) {
+        if (now - _favLastDraw < FRAME) return; // throttle — toDataURL je drahé
+        _favLastDraw = now;
         const delta = Math.min(now - _favLast, 200); // cap handles throttled wakeup
         _favLast = now;
         x -= SPEED * delta / 1000;
@@ -366,25 +356,24 @@ const ldSchema = {
         if (link) link.href = canvas.toDataURL('image/png');
       }
 
-      _favTick = () => draw(performance.now());
-
       function rafLoop(ts: number) {
         draw(ts);
         _favRaf = requestAnimationFrame(rafLoop);
       }
 
-      function startRaf()      { stopFav(); _favRaf = requestAnimationFrame(rafLoop); }
+      function startRaf()      { stopFav(); _favLast = performance.now(); _favRaf = requestAnimationFrame(rafLoop); }
       // setInterval keeps running in background tabs (browser throttles to ~1 fps but it moves)
-      function startInterval() { stopFav(); _favTimer = setInterval(_favTick!, 50); }
+      function startInterval() { stopFav(); _favTimer = setInterval(() => draw(performance.now()), FRAME); }
 
-      document.hidden ? startInterval() : startRaf();
-
-      document.addEventListener('visibilitychange', () => {
-        document.hidden ? startInterval() : startRaf();
-      });
+      _favOnVis = () => { document.hidden ? startInterval() : startRaf(); };
+      _favOnVis();
     }
 
+    // Jediný globální listener — runTicker jen přepíná _favOnVis (dřív se listenery hromadily při každé navigaci)
+    document.addEventListener('visibilitychange', () => _favOnVis?.());
+
     document.addEventListener('astro:page-load', () => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       getFavImg().then(runTicker).catch(() => {});
     });
   </script>

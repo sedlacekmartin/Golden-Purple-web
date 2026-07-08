@@ -1,5 +1,7 @@
 ---
+export const prerender = true;
 import { ClientRouter } from 'astro:transitions';
+import '../styles/fonts.css';
 ---
 <!DOCTYPE html>
 <html lang="cs">
@@ -11,8 +13,6 @@ import { ClientRouter } from 'astro:transitions';
   <meta name="theme-color" content="#0C0610" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" href="/favicon.ico" />
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="glow"></div>
