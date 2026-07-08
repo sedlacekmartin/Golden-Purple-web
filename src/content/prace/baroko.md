@@ -21,4 +21,4 @@ Restaurace Baroko chtěla posunout svůj koncept směrem k mladším hostům a p
 
 ## Výsledek
 
-Posun konceptu z „klasické restaurace" na „restaurace a bar pro mladší generaci". Online rezervace tvoří 60 % všech rezervací měsíc po spuštění.
+Posun z „klasické restaurace" na podnik, který mladší hosté vnímají jako restauraci a bar v jednom — s rezervací na pár kliknutí. Živě na [baroko.org](https://baroko.org).

@@ -1,6 +1,6 @@
 ---
-title: Arlex
-description: Dvě tváře jedné značky — Arlex Food pro B2B a Arlex Fresh pro B2C. E-shop s tisícovkou produktů, schvalovanou registrací a B2B ceníkem.
+title: Arlex Food
+description: Značka a B2B e-shop pro velkoobchod s potravinami — WooCommerce s tisícovkou produktů, schvalovanou registrací a cenami po přihlášení.
 client: Arlex s.r.o.
 tags: ["E-shop", "B2B", "Branding"]
 pubDate: 2024-01-01
@@ -9,16 +9,16 @@ order: 3
 
 ## Výzva
 
-Arlex prodává potraviny ve velkém — ale zároveň chtěli oslovit i koncové zákazníky. Potřebovali systém, který obslouží oba světy bez toho, aby se pletly dohromady.
+Arlex distribuuje potraviny firmám — restauracím, jídelnám a prodejnám. Objednávky ale probíhaly telefonicky a e-mailem: ruční práce na obou stranách, chybovost a žádný přehled. Cílem bylo přenést velkoobchod do systému, který obslouží B2B zákazníky bez prostředníků.
 
 ## Co jsme řešili
 
-- Dvě oddělené identity: **Arlex Food** (B2B, distribuční logo) a **Arlex Fresh** (B2C, retail)
-- WooCommerce e-shop s 1 000+ produkty
-- Schvalovaná registrace pro B2B zákazníky
-- Ceny viditelné jen po přihlášení (B2B ceník)
-- Hromadné objednávky a CSV import
+- Značka: logo, barvy, typografie
+- Web a B2B e-shop na WooCommerce s tisícovkou produktů
+- Schvalovaná registrace — nakupují jen ověření firemní zákazníci
+- Ceny viditelné až po přihlášení (B2B ceník)
+- Hromadné objednávky a import položek
 
 ## Výsledek
 
-Komplexní B2B systém, který běží bez manuální práce. B2B objednávky vzrostly o 35 %, B2C kanál přinesl zcela nový segment zákazníků.
+E-shop běží v pilotním provozu s prvními stálými zákazníky — průměrná hodnota objednávek jednoho zákazníka se pohybuje kolem 11 000 Kč měsíčně. Živě na [obchod.arlexfood.cz](https://obchod.arlexfood.cz).
