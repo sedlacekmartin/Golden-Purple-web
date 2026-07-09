@@ -346,23 +346,31 @@ export const POST: APIRoute = async ({ request }) => {
     return json(500, { error: 'Nepodařilo se odeslat. Zkuste to prosím znovu.' });
   }
 
-  // Follow-up za 2 dny — jediný připomínací e-mail, naplánovaný přes Resend scheduledAt.
-  // Jde zrušit v Resend dashboardu (Emails → Scheduled).
-  resend.emails.send({
-    from: fromEmail,
-    to: email,
-    subject: 'Prošli jste si výsledky?',
-    html: buildFollowupHtml(type),
-    scheduledAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
-  }).catch((e) => console.error('[send-results] Follow-up scheduling failed:', e));
+  // Follow-up (za 2 dny) a interní notifikace o leadu — musí se počkat (await), jinak
+  // serverless prostředí funkci ukončí dřív, než se nedočkaný fetch stihne odeslat
+  // po síti, a e-mail tiše zmizí (přesně to se dělo předtím s .catch(()=>{}) fire-and-forget).
+  const [followupResult, notifyResult] = await Promise.allSettled([
+    resend.emails.send({
+      from: fromEmail,
+      to: email,
+      subject: 'Prošli jste si výsledky?',
+      html: buildFollowupHtml(type),
+      scheduledAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
+    }),
+    resend.emails.send({
+      from: fromEmail,
+      to: notifyEmail,
+      subject: `Nový lead [${type}] — ${escHtml(email)}`,
+      html: `<p style="font-family:sans-serif">Nový lead z nástroje <b>${escHtml(type)}</b><br>Email: <b>${escHtml(email)}</b></p><pre style="font-family:monospace;font-size:12px;background:#f5f5f5;padding:16px;border-radius:8px">${escHtml(JSON.stringify(data, null, 2))}</pre>`,
+    }),
+  ]);
 
-  // Lead notification — fire and forget
-  resend.emails.send({
-    from: fromEmail,
-    to: notifyEmail,
-    subject: `Nový lead [${type}] — ${escHtml(email)}`,
-    html: `<p style="font-family:sans-serif">Nový lead z nástroje <b>${escHtml(type)}</b><br>Email: <b>${escHtml(email)}</b></p><pre style="font-family:monospace;font-size:12px;background:#f5f5f5;padding:16px;border-radius:8px">${escHtml(JSON.stringify(data, null, 2))}</pre>`,
-  }).catch((e) => console.error('[send-results] Lead notification failed:', e));
+  if (followupResult.status === 'rejected' || followupResult.value.error) {
+    console.error('[send-results] Follow-up scheduling failed:', followupResult.status === 'rejected' ? followupResult.reason : followupResult.value.error);
+  }
+  if (notifyResult.status === 'rejected' || notifyResult.value.error) {
+    console.error('[send-results] Lead notification failed:', notifyResult.status === 'rejected' ? notifyResult.reason : notifyResult.value.error);
+  }
 
   return json(200, { ok: true });
 };
