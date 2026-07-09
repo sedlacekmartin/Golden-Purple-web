@@ -354,7 +354,7 @@ export const POST: APIRoute = async ({ request }) => {
     subject: 'Prošli jste si výsledky?',
     html: buildFollowupHtml(type),
     scheduledAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
-  }).catch(() => {});
+  }).catch((e) => console.error('[send-results] Follow-up scheduling failed:', e));
 
   // Lead notification — fire and forget
   resend.emails.send({
@@ -362,7 +362,7 @@ export const POST: APIRoute = async ({ request }) => {
     to: notifyEmail,
     subject: `Nový lead [${type}] — ${escHtml(email)}`,
     html: `<p style="font-family:sans-serif">Nový lead z nástroje <b>${escHtml(type)}</b><br>Email: <b>${escHtml(email)}</b></p><pre style="font-family:monospace;font-size:12px;background:#f5f5f5;padding:16px;border-radius:8px">${escHtml(JSON.stringify(data, null, 2))}</pre>`,
-  }).catch(() => {});
+  }).catch((e) => console.error('[send-results] Lead notification failed:', e));
 
   return json(200, { ok: true });
 };
