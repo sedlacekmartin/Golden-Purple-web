@@ -152,10 +152,11 @@ document.addEventListener('astro:page-load', () => {
     const checked=items.filter(i=>i.dataset.on==='1').map(getName);
     const missing=items.filter(i=>i.dataset.on==='0').map(getName);
     try{
+      const zdroj=new URLSearchParams(location.search).get('utm_source')||sessionStorage.getItem('gp_src')||undefined;
       const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({type:'restaurant',email:e,score:s,total:TOTAL,verdict,verdictText,checked,missing})});
+        body:JSON.stringify({type:'restaurant',email:e,zdroj,score:s,total:TOTAL,verdict,verdictText,checked,missing})});
       const data=await res.json();
-      if(res.ok&&data.ok){emailEl.value='';emailEl.disabled=true;document.getElementById('ok').classList.add('on');}
+      if(res.ok&&data.ok){emailEl.value='';emailEl.disabled=true;document.getElementById('ok').classList.add('on');(window.dataLayer=window.dataLayer||[]).push({event:'lead_submitted',tool:'restaurant'});}
       else{sendBtn.disabled=false;sendBtn.textContent='Poslat plán';emailEl.style.borderColor='var(--danger)';}
     }catch{sendBtn.disabled=false;sendBtn.textContent='Poslat plán';}
   };

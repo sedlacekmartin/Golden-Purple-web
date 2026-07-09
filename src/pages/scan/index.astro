@@ -183,6 +183,10 @@ import Arrow from '../../components/Arrow.astro';
       _scanAc = new AbortController();
       const sig = _scanAc.signal;
 
+      // Zdroj návštěvy z kampaní (utm_source) — přiložíme k leadu, ať je vidět, odkud přišel
+      const _src = new URLSearchParams(location.search).get('utm_source');
+      if (_src) sessionStorage.setItem('gp_src', _src.slice(0, 40));
+
       const $ = s => document.querySelector(s);
 
       /* SCAN */
@@ -233,6 +237,8 @@ import Arrow from '../../components/Arrow.astro';
         else{html+=`<div class="sc"><div class="sc-na">–</div><div class="lbl">Ekologie</div></div>`;}
         $('#scores').innerHTML=html;
         $('#results').classList.add('on');
+        // GA4 event přes GTM dataLayer (funguje i před načtením GTM — fronta se přehraje)
+        (window.dataLayer=window.dataLayer||[]).push({event:'scan_completed'});
       }
 
       /* URL HISTORIE */
@@ -251,9 +257,9 @@ import Arrow from '../../components/Arrow.astro';
         $('#sendBtn').disabled=true;$('#sendBtn').textContent='Odesílám…';
         try{
           const res=await fetch('/api/send-results',{method:'POST',headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({type:'scan',email,...(lastScanData||{})})});
+            body:JSON.stringify({type:'scan',email,zdroj:sessionStorage.getItem('gp_src')||undefined,...(lastScanData||{})})});
           const data=await res.json();
-          if(res.ok&&data.ok){$('#emailInput').value='';$('#emailInput').disabled=true;$('#okMsg').classList.add('on');}
+          if(res.ok&&data.ok){$('#emailInput').value='';$('#emailInput').disabled=true;$('#okMsg').classList.add('on');(window.dataLayer=window.dataLayer||[]).push({event:'lead_submitted',tool:'scan'});}
           else{showError(data.error||'Něco se pokazilo. Zkuste znovu.');$('#sendBtn').disabled=false;$('#sendBtn').textContent='Poslat výsledky';}
         }catch{
           showError('Problém s připojením. Zkuste znovu.');
