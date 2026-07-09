@@ -222,7 +222,9 @@ import Arrow from '../../components/Arrow.astro';
 
       function ring(val){
         const col=val>=90?'var(--success)':val>=50?'#F5BD02':'var(--danger)';
-        const r=32,circ=2*Math.PI*r,off=circ*(1-(val||0)/100);
+        // Observatory u hodnocení A+ umí vrátit skóre přes 100 (bonusové body) —
+        // prstenec se plní max na 100 %, číslo uprostřed ale zůstává reálné (např. 110).
+        const r=32,circ=2*Math.PI*r,off=circ*(1-Math.min(val||0,100)/100);
         return `<div class="ring"><svg width="74" height="74"><circle cx="37" cy="37" r="${r}" fill="none" stroke="rgba(247,247,247,.1)" stroke-width="6"/><circle cx="37" cy="37" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/></svg><span class="val" style="color:${col}">${val??'–'}</span></div>`;
       }
 

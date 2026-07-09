@@ -26,6 +26,12 @@ function safeNum(v: unknown): number {
   return isFinite(n) ? Math.max(0, Math.min(n, 10000)) : 0;
 }
 
+// Pro škály "X/100" — Mozilla Observatory u hodnocení A+ umí vrátit bonusové
+// skóre přes 100 (např. 110), což by se jinak zobrazilo jako "110/100".
+function safePercent(v: unknown): number {
+  return Math.min(safeNum(v), 100);
+}
+
 function scoreColor(v: number) {
   return v >= 90 ? '#2FA968' : v >= 50 ? '#F5BD02' : '#D64545';
 }
@@ -165,11 +171,11 @@ function buildScanHtml(d: Record<string, unknown>) {
     <table style="width:100%;border-collapse:collapse;background:rgba(247,247,247,.03);border:1px solid rgba(247,247,247,.08);border-radius:12px;margin-bottom:24px">
       <thead><tr><th colspan="2" style="padding:12px 16px;text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#F5BD02;font-weight:600">Skóre</th></tr></thead>
       <tbody style="display:block;padding:0 16px">
-        ${scores?.performance != null ? scoreBar('⚡ Rychlost', safeNum(scores.performance)) : ''}
-        ${scores?.seo != null ? scoreBar('🔍 SEO', safeNum(scores.seo)) : ''}
-        ${scores?.accessibility != null ? scoreBar('♿ Přístupnost', safeNum(scores.accessibility)) : ''}
-        ${scores?.bestPractices != null ? scoreBar('🛡️ Kód & postupy', safeNum(scores.bestPractices)) : ''}
-        ${obs ? scoreBar('🔒 HTTP hlavičky', safeNum(obs.score), obs.grade) : ''}
+        ${scores?.performance != null ? scoreBar('⚡ Rychlost', safePercent(scores.performance)) : ''}
+        ${scores?.seo != null ? scoreBar('🔍 SEO', safePercent(scores.seo)) : ''}
+        ${scores?.accessibility != null ? scoreBar('♿ Přístupnost', safePercent(scores.accessibility)) : ''}
+        ${scores?.bestPractices != null ? scoreBar('🛡️ Kód & postupy', safePercent(scores.bestPractices)) : ''}
+        ${obs ? scoreBar('🔒 HTTP hlavičky', safePercent(obs.score), obs.grade) : ''}
         ${green ? `<tr><td style="padding:10px 0;color:#A99CAE;font-size:14px">🌱 Ekologie</td><td style="padding:10px 0;text-align:right;font-size:14px;color:${green.green ? '#2FA968' : '#A99CAE'}">${green.green ? 'Zelený hosting ✓' : 'Konvenční hosting'}</td></tr>` : ''}
       </tbody>
     </table>
