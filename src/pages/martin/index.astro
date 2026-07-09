@@ -15,11 +15,12 @@ import Arrow from '../../components/Arrow.astro';
 
     <!-- HERO -->
     <section class="mp-hero">
+      <img class="mph-img" src="/assets/martin-hero.jpg" alt="" loading="eager" decoding="async" />
       <div class="mph-glow"></div>
       <div class="mph-inner">
         <p class="eyebrow">Za Golden Purple</p>
         <h1>Martin<br><em>Sedláček</em></h1>
-        <p class="mph-role">Webdesigner · Grafik · Digitální stratég</p>
+        <p class="mph-role">Webdesigner · Grafik · Digitální stratég 🦄</p>
         <div class="mph-chips">
           <span class="pchip">Třebíč</span>
           <span class="pchip">Jihlava</span>
@@ -200,7 +201,8 @@ import Arrow from '../../components/Arrow.astro';
 
 /* HERO */
 .mp-hero{min-height:80vh;display:flex;align-items:center;padding:80px clamp(28px,6vw,100px);position:relative;overflow:hidden}
-.mph-glow{position:absolute;top:20%;left:-60px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(80px);z-index:0;pointer-events:none}
+.mph-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:75% 30%;opacity:.4;mix-blend-mode:luminosity;-webkit-mask-image:linear-gradient(to left,black 20%,transparent 75%);mask-image:linear-gradient(to left,black 20%,transparent 75%);z-index:0;pointer-events:none}
+.mph-glow{position:absolute;top:20%;left:-60px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 65%);filter:blur(80px);z-index:1;pointer-events:none}
 .mph-inner{position:relative;z-index:2}
 .mp-hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,7vw,6.5rem);line-height:.9;letter-spacing:-.035em;margin-bottom:28px}
 .mp-hero h1 em{font-style:normal;color:var(--gold)} /* shine efekt je POUZE na homepage — podstránky statická zlatá */
