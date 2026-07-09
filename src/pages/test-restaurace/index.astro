@@ -134,6 +134,7 @@ document.addEventListener('astro:page-load', () => {
     document.getElementById('mTitle').textContent=title||'Začněte zaškrtávat';
     document.getElementById('mText').textContent=text||'';
     document.getElementById('modal').classList.add('on');
+    (window.dataLayer=window.dataLayer||[]).push({event:'tool_completed',tool:'restaurant'});
   }
   document.getElementById('showResult').onclick=openModal;
   document.getElementById('close').onclick=()=>document.getElementById('modal').classList.remove('on');

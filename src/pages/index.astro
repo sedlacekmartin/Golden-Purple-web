@@ -838,6 +838,8 @@ function initIndex() {
       if (res.ok && data.ok) {
         ctForm.hidden = true;
         ctSuccess.hidden = false;
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: 'contact_form_submitted' });
       } else {
         ctError.textContent = data.error ?? 'Něco se pokazilo. Zkuste to znovu.';
         ctError.hidden = false;
