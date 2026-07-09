@@ -1,6 +1,16 @@
 export const prerender = false;
 
 import { corsHeaders, createEmailToken } from '../../lib/security';
+import { Resend } from 'resend';
+
+function escHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 export async function GET({ request }) {
   const url = new URL(request.url);
@@ -123,6 +133,46 @@ export async function GET({ request }) {
     }
 
     const ps = psResult.value;
+    const obs = obsResult.status === 'fulfilled' ? obsResult.value : null;
+    const green = greenResult.status === 'fulfilled' ? greenResult.value : null;
+
+    // Notifikace o každém spuštěném scanu, i bez zanechaného kontaktu — ať je
+    // vidět, jaké firmy/weby si lidé prohlížejí, dřív než se případně ozvou.
+    // Musí se čekat (await) — na serverless by nedočkaný fetch mohl zmizet
+    // dřív, než se stihne odeslat po síti (viz stejný bug u send-results).
+    const apiKey = import.meta.env.RESEND_API_KEY;
+    if (apiKey) {
+      try {
+        const resend = new Resend(apiKey);
+        const fromEmail = import.meta.env.RESEND_FROM ?? 'Golden Purple <onboarding@resend.dev>';
+        const notifyEmail = import.meta.env.CONTACT_EMAIL ?? 'info@goldenpurple.cz';
+        const zdroj = url.searchParams.get('utm_source');
+        await resend.emails.send({
+          from: fromEmail,
+          to: notifyEmail,
+          subject: `Nový scan → ${hostname}`,
+          html: `
+            <div style="font-family:sans-serif;max-width:520px">
+              <h2 style="margin:0 0 14px">Nový scan spuštěn</h2>
+              <p style="margin:0 0 6px"><b>URL:</b> <a href="${escHtml(targetUrl)}">${escHtml(targetUrl)}</a></p>
+              ${zdroj ? `<p style="margin:0 0 6px"><b>Zdroj:</b> ${escHtml(zdroj)}</p>` : ''}
+              <p style="margin:14px 0 6px"><b>Skóre:</b></p>
+              <ul style="margin:0 0 14px;padding-left:20px">
+                <li>Rychlost: ${ps.scores.performance ?? '–'}</li>
+                <li>SEO: ${ps.scores.seo ?? '–'}</li>
+                <li>Přístupnost: ${ps.scores.accessibility ?? '–'}</li>
+                <li>Kód &amp; postupy: ${ps.scores.bestPractices ?? '–'}</li>
+                ${obs ? `<li>HTTP hlavičky: ${obs.score} (${escHtml(obs.grade)})</li>` : ''}
+                ${green ? `<li>Ekologie: ${green.green ? 'zelený hosting' : 'konvenční hosting'}</li>` : ''}
+              </ul>
+              <p style="color:#999;font-size:12px">Zatím bez kontaktu — jen informace, že si někdo prohlíží tenhle web.</p>
+            </div>
+          `,
+        });
+      } catch (e) {
+        console.error('[scan] Notifikace o scanu selhala:', e);
+      }
+    }
 
     return new Response(
       JSON.stringify({
@@ -130,8 +180,8 @@ export async function GET({ request }) {
         strategy,
         scores: ps.scores,
         details: ps.details,
-        observatory: obsResult.status === 'fulfilled' ? obsResult.value : null,
-        green: greenResult.status === 'fulfilled' ? greenResult.value : null,
+        observatory: obs,
+        green,
         // krátkodobý podepsaný token — /api/send-results ho vyžaduje (anti-spam)
         emailToken: createEmailToken(),
       }),

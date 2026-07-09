@@ -206,8 +206,11 @@ import Arrow from '../../components/Arrow.astro';
         $('#scanning').classList.add('on');
         stI=0;$('#status').textContent=statuses[0];
         stTimer=setInterval(()=>{stI=(stI+1)%statuses.length;$('#status').textContent=statuses[stI];},2600);
+        // GA4 event hned při spuštění — i scany, co se nikdy nedokončí/nedostanou e-mail
+        (window.dataLayer=window.dataLayer||[]).push({event:'scan_started',scan_domain:url.replace(/^https?:\/\//,'').replace(/\/.*$/,'')});
         try{
-          const r=await fetch(`/api/scan?url=${encodeURIComponent(url)}&strategy=mobile`);
+          const src=sessionStorage.getItem('gp_src');
+          const r=await fetch(`/api/scan?url=${encodeURIComponent(url)}&strategy=mobile${src?`&utm_source=${encodeURIComponent(src)}`:''}`);
           const data=await r.json();
           clearInterval(stTimer);
           if(!r.ok){throw new Error(data.error||'Scan se nezdařil.');}
