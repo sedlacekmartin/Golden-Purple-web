@@ -147,6 +147,10 @@ export async function GET({ request }) {
         const fromEmail = import.meta.env.RESEND_FROM ?? 'Golden Purple <onboarding@resend.dev>';
         const notifyEmail = import.meta.env.CONTACT_EMAIL ?? 'info@goldenpurple.cz';
         const zdroj = url.searchParams.get('utm_source');
+        // Vercel edge geolokace — zdarma, vestavěné, žádná externí služba (přibližná, dle IP bloku)
+        const geoCity = request.headers.get('x-vercel-ip-city');
+        const geoCountry = request.headers.get('x-vercel-ip-country');
+        const geo = [geoCity ? decodeURIComponent(geoCity) : null, geoCountry].filter(Boolean).join(', ');
         await resend.emails.send({
           from: fromEmail,
           to: notifyEmail,
@@ -156,6 +160,7 @@ export async function GET({ request }) {
               <h2 style="margin:0 0 14px">Nový scan spuštěn</h2>
               <p style="margin:0 0 6px"><b>URL:</b> <a href="${escHtml(targetUrl)}">${escHtml(targetUrl)}</a></p>
               ${zdroj ? `<p style="margin:0 0 6px"><b>Zdroj:</b> ${escHtml(zdroj)}</p>` : ''}
+              ${geo ? `<p style="margin:0 0 6px"><b>Přibližná poloha:</b> ${escHtml(geo)}</p>` : ''}
               <p style="margin:14px 0 6px"><b>Skóre:</b></p>
               <ul style="margin:0 0 14px;padding-left:20px">
                 <li>Rychlost: ${ps.scores.performance ?? '–'}</li>
