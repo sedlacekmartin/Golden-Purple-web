@@ -342,7 +342,8 @@ export const POST: APIRoute = async ({ request }) => {
   });
 
   if (error) {
-    return json(500, { error: 'Nepodařilo se odeslat. Zkuste to prosím znovu.' });
+    console.error('[send-results] Resend error:', JSON.stringify(error));
+    return json(500, { error: 'Nepodařilo se odeslat. Zkuste to prosím znovu.', detail: JSON.stringify(error) });
   }
 
   // Follow-up za 2 dny — jediný připomínací e-mail, naplánovaný přes Resend scheduledAt.
