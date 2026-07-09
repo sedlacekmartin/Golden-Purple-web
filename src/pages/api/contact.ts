@@ -94,6 +94,7 @@ export const POST: APIRoute = async ({ request }) => {
   });
 
   if (error) {
+    console.error('[contact] Resend error:', JSON.stringify(error));
     return json(500, { error: 'Nepodařilo se odeslat. Zkuste to prosím znovu.' });
   }
 
