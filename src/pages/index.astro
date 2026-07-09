@@ -280,6 +280,7 @@ const serviceSchema = {
         <p class="eyebrow cv">Golden Vision</p>
         <h2 class="cv">Optimalizace procesů.<br><em>Vybroušená řešení.</em></h2>
         <p class="gv-desc cv">Navrhujeme weby a systémy tak, aby zákazník nemusel přemýšlet, kde kliknout — a vy nemuseli pokaždé někoho prosit o drobnou změnu. Každá nová funkce má ubírat kroky, ne přidávat vrstvy.</p>
+        <a class="gv-more cv" href="/golden-vision/">Tohle je Golden Vision — jak přesně přemýšlíme<Arrow size={15} /></a>
       </div>
       <div class="gv-right">
         <div class="gv-step cv">
@@ -647,6 +648,10 @@ h1.big .ln .shine{animation:rise 1s cubic-bezier(.19,1,.22,1) forwards,shine var
 .gv-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:center;width:100%}
 .gv-left h2{margin-bottom:28px}
 .gv-desc{font-size:clamp(1rem,1.7vw,1.2rem);color:var(--text-soft);line-height:1.7;max-width:40ch}
+.gv-more{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--gold);border-bottom:1px solid rgba(245,189,2,.4);padding-bottom:3px;width:fit-content}
+.gv-more:hover{opacity:.8}
+.gv-more svg{transition:transform .3s}
+.gv-more:hover svg{transform:translateX(4px)}
 .gv-step{display:flex;align-items:baseline;gap:24px;padding:clamp(18px,3vh,28px) 0;border-top:1px solid var(--line);cursor:default}
 .gv-step:last-child{border-bottom:1px solid var(--line)}
 .gvs-n{font-family:var(--display);font-weight:500;font-size:1rem;color:var(--gold);flex-shrink:0;min-width:1.5rem}
