@@ -17,7 +17,7 @@ import Arrow from '../../components/Arrow.astro';
   <!-- HERO -->
   <section class="gvp-hero">
     <div class="gvp-glow"></div>
-    <div class="wrap-text">
+    <div class="wrap">
       <p class="eyebrow reveal">Filozofie</p>
       <h1 class="reveal">Golden Vision</h1>
       <p class="gvp-sub reveal">Golden Vision je hledání nejkratší funkční cesty mezi záměrem a výsledkem. Není to produkt ani samostatná služba. Je to způsob, jak přemýšlíme o webech, značkách, nástrojích a procesech, které pro klienty stavíme.</p>
@@ -27,7 +27,7 @@ import Arrow from '../../components/Arrow.astro';
 
   <!-- DVEŘE -->
   <section class="gvp-section">
-    <div class="wrap-text">
+    <div class="wrap">
       <p class="eyebrow reveal">Sedm kroků</p>
       <h2 class="reveal">Kroky, které přestanete <em>vidět</em>.</h2>
       <p class="gvp-lead reveal">Vezměte si otevření dveří. Klika, odpor, pohyb, vejít, pustit. Sedm kroků, které děláte stokrát denně a už je nevnímáte — protože se z nich stal proces.</p>
@@ -38,7 +38,7 @@ import Arrow from '../../components/Arrow.astro';
 
   <!-- KRYCHLE A KOULE -->
   <section class="gvp-section gvp-section--dark">
-    <div class="wrap-text">
+    <div class="wrap">
       <p class="eyebrow reveal">Krychle a koule</p>
       <h2 class="reveal">Broušení, dokud se to <em>nezačne kutálet</em>.</h2>
       <p class="gvp-lead reveal">Představte si krychli. Chcete, aby se z ní stala koule — dokonalá, hladká, schopná se kutálet bez odporu.</p>
@@ -50,7 +50,7 @@ import Arrow from '../../components/Arrow.astro';
 
   <!-- PROCES VS UDÁLOST -->
   <section class="gvp-section">
-    <div class="wrap-text">
+    <div class="wrap">
       <p class="eyebrow reveal">Kde se to vyplatí</p>
       <h2 class="reveal">Ne všechno se vyplatí <em>brousit</em>.</h2>
       <p class="gvp-lead reveal">Krychli se vyplatí brousit, jen když ji budete kutálet vícekrát. Otevřete-li dveře jednou za život, na sedmi krocích nezáleží. Otevíráte-li je stokrát denně, záleží na každém z nich.</p>
@@ -61,7 +61,7 @@ import Arrow from '../../components/Arrow.astro';
 
   <!-- POPTÁVKA V PRAXI -->
   <section class="gvp-section gvp-section--dark">
-    <div class="wrap-text">
+    <div class="wrap">
       <p class="eyebrow reveal">Jak to vypadá v praxi</p>
       <h2 class="reveal">Poptávka, která <em>nekončí v chaosu</em>.</h2>
       <p class="gvp-lead reveal">Běžný formulář na webu často jen pošle e-mail. Někdo ho musí přečíst, přeposlat, dohledat kontext, odpovědět, zapsat si úkol a doufat, že se na nic nezapomene.</p>
@@ -74,7 +74,7 @@ import Arrow from '../../components/Arrow.astro';
   <!-- CLAIM -->
   <section class="gvp-claim">
     <div class="gvp-claim-glow"></div>
-    <div class="wrap-text">
+    <div class="wrap">
       <p class="eyebrow reveal">Co to znamená pro vás</p>
       <p class="gvp-claim-lead reveal">Když stavíme web, formulář, rezervační systém nebo interní nástroj, neptáme se jen, jestli funguje. Ptáme se, kolik kroků k výsledku člověk potřebuje — a které z nich tam vůbec nemusí být.</p>
       <p class="gvp-claim-lead reveal">Někdy to znamená jednodušší formulář. Jindy lepší správu obsahu, automatické předání poptávky, chytřejší rezervaci, přehlednější administraci nebo jasnější cestu zákazníka na webu. Cíl není udělat systém složitější. Cíl je dostat ho blíž k bodu, kde funguje přirozeně.</p>
@@ -84,14 +84,14 @@ import Arrow from '../../components/Arrow.astro';
 
   <!-- CTA -->
   <section class="gvp-final">
-    <div class="wrap-text">
-      <h2 class="reveal">Chcete tohle udělat <em>i pro vaše procesy?</em></h2>
-      <p class="gvp-sub reveal">Napište mi, kde se vám práce zbytečně komplikuje — na webu, ve formulářích, v rezervacích, objednávkách nebo správě obsahu. Podívám se, které kroky jdou ubrat, spojit nebo úplně odstranit.</p>
-      <div class="gvp-cta reveal">
-        <a class="btn" href="/#kontakt">Probrat projekt<Arrow size={17} /></a>
-        <a class="gvp-sec" href="/prace/">Prohlédnout práci</a>
-      </div>
-    </div>
+    <div class="gvp-final-glow"></div>
+    <h2 class="reveal">Chcete tohle udělat <em>i pro vaše procesy?</em></h2>
+    <p class="reveal">Napište mi, kde se vám práce zbytečně komplikuje — na webu, ve formulářích, v rezervacích, objednávkách nebo správě obsahu. Podívám se, které kroky jdou ubrat, spojit nebo úplně odstranit.</p>
+    <a class="btn reveal" href="/#kontakt">
+      Probrat projekt
+      <Arrow size={17} />
+    </a>
+    <a class="gvp-sec reveal" href="/prace/">Prohlédnout práci</a>
   </section>
 
 </main>
@@ -99,10 +99,9 @@ import Arrow from '../../components/Arrow.astro';
 </Base>
 
 <style is:global>
-.gvp{padding-top:120px}
-.gvp .wrap-text{position:relative;z-index:2}
+.gvp .wrap{position:relative;z-index:2}
 
-.gvp-hero{position:relative;padding:60px 0 90px;overflow:hidden}
+.gvp-hero{position:relative;padding:160px 0 80px;overflow:hidden}
 .gvp-glow{position:absolute;top:-20%;left:-10%;width:60vw;height:60vw;max-width:750px;max-height:750px;border-radius:50%;background:radial-gradient(circle,rgba(86,33,94,.45),transparent 62%);filter:blur(80px);z-index:0;pointer-events:none}
 
 .gvp h1{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,7vw,6.5rem);line-height:.9;letter-spacing:-.035em;margin:10px 0 24px}
@@ -125,8 +124,11 @@ import Arrow from '../../components/Arrow.astro';
 .gvp-claim-lead{font-size:clamp(1.05rem,1.8vw,1.25rem);color:var(--text-soft);line-height:1.7;max-width:52ch;margin:0 auto 34px}
 .gvp-claim-text{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,5.5vw,4.2rem);line-height:1.05;letter-spacing:-.03em;margin:0}
 
-.gvp-final{padding:clamp(80px,12vh,140px) 0;position:relative;overflow:hidden;text-align:left}
-.gvp-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:32px}
-.gvp-sec{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
+.gvp-final{text-align:center;padding:90px clamp(22px,5vw,56px) 110px;position:relative;overflow:hidden}
+.gvp-final-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;height:200%;background:radial-gradient(circle,rgba(86,33,94,.35),transparent 60%);filter:blur(70px);pointer-events:none}
+.gvp-final h2{position:relative;font-family:var(--display);font-weight:600;font-size:clamp(2rem,5vw,3.8rem);line-height:1;letter-spacing:-.02em;max-width:18ch;margin:0 auto 22px}
+.gvp-final h2 em{font-style:normal;color:var(--gold)}
+.gvp-final p{position:relative;color:var(--text-soft);max-width:42ch;margin:0 auto 32px}
+.gvp-sec{position:relative;display:inline-block;margin-top:18px;font-family:var(--display);font-weight:600;font-size:1rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .2s,border-color .2s}
 .gvp-sec:hover{color:var(--gold);border-color:var(--gold)}
 </style>

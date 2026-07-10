@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/golden-vision", "destination": "/vision", "permanent": true },
+    { "source": "/golden-vision/", "destination": "/vision/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
